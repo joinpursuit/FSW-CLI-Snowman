@@ -1,4 +1,4 @@
-## Unit 1 Hangman
+## Command Line Hangman
 
 ## Instructions for lab submission 
 
