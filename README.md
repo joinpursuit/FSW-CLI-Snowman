@@ -1,6 +1,6 @@
 ## Command Line Hangman
 
-![Hangman Gif](https://github.com/joinpursuit/Pursuit-Core-Web-Hangman/hangmanWebGif.gif)
+![Hangman Gif](https://github.com/joinpursuit/Pursuit-Core-Web-Hangman/blob/master/hangmanWebGif.gif)
 
 ## Instructions for lab submission
 
