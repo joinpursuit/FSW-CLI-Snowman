@@ -1,5 +1,7 @@
 ## Command Line Hangman
 
+![Hangman Gif](https://github.com/joinpursuit/Pursuit-Core-Web-Hangman/hangmanWebGif.gif)
+
 ## Instructions for lab submission
 
 1. Fork the assignment repo
