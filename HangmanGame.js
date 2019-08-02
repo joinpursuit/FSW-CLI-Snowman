@@ -154,13 +154,13 @@ let allTheWords = listOfWords.split(', ');
   readLine.question(``, (userInput)=> {
     userAnswer = (userInput.trim()).toLowerCase();
       
-    if (charIsPartOfTheWord(userAnswer)) {
-        console.log(`\nAwesome starting !! keep guessing\n`)
+    if (userAnswer.length > 1) {
+        tryCounter++;
+        console.log(`\nYou have to entrer the characters one by one\n`);
         textPicture();
         keepPlaying();
-    } else if (userAnswer.length > 1){
-        tryCounterer++;
-        console.log(`\nYou have to entrer the characters one by one\n`);
+    } else if (charIsPartOfTheWord(userAnswer)) {
+        console.log(`\nGreat starting !!\n`);
         textPicture();
         keepPlaying();
     } else {
@@ -175,59 +175,65 @@ let allTheWords = listOfWords.split(', ');
       console.log(`\nTHANK YOU FOR PLAYING`);
   })
   
-  
+
+  function startOver() {
+      gameOver = true;
+      userAnswer = 'PAUSE';
+      readLine.setPrompt(`Would you like to play again ? Y / N ? : `);
+      readLine.prompt();
+  }
   
   function keepPlaying() {
-    readLine.setPrompt(`Next guess ...\n`);
+    readLine.setPrompt(`What's your next guess : `);
     readLine.prompt();
     readLine.on('line', (userInput)=> {
       userAnswer = (userInput.trim()).toLowerCase();
-  
-      if (charIsPartOfTheWord(userAnswer) && !gameOver) {
-          console.log(`Good guess\n\n`);
-          textPicture();
-          if (!displayedWord.includes('_')) {
-              console.log(`\nCONGRATULATION !!! YOU WON\nIt took you ${randomWord.length + tryCounter} guesses\n`);
-              gameOver = true;
-              userAnswer = 'PAUSE'
-              readLine.setPrompt(`Do you wish to start over ? Y / N ?\n`);
-              readLine.prompt();
-            }
-      } else if (!gameOver) {
-        if (userAnswer.length > 1) {
-          tryCounter++;
-          console.log(`\nRemember, you have to entrer the characters one by one\n`);
-          //textPicture();
-        } else {
-          tryCounter++;
-          //textPicture();
-        }
-        if (tryCounter < 6) {
-          readLine.setPrompt(`\n${userAnswer.toUpperCase()} is not within the word to guess... Try again \n`);
-          readLine.prompt();
-          textPicture();
-        } else { 
-          textPicture();
-          gameOver = true;
-          userAnswer = 'PAUSE'
-          console.log(`\n${userAnswer.toUpperCase()} is not within the word to guess
-          GAME OVER !!\n\nThe solution was : ${randomWord.toUpperCase()}\n\n`);
-          readLine.setPrompt(`Do you wish to start over ? Y / N ?\n`);
-          readLine.prompt();
-        }
+
+      if (!gameOver){
+
+          if (userAnswer.length > 1) {
+              tryCounter++;
+              console.log(`\nRemember, you have to entre the characters one by one`);
+              textPicture();
+
+          } else if (charIsPartOfTheWord(userAnswer)) {
+              console.log(`\nGood guess`);
+              textPicture();
+              if (!displayedWord.includes('_')) {
+                  console.log(`\nCONGRATULATION !!! YOU WON\nIt took you ${randomWord.length + tryCounter} guesses\n`);
+                  startOver();
+              }
+
+          } else {
+              tryCounter++;
+              console.log((`\n\n${userAnswer.toUpperCase()} is a bad guess...`));
+              textPicture()
+          }
+
+          if (!gameOver) {
+              if (tryCounter < 6) {
+                  readLine.setPrompt(`Next guess : `);
+                  readLine.prompt();
+              } else {
+                  console.log(`\n${userAnswer.toUpperCase()} is a bad guess\nGAME OVER !!\n\nThe solution was : ${randomWord.toUpperCase()}\n\n`);
+                  startOver()
+              }
+          }
+
       } else {
-        if (userAnswer == 'y'){
-          gameOver = false
-          tryCounter = 0;
-          displayedWord = '';
-          initPlay();
-        } else if (userAnswer == 'n') {
-          winning = false
-          readLine.close();
-        } else if (userAnswer !== 'PAUSE') {
-          readLine.setPrompt(`Invalid answer, please type "Y" if you wish to continue OR "N" if you want to exit the game\n`);
-          readLine.prompt();
-        }
+          if (userAnswer == 'y') {
+              gameOver = false;
+              tryCounter = 0;
+              displayedWord = '';
+              initPlay();
+          } else if (userAnswer == 'n') {
+              readLine.close();
+          } else if (userAnswer !== 'PAUSE') {
+              readLine.setPrompt(`Invalid answer, please type "Y" if you wish to continue OR "N" if you want to exit the game\n`);
+              readLine.prompt();
+          }
       }
+
     })
   }
+  
