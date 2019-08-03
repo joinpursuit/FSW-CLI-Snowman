@@ -257,7 +257,7 @@ function intro() {
               // console.log(penatly);
             if (introTalk) {
               return 'I demanded your age... DON\'T make me repeat myself... \n' +
-              '*You feel your soul getting weaker* '
+              '*You feel your soul getting weaker* ' + '\n';
               }
             }
           },
@@ -344,6 +344,8 @@ function guessRules(theirGuess, actualWord) {
       console.log('');
       console.log(bedVictomStatus[numGuesses - 1]);
       console.log('Correct for now...');
+      console.log('');
+
     } else {
       numGuesses--;
 
@@ -365,6 +367,8 @@ function guessRules(theirGuess, actualWord) {
         console.log('');
         console.log('Incorrect!');
         console.log(`Only ${numGuesses} more body parts to expose...`);
+        console.log('');
+
       }
     }
 
@@ -386,9 +390,9 @@ function guessRules(theirGuess, actualWord) {
         if (liar > 0) {
           console.log(`And you've told me ${liar} lies you miserable fool!`);
         };
-
         console.log('Now you will be MINE!');
         console.log('');
+        gameMusic.kill();
         process.exit();
       } else {
         gameMusic.kill();
@@ -403,6 +407,7 @@ function guessRules(theirGuess, actualWord) {
           console.log(`How did you guess ${actualWord}. I'll get you next time!!!`);
           console.log('');
         }
+        gameMusic.kill();
         process.exit();
       };
 
@@ -410,7 +415,5 @@ function guessRules(theirGuess, actualWord) {
   });
 
 };
-
 introTalk = true;
-console.log(introTalk);
 intro();
