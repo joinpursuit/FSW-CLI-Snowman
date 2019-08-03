@@ -1,0 +1,23 @@
+{
+  "name": "pursuit-core-web-hangman",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Boogeyman.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KameronsCodeSpace/Pursuit-Core-Web-Hangman.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KameronsCodeSpace/Pursuit-Core-Web-Hangman/issues"
+  },
+  "homepage": "https://github.com/KameronsCodeSpace/Pursuit-Core-Web-Hangman#readme",
+  "dependencies": {
+    "inquirer": "^6.5.0",
+    "play-sound": "^1.1.3"
+  }
+}

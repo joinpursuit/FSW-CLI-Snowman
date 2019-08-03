@@ -185,7 +185,7 @@ let bedVictomStatus = [`
 
 function intro() {
   console.log(introImage);
-  var introMusic = player.play('IntroMusic.wav', function (err) {
+  var introMusic = player.play('IntroMusic.mp3', function (err) {
     if (err && !err.killed) throw err;
   });
 
@@ -228,7 +228,6 @@ function intro() {
             if (age > 0) {
               victom.age = age;
               introMusic.kill();
-              // console.log('');
               playGame();
             } else {
               penatly++;
@@ -260,10 +259,6 @@ function playGame() {
   numGuesses = (6 - liar) - penatly;
   console.log(bedVictomStatus[numGuesses - 1]);
 
-  let gameMusic = player.play('HorrorMusic.mp3', function (err) {
-    if (err && !err.killed) throw err;
-  });
-
   if (numGuesses < 1) {
     inquire.prompt([
       {
@@ -291,6 +286,10 @@ function playGame() {
 function guessRules(theirGuess, actualWord) {
   let letterWordArr = [];
   let guessArr = [];
+
+  let gameMusic = player.play('HorrorMusic.mp3', function (err) {
+    if (err && !err.killed) throw err;
+  });
 
   console.log('');
   console.log(theirGuess.newString());
@@ -332,12 +331,11 @@ function guessRules(theirGuess, actualWord) {
 
 //Win or lose condition
     if (guessArr.indexOf(false) > -1 && numGuesses > 0) {
+      gameMusic.kill();
       guessRules(theirGuess, actualWord);
     } else {
       if (numGuesses === 0) {
-        console.log("I GOTTA SEE THIS")
-        console.log("game console", gameMusic)
-        // gameMusic.kill();
+        gameMusic.kill();
         console.log('');
         console.log(`HAHAHAHA, the word was ${actualWord}... `);
 
