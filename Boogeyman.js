@@ -5,8 +5,8 @@ var player = require('play-sound')(opts = {});
 
 //List of words picked randomly
 const wordArrayKid = ['THE CONJURING', 'IT', 'INSIDIOUS', 'US', 'A QUIET PLACE', 'HALLOWEEN', 'GET OUT', 'BLAIR WITCH', 'THE HILLS HAVE EYES', 'LET THE RIGHT ONE IN', 'PARANORMAL ACTIVITY'];
-const wordArrayTeen = ['YOU', 'ME', 'WE'];
-const wordArrayAdult = ['CHEESE', 'TOY'];
+const wordArrayTeen = ['ZOMBIE', 'WAREWOLF', 'VAMPIRE', 'GHOST', 'GOBLIN', 'DEMON', 'TROLL', 'GHOUL', 'MIND FLAYER'];
+const wordArrayAdult = ['BILLS', 'TAXES', 'COMMITMENT', 'TRAFFIC TICKETS', 'KIDS SCREAMING', 'WORK', 'FAILURE', 'NYC SUBWAY'];
 
 //Making sure the guessed letters are only this character
 const letters = /[a-zA-Z]/;
@@ -15,6 +15,7 @@ const letters = /[a-zA-Z]/;
 let numGuesses = 0;
 let penatly = 0;
 let liar = 0;
+let introTalk = false;
 
 var victom = {
   name: '',
@@ -55,19 +56,51 @@ let introImage = `
             :: : ::    : :  :    : :  :    :: :: :   : :: ::      :      :      :     :   : :  ::    :
                                        `;
 
+let losingImage = `
+           _      ()              ()      _
+          / \\     ||______________||     / \\
+         /___\\    |                |    /___\\
+           |      |    ~@DOOM@~    |      |
+          (_)     |_______  _______|     (_)
+       ___/_\\___  {____||||||||____}  ___/_\\___
+        |__~__|       ( X __ X )       |__~__|
+     ___|_____|__      /   |  \\      __|_____|___
+        |     |        \\   |  |         |     |
+         \`=====           / \\          =====\`
+        \`=====           /   \\          =====\`
+       \`=====           /     \\          =====\`
+      \`=====/||||||||||||||||||||||||||||\\=====\`
+     \`======||||||||||||||||||||||||||||||======\`
+    \`=======|||||||||||||||||||||||||||lc|=======\`
+   \`==============================================\`
+  \`================================================\`
+ \`==================================================\`
+\`====================================================\`
+  `;
+
+let winningImage = `
+│▒│ /▒/
+│▒│/▒/
+│▒ /▒/─┬─┐
+│▒│▒|▒│▒│
+┌┴─┴─┐-┘─┘
+│▒┌──┘▒▒▒│
+└┐▒▒▒▒▒▒┌┘
+└┐▒▒▒▒┌┘
+`;
 let bedVictomStatus = [`
            _      ()              ()      _
           / \\     ||______________||     / \\
          /___\\    |                |    /___\\
            |      |      ~@1@~     |      |
           (_)     |_______  _______|     (_)
-       ___/_\\___  {_______}{_______}  ___/_\\___
-        |__~__|   %%%%%%%%%%%%%%%%%%   |__~__|
-     ___|_____|__%%%%%%%%%%%%%%%%%%%%__|_____|___
-        |     | %%%%%%%%%%%%%%%%%%%%%% |     |
-         \`=====%%%%%%%%%%%%%%%%%%%%%%%%=====\`
-        \`=====%%%%%%%%%%%%%%%%%%%%%%%%%%=====\`
-       \`=====%%%%%%%%%%%%%%%%%%%%%%%%%%%%=====\`
+       ___/_\\___  {____||||||||____}  ___/_\\___
+        |__~__|       ( @ __ @ )       |__~__|
+     ___|_____|__      /   |  \\      __|_____|___
+        |     |        \\   |  |         |     |
+         \`=====           /%%%%%%%%%%%%=====\`
+        \`=====           / %%%%%%%%%%%%%=====\`
+       \`=====           /  %%%%%%%%%%%%%%=====\`
       \`=====/||||||||||||||||||||||||||||\\=====\`
      \`======||||||||||||||||||||||||||||||======\`
     \`=======|||||||||||||||||||||||||||lc|=======\`
@@ -82,10 +115,10 @@ let bedVictomStatus = [`
          /___\\    |                |    /___\\
            |      |      ~@2@~     |      |
           (_)     |_______  _______|     (_)
-       ___/_\\___  {_______}{_______}  ___/_\\___
-        |__~__|   %%%%%%%%%%%%%%%%%%   |__~__|
-     ___|_____|__%%%%%%%%%%%%%%%%%%%%__|_____|___
-        |     | %%%%%%%%%%%%%%%%%%%%%% |     |
+       ___/_\\___  {____||||||||____}  ___/_\\___
+        |__~__|       ( O __ O )       |__~__|
+     ___|_____|__      /   |  \\      __|_____|___
+        |     |        \\   |  |         |     |
          \`=====%%%%%%%%%%%%%%%%%%%%%%%%=====\`
         \`=====%%%%%%%%%%%%%%%%%%%%%%%%%%=====\`
        \`=====%%%%%%%%%%%%%%%%%%%%%%%%%%%%=====\`
@@ -103,10 +136,10 @@ let bedVictomStatus = [`
          /___\\    |                |    /___\\
            |      |      ~@3@~     |      |
           (_)     |_______  _______|     (_)
-       ___/_\\___  {_______}{_______}  ___/_\\___
-        |__~__|   %%%%%%%%%%%%%%%%%%   |__~__|
-     ___|_____|__%%%%%%%%%%%%%%%%%%%%__|_____|___
-        |     | %%%%%%%%%%%%%%%%%%%%%% |     |
+       ___/_\\___  {____||||||||____}  ___/_\\___
+        |__~__|       ( O __ o )       |__~__|
+     ___|_____|__      /   | %%%%%%%%__|_____|___
+        |     |        \\   | %%%%%%%%%% |     |
          \`=====%%%%%%%%%%%%%%%%%%%%%%%%=====\`
         \`=====%%%%%%%%%%%%%%%%%%%%%%%%%%=====\`
        \`=====%%%%%%%%%%%%%%%%%%%%%%%%%%%%=====\`
@@ -124,10 +157,10 @@ let bedVictomStatus = [`
          /___\\    |                |    /___\\
            |      |      ~@4@~     |      |
           (_)     |_______  _______|     (_)
-       ___/_\\___  {_______}{_______}  ___/_\\___
-        |__~__|   %%%%%%%%%%%%%%%%%%   |__~__|
-     ___|_____|__%%%%%%%%%%%%%%%%%%%%__|_____|___
-        |     | %%%%%%%%%%%%%%%%%%%%%% |     |
+       ___/_\\___  {____||||||||____}  ___/_\\___
+        |__~__|       ( . __ . )       |__~__|
+     ___|_____|__      /  %%%%%%%%%%%__|_____|___
+        |     |        \\%%%%%%%%%%%%%% |     |
          \`=====%%%%%%%%%%%%%%%%%%%%%%%%=====\`
         \`=====%%%%%%%%%%%%%%%%%%%%%%%%%%=====\`
        \`=====%%%%%%%%%%%%%%%%%%%%%%%%%%%%=====\`
@@ -145,8 +178,8 @@ let bedVictomStatus = [`
          /___\\    |                |    /___\\
            |      |      ~@5@~     |      |
           (_)     |_______  _______|     (_)
-       ___/_\\___  {_______}{_______}  ___/_\\___
-        |__~__|   %%%%%%%%%%%%%%%%%%   |__~__|
+       ___/_\\___  {____||||||||____}  ___/_\\___
+        |__~__|       ( . __ . )       |__~__|
      ___|_____|__%%%%%%%%%%%%%%%%%%%%__|_____|___
         |     | %%%%%%%%%%%%%%%%%%%%%% |     |
          \`=====%%%%%%%%%%%%%%%%%%%%%%%%=====\`
@@ -184,27 +217,16 @@ let bedVictomStatus = [`
 ];
 
 function intro() {
+  numGuesses = 0;
+  penatly = 0;
+  liar = 0;
+
   console.log(introImage);
   var introMusic = player.play('IntroMusic.mp3', function (err) {
     if (err && !err.killed) throw err;
   });
 
-  // var fluffBlanket = player.play('fluffingblanket.wav', function (err) {
-  //   if (err && !err.killed) throw err;
-  // });
-  //
-  // var evilLaugh = player.play('EvilLaugh.wav', function (err) {
-  //   if (err && !err.killed) throw err;
-  // });
-  //
-  // var creekingDoor = player.play('CreekingDoor.wav', function (err) {
-  //   if (err && !err.killed) throw err;
-  // });
-  //
-  // var finalLaugh = player.play('LostLaugh.wav', function (err) {
-  //   if (err && !err.killed) throw err;
-  // });
-
+  if (introTalk) {
   inquire.prompt([
   {
     name: 'whoAreYou',
@@ -228,18 +250,21 @@ function intro() {
             if (age > 0) {
               victom.age = age;
               introMusic.kill();
+              introTalk = false;
               playGame();
             } else {
               penatly++;
               // console.log(penatly);
-              console.log('I demanded your age... DON\'T make me repeat myself...\n' +
-              '*You feel your soul getting weaker*');
+            if (introTalk) {
+              return 'I demanded your age... DON\'T make me repeat myself... \n' +
+              '*You feel your soul getting weaker* '
+              }
             }
           },
-
         },
     ]);
       });
+    }
 };
 
 function playGame() {
@@ -321,8 +346,22 @@ function guessRules(theirGuess, actualWord) {
       console.log('Correct for now...');
     } else {
       numGuesses--;
+
+      if (numGuesses === 5) {
+        var creekingDoor = player.play('CreekingDoor.wav', function (err) {
+          if (err && !err.killed) throw err;
+        });
+      } else if ( numGuesses === 2) {
+        var evilLaugh = player.play('EvilLaugh.wav', function (err) {
+          if (err && !err.killed) throw err;
+        });
+      }
+
       if (numGuesses > 0) {
         console.log(bedVictomStatus[numGuesses - 1]);
+        var fluffBlanket = player.play('fluffingblanket.wav', function (err) {
+          if (err && !err.killed) throw err;
+        });
         console.log('');
         console.log('Incorrect!');
         console.log(`Only ${numGuesses} more body parts to expose...`);
@@ -336,6 +375,11 @@ function guessRules(theirGuess, actualWord) {
     } else {
       if (numGuesses === 0) {
         gameMusic.kill();
+
+        var finalLaugh = player.play('LostLaugh.wav', function (err) {
+          if (err && !err.killed) throw err;
+        });
+        console.log(losingImage);
         console.log('');
         console.log(`HAHAHAHA, the word was ${actualWord}... `);
 
@@ -345,9 +389,11 @@ function guessRules(theirGuess, actualWord) {
 
         console.log('Now you will be MINE!');
         console.log('');
+        process.exit();
       } else {
-        console.log('');
         gameMusic.kill();
+        console.log(winningImage);
+        console.log('');
         console.log('Noooo, damn you!');
         if (victom.age > 18) {
           console.log(`Wait, did you say ${victom.age} years old? Aren't you a bit too old to be scared of me... ?`);
@@ -357,25 +403,14 @@ function guessRules(theirGuess, actualWord) {
           console.log(`How did you guess ${actualWord}. I'll get you next time!!!`);
           console.log('');
         }
+        process.exit();
       };
 
-      inquire.prompt([
-        {
-          type: 'confirm',
-          name: 'playAgain',
-          message: 'Try again... ?',
-          default: true,
-        },
-      ]).then(function (answer) {
-        if (answer.playAgain) {
-          intro();
-        } else {
-          process.exit();
-        }
-      });
     }
   });
 
 };
 
+introTalk = true;
+console.log(introTalk);
 intro();
