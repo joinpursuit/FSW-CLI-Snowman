@@ -1,4 +1,3 @@
-
 let allTheWords = require("./words.js")
 
 let answer = allTheWords[Math.floor(Math.random() * allTheWords.length)]
@@ -27,6 +26,9 @@ if(playersGuess){
 
     console.log("You already guessed that letter.")
   }else if(answer.includes(playersGuess)){
+  if(answer === playersGuess){
+    correctGuess = playersGuess.split("")
+  }
 for(let i = 0; i < correctGuess.length;i++){
   if(playersGuess === answer[i]){
   correctGuess[i] = playersGuess
