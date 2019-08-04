@@ -35,7 +35,7 @@ let win = false;
 
 function getCharacter() {
   let temp = dashHolder.join('');
-  userInput = readlineSync.question(`Guess character: \n ${ dashHolder.join("") } \n`)
+  userInput = readlineSync.question(`\n Guess character: \n ${ dashHolder.join("") } \n`)
   for (let i = 0; i < splitRandomWord.length; i++) {
     if (userInput.toLowerCase() === splitRandomWord[i]) {
       dashHolder[i] = `${userInput} `;
@@ -54,7 +54,13 @@ function getCharacter() {
 // getCharacter()
 
 let userName = readlineSync.question(`What is your name, traveler? \n`);
-console.log(`Welcome, ${ userName }.`)
+console.log(`\n Welcome, ${ userName }. \n
+  Let's play a game. \n
+  The rules are simple: \n
+  You have to uncover a secret word. \n
+  Make guesses, one letter at a time. \n
+  Reveal the secret word, and you win! \n
+  But make 6 wrong guesses, and the game is done. \n `)
 
 
 while (!win && wrongAnswers < 6) {
@@ -67,16 +73,16 @@ while (!win && wrongAnswers < 6) {
     }
   }
   if (wrongAnswers === 6) {
-    console.log(`Sorry, ${ userName }, you lose!`)
+    console.log(`\n Sorry, ${ userName }, you lose! \n `)
   }
   if (dashesCounter > 0) {
     win = false
   } else {
     win = true;
-    console.log(`Congratulations, ${ userName }! You win!!!`)
+    console.log(`\n Congratulations, ${ userName }! You win!!! \n`)
   }
   // console.log(`THIS ONE`,win)
-  console.log(`You have made ${ wrongAnswers } wrong answers. You have ${ 6 - wrongAnswers } tries remaining.`)
+  console.log(`\n You have made ${ wrongAnswers } wrong answers. You have ${ 6 - wrongAnswers } tries remaining. \n `)
 }
 
 // userInput = readlineSync.question(`Guess character: \n`)
