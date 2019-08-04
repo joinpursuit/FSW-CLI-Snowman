@@ -1,9 +1,14 @@
 // const readline = require("readline");
 // const rl = readline.createInterface({input: process.stdin, output: process.stdout});
 
+// This was only possible thanks to the generous help from Amin,
+// who stayed nearly 2 hours after class to help me understand
+// my logic and hiccups with readlineSync.
+
 let readlineSync = require('readline-sync');
 
-let arr = ["daddy", "bubble", "button"]
+let arr = ["daddy", "bubble", "button", "grunkle", "dipper", "mabel",
+"stanford", "mystery", "shack"]
 
 let randomWord = arr[Math.floor(Math.random() * arr.length)]
 
@@ -32,7 +37,7 @@ function getCharacter() {
   let temp = dashHolder.join('');
   userInput = readlineSync.question(`Guess character: \n ${ dashHolder.join("") } \n`)
   for (let i = 0; i < splitRandomWord.length; i++) {
-    if (userInput === splitRandomWord[i]) {
+    if (userInput.toLowerCase() === splitRandomWord[i]) {
       dashHolder[i] = `${userInput} `;
     }
   }
@@ -48,6 +53,10 @@ function getCharacter() {
 // getCharacter()
 // getCharacter()
 
+let userName = readlineSync.question(`What is your name, traveler? \n`);
+console.log(`Welcome, ${ userName }.`)
+
+
 while (!win && wrongAnswers < 6) {
   // console.log(win)
   getCharacter()
@@ -58,13 +67,13 @@ while (!win && wrongAnswers < 6) {
     }
   }
   if (wrongAnswers === 6) {
-    console.log("You lose!")
+    console.log(`Sorry, ${ userName }, you lose!`)
   }
   if (dashesCounter > 0) {
     win = false
   } else {
     win = true;
-    console.log("You win!!!")
+    console.log(`Congratulations, ${ userName }! You win!!!`)
   }
   // console.log(`THIS ONE`,win)
   console.log(`You have made ${ wrongAnswers } wrong answers. You have ${ 6 - wrongAnswers } tries remaining.`)
