@@ -5,7 +5,7 @@ let allTheWords = 'able, about, account, acid, across, addition, adjustment, adv
 let allOfTheWords = allTheWords.split(', ');
 
 let getRandomWord = function (array) {
-  return oneWord = allOfTheWords[Math.floor(Math.random() * allOfTheWords.length)];
+  return /*oneWord =*/ allOfTheWords[Math.floor(Math.random() * allOfTheWords.length)];
 };
 
 const selectedWord = getRandomWord(allOfTheWords).split('');
@@ -17,31 +17,40 @@ for (let i = 0; i < selectedWord.length; i++) {
 }
 
 let answerArray = selectedWordBlanks;
-console.log(selectedWordBlanks);
+console.log(selectedWordBlanks.join(' '));
 
 let remainingLetters = selectedWord.length;
-let guess = 5;
+let guess = 6;
 let guessedLetters = [];
 
-while (guess >= 1) {
-  let input = readline.question('Please enter your guess: ');
-  console.log('');
-  if (selectedWord.includes(input)) {
-    for (let j = 0; j < selectedWord.length; j++) {
-      if (selectedWord[j] === input){
-        answerArray[j] = input;
-}
-}
-  } else {
-    console.log(`You have ${guess} guesses remaining`);
-    console.log('');
-    guess--;
-    guessedLetters.push(input);
-    // guessedLetters += input;
-  }
-console.log(answerArray.join(''));
-console.log('');
-console.log(`These are your previously guessed letter: ${guessedLetters}`)
-  // console.log(input);
+for (; remainingLetters > 0 && guess > 0;) {
+  //console.log(`${remainingLetters}`)
+      if(guess > 0) {
+        let input = readline.question('Please enter your guess: ');
+        console.log('');
+        if (selectedWord.includes(input)) {
+          for (let k = 0; k < selectedWord.length; k++) {
+            if (selectedWord[k] === input){
+              answerArray[k] = input;
+              remainingLetters--;
+            }
+          }
+        } else if (guess === 0){
+          console.log(`You have ${guess-1} guesses remaining`);
+          console.log(`Game Over!! The word was ${selectedWord.join('')}`);
+        } else {
+          console.log(`You have ${guess-1} guesses remaining`);
+          console.log('');
+          guess--;
+          guessedLetters.push(input);
+          // guessedLetters += input;
+          }
+        }
+        console.log(answerArray.join(''));
+        console.log('');
+        console.log(`These are your previously guessed letter: ${guessedLetters}`)
+        console.log('');
+      }  //console.log(`Game Over!! The word was ${selectedWord.join('')}`);
 
-}
+
+//console.log(remainingLetters);
