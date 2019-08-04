@@ -7,11 +7,11 @@ let arr = ["daddy", "bubble", "button"]
 
 let randomWord = arr[Math.floor(Math.random() * arr.length)]
 
-console.log(randomWord)
+// console.log(randomWord)
 
 let splitRandomWord = randomWord.split("")
 
-console.log(splitRandomWord)
+// console.log(splitRandomWord)
 
 let dashHolder = []
 
@@ -19,26 +19,29 @@ for (let i = 0; i < splitRandomWord.length; i++) {
   dashHolder.push("_ ");
 }
 
-console.log(dashHolder)
-//console.log(dashHolder.join(""))
+// console.log(dashHolder)
+// console.log(dashHolder.join(""))
 
 let wrongAnswers = 0
+let wrongAnswerArr = []
 let win = false;
 
  let userInput;
 
 function getCharacter() {
   let temp = dashHolder.join('');
-  userInput = readlineSync.question(`Guess character: \n`)
+  userInput = readlineSync.question(`Guess character: \n ${ dashHolder.join("") } \n`)
   for (let i = 0; i < splitRandomWord.length; i++) {
     if (userInput === splitRandomWord[i]) {
       dashHolder[i] = `${userInput} `;
     }
   }
   console.log(dashHolder.join(""))
-  console.log(dashHolder)
+  // console.log(dashHolder)
   if (temp == dashHolder.join('')) {
     wrongAnswers++
+    wrongAnswerArr.push(userInput)
+    console.log(`WRONG GUESSES: ${ wrongAnswerArr.join(" ")}`)
   }
 }
 
@@ -46,7 +49,7 @@ function getCharacter() {
 // getCharacter()
 
 while (!win && wrongAnswers < 6) {
-  console.log(win)
+  // console.log(win)
   getCharacter()
   let dashesCounter = 0
   for (let i = 0; i < dashHolder.length; i++){
@@ -63,8 +66,8 @@ while (!win && wrongAnswers < 6) {
     win = true;
     console.log("You win!!!")
   }
-  console.log(`THIS ONE`,win)
-  console.log(wrongAnswers)
+  // console.log(`THIS ONE`,win)
+  console.log(`You have made ${ wrongAnswers } wrong answers. You have ${ 6 - wrongAnswers } tries remaining.`)
 }
 
 // userInput = readlineSync.question(`Guess character: \n`)
