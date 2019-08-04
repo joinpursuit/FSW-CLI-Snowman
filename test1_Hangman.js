@@ -82,7 +82,8 @@ while (!win && wrongAnswers < 6) {
     console.log(`\n Congratulations, ${ userName }! You win!!! \n`)
   }
   // console.log(`THIS ONE`,win)
-  console.log(`\n You have made ${ wrongAnswers } wrong answers. You have ${ 6 - wrongAnswers } tries remaining. \n `)
+  console.log(`\n You have made ${ wrongAnswers } wrong answers. You have ${ 6 - wrongAnswers } tries remaining. \n
+    ----------------------------------- \n `)
 }
 
 // userInput = readlineSync.question(`Guess character: \n`)
