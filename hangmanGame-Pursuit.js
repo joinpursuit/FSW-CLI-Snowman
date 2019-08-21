@@ -31,31 +31,40 @@ const replaceMatches = (letter, randomWord, hiddenWord) => {
 
 const startGame = () => {
     let randomWord = getRandomWord(words);
+    // let randomWord = 'pull'
     let hiddenWord = createHiddenWord(randomWord);
     let tries = 6;
+    const usedLetters = []
 
+    while (tries > 0 && (hiddenWord.join('') !== randomWord)) {
 
-    while (tries > 0) {
       console.log(`Tries: ${tries}`);
       console.log('------------------------')
+      console.log(randomWord)
       console.log(hiddenWord);
+      console.log('Here are your used letters: ' + usedLetters)
       const answer = readlineSync.question('Type a letter: ');
 
       if (isLetterInWord(answer, randomWord, hiddenWord)) {
         hiddenWord = replaceMatches(answer, randomWord, hiddenWord)
-      } else {
+      } else  {
         console.log('No, Try Again');
+        usedLetters.push(answer)
         tries--;
       }
+
     };
     if (tries === 0){
       console.log('Aww man... The word you were looking for was: ' + randomWord)
+    } else if (hiddenWord.join('') === randomWord){
+      console.log(hiddenWord)
+      console.log('You found the hidden word, Congrats!!!')
     }
+
 
   }
 
-
-
+  
 startGame();
 
 
