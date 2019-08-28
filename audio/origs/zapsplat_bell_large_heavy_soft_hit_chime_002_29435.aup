@@ -1,0 +1,31 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="zapsplat_bell_large_heavy_soft_hit_chime_002_29435_data" version="1.3.0" audacityversion="2.3.2" sel0="0.0000000000" sel1="0.0000000000" vpos="0" h="0.0000000000" zoom="131.3938618926" rate="48000.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags/>
+	<wavetrack name="zapsplat_bell_large_heavy_soft_hit_chime_002_29435" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="48000" gain="1.258925" pan="0.8" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="450432">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f067.au" len="262144" min="-0.684008" max="0.680142" rms="0.069187"/>
+				</waveblock>
+				<waveblock start="262144">
+					<simpleblockfile filename="eff1f937.au" len="188288" min="-0.001727" max="0.001977" rms="0.000286"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="zapsplat_bell_large_heavy_soft_hit_chime_002_29435" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="48000" gain="1.258925" pan="0.8" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="450432">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f390.au" len="262144" min="-0.573911" max="0.683671" rms="0.063723"/>
+				</waveblock>
+				<waveblock start="262144">
+					<simpleblockfile filename="eff1fc4e.au" len="188288" min="-0.002412" max="0.002805" rms="0.000536"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>
