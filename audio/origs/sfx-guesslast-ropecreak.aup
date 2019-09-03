@@ -1,0 +1,25 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="sfx-guesslast-ropecreak_data" version="1.3.0" audacityversion="2.3.2" sel0="0.0000000000" sel1="1.7884375000" vpos="0" h="0.0000000000" zoom="658.1196581197" rate="48000.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags/>
+	<wavetrack name="zapsplat_foley_wood_balustrade_turn_squeak_011_22567" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="0.794328" pan="0.7" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="85845">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f51d.au" len="85845" min="-0.258509" max="0.282194" rms="0.04109"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="zapsplat_foley_wood_balustrade_turn_squeak_011_22567" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="0.794328" pan="0.7" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="85845">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f1dc.au" len="85845" min="-0.263017" max="0.211309" rms="0.04163"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>
