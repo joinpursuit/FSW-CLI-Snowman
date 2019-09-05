@@ -1,11 +1,11 @@
 /*
 HANG-xX by Joseph P. Pasaoa
 Pursuit 6.2 FSW Fellowship
-Summer 2019
+(C) Copyright [Summer] 2019. All rights reserved.
 
 
-PLANNING / TO DO
-  - X status display: guess tally, category, timer, best time for difficulty
+TO DO
+  - timer, best time for difficulty
 
   - extra stimuli
       beeps for stress
@@ -27,12 +27,6 @@ const rl = readline.createInterface( {
   input: process.stdin,
   output: process.stdout
 } );
-const rlEnd = () => {
-  if (bg0) {
-    bg0.kill();
-  }
-  clearInterval(bgX);
-}
 const prompter = (msg) => {
   rl.setPrompt(msg);
   rl.prompt();
@@ -43,10 +37,13 @@ const player = require('play-sound')(opts = {});
 const sound = (file, description) => {
   player.play(file, function(err) {
       if (err) {
-        if (bg1) {
+        if (bg1 !== undefined) {
           bg1.kill();
         }
-        clearInterval(bgX);
+        if (bgX !== undefined) {
+          bgX.kill();
+        }
+        clearInterval(bgInt);
         throw err;
       }
   } );
@@ -81,8 +78,6 @@ const moveCRel = (howManyX, howManyY) => { // moves cursor via Terminal, from re
 
 // base text RESETS
 const tReset = `\x1b[0m`;
-const tKillDim = `\x1b[22m`;
-const tKillBlink = `\x1b[25m`;
 
 // base text STYLES
 const tBold = `\x1b[1m`;
@@ -107,9 +102,9 @@ const tLBlue = `\x1b[94m`;
 const tLCyan = `\x1b[96m`;
 const tWhite = `\x1b[97m`;
 
-// styling constants
+// STYLING CONSTANTS
 const xTitle = tMage;
-const xInputHightlight = tLYellow;
+const xInputBold = tLYellow;
 const xCategories = tDim + tGreen;
 const xUserPrompt = tCyan;
 
@@ -135,10 +130,11 @@ let wordBanks = [
     ]
   },
   {
-    category: "2018 movies",
+    category: "Movie Titles of 2018",
     bank: [
-      "Avengers:_Infinity_War", "Black_Panther", "Aquaman", "Bohemian_Rhapsody", "Venom", "The_Crimes_of_Grindelwald"
-      // "Incredibles 2", "Deadpool 2",
+      "Avengers:_Infinity_War", "Black_Panther", "Aquaman", "Bohemian_Rhapsody", "Venom", "The_Crimes_of_Grindelwald", "Incredibles_Two", 
+      "Deadpool_Two", "Into_the_Spider-Verse", "M:I_Fallout", "Incredibles_Two", "Annihilation", "A_Star_is_Born", "Game_Night", 
+      "Ant-Man_and_the_Wasp", "Isle_of_Dogs", "Solo:_A_Star_Wars_Story", "First_Man"
     ]
   }
 ];
@@ -233,7 +229,6 @@ let game = {
   // maxTime: null,
   solution: null,
   solutionLettersHiding: {},
-  // hiddenLettersLeft: null,
   rollSolution() {
     let currentWordBank = wordBanks[this.categoryIdx].bank;
     this.solution = currentWordBank[ Math.floor(Math.random() * currentWordBank.length) ];
@@ -284,7 +279,7 @@ const guiBottom = () => {
   print(`${borderBottom}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~${tReset}\n`);
   print(`${tDim}${tLGray}~ ~ ~ ~~~~ ~ ~~~~ ~ ~~~~ ~ ~~~~ ~ ~~~~ ~~ ~~~~ ~~~~ ~ ~ ~~~~ ~ ~ ~~~~ ~~~~ ~ ~~~~ ~ ~~~~ ~ ~~~~ ~ ~~~~ ~ ~ ~ ~~~~`);
   print(` ~~~~ ~ ~~~~ ~ ~~~ ~ ~~~~ ~~~~ ~ ~ ~ ~~~~ ~ ~ ~~~~ ~ ~~~~ ~ ~~~~ ~ ~~~~`);
-  // print(`~ ~~~~ ~ ~~~~ ~~~~ ~~~                                                      ${tReset}`);
+  // print(`~ ~~~~ ~ ~~~~ ~~~~ ~~~${tReset}`);
 }
 
 
@@ -318,7 +313,6 @@ const guiStatusBar = () => {
 
 
 // ACTIVATES LETTERS FOR ROUND //
-
 const setUpLetters = (solution) => {
   game.solutionLettersHiding = {};
   for (let char of solution) {
@@ -357,7 +351,7 @@ const guiLettersMarquee = () => {
 
 
 // SOLUTION MARQUEE //
-const guiSolutionBoard = () => {
+const guiSolutionMarquee = () => {
   let wordMarquee = `      `;
   let linesMarquee = `      `;
 
@@ -389,7 +383,7 @@ const guiSolutionBoard = () => {
       }
 
     } else {
-      if (i === `_`) {                                          // renders spaces
+      if (i === `_` || i === ` `) {                             // renders spaces
         wordMarquee += `    `;
         linesMarquee += `    `;
       } else if (i === `-`) {                                   // renders hyphens
@@ -454,8 +448,8 @@ const guiMessageBoard = (situation) => {
     sound('./audio/sfx-guesslast-ropecreak.mp3', 'rope creaking on wood');
 
     let direReply1 = `${tLRed}Down to your LAST GUESS...${tReset} # Make it a good one.`;
-    let direReply2 = `${tLRed}FINAL GUESS...${tReset} # Ready to hang?`;
-    msg = eval(`direReply` + Math.ceil(Math.random() * 2));
+    // let direReply2 = `${tLRed}FINAL GUESS...${tReset} # Ready to hang?`;
+    msg = direReply1; // eval(`direReply` + Math.ceil(Math.random() * 2));
   }
   msg = msg.split('#');
   
@@ -469,6 +463,7 @@ const guiMessageBoard = (situation) => {
 
 
 // GALLOWS DIAGRAM //
+// TO DO Enable up to 15 max guesses
 const guiGallows = () => {
   let userShirt =   ` `;
 
@@ -486,12 +481,13 @@ const guiGallows = () => {
   let gTrapDoor_Env =  `${tReset}${tHidden}`;
   let gPlatform_Str =  `${tReset}${tHidden}`;
 
-  // Temp Overrides for maxGuesses: 7
+  // Temp MVP Overrides for maxGuesses: 7
   gHang_Env =       `${tReset}${tDim}${tRed}`;
   gBeam_Env =       `${tReset}${tDim}${tRed}`;
   gTrapDoor_Env =   `${tReset}${tDim}${tCyan}`;
   gPlatform_Str =   `${tReset}${tRed}⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊`;
   
+  // Gallows Counter Abstraction by Stages
   const stage10 = () => {
     userShirt = `${tReset}${user.name[0].toUpperCase()}`;
     neck = `${tReset}▒`;
@@ -510,17 +506,18 @@ const guiGallows = () => {
     stage12();
     legL = `${tReset}▒`;
   }
-  const stage14 = () => {
+  const stage14 = () => { // Full-person Stage
     stage13();
     legR = `${tReset}▒`;
   }
-  const stage15 = () => {
+  const stage15 = () => { // Dire-Stage: Blinking
     stage14();
     gNoose = `${tReset}${tBlink}${tYellow}⨖`;
     neck = `${tReset}${tYellow}█`;
     gTrapDoor_Env = `${tReset}${tDim}${tCyan}`;
   }
   
+  // Stage Triggers
   if (isUserLoser()) {
     gTrapDoor_Env = `${tHidden}`;
     gBeam_Env = `${tDim}${tLGray}`;
@@ -534,9 +531,9 @@ const guiGallows = () => {
   } else if (user.guessesLeft === 2) {
     stage14();
   } else if (user.maxGuesses <= 4) {
-    user.guessesSpent() === 2 
-      ? stage13()
-      : stage12();
+    user.guessesSpent() === 1 
+      ? stage12()
+      : false;
   } else if (user.maxGuesses <= 7) {
     if (user.hangRatio() > 0.75) {
       stage13();
@@ -602,16 +599,16 @@ const guiEndingMsg = (situation) => {
     print(``);
     print(`   ${tReset}${tLGreen}Y O U ' R E   F R E E !${tReset}`);
     print(`   ${tReset}${tLGreen}* * * * * * * * * * * *${tReset}`);
-    print(`                                                       Press ${xInputHightlight}Return/Enter${tReset} to play again, or enter an option below:`);
+    print(`                                                       Press ${xInputBold}Return/Enter${tReset} to play again, or enter an option below:`);
     print(``);
-    print(`                                                           [${xInputHightlight}2${tReset}] Change a setting     ${tReset}[${xInputHightlight}3${tReset}] Quit to credits screen`); 
+    print(`                                                           [${xInputBold}2${tReset}] Change a setting     ${tReset}[${xInputBold}3${tReset}] Quit to credits screen`); 
   } else {
     print(``);
     print(`   ${tReset}${tLRed}Y O U ' V E   B E E N   H A N G E D${tReset}`);
     print(`   ${tReset}${tLRed}* * * * * * * * * * * * * * * * * *${tReset}`);
-    print(`                                                          Press ${xInputHightlight}Return/Enter${tReset} to play again, or enter an option below:`);
+    print(`                                                          Press ${xInputBold}Return/Enter${tReset} to play again, or enter an option below:`);
     print(``);
-    print(`                                                              [${xInputHightlight}2${tReset}] Change a setting     ${tReset}[${xInputHightlight}3${tReset}] Quit to credits screen`); 
+    print(`                                                              [${xInputBold}2${tReset}] Change a setting     ${tReset}[${xInputBold}3${tReset}] Quit to credits screen`); 
   }
     print(`   ${nameLabel}`);
     print(`     ${recordStat}`);
@@ -626,7 +623,7 @@ const guiEndingMsg = (situation) => {
 const gui = (situation) => {
   clear();
   guiTop();
-  guiSolutionBoard();
+  guiSolutionMarquee();
   guiLettersMarquee();
   guiStatusBar();
   if (situation === 'loss' || situation === 'win') {
@@ -637,56 +634,77 @@ const gui = (situation) => {
   guiGallows();
   guiBottom();
 }
+
+
+
+const credits = () => {
+  let styleGroup = `${tDim}${tDGray}`;
+  let styleMembers = `${tReset}`;
+  let styleLinks = `${tDim}${tCyan}`;
+
+  let leftMargin = `${tReset}     ░  `;
+  if (game.checkVsInput === 'roundEnd') {
+    leftMargin = '        ';
+  }
+  print(`${leftMargin}`)
+  print(`${leftMargin}`);
+  print(`${leftMargin}    ${styleGroup}SOFTWARE: ${styleMembers}MS Visual Studio Code, Audacity`);
+  print(`${leftMargin}      ${styleLinks}https://code.visualstudio.com`);
+  print(`${leftMargin}       ${styleLinks}https://www.audacityteam.org`);
+  print(`${leftMargin}`);
+  print(`${leftMargin}    ${styleGroup}MODULES: ${styleMembers}Readline, Play-sound`);
+  print(`${leftMargin}      ${styleLinks}https://nodejs.org/api/readline.html`);
+  print(`${leftMargin}       ${styleLinks}https://www.npmjs.com/package/play-sound`);
+  print(`${leftMargin}`);
+  print(`${leftMargin}    ${styleGroup}AUDIO SAMPLES: ${styleMembers}ZapSplat, Daniel Simon`);
+  print(`${leftMargin}      ${styleLinks}http://www.zapsplat.com`);
+  print(`${leftMargin}       ${styleLinks}http://www.soundbible.com, D.Simon via SoundBible`);
+  print(`${leftMargin}`);
+  print(`${leftMargin}    ${styleMembers}Alejandro Franco, Jung Rae Jang, Dessa Shepherd`);
+  print(`${leftMargin}     ${styleGroup}Special Thanks!`);
+  print(`${leftMargin}      ${styleLinks}https://alejo4373.github.io/me/`);
+  print(`${leftMargin}       ${styleLinks}http://www.jungraejang.com/`);
+  print(`${leftMargin} ${tReset}`);
+}
   
-  
+
 
 // CORE GAME ENGINE w INPUT FOCUS //
 const redoPrompt = () => {
   readline.moveCursor(process.stdin, 0, -1);
   rl.prompt(true);
 }
-const credits = () => {
-  print(`${tReset}${tDim}${tDGray}`)
-  print(`\n    SOFTWARE: ${tReset}MS Visual Studio Code, Audacity${tDim}${tCyan}`);
-  print(  `      https://code.visualstudio.com`);
-  print(  `      https://www.audacityteam.org${tDim}${tDGray}`);
-  print(`\n    MODULES: ${tReset}Readline, Play-sound${tDim}${tCyan}`);
-  print(  `      https://nodejs.org/api/readline.html`);
-  print(  `      https://www.npmjs.com/package/play-sound${tReset}${tDim}${tDGray}`);
-  print(`\n    AUDIO SAMPLES: ${tReset}ZapSplat, Daniel Simon${tDim}${tCyan}`);
-  print(  `      http://www.zapsplat.com`);
-  print(  `      http://www.soundbible.com, D.Simon via SoundBible${tReset}${tDim}${tDGray}`);
-  print(`\n    SPECIAL THANKS TO: \n        ${tReset}Alejandro Franco, Jung Rae Jang, Dessa Shepherd${tReset}`);
-  print(`\n`);
-}
-
-
 
 const introGUI = () => {
-  let plusOrMinus = `${xInputHightlight}+${tWhite}/${xInputHightlight}-${tWhite}`;
+  let plusOrMinus = `${xInputBold}+${tWhite}/${xInputBold}-${tWhite}`;
 
   clear();
   print(`${pMove(3, 2)}`);
   print(`  ${xTitle}HANG-XX :: by Joseph P. Pasaoa`);
   print(`  ${tDim}${tDGray}Copyright (C) 2019. All rights reserved.${tReset}\n\n`);
-  // print(`  Optimized for the MAC OSX Terminal.`);
-  print(`  Please ${tCyan}adjust your video${tReset} so the words "LAST LINE" below are 3-7 lines from the bottom of your window.`);
-  print(`     ( ${xInputHightlight}Command${tWhite} and ${plusOrMinus} on Macs, ${xInputHightlight}Ctrl${tWhite} and ${plusOrMinus} on Windows )`);
-  print(`  ${tCyan}Adjust your audio${tReset} to medium for the full experience. \n\n`);
-  print(`  When ready, Enter [${xInputHightlight}c${tWhite}] to toggle the credits or Enter ${xInputHightlight}any other key${tWhite} to play.${tReset} `);
-
+  print(`  Please ${tCyan}adjust your window and zoom${tReset} so that the visual below fits completely without scrolling.`);
+  print(`     ( ${xInputBold}Command${tWhite} and ${plusOrMinus} on Macs, ${xInputBold}Ctrl${tWhite} and ${plusOrMinus} on Windows )`);
+  print(`  ${tCyan}Set your audio${tReset} to medium for the full experience. \n\n`);
+  print(`  When ready, Enter [${xInputBold}c${tWhite}] to toggle the credits or Enter ${xInputBold}any other key${tWhite} to play.${tReset} `);
+  moveCRel(0, 2);
   if (game.showCredits) {
-    print(`${pMove(4, 7)}${tMage}Credits${tDim}${tDGray} >> >> >> \n`);
+    print(`     ░`);
+    print(`     ░      ${tGreen}CREDITS${tReset} ● ● ● `);
     credits();
+    for (let i = 0; i < 15; i++) {
+      print(`     ░`);
+    }
+  } else {
+    for (let i = 0; i < 36; i++) {
+      print(`     ░`);
+    }
   }
-  moveCAbs(0, 49);
-  prompter(`${tReset}  LAST LINE     ${xUserPrompt} `);
+  prompter(`${tReset}     ░░░░ LAST LINE ░░░░░░░    ${xUserPrompt} `);
 }
 
 const gameEngine = () => {
   rl.on('line', (userInput) => {
       userInput = userInput.trim();
-      // let letterVar;
 
       const checkInputErr = () => {
         switch (game.checkVsInput) { // purely for input error checks
@@ -753,7 +771,7 @@ const gameEngine = () => {
             clear();
             moveCAbs(0,4);
             game.checkVsInput = 'nameCheck';
-            prompter(`${tReset}  ~ Hello, ${tMage}Player${tWhite}. What do I call you? ${tDim}${tDGray}(15 chars max)${tReset} ~  ${xUserPrompt}`);
+            prompter(`${tReset}  ~ Hello, ${tMage}Player${tWhite}. What do I call you? ${tDGray}(15 chars max)${tReset} ~  ${xUserPrompt}`);
             break;
 
           case 1200:
@@ -772,8 +790,8 @@ const gameEngine = () => {
             game.checkVsInput !== 'roundEnd'
               ? print(   `  ${tReset}~ Welcome, ${tLGreen}${user.name.toUpperCase()}${tWhite}, to ${xTitle}Hang-xX${tReset}.`)
               : print(   `  ${tReset}~ Welcome again, ${tLGreen}${user.name.toUpperCase()}${tWhite}, to ${xTitle}Hang-xX${tReset}.`);
-            prompter(`    ${tReset}How many guesses each round (${xInputHightlight}1-7${tReset
-              }) do you want? ${xInputHightlight}7${tReset} is the default. ~  ${xUserPrompt}`);
+            prompter(`    ${tReset}How many guesses each round (${xInputBold}1-7${tReset
+              }) do you want? ${tDGray}The automatic default is ${xInputBold}7${tReset}. ~  ${xUserPrompt}`);
             game.checkVsInput = 'maxGuessesErr';
             break;
 
@@ -785,8 +803,8 @@ const gameEngine = () => {
               : user.maxGuesses = userInput;
             moveCRel(0,2);
             print(`${tReset}  ~ Choose a word/phrase category: ~`);
-            prompter(`    ${tReset}  [${xInputHightlight}1${tReset}] ${xCategories}Array methods${tReset}  [${xInputHightlight}2${tReset
-              }] ${xCategories}Object methods${tReset}  [${xInputHightlight}3${tReset}] ${xCategories}2018 Movies${tReset}  ${xUserPrompt}`);
+            prompter(`    ${tReset}  [${xInputBold}1${tReset}] ${xCategories}Array methods${tReset}  [${xInputBold}2${tReset
+              }] ${xCategories}Object methods${tReset}  [${xInputBold}3${tReset}] ${xCategories}Movie Titles of 2018${tReset}  ${xUserPrompt}`);
             game.checkVsInput = 'categoryErr';
             break;
 
@@ -797,7 +815,7 @@ const gameEngine = () => {
             moveCRel(0,2);
             print(`  ${tReset}~ Alright ${tLGreen}${user.name.toUpperCase()}${tWhite}, let's begin. ~${tReset}\n\n\n    ...`);
             moveCAbs(0,47);
-            prompter(`    ${tDGray}Press ${tReset}${xInputHightlight}Return/Enter${tDGray} to start      ${tReset}`);
+            prompter(`    ${tDGray}Press ${tReset}${xInputBold}Return/Enter${tDGray} to start      ${tReset}`);
             game.checkVsInput = 'noCheck';
             break;
 
@@ -885,37 +903,44 @@ const gameEngine = () => {
       if (bg1) {
         bg1.kill();
       }
-      clearInterval(bgX);
+      if (bgX !== undefined) {
+        bgX.kill();
+      }
+      clearInterval(bgInt);
   } );
 }
 
 
 
 // RUN //
-
-const bg1 = player.play("./audio/bgm-2minStorm-Joeyedit.mp3", function(err) {
-  if (err) {
-    throw err;
-  }
-} );
-const bgX = setInterval( () => {
-  player.play("./audio/bgm-2minStorm-Joeyedit.mp3", function(err) {
+// background ambient sound loop -- start
+  let bgX = null;
+  const bg1 = player.play("./audio/bgm-2minStorm-Joeyedit.mp3", function(err) {
     if (err) {
       throw err;
     }
   } );
-}, 280000 );
+  const bgInt = setInterval( () => {
+    bgX = player.play("./audio/bgm-2minStorm-Joeyedit.mp3", function(err) {
+      if (err) {
+        throw err;
+      }
+    } );
+  }, 280000 );
 // background ambient sound loop -- end
-
 introGUI();
 gameEngine();
 
+// PROGRAM END
 
- 
 
- 
 
-/*
+
+
+
+// JUNKYARD STORAGE //
+
+/* ORIGINAL SCRIPT
 
     :: restart anchor
 
@@ -958,43 +983,57 @@ b. Different category?
 c. Let me tweak a few things.
 d. " A NEW Player enters the fray.... "
 e. I'm okay for now. But I'll. Be. Back.
-
-
-
 */
 
 
 
+/* ARRAY ATTEMPT BY UNICODE
 
-
-
-// CODE JUNKYARD //
-
-/*
 for (var i = 0; i < 26; i++) {
     addLetter(String.fromCharCode(97 + i));
 }
+*/
 
-// gallows backup 20190901 //
 
-let marginLeft = `                                                                 `; // margin from left of screen
-print(`${marginLeft} ${gHang_Env}           ⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊   `);
-print(`${marginLeft}            ${gHook}                ${gBeam_Env}⨊⨊⨊ ⨊⨊   `);
-print(`${marginLeft} ${gNoose_Env}           ⨖                  ${gBeam_Env}⨊⨊⨊⨊  `);
-print(`${marginLeft} ${gNoose_Env}           ⨖                    ${gBeam_Env}⨊⨊   `);
-print(`${marginLeft}${head_Env}          ▒▒▒▒▒                  ${gBeam_Env}⨊⨊   `);
-print(`${marginLeft}${head_Env}         ▒▒ ▒ ▒▒                 ${gBeam_Env}⨊⨊   `);
-print(`${marginLeft}${head_Env}         ▒▒▒▒▒▒▒                 ${gBeam_Env}⨊⨊   `);
-print(`${marginLeft}${head_Env}           ▒▒▒                   ${gBeam_Env}⨊⨊   `);
-print(`${marginLeft}   ${armL}${armL}${armL}      ${neck}      ${armR}${armR}${armR}           ${gBeam_Env}⨊⨊   `);
-print(`${marginLeft}        ${armL}${armL}${armL} ${spine} ${armR}${armR}${armR}                ${gBeam_Env}⨊⨊   `);
-print(`${marginLeft}            ${userShirt}                    ${gBeam_Env}⨊⨊   `);
-print(`${marginLeft}            ${spine}                    ${gBeam_Env}⨊⨊   `);
-print(`${marginLeft}            ${spine}                    ${gBeam_Env}⨊⨊   `);
-print(`${marginLeft}           ${legL} ${legR}                   ${gBeam_Env}⨊⨊   `);
-print(`${marginLeft}          ${legL}   ${legR}                  ${gBeam_Env}⨊⨊   `);
-print(`${marginLeft}         ${legL}     ${legR}               ${gBeam_Env}⨊⨊⨊⨊   `);
-print(`${marginLeft}        ${legL}       ${legR}            ${gBeam_Env}⨊⨊⨊ ⨊⨊   `);
-print(`${marginLeft}       ${legL}         ${legR}         ${gBeam_Env}⨊⨊⨊   ⨊⨊   `);
 
+/* GALLOWS BACKUP 20190903
+
+  let marginLeft = `                                                                 `; // margin from left of screen
+  
+  if (isUserWinner()) {
+    marginLeft += `      `;
+  } else if (!isUserLoser()) {
+    print(`${marginLeft} ${gHang_Env}          ⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊⨊   `);
+    print(`${marginLeft}            ${gNoose}${gBeam_Env}⨊               ${gBeam_Env}⨊⨊⨊ ⨊⨊   `);
+    print(`${marginLeft}            ${gNoose}                  ${gBeam_Env}⨊⨊⨊⨊  `);
+    print(`${marginLeft}            ${gNoose}                    ${gBeam_Env}⨊⨊   `);
+  }
+
+  if (!isUserLoser()) {
+    print(`${marginLeft}${head_Env}          ▒▒▒▒▒                  ${gBeam_Env}⨊⨊   `);
+    print(`${marginLeft}${head_Env}         ▒▒ ▒ ▒▒                 ${gBeam_Env}⨊⨊   `);
+    print(`${marginLeft}${head_Env}         ▒▒▒▒▒▒▒                 ${gBeam_Env}⨊⨊   `);
+    print(`${marginLeft}${head_Env}           ▒▒▒                   ${gBeam_Env}⨊⨊   `);
+    print(`${marginLeft}   ${armL}${armL}${armL}      ${neck}      ${armR}${armR}${armR}           ${gBeam_Env}⨊⨊   `);
+    print(`${marginLeft}        ${armL}${armL}${armL} ${spine} ${armR}${armR}${armR}                ${gBeam_Env}⨊⨊   `);
+    print(`${marginLeft}            ${userShirt}                    ${gBeam_Env}⨊⨊   `);
+    print(`${marginLeft}            ${spine}                    ${gBeam_Env}⨊⨊   `);
+    print(`${marginLeft}            ${spine}                    ${gBeam_Env}⨊⨊   `);
+    print(`${marginLeft}           ${legL} ${legR}                   ${gBeam_Env}⨊⨊   `);
+    print(`${marginLeft}          ${legL}   ${legR}                  ${gBeam_Env}⨊⨊   `);
+    print(`${marginLeft}         ${legL}     ${legR}               ${gBeam_Env}⨊⨊⨊⨊   `);
+    print(`${marginLeft}        ${legL}       ${legR}            ${gBeam_Env}⨊⨊⨊ ⨊⨊   `);
+    print(`${marginLeft}       ${legL}         ${legR}         ${gBeam_Env}⨊⨊⨊   ⨊⨊   `);
+  } else {
+    print(`\n\n\n\n\n\n`);
+    print(`${marginLeft}                      ${gBeam_Env}   ░░░░░▒    `);
+    print(`${marginLeft}                      ${gBeam_Env} ░░░░░░░░░▒   `);
+    print(`${marginLeft}                      ${gBeam_Env}░░███████░░▒   `);
+    print(`${marginLeft}                      ${gBeam_Env}░░███░███░░▒   `);
+    print(`${marginLeft}               ${gGrass_Env}~~~~ ~ ${gBeam_Env}░░░░░░░░░░░▒${gGrass_Env}~~ ~ ~~~~ ~~~~   `);
+    print(`${marginLeft} ${gGrass_Env}~~~~ ~ ~ ~~~~ ~ ~~~~ ${gBeam_Env}░░░░░░░░░░░▒${gGrass_Env} ~   `);
+  }
+
+  if (!isUserWinner()) {
+    print(`${marginLeft} ${gTrapDoor_Env} ➽➽➽➽➽➽➽➽➽➽➽➽➽➽➽➽➽➽ ${gPlatform_Str}   `);
 */
