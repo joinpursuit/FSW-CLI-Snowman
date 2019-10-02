@@ -1,0 +1,17 @@
+body {
+    margin: auto;
+    background-color: black;
+
+}
+
+h1 {
+    font-family: ;
+    color: pink;
+    align-item: center;
+}
+
+#pict {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}

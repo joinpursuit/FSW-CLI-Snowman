@@ -20,53 +20,44 @@ for (let i = 0; i < randomWord.length; i++) {
   hiddenWord.push("_")
 }
 
-console.log(hiddenWord)
 
-// let userMessage = ""- delete
 
 let letter = ""
-let won = false;
+let wrongGuess = []
+
+
 while (guessRemaining > 0) {
-  if (hiddenWord.join("") === randomWord) break;
-  letter = readlineSync.question(' Type Letter ');
+  if (hiddenWord.join("") === randomWord) {
+    break;
+  }
+  letter = readlineSync.question(' Type Letter ')
   console.log(" You type letter ", letter)
 
-  const checkInput = (letter) => {
-    letter = letter.toLowerCase();
+  letter = letter.toLowerCase();
+  if (randomWord.includes(letter)) {
     if (hiddenWord.includes(letter)) {
-      console.log(" chose another letter")
-
+      wrongGuess.push(letter)
     } else {
-
       for (let i = 0; i < randomWord.length; i++) {
         if (letter === randomWord[i]) {
-
           hiddenWord[i] = letter
         }
       }
-      // notifying the user about their input values
-      if (randomWord.includes(letter)) {
-        console.log("Good guess")
-
-        // for uncompleted words
-      } else {
-        guessRemaining--;
-        console.log("Try again,wrong words")
-        console.log(`You have ${guessRemaining} guess remaining`)
-      }
-      console.log(hiddenWord);
-
-      ////////////////////////////////// note
-      // check for completion of words
 
     }
+  } else {
+    wrongGuess.push(letter)
   }
+  console.log(hiddenWord.join(""))
+  console.log(`Already Guessed:${wrongGuess.join(", ")}`)
 
-  console.log(hiddenWord, "hidden word")
-  console.log(randomWord, "word Ran")
-
-  checkInput(letter);
 }
+
+
+
+
+
+
 if (guessRemaining > 0) {
   console.log(`Congratulation, you have won!!Your word is ${randomWord} and your remaining guess are ${guessRemaining}.`)
 } else {

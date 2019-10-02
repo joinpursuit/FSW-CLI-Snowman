@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Hangman Game</title>
+    <script src="hangmanDom.js" type="text/javascript" rel="stylesheet"></script>
+    <link rel="stylesheet" type="text/css" href="./hangmanDom.css">
+
+</head>
+
+<body>
+    <h1>Hangman Game</h1>
+
+
+
+    <div id="gameProgress">
+
+        <div id="pict">
+            <img src="Images/Step0.jpeg">
+        </div>
+
+        <div id="correctLetters">
+            <p id="underscores">
+            </p>
+        </div>
+    </div>
+
+
+
+    <div id="userInput">
+        <div id="userAnswers">
+            <form>
+                <input type="text" id="inputWord"> <br>
+                <input type="submit" value="Submit">
+            </form>
+            <p id="feedback"></p>
+        </div>
+        <div id="wrongAnswers">
+            <ul></ul>
+        </div>
+    </div>
+
+</body>
+
+</html>
