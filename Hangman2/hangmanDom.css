@@ -1,0 +1,130 @@
+body {
+    display: grid;
+    margin: 0;
+    font-family: 'Turret Road',
+        cursive;
+    font-weight: bold;
+    color: peachpuff;
+
+    border-style: dashed;
+    border-color: hotpink;
+
+    height: 1000px;
+    width: 1000;
+
+    background-color: #cccccc;
+    background-image: linear-gradient(purple, plum, lightpink, plum, purple);
+}
+
+h1 {
+    display: inline;
+    color: green;
+    text-align: center;
+    font-family: 'Monoton',
+        cursive;
+    font-weight: bold;
+    font-size: 50px;
+    margin: 0;
+    padding: 0;
+
+}
+
+#gameProgress {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+
+#pictures {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 3px solid green;
+    border-radius: 100px;
+    width: 500px;
+    height: 600px;
+    margin: 0;
+    position: relative;
+}
+
+#gameProgress {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0;
+}
+
+#underscores {
+    text-align: justify;
+    color: green;
+    font-size: 20px;
+
+    /* /display: flex;
+    align-self: flex-end; */
+    /* 
+    display: inline-block;
+    vertical-align: middle; */
+
+}
+
+#userInput {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    margin: 0;
+}
+
+#press {
+    color: green;
+    font-weight: bold;
+    background-color: lightpink;
+    border-radius: 50%;
+    border: 2px solid green;
+    width: 60px;
+    height: 30px;
+
+}
+
+#inputWord {
+    color: green;
+    font-weight: bold;
+    background-color: lightpink;
+    border: 2px solid green;
+
+}
+
+#correctLetters {
+    display: flex;
+    align-self: flex-end;
+
+}
+
+#feedback {
+    position: absolute;
+    -webkit-animation: mymove infinite;
+    /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 3s;
+    /* Safari 4.0 - 8.0 */
+    animation: mymove infinite;
+    animation-duration: 3s;
+
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes mymove {
+    from {
+        right: 5px;
+    }
+
+    to {
+        left: 100px;
+    }
+}
+
+@keyframes mymove {
+    from {
+        left: 5px;
+    }
+
+    to {
+        right: 100px;
+    }
+}

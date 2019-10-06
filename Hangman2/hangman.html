@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Hangman Game</title>
+    <script src="hangmanDom.js" type="text/javascript" rel="stylesheet"></script>
+    <link rel="stylesheet" type="text/css" href="./hangmanDom.css">
+    <link href="https://fonts.googleapis.com/css?family=Turret+Road&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Monoton|Turret+Road&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <h1>Hangman Game</h1>
+
+
+    <div id="gameProgress">
+
+        <div id="pict">
+            <img id="pictures" src="Images/Step0.jpeg">
+        </div>
+
+        <div id="correctLetters">
+            <p id="underscores">
+            </p>
+        </div>
+    </div>
+
+
+
+    <div id="userInput">
+        <div id="userAnswers">
+            <form>
+                <label for="letters">Hello welcome!!! <br></label><br>
+                <input type="text" id="inputWord" placeholder="---Enter a letter---">
+                <br>
+                <input type="submit" id="press" value="Submit">
+            </form>
+            <p id="feedback"></p>
+        </div>
+        <div id="wrongAnswers">
+            <ul>Wrong Guess:</ul>
+        </div>
+    </div>
+
+</body>
+
+</html>
