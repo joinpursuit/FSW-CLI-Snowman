@@ -13,6 +13,10 @@
 
 For this assignment, you will build [hangman](http://www.justhangman.com/)  
 
+## Rubric
+
+![commandLineHangmanRubric](./commandLineHangmanRubric.png)
+
 ## Requirements
 
 1. The user must be able to play against the computer
