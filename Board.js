@@ -1,5 +1,5 @@
 class Board {
     constructor (){
-        this.board = 
+        // this.board = 
     }
 }
