@@ -10,19 +10,20 @@ class Board {
         this.movesRemaining = 11;   
     }
 
-    buildBoard(word = "word") {
-        for(let i = 0; i < word.length; i++) {
+    buildBoard() {
+        let newWord = cp.secretWord();
+        for(let i = 0; i < newWord.length; i++) {
             this.board.push("_");
         }
-        for(let i = 0; i < word.length; i++) {
-            this.answer[i] = word[i];
+        for(let i = 0; i < newWord.length; i++) {
+            this.answer[i] = newWord[i];
         }
     }
 
-    isMoveNumber(move) {
+    isMoveNumber(guess) {
         let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
         for(let el of numbers) {
-            if(el === move) {
+            if(el === guess) {
                 return false;
             } else {
                 return true;
@@ -30,45 +31,50 @@ class Board {
         }
     }
 
-    isMoveLong(move) {
-        if(move.length > 1 || move.length === 0) {
+    isMoveLong(guess) {
+        if(guess.length > 1 || guess.length === 0) {
             return false;
         } else {
             return true;
         }
     }
 
-    isValidMove(move) {
-        if(!this.isMoveNumber(move)) {
+    isValidMove(guess) {
+        if(!this.isMoveNumber(guess)) {
             return false;
-        } else if(!this.isMoveLong(move)){
+        } else if(!this.isMoveLong(guess)){
             return false; 
-        } else if(this.board.includes(move.toLowerCase())) {
+        } else if(this.board.includes(guess.toLowerCase())) {
             return false;
         } else {
             return true;
         }
     }
 
-    placeLetter(move, answer) {
-        if(this.isValidMove(move)) {
+    placeLetter(guess, answer) {
+        if(this.isValidMove(guess)) {
             answer.forEach((el, i) => {
-                if(el === move.toLowerCase()) {
-                    this.board[i] = move.toLowerCase();
+                if(el === guess.toLowerCase()) {
+                    this.board[i] = guess.toLowerCase();
                 }
             })
             this.movesRemaining -= 1;
         }
     }
+
+    isGameOver(board) {
+        if(this.movesRemaining === 0) {
+            return true;
+        } else {
+            return board.every((el) => el !== "_");
+        }
+    }
 }
 
-let board = new Board();
+let game = new Board();
 let cp = new ComputerPlayer(dictionary);
 let player = new HumanPlayer();
-let newWord = cp.secretWord();
-board.buildBoard(newWord);
-board.placeLetter(player.getMove(), board.answer);
-console.log(board.board)
-console.log(board.movesRemaining);
+game.buildBoard();
+
 
 module.exports = Board;
