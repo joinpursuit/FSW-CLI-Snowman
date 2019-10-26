@@ -18,23 +18,40 @@ class Board {
         }
     }
 
-    isValidMove(move) {
-        let checkMove = move.split("");
-        if(checkMove.includes("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")) {
+    isMoveNumber(moveArr) {
+        let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+        for(let el of numbers) {
+            if(el === moveArr[0]) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    isMoveLong(moveArr) {
+        if(moveArr.length > 1 || moveArr.length === 0) {
             return false;
         } else {
             return true;
         }
     }
+
+    isValidMove(move) {
+        let checkMove = move.split("");
+        if(!this.isMoveNumber(checkMove)) {
+            return false;
+        } else {
+            return this.isMoveLong(checkMove);
+        }
+    }
 }
 
 let board = new Board();
-let pc = new ComputerPlayer(dictionary);
+let cp = new ComputerPlayer(dictionary);
 let player = new HumanPlayer();
-let newWord = pc.secretWord();
-console.log(board);
+let newWord = cp.secretWord();
 board.buildBoard(newWord);
-console.log(board);
 console.log(board.isValidMove(player.getMove()));
 
 module.exports = Board;
