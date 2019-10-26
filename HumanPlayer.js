@@ -9,3 +9,5 @@ class HumanPlayer {
         return readline.question("Choose a letter: ");
     }
 }
+
+module.exports = HumanPlayer;
