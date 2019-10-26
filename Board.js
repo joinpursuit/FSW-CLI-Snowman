@@ -71,10 +71,4 @@ class Board {
     }
 }
 
-let game = new Board();
-let cp = new ComputerPlayer(dictionary);
-let player = new HumanPlayer();
-game.buildBoard();
-
-
 module.exports = Board;
