@@ -6,6 +6,7 @@ class Board {
     constructor() {
         this.board = []; 
         this.answer = [];
+        this.guesses = [];
         this.movesRemaining = 11;   
     }
 
@@ -18,10 +19,10 @@ class Board {
         }
     }
 
-    isMoveNumber(moveArr) {
+    isMoveNumber(move) {
         let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
         for(let el of numbers) {
-            if(el === moveArr[0]) {
+            if(el === move) {
                 return false;
             } else {
                 return true;
@@ -29,8 +30,8 @@ class Board {
         }
     }
 
-    isMoveLong(moveArr) {
-        if(moveArr.length > 1 || moveArr.length === 0) {
+    isMoveLong(move) {
+        if(move.length > 1 || move.length === 0) {
             return false;
         } else {
             return true;
@@ -38,11 +39,20 @@ class Board {
     }
 
     isValidMove(move) {
-        let checkMove = move.split("");
-        if(!this.isMoveNumber(checkMove)) {
+        if(!this.isMoveNumber(move)) {
+            return false;
+        } else if(!this.isMoveLong(move)){
+            return false; 
+        } else if(this.board.includes(move.toLowerCase())) {
             return false;
         } else {
-            return this.isMoveLong(checkMove);
+            return true;
+        }
+    }
+
+    placeLetter(move, answer) {
+        if(this.isValidMove(move)) {
+            
         }
     }
 }
