@@ -52,7 +52,12 @@ class Board {
 
     placeLetter(move, answer) {
         if(this.isValidMove(move)) {
-            
+            answer.forEach((el, i) => {
+                if(el === move.toLowerCase()) {
+                    this.board[i] = move.toLowerCase();
+                }
+            })
+            this.movesRemaining -= 1;
         }
     }
 }
@@ -62,6 +67,8 @@ let cp = new ComputerPlayer(dictionary);
 let player = new HumanPlayer();
 let newWord = cp.secretWord();
 board.buildBoard(newWord);
-console.log(board.isValidMove(player.getMove()));
+board.placeLetter(player.getMove(), board.answer);
+console.log(board.board)
+console.log(board.movesRemaining);
 
 module.exports = Board;
