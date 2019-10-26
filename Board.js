@@ -10,8 +10,8 @@ class Board {
         this.movesRemaining = 11;   
     }
 
-    buildBoard() {
-        let newWord = cp.secretWord();
+    buildBoard(cpu) {
+        let newWord = cpu.secretWord();
         for(let i = 0; i < newWord.length; i++) {
             this.board.push("_");
         }

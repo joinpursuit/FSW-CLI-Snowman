@@ -1,8 +1,9 @@
 const Board = require("./Board.js");
 const HumanPlayer = require("./HumanPlayer.js");
+const Dictionary = require("./dictionary.js");
 
 class ComputerPlayer {
-    constructor(dictionary) {
+    constructor(dictionary = Dictionary) {
         this.dictionary = dictionary;
         this.newWord = [];
     }

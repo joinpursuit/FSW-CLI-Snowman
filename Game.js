@@ -8,10 +8,30 @@ class Game {
         this.referee = referee;
     }
 
-    play() {
-        while(!Board.isGameOver()) {
-            console.log(Board.board);
-            console.log(Board.placeLetter(HumanPlayer.getMove(), board.answer))
+    playerWin(board) {
+        console.log(board.board)
+        if(board.board.every !== "_") {
+            return "Player has won!";
+        } else {
+            return `The word was ${board.answer}. You lost!`;
         }
+    }
+
+    play(board,player) {
+        while(!board.isGameOver(board.board)) {
+            console.clear();
+            console.log(board.board);
+            console.log(board.movesRemaining)
+            board.placeLetter(player.getMove(), board.answer)
+            board.isGameOver(board.board);
+        }
+        console.log(this.playerWin(board))
     } 
 }
+
+const cpu = new ComputerPlayer();
+const player = new HumanPlayer();
+const newGame = new Game(player, cpu);
+let hangman = new Board();
+hangman.buildBoard(cpu);
+newGame.play(hangman, player);
