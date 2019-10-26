@@ -1,10 +1,10 @@
 const readline = require('readline-sync');
 
-class HumanPlayer {
+class HumanPlayer {    
     constructor() {
 
     }
-    
+
     getMove() {
         return readline.question("Choose a letter: ");
     }
