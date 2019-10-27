@@ -44,7 +44,7 @@ class Board {
             return false;
         } else if(!this.isMoveLong(guess)){
             return false; 
-        } else if(this.board.includes(guess.toLowerCase())) {
+        } else if(this.board.includes(guess.toLowerCase()) || this.guesses.includes(guess.toLowerCase())) {
             return false;
         } else {
             return true;
@@ -58,7 +58,10 @@ class Board {
                     this.board[i] = guess.toLowerCase();
                 }
             })
-            this.movesRemaining -= 1;
+            if(!this.board.includes(guess.toLowerCase())) {
+                this.movesRemaining -= 1;
+            }
+            this.guesses.push(guess.toLowerCase());
         }
     }
 

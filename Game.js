@@ -10,7 +10,7 @@ class Game {
 
     playerWin(board) {
         console.log(board.board)
-        if(board.board.every !== "_") {
+        if(!board.board.includes("_")) {
             return "Player has won!";
         } else {
             return `The word was ${board.answer}. You lost!`;
@@ -23,6 +23,7 @@ class Game {
             console.log(board.board);
             console.log(board.movesRemaining)
             board.placeLetter(player.getMove(), board.answer)
+            console.log(board.guesses);
             board.isGameOver(board.board);
         }
         console.log(this.playerWin(board))
