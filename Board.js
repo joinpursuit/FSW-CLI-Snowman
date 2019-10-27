@@ -25,10 +25,9 @@ class Board {
         for(let el of numbers) {
             if(el === guess) {
                 return false;
-            } else {
-                return true;
             }
         }
+        return true;
     }
 
     isMoveLong(guess) {
