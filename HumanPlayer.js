@@ -1,8 +1,8 @@
 const readline = require('readline-sync');
 
 class HumanPlayer {    
-    constructor() {
-
+    constructor(word) {
+        this.word = word;
     }
 
     getMove() {
