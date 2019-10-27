@@ -9,21 +9,22 @@ class Game {
     }
 
     playerWin(board) {
-        console.log(board.board)
+        console.clear();
+        console.log(board.board.join("").toUpperCase());
         if(!board.board.includes("_")) {
             return "Player has won!";
         } else {
-            return `The word was ${board.answer}. You lost!`;
+            return `The word was "${board.answer.join("").toUpperCase()}". You lost!`;
         }
     }
 
     play(board,player) {
         while(!board.isGameOver(board.board)) {
             console.clear();
-            console.log(board.board);
-            console.log(board.movesRemaining)
+            console.log(board.board.join(" "));
+            console.log(`guesses: ${board.guesses.join(", ")}`);
+            console.log(`Moves remaining: ${board.movesRemaining}`)
             board.placeLetter(player.getMove(), board.answer)
-            console.log(board.guesses);
             board.isGameOver(board.board);
         }
         console.log(this.playerWin(board))
