@@ -20,16 +20,6 @@ class Board {
         }
     } // End of buildBoard() function
 
-    isMoveNumber(guess) {
-        let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
-        for(let el of numbers) {
-            if(el === guess) {
-                return false; // If the element of the numbers array (Number between 0, and 9) is matching the guess (If the guess is a number)
-            }
-        }
-        return true;
-    } // End of isMoveNumber() function
-
     isMoveLong(guess) {
         if(guess.length > 1 || guess.length === 0) {
             return false; // If the move is longer than 1 character
@@ -39,7 +29,7 @@ class Board {
     } // End of isMoveLong() function
 
     isValidMove(guess) {
-        if(!this.isMoveNumber(guess)) {
+        if(!isNaN(guess)) {
             return false; // If the move is an integer between 0 & 9
         } else if(!this.isMoveLong(guess)){
             return false; // If the move is longer than 1 character

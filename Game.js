@@ -39,5 +39,4 @@ const cpu = new ComputerPlayer();
 const player = new HumanPlayer();
 const newGame = new Game(player, cpu);
 let hangman = new Board();
-console.log(cpu.getMove())
-// newGame.play(hangman, player, cpu);
+newGame.play(hangman, player, cpu);
