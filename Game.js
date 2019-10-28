@@ -6,34 +6,38 @@ class Game {
     constructor(guesser, referee) {
         this.guesser = guesser;
         this.referee = referee;
-    }
+    } // End of constructor
 
-    playerWin(board) {
+    playerWin(board, referee) {
         console.clear();
-        console.log(board.board.join("").toUpperCase());
+        console.log(referee.revealWord(board));
+
         if(!board.board.includes("_")) {
             return "Player has won!";
         } else {
-            return `The word was "${board.answer.join("").toUpperCase()}". You lost!`;
-        }
-    }
+            return "You lost!";
+        } // End of ifPlayerWon
+    } // End of playerWin() function
 
-    play(board,player) {
+    play(board, guesser, referee) {
+        board.buildBoard(referee);
+
         while(!board.isGameOver(board.board)) {
             console.clear();
             console.log(board.board.join(" "));
             console.log(`guesses: ${board.guesses.join(", ")}`);
             console.log(`Moves remaining: ${board.movesRemaining}`)
-            board.placeLetter(player.getMove(), board.answer)
+            board.placeLetter(guesser.getMove(), board.answer)
             board.isGameOver(board.board);
-        }
-        console.log(this.playerWin(board))
-    } 
+        } // End of gameplay loop
+
+        console.log(this.playerWin(board, referee))
+    } // End of play() function
 }
 
 const cpu = new ComputerPlayer();
 const player = new HumanPlayer();
 const newGame = new Game(player, cpu);
 let hangman = new Board();
-hangman.buildBoard(cpu);
-newGame.play(hangman, player);
+console.log(cpu.getMove())
+// newGame.play(hangman, player, cpu);
