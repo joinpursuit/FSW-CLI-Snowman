@@ -1,7 +1,9 @@
+const Guesser = require("./Guesser.js");
+const Board = require("./Board.js");
+
 class Referee {
     constructor(){
-        // all the words Computer should be able to randomly pick as secretWord
-        this.secretWord = this.dictionary[Math.floor(Math.random() * this.dictionary.length)];
+        this.referee;
     }
 
     // Computer should be able to get secretWord and return
@@ -9,12 +11,9 @@ class Referee {
         return this.secretWord;     // returns secretWord from dictionary as String
     }
 
-    // Computer should be able to reveal word
-    reveal(){
-
-    }
 } 
 
+//test referee
 
 
 module.exports = Referee
