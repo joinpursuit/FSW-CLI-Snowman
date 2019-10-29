@@ -5,6 +5,9 @@
 //     Should have a play function.
 //     Should check for validity of guess.
 //     Should have an isGameOver.
+const HumanPlayer = require("./HumanPlayer.js")
+const Board = require("./Board.js")
+const Computer = require ("./computerPlayer.js")
 class Game{
   constructor(){
     this.guesser = guesser;
@@ -14,6 +17,6 @@ class Game{
 
   }
   isGameOver(){
-    
+
   }
 }

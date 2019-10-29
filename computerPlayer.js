@@ -15,6 +15,8 @@ class Computer {
   }
   checkValidGuess(){
  if(this.letter[i] === this.WORDS[i]){
+    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+   }
 
  }
   }
@@ -24,3 +26,9 @@ class Computer {
 
   }
 }
+
+
+
+
+
+module.exports = Computer

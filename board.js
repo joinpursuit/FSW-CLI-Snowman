@@ -6,6 +6,17 @@
 
 class Board  {
   constructor(){
-    this.lettersRemaining = 
+    this.lettersRemaining =
   }
 }
+
+
+
+
+
+
+
+
+
+
+module.exports = Board

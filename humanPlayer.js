@@ -12,8 +12,15 @@ class HumanPlayer{
     this.name = name;
 
   }
-getGuess(){
-  return getline.question("Enter a letter: ")
+  getGuess(letter){
+  while (!letter) {
+    let input = readline.question("Please enter your guess: ")
+    if (guessIsValid(input)) {
+      letter = input
+    } else {
+      console.log("Please enter a valid letter")
+    }
+}
 }
 
 module.exports = HumanPlayer
