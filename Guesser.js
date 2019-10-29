@@ -2,8 +2,8 @@ const readline = require("readline-sync");
 const Board = require("./Board.js");
 
 class Guesser {
-    constructor() {
-        this.player;
+    constructor(name) {
+        this.name = name;
     }
 
     getGuess() {
@@ -19,22 +19,19 @@ class Guesser {
 
     // should be able to display the board
     displayBoard(){
-        while(this.player.getGuess()){
-            this.guess = false;
-            if (this.guess.getGuess() === true){
-                return this.guess;
-            } else {
-                return " _ ";
-            }
-        }
+
+       let disBoard = this.board
+
+        return disBoard ;
     }
 
 }
 
 // test guesser
 let guesser = new Guesser();
-console.log(guesser.getGuess());
-console.log(guesser.displayBoard());
+// console.log(guesser.getGuess());
+
+console.log(guesser.displayBoard())
 
 
 module.exports = Guesser; 
