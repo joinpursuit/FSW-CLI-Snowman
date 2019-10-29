@@ -1,6 +1,8 @@
 const ComputerPlayer = require("./ComputerPlayer.js");
 const HumanPlayer = require("./HumanPlayer.js");
 const dictionary = require("./dictionary.js");
+const readline = require('readline-sync');
+
 
 class Board {
     constructor() {
@@ -11,13 +13,16 @@ class Board {
     } // End of constructor
 
     buildBoard(referee) {
-        let newWord = referee.secretWord();
-        for(let i = 0; i < newWord.length; i++) {
+        let newWordLength = referee.secretWord();
+
+        for(let i = 0; i < newWordLength; i++) {
             this.board.push("_"); // Pushes an underscore into the board array for each character of the generated word
-        }
-        for(let i = 0; i < newWord.length; i++) {
-            this.answer[i] = newWord[i]; // Pushes each character of the generated word into the answer array
-        }
+        } // End of board creation
+
+        for(let i = 0; i < newWordLength; i++) {
+            this.answer[i] = referee.newWord[i]; // Pushes each character of the generated word into the answer array
+        } // End of answer creation
+
     } // End of buildBoard() function
 
     isMoveLong(guess) {
@@ -39,6 +44,17 @@ class Board {
             return true;
         }
     } // End of isValidMove() function
+
+    validWord(word) {
+        let inputWord = readline.question("Please input a word: ");
+
+        let validWord = false;
+        while(!validWord) {
+            console.log(isNaN(Number(inputWord)))
+            validWord = true;
+            break;
+        }
+    }
 
     placeLetter(guess, answer) {
         if(this.isValidMove(guess)) {
