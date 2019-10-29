@@ -13,6 +13,9 @@ class Game{
     this.guesser = guesser;
     this.ref = ref;
   }
+  checkValidGuess(){
+    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+   }
   play(){
 
   }

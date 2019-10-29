@@ -19,15 +19,14 @@ class Computer {
    }
 
  }
-  }
+  
   randomWord(){
     let secretWord = word[Math.floor(Math.random()*this.WORDS.length)]
     return secretWord.length
 
   }
+
 }
-
-
 
 
 

@@ -12,15 +12,19 @@ class HumanPlayer{
     this.name = name;
 
   }
-  getGuess(letter){
+  guess(){
+    let letter;
   while (!letter) {
     let input = readline.question("Please enter your guess: ")
-    if (guessIsValid(input)) {
+    if (checkValidGuess(input)) {
       letter = input
     } else {
       console.log("Please enter a valid letter")
     }
 }
 }
+}
 
 module.exports = HumanPlayer
+let ohidur = new HumanPlayer("Ohidur")
+ohidur.guess()

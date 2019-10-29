@@ -6,7 +6,12 @@
 
 class Board  {
   constructor(){
-    this.lettersRemaining =
+    this.lettersRemaining = secretWord.length
+  }
+  displayLetter(){
+    for(let i = 0; i < secretWord.length; i++){
+      return secretWord.length["_"]
+    }
   }
 }
 
