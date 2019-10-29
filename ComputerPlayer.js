@@ -36,18 +36,42 @@ class ComputerPlayer {
     } // End of constructor
 
     secretWord() {
-        let wordIndex = Math.floor(Math.random() * this.dictionary.length - 1);
+        let wordIndex = Math.floor(Math.random() * this.dictionary.length);
         this.newWord = this.dictionary[wordIndex];
-        return this.newWord;
+        return this.newWord.length;
     } // End of secretWord() function
 
     revealWord(board) {
         return `The word was "${board.answer.join("").toUpperCase()}".`;
     } // End of revealWord() function
 
-    getMove() {
-        return this.MOVES[Math.floor(Math.random() * 26) - 1];
+    randomLetter() {
+        return this.MOVES[Math.floor(Math.random() * 27) - 1];
+    }
+
+    getMove(referee) {
+        // return this.MOVES[Math.floor(Math.random() * 26) - 1];
+        let vowels = ["a", "e", "i", "o", "u"];
+        for(let el of vowels) {
+            if(!referee.newWord.includes(el)) {
+                return this.getMoveNoVowels(vowels);
+            }
+        }
+        return this.randomLetter();
     } // End of getMove() function
+
+
+    getMoveNoVowels(vowels) {
+        let guess = this.randomLetter();
+        console.log(guess);
+
+        while(vowels.includes(guess) || guess === undefined) {
+            guess = this.randomLetter();
+            console.log(guess);
+        } // End of loop if randomLetter() returns a vowel
+
+        return guess;
+    } // End of getMoveNoVowels() function
 }
 
 module.exports = ComputerPlayer;
