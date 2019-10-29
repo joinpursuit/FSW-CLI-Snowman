@@ -5,12 +5,13 @@
 //     It should be able to add characters at differnect indicies.
 
 class Board  {
-  constructor(){
+  constructor(length){
     this.lettersRemaining = secretWord.length
+    this.winner = undefined
   }
-  displayLetter(){
+  displayBoard(){
     for(let i = 0; i < secretWord.length; i++){
-      return secretWord.length["_"]
+      return secretWord.length = ""
     }
   }
 }
@@ -21,7 +22,7 @@ class Board  {
 
 
 
-
+console.log(Board.displayBoard());
 
 
 module.exports = Board

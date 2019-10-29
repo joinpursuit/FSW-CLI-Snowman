@@ -12,9 +12,11 @@ class Game{
   constructor(){
     this.guesser = guesser;
     this.ref = ref;
+    this.board = new Board
+    this.guessReamining = 6;
   }
-  checkValidGuess(){
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+  checkValidGuess(input){
+    return input.length === 1 && input.toUpperCase() != input.toLowerCase()
    }
   play(){
 
@@ -22,4 +24,5 @@ class Game{
   isGameOver(){
 
   }
+
 }
