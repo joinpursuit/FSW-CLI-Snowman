@@ -2,7 +2,11 @@ const readline = require('readline-sync');
 
 class HumanPlayer {    
     constructor(word) {
-        this.word = word;
+        this.newWord = word ? word.toLowerCase() : word;
+    }
+
+    secretWord() {
+        return this.newWord.length;
     }
 
     getMove() {
