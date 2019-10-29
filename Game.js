@@ -1,7 +1,7 @@
-const HumanPlayer = require("./Board")
+const HumanPlayer = require("./Players")
 const Board = require("./Board")
 class Game {
-    constructor(human) {
+    constructor() {
         this.board = new Board()
     }
     gameOver(){ // if out of moves
