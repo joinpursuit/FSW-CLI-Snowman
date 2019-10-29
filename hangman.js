@@ -21,4 +21,4 @@ class Game{
   }
   
   }
-console.log(wordChoice())}
+console.log(wordChoice())
