@@ -44,8 +44,8 @@ class Board {
         }
     } // End of isValidMove() function
 
-    validWord() {
-        let inputWord = readline.question("Please input a word: ");
+    validWord(referee) {
+        let inputWord = readline.question(`${referee.name} please input a word: `);
 
         let wordValidity = false;
         while(!wordValidity) {
@@ -68,7 +68,7 @@ class Board {
             }
         } // End of validWord validity check
 
-        return inputWord;
+        return inputWord.toLowerCase();
     } // End of validWord() function
 
     placeLetter(guess, answer) {
