@@ -12,6 +12,10 @@ class HumanPlayer {
     getMove() {
         return readline.question("Choose a letter: ");
     }
+
+    revealWord(board) {
+        return `The word was "${board.answer.join("").toUpperCase()}".`;
+    } // End of revealWord() function
 }
 
 module.exports = HumanPlayer;
