@@ -20,14 +20,14 @@ class Game {
                 case "1": 
                     this.guesser = player;
                     this.referee = cpu;
-
-                    this.guesser.word = this.board.validWord();
                     
                     playerChoiceComplete = true;
                     break;
                 case "2":
                     this.guesser = cpu;
                     this.referee = player;
+                    
+                    this.referee.newWord = this.board.validWord();
 
                     playerChoiceComplete = true;
                     break;
@@ -41,17 +41,69 @@ class Game {
 
     } // End of guesserRefereeChoice() function
 
-    playerWin(board) {
+    playerWin() {
         console.clear();
         console.log(this.referee.revealWord(this.board));
 
-        if(!board.board.includes("_")) {
-            return `Player has won! It took you ${11 - this.board.movesRemaining} moves`;
+        if(!this.board.board.includes("_")) {
+            if(this.guesser instanceof HumanPlayer) {
+                return `Player has won! It took you ${11 - this.board.movesRemaining} moves`;
+            } else {
+                return `Computer has won! It took ${11 - this.board.movesRemaining} moves`;
+            } // End of guesser check
+
         } else {
-            return "You lost!";
+            if(this.guesser instanceof HumanPlayer) {
+                return "You lost!";
+            } else {
+                return "You won!";
+            }
         } // End of ifPlayerWon
 
     } // End of playerWin() function
+
+
+
+    isGuesserComputer() {
+        if(this.guesser instanceof ComputerPlayer) {
+            return true;
+        } else {
+            return false;
+        }
+
+    } // End of isGuesserComputer() function
+
+    computerGuesser() {
+        while(!this.board.isGameOver(this.board.board)) {
+            console.clear();
+            console.log(this.board.board.join(" "));
+            console.log(`guesses: ${this.board.guesses.join(", ")}`);
+            console.log(`Moves remaining: ${this.board.movesRemaining}`)
+
+            let computerGuess = this.guesser.getMove(this.referee, this.board.guesses);
+            console.log(computerGuess);
+
+            this.board.placeLetter(computerGuess, this.board.answer)
+            let userContinue = readline.question("");
+
+            this.board.isGameOver(this.board.board)
+
+        } // End of gameplay loop
+
+    }// End of computerGuesser() function
+
+    playerGuesser() {
+        while(!this.board.isGameOver(this.board.board)) {
+            console.clear();
+            console.log(this.board.board.join(" "));
+            console.log(`guesses: ${this.board.guesses.join(", ")}`);
+            console.log(`Moves remaining: ${this.board.movesRemaining}`)
+            this.board.placeLetter(this.guesser.getMove(this.referee), this.board.answer)
+            this.board.isGameOver(this.board.board);
+
+        } // End of gameplay loop
+
+    }// End of playerGuesser() function
 
     play() {
         const player = new HumanPlayer();
@@ -61,19 +113,17 @@ class Game {
 
         this.board.buildBoard(this.referee);
 
-        while(!this.board.isGameOver(this.board.board)) {
-            console.clear();
-            console.log(this.board.board.join(" "));
-            console.log(`guesses: ${this.board.guesses.join(", ")}`);
-            console.log(`Moves remaining: ${this.board.movesRemaining}`)
-            this.board.placeLetter(this.guesser.getMove(this.referee), this.board.answer)
-            this.board.isGameOver(this.board.board);
-        } // End of gameplay loop
+        if(this.isGuesserComputer()) {
+            this.computerGuesser();
+        } else {
+            this.playerGuesser();
+        }
 
         console.log(this.playerWin())
 
     } // End of play() function
-}
+
+} // End of Game() class
 
 const newGame = new Game();
 newGame.play();
