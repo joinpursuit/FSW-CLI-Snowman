@@ -52,3 +52,5 @@ let moves = {
     Y: "y",
     Z: "z"
 }
+
+module.exports = moves;
