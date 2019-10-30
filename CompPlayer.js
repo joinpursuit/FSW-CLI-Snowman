@@ -1,0 +1,1 @@
+let {words} = require("./Words.js")
