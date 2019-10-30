@@ -49,25 +49,40 @@ class ComputerPlayer {
         return this.MOVES[Math.floor(Math.random() * 27) - 1];
     }
 
-    getMove(referee) {
-        // return this.MOVES[Math.floor(Math.random() * 26) - 1];
-        let vowels = ["a", "e", "i", "o", "u"];
-        for(let el of vowels) {
-            if(!referee.newWord.includes(el)) {
-                return this.getMoveNoVowels(vowels);
+    getMove(referee, guessesArr) {
+        let newWordArr = referee.newWord.split("");
+        let guess = this.randomLetter();
+
+        let guessNotRepeat = false;
+        while(!guessNotRepeat) {
+            if(!newWordArr.includes("a") && !newWordArr.includes("e") && !newWordArr.includes("i") && !newWordArr.includes("o") && !newWordArr.includes("u")) {
+                guess = this.getMoveNoVowels(["a", "e", "i", "o", "u"]);
+
+                if(guessesArr.includes(guess)) {
+                    guess = this.getMoveNoVowels(["a", "e", "i", "o", "u"]);
+                } else {
+                    guessNotRepeat = true;
+                    break;
+                }
             }
-        }
-        return this.randomLetter();
+
+            if(guessesArr.includes(guess)) {
+                guess = this.randomLetter();
+            } else {
+                guessNotRepeat = true;
+                break;
+            }
+            
+        } // End of guessNotRepeated
+        return guess;
     } // End of getMove() function
 
 
-    getMoveNoVowels(vowels) {
-        let guess = this.randomLetter();
-        console.log(guess);
+    getMoveNoVowels(vowels, guess) {
+        // guess = this.randomLetter();
 
         while(vowels.includes(guess) || guess === undefined) {
             guess = this.randomLetter();
-            console.log(guess);
         } // End of loop if randomLetter() returns a vowel
 
         return guess;
