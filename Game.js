@@ -53,6 +53,7 @@ class Game {
 
             let computerGuess = this.guesser.getMove(this.referee, this.board.guesses, this.board);
             this.board.placeLetter(computerGuess, this.board.answer);
+            console.log(computerGuess);
 
             let userContinue = readline.question("");
 
@@ -87,7 +88,11 @@ class Game {
                     const p2 = new HumanPlayer();
                     this.playerNames(p1, p2);
 
+                    console.clear();
+
                     this.twoPlayerCharacterChoice(p1, p2);
+
+                    console.clear();
 
                     this.referee.newWord = this.board.validWord(this.referee);
 
@@ -99,6 +104,8 @@ class Game {
                     const cpu = new ComputerPlayer();
 
                     this.playerNames(player);
+
+                    console.clear();
 
                     this.guesserRefereeChoice(player, cpu);
 
@@ -166,7 +173,7 @@ class Game {
                     this.guesser = cpu;
                     this.referee = player;
                     
-                    this.referee.newWord = this.board.validWord();
+                    this.referee.newWord = this.board.validWord(this.referee);
 
                     playerChoiceComplete = true;
                     break;
@@ -198,5 +205,4 @@ class Game {
 
 } // End of Game() class
 
-const newGame = new Game();
-newGame.play();
+new Game().play();
