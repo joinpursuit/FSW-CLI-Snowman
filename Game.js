@@ -2,6 +2,7 @@ const Board = require("./Board.js");
 const HumanPlayer = require("./HumanPlayer.js");
 const ComputerPlayer = require("./ComputerPlayer.js");
 const readline = require('readline-sync');
+const Dictionary = require("./dictionary.js");
 
 class Game {
     constructor(guesser, referee) {
@@ -166,6 +167,8 @@ class Game {
                 case "1": 
                     this.guesser = player;
                     this.referee = cpu;
+
+                    this.difficultyChoice();
                     
                     playerChoiceComplete = true;
                     break;
@@ -186,6 +189,33 @@ class Game {
         return playerChoice;
 
     } // End of guesserRefereeChoice() function
+
+    difficultyChoice() {
+        let diffChoice = readline.question("Choose a difficulty for the computer. (1 - 4) ");
+
+        while(diffChoice !== "1" && diffChoice !== "2" && diffChoice !== "3" && diffChoice !== "4") {
+            console.log("Enter a number between 1 and 4.");
+            diffChoice = readline.question("Choose a difficulty for the computer. (1 - 4) ");
+        } // End of diffChoice validity check
+
+        switch(diffChoice) {
+            case "1":
+                this.referee.difficulty = 1;
+                break;
+
+            case "2":
+                this.referee.difficulty = 2;
+                break;
+
+            case "3":
+                this.referee.difficulty = 3;
+                break;
+
+            case "4":
+                this.referee.difficulty = 4;
+                break;
+        } // End of diffChoice switch
+    } // End of difficultyChoice() function
 
     play() {
         let playerNumber = readline.question("How many players? (1 or 2) ");
