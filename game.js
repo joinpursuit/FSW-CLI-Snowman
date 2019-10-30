@@ -10,6 +10,7 @@ const Board = require("./Board.js")
 const Computer = require ("./computerPlayer.js")
 class Game{
   constructor(){
+    this.winner = undefined
     this.guesser = guesser;
     this.ref = ref;
     this.board = new Board
@@ -26,3 +27,5 @@ class Game{
   }
 
 }
+let game = new Game (new HumanPlayer("Ohidur"))
+game.play()
