@@ -1,38 +1,12 @@
 const Dictionary = require("./dictionary.js");
-const HumanPlayer = require("./HumanPlayer.js");
+const Moves = require("./moves.js");
 
 class ComputerPlayer {
     constructor(dictionary = Dictionary) {
         this.dictionary = dictionary;
         this.newWord = [];
-        this.MOVES = {
-            1: "a",
-            2: "b",
-            3: "c",
-            4: "d",
-            5: "e",
-            6: "f",
-            7: "g", 
-            8: "h",
-            9: "i",
-            10: "j",
-            11: "k",
-            12: "l",
-            13: "m",
-            14: "n",
-            15: "o",
-            16: "p",
-            17: "q",
-            18: "r",
-            19: "s",
-            20: "t",
-            21: "u",
-            22: "v",
-            23: "w",
-            24: "x",
-            25: "y",
-            26: "z"
-        } // End of this.Moves Object
+        this.MOVES = Moves;
+        this.difficulty;
     } // End of constructor
 
     secretWord() {
@@ -49,7 +23,7 @@ class ComputerPlayer {
         return this.MOVES[Math.floor(Math.random() * 27) - 1];
     }
 
-    getMove(referee, guessesArr) {
+    getMove(referee, guessesArr, board) {
         let newWordArr = referee.newWord.split("");
         let guess = this.randomLetter();
 
@@ -58,7 +32,7 @@ class ComputerPlayer {
             if(!newWordArr.includes("a") && !newWordArr.includes("e") && !newWordArr.includes("i") && !newWordArr.includes("o") && !newWordArr.includes("u")) {
                 guess = this.getMoveNoVowels(["a", "e", "i", "o", "u"]);
 
-                if(guessesArr.includes(guess)) {
+                if(guessesArr.includes(guess) || !board.isValidMove(guess)) {
                     guess = this.getMoveNoVowels(["a", "e", "i", "o", "u"]);
                 } else {
                     guessNotRepeat = true;
@@ -66,7 +40,7 @@ class ComputerPlayer {
                 }
             }
 
-            if(guessesArr.includes(guess)) {
+            if(guessesArr.includes(guess) || !board.isValidMove(guess)) {
                 guess = this.randomLetter();
             } else {
                 guessNotRepeat = true;
@@ -87,6 +61,10 @@ class ComputerPlayer {
 
         return guess;
     } // End of getMoveNoVowels() function
+
+    // computerDifficulty() {
+    //     this.difficulty = Math.floor(Math.random() * 4) + 1;
+    // }
 }
 
 module.exports = ComputerPlayer;
