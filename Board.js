@@ -7,7 +7,8 @@ class Board {
         this.board = []; 
         this.answer = [];
         this.guesses = [];
-        this.movesRemaining = 11;   
+        this.movesRemaining = 11; 
+        this.movesTaken = 0;  
     } // End of constructor
 
     buildBoard(referee) {
