@@ -5,5 +5,14 @@ class HumanPlayer {
     getMove() {
         return readline.questions("What is your letter guess")
     }
+    displayBoard() {
+
+    }
+    selectWord(word) {
+
+    }
+    givePositions() {
+        
+    }
 }
 
