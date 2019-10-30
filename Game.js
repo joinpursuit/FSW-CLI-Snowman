@@ -1,4 +1,4 @@
-const HumanPlayer = require("./Players")
+const HumanPlayer = require("./HumanPlayer")
 const Board = require("./Board")
 class Game {
     constructor() {
