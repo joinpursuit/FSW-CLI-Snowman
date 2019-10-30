@@ -19,7 +19,7 @@ You should build this game in true OOP fashion. To write this game it will be he
 1. Board
   * This would construct a board to the length. 
   * It should check if the board is complete. 
-  * It should be able to add characters at differnect indicies. 
+  * It should be able to add characters at different indicies. 
 2. HumanPlayer 
   * Will need to getMove from player. 
   * Display the board. 
