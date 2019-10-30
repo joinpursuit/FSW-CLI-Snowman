@@ -1,56 +1,46 @@
-
+const Referee = require("./Referee.js");
 const {dictionary} = require ('./dictionary.js');              // dictionary of words read in from dictionary.js file
 
 class Board {
     constructor (){
-        this.word = ""  // word is choosen using randomWord () function
-        this.board = [];
-        // let secretWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-        // for(let i = 0; i < secretWord.length; i++){
-        //     this.board.push(secretWord[i]);
-        // }
-    }
-
-    randomWord(){
-        let word = dictionary[(Math.floor(Math.random() * dictionary.length))];
-        this.word = word;   
-    }
-
-    fillboard(){
-        for(let i in this.word){
-            this.board[i] = " _ "
-        }
-        // this.board = this.board.join("");
+        this.board = new Array(referee.word.length).fill("_")
     }
 
     addChar(letter) {
-       
-        for(let i = 0; i < this.word.length; i++){
-            if(this.word[i] === letter){
-
-                this.board[i] = letter
+        for(let i = 0; i < referee.word.length; i++){
+            if(referee.word[i] === letter){
+                this.board[i] = letter;
             }
         }
     }
 
     // should be able to check if board whether board is complete or not
     isComplete(){
-        if(this.board.join() === this.board){
+        if(this.board.join("") === referee.word){
             return true;
+        } else {
+            return false;
         }
     }
 }
 
 // test board
+let referee = new Referee("computer");
 let board = new Board();    // new board instance
-board.randomWord();
-board.fillboard();
-console.log(board.board)
-console.log(board.word)
-let letter = 'a'
-board.addChar(letter);
 
-console.log(board.board);
+// console.log(referee.reveal());
+
+// console.log(referee.word);
+// console.log(board.board)
+// let letter = 'a'
+// board.addChar(letter);
+
+// console.log(board.board);
+// console.log(board.isComplete());
+
+
+
+
 
 
 

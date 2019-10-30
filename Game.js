@@ -13,7 +13,9 @@ class Game {
 
     // Game should be able to check if a guess isValid
     isValidGuess (){
-
+        // while(this.guess !== 'a' && this.guess !== 'b' && this.guess !== 'c' && this.guess !== 'd' && this.guess !== 'e' && this.guess !== 'f' && this.guess !== 'g' && this.guess !== 'h' &&
+        // this.guess !== 'i' && this.guess !== 'j' && this.guess !== 'k' && this.guess !== 'l' && this.guess !== 'm' && this.guess !== 'n' && this.guess !== 'o' && this.guess !== 'p' && this.guess !== 'q' &&
+        // this.guess !== 'r' && this.guess !== 's' && this.guess !== 't' && this.guess !== 'u' && this.guess !== 'v' && this.guess !== 'w'&& this.guess !== 'x'&& this.guess !== 'y'&& this.guess !== 'z') {
     }
 
     // Game should be able to initiate play
