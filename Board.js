@@ -30,7 +30,7 @@ let board = new Board();    // new board instance
 
 // console.log(referee.reveal());
 
-// console.log(referee.word);
+console.log(referee.word);
 // console.log(board.board)
 // let letter = 'a'
 // board.addChar(letter);

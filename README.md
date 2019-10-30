@@ -29,7 +29,7 @@ You should build this game in true OOP fashion. To write this game it will be he
 3. ComputerPlayer 
   * Should have a dictionary.                                               X - wordfile
   * Should have secretWord and return it's length.                          X 
-  * Should have a reveal.                                                   
+  * Should have a reveal.                                                   X
   * Should give the positions of guessed characters.                        
   * Possibly have a getMove. 
 4. Game 

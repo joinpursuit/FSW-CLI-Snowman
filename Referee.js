@@ -1,6 +1,4 @@
-
-const Board = require("./Board.js");
-const {dictionary} = require ('./dictionary.js');  
+const {dictionary} = require('./dictionary.js');  
 
 class Referee {
     constructor(referee){
@@ -9,21 +7,33 @@ class Referee {
     }
 
     // Computer should be able to get secretWord and return length
-    getSecretWord(){
-        return this.secretWord;     // returns secretWord from dictionary as String
+    secretWordLength(){
+        let secretWord = this.word;
+        return secretWord.length;
     }
 
     // Computer needs to reveal word if not found or found
-    // reveal(){
-    //     let revStr = ""
-    //     for(let i of this.word){
-    //         revStr += 
-    //     }
-    // }
+    reveal(){
+        let revealStr = "";
+        for(let i = 0; i < this.word.length; i++){
+            revealStr += this.word[i];
+        }
+        return revealStr;
+    }
 
-} 
+    charsGuessed(){
+        
+    }
+
+
+}
 
 
 //test referee
+let ref = new Referee("cor");
+console.log(ref.secretWordLength());
+console.log(ref.reveal())
+
+
 
 module.exports = Referee
