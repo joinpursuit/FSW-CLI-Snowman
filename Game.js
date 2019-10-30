@@ -10,59 +10,30 @@ class Game {
         this.board = new Board();
     } // End of constructor
 
-    guesserRefereeChoice(player, cpu) {
-        let playerChoice = readline.question("Would you like to be the [1] guesser or [2] referee? ");
-
-        let playerChoiceComplete = false;
-        while(!playerChoiceComplete) {
-            console.clear();
-            switch(playerChoice) {
-                case "1": 
-                    this.guesser = player;
-                    this.referee = cpu;
-                    
-                    playerChoiceComplete = true;
-                    break;
-                case "2":
-                    this.guesser = cpu;
-                    this.referee = player;
-                    
-                    this.referee.newWord = this.board.validWord();
-
-                    playerChoiceComplete = true;
-                    break;
-                default: 
-                    console.log("Please input '1' for guesser or '2' for referee")
-                    playerChoice = readline.question("Would you like to be the guesser or referee? ");
-            } // End of playerChoice switch
-        } // End of playerChoice check
-
-        return playerChoice;
-
-    } // End of guesserRefereeChoice() function
-
     playerWin() {
         console.clear();
         console.log(this.referee.revealWord(this.board));
 
         if(!this.board.board.includes("_")) {
             if(this.guesser instanceof HumanPlayer) {
-                return `Player has won! It took you ${11 - this.board.movesRemaining} moves`;
+                return `${this.guesser.name} has won! It took ${11 - this.board.movesRemaining} moves`;
             } else {
                 return `Computer has won! It took ${11 - this.board.movesRemaining} moves`;
             } // End of guesser check
 
         } else {
             if(this.guesser instanceof HumanPlayer) {
-                return "You lost!";
+                if(this.referee instanceof HumanPlayer) {
+                    return `${this.guesser.name} lost! ${this.referee.name} won!`;
+                } else {
+                    return `${this.guesser.name} lost!`
+                }
             } else {
                 return "You won!";
             }
         } // End of ifPlayerWon
 
     } // End of playerWin() function
-
-
 
     isGuesserComputer() {
         if(this.guesser instanceof ComputerPlayer) {
@@ -107,11 +78,111 @@ class Game {
 
     }// End of playerGuesser() function
 
-    play() {
-        const player = new HumanPlayer();
-        const cpu = new ComputerPlayer();
+    validNumberPlayers(playerInput) {
+        let validInput = false;
+        while(!validInput) {
+            switch(playerInput) {
+                case "2":
+                    const p1 = new HumanPlayer();
+                    const p2 = new HumanPlayer();
+                    this.playerNames(p1, p2);
 
-        this.guesserRefereeChoice(player, cpu);
+                    this.twoPlayerCharacterChoice(p1, p2);
+
+                    this.referee.newWord = this.board.validWord(this.referee);
+
+                    validInput = true;
+                    break;
+
+                case "1":
+                    const player = new HumanPlayer();
+                    const cpu = new ComputerPlayer();
+
+                    this.playerNames(player);
+
+                    this.guesserRefereeChoice(player, cpu);
+
+                    validInput = true;
+                    break;
+
+                default:
+                    console.log("Please input a valid number of players.");
+                    playerInput = readline.question("How many players? (1 or 2) ");
+            } // End of playerInput switch
+
+        } // End of validInput loop
+    } // End of validNumberPlayers() function
+
+    playerNames(player1, player2) {
+        if(player2) {
+            player1.name = readline.question("Player 1, input your name. ");
+            player2.name = readline.question("Player 2, input your name. ");
+        } else {
+            player1.name = readline.question("Input your name. ");
+        }
+    } // End of playerNames() function
+
+    twoPlayerCharacterChoice(player1, player2) {
+        let p1Choice = readline.question("Player 1 would you like to be the [1] guesser or the [2] referee? ");
+
+        let validInput = false;
+        while(!validInput) {
+            switch(p1Choice) {
+                case "1":
+                    this.guesser = player1;
+                    this.referee = player2;
+
+                    validInput = true;
+                    break;
+
+                case "2": 
+                    this.guesser = player2;
+                    this.referee = player1;
+
+                    validInput = true;
+                    break;
+
+                default: 
+                    console.log("Please enter either 1 or 2.");
+                    p1Choice = readline.question("Player 1 would you like to be the [1] guesser or the [2] referee? ");
+            } // End of p1Choice switch
+        } // End of validInput loop
+    }  // End of twoPlayerCharacterChoice() function
+
+    guesserRefereeChoice(player, cpu) {
+        let playerChoice = readline.question("Would you like to be the [1] guesser or [2] referee? ");
+
+        let playerChoiceComplete = false;
+        while(!playerChoiceComplete) {
+            console.clear();
+            switch(playerChoice) {
+                case "1": 
+                    this.guesser = player;
+                    this.referee = cpu;
+                    
+                    playerChoiceComplete = true;
+                    break;
+                case "2":
+                    this.guesser = cpu;
+                    this.referee = player;
+                    
+                    this.referee.newWord = this.board.validWord();
+
+                    playerChoiceComplete = true;
+                    break;
+                default: 
+                    console.log("Please input '1' for guesser or '2' for referee")
+                    playerChoice = readline.question("Would you like to be the guesser or referee? ");
+            } // End of playerChoice switch
+        } // End of playerChoice check
+
+        return playerChoice;
+
+    } // End of guesserRefereeChoice() function
+
+    play() {
+        let playerNumber = readline.question("How many players? (1 or 2) ");
+        this.validNumberPlayers(playerNumber);
 
         this.board.buildBoard(this.referee);
 
