@@ -80,10 +80,9 @@ class Game {
             console.log(`guesses: ${this.board.guesses.join(", ")}`);
             console.log(`Moves remaining: ${this.board.movesRemaining}`)
 
-            let computerGuess = this.guesser.getMove(this.referee, this.board.guesses);
-            console.log(computerGuess);
+            let computerGuess = this.guesser.getMove(this.referee, this.board.guesses, this.board);
+            this.board.placeLetter(computerGuess, this.board.answer);
 
-            this.board.placeLetter(computerGuess, this.board.answer)
             let userContinue = readline.question("");
 
             this.board.isGameOver(this.board.board)
@@ -97,8 +96,11 @@ class Game {
             console.clear();
             console.log(this.board.board.join(" "));
             console.log(`guesses: ${this.board.guesses.join(", ")}`);
-            console.log(`Moves remaining: ${this.board.movesRemaining}`)
-            this.board.placeLetter(this.guesser.getMove(this.referee), this.board.answer)
+            console.log(`Moves remaining: ${this.board.movesRemaining}`);
+
+            this.board.placeLetter(this.guesser.getMove(this.referee), this.board.answer);
+
+
             this.board.isGameOver(this.board.board);
 
         } // End of gameplay loop
