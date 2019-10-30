@@ -17,9 +17,9 @@ class Game {
 
         if(!this.board.board.includes("_")) {
             if(this.guesser instanceof HumanPlayer) {
-                return `${this.guesser.name} has won! It took ${11 - this.board.movesRemaining} moves`;
+                return `${this.guesser.name} has won! It took ${this.board.movesTaken} moves`;
             } else {
-                return `Computer has won! It took ${11 - this.board.movesRemaining} moves`;
+                return `Computer has won! It took ${this.board.movesTaken} moves`;
             } // End of guesser check
 
         } else {
@@ -55,8 +55,9 @@ class Game {
             let computerGuess = this.guesser.getMove(this.referee, this.board.guesses, this.board);
             this.board.placeLetter(computerGuess, this.board.answer);
             console.log(computerGuess);
+            this.board.movesTaken++;
 
-            let userContinue = readline.question("");
+            readline.question("");
 
             this.board.isGameOver(this.board.board)
 
@@ -73,6 +74,7 @@ class Game {
 
             this.board.placeLetter(this.guesser.getMove(this.referee), this.board.answer);
 
+            this.board.movesTaken++;
 
             this.board.isGameOver(this.board.board);
 
