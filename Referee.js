@@ -14,14 +14,15 @@ class Referee {
 
     // Computer needs to reveal word if not found or found
     reveal(){
-        let revealStr = "";
+        let revealStr = [];
         for(let i = 0; i < this.word.length; i++){
-            revealStr += this.word[i];
+            revealStr.push(this.word[i]);
         }
-        return revealStr;
+        return revealStr.join(" ");
     }
 
     charsGuessed(){
+        let guessedChars = []
         
     }
 
