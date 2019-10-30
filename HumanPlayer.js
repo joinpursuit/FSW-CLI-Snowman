@@ -1,8 +1,9 @@
 const readline = require('readline-sync');
 
 class HumanPlayer {    
-    constructor(word) {
+    constructor(name, word) {
         this.newWord = word ? word.toLowerCase() : word;
+        this.name = name;
     }
 
     secretWord() {
