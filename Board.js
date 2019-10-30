@@ -12,14 +12,8 @@ class Board {
 
     buildBoard(referee) {
         let newWordLength = referee.secretWord();
-
-        for(let i = 0; i < newWordLength; i++) {
-            this.board.push("_"); // Pushes an underscore into the board array for each character of the generated word
-        } // End of board creation
-
-        for(let i = 0; i < newWordLength; i++) {
-            this.answer[i] = referee.newWord[i]; // Pushes each character of the generated word into the answer array
-        } // End of answer creation
+        this.board = new Array(newWordLength).fill("_");
+        this.answer = [...referee.newWord]
 
     } // End of buildBoard() function
 
