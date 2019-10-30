@@ -14,8 +14,8 @@ class Computer {
   }
 
   randomWord(){
-    let secretWord = this.WORDS[Math.floor(Math.random()*this.WORDS.length-1)]
-    return secretWord.length-1
+    let secretWord = this.WORDS[Math.floor(Math.random()*this.WORDS.length)]
+    return secretWord
 
   }
   getMove(){
@@ -23,7 +23,7 @@ class Computer {
   }
 }
 let comp = new Computer()
-console.log(comp.randomWord());
+// console.log(comp.randomWord());
 
 
 module.exports = Computer
