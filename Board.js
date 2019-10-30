@@ -45,16 +45,23 @@ class Board {
         }
     } // End of isValidMove() function
 
-    validWord(word) {
+    validWord() {
         let inputWord = readline.question("Please input a word: ");
 
-        let validWord = false;
-        while(!validWord) {
-            console.log(isNaN(Number(inputWord)))
-            validWord = true;
-            break;
-        }
-    }
+        let wordValidity = false;
+        while(!wordValidity) {
+            if(!isNaN(Number(inputWord))) {
+                console.log("Please enter a valid word.");
+                inputWord = readline.question("Please input a word: ");
+            } else {
+                wordValidity = true;
+                break;
+            }
+            
+        } // End of validWord validity check
+
+        return inputWord;
+    } // End of validWord() function
 
     placeLetter(guess, answer) {
         if(this.isValidMove(guess)) {
