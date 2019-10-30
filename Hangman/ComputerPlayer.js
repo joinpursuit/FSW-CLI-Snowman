@@ -1,26 +1,14 @@
 const {words} = require("./words.js")
 
-class ComputerPLayer {
-}
-  
-  
-  
-  
-  
-//   constructor(secretWord, remainingGuesses, lettersGuessed,){
-//         this.secretWord = secretWord
-//         this.remainingGuesses = remainingGuesses
-//         this.lettersGuessed = lettersGuessed
-//         this.dictionary = words;
-//     }
-//   const getSecretWord = (wordArray) => {
-//   return (wordArray[Math.floor(Math.random() * wordArray.length)])
-//   }
-// }
+class ComputerPlayer {
+  constructor(){
+      this.words = words
+    
+    }
+    getSecretWord() {
+      return this.words[Math.floor(Math.random() * this.words.length)]
+    }
+  };
 
-
-// console.log(getSecretWord(allTheWords))
-
-
-
- 
+let computerPlayer = new ComputerPlayer()
+ComputerPlayer.getSecretWord()

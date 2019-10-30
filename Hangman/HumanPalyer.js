@@ -1,14 +1,15 @@
 const readline = require("readline-sync");
 
 class HumanPlayer {
-    constructor(name,letter) {
+    constructor(name) {
         this.name = name
-        this.letter = letter
     }
-    getLetter(input) {
-        input = readline.question("Please enter your guess: ")
+    getGreeting() {
+        let getGreetingName = readline.question("What is your name? ")
+        return getGreetingName
     }
+    clear terminal();
 }
-let danielle = new HumanPlayer("danielle", "i")
+let danielle = new HumanPlayer("danielle")
 console.log(danielle)
-console.log(danielle.getLetter())
+console.log(danielle.getGreeting())
