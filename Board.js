@@ -1,7 +1,5 @@
-const ComputerPlayer = require("./ComputerPlayer.js");
-const HumanPlayer = require("./HumanPlayer.js");
-const dictionary = require("./dictionary.js");
 const readline = require('readline-sync');
+const Moves = require("./moves.js");
 
 
 class Board {
@@ -34,13 +32,14 @@ class Board {
     } // End of isMoveLong() function
 
     isValidMove(guess) {
-        if(!isNaN(guess)) {
-            return false; // If the move is an integer between 0 & 9
-        } else if(!this.isMoveLong(guess)){
-            return false; // If the move is longer than 1 character
-        } else if(this.board.includes(guess.toLowerCase()) || this.guesses.includes(guess.toLowerCase())) {
-            return false; // If the board, or guesses arrays already contain the character guessed
+        if(!isNaN(guess) || guess === undefined || !this.isMoveLong(guess) || this.board.includes(guess.toLowerCase()) || this.guesses.includes(guess.toLowerCase())) {
+            return false; // If the move is a number, undefined, longer than 1 character, or included in guess/board arrays then this returns false
         } else {
+            for(let i = 0; i < guess.length; i++) {
+                if(!Moves.hasOwnProperty(guess[i].toUpperCase())) {
+                    return false;
+                }
+            }
             return true;
         }
     } // End of isValidMove() function
@@ -50,14 +49,23 @@ class Board {
 
         let wordValidity = false;
         while(!wordValidity) {
-            if(!isNaN(Number(inputWord))) {
+            let invalidChar = false;
+            for(let i = 0; i < inputWord.length; i++) {
+                if(!Moves[inputWord[i].toUpperCase()]) {
+                    invalidChar = true;
+                }
+            } // Check for invalid character
+
+            if(!isNaN(Number(inputWord)) || invalidChar) {
+                console.clear();
                 console.log("Please enter a valid word.");
-                inputWord = readline.question("Please input a word: ");
+                inputWord = readline.question("Input a word: ");
+
             } else {
                 wordValidity = true;
                 break;
+
             }
-            
         } // End of validWord validity check
 
         return inputWord;
