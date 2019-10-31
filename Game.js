@@ -13,6 +13,7 @@ class Game {
 
     playerWin() {
         console.clear();
+        this.board.buildVisualBoard();
         console.log(this.referee.revealWord(this.board));
 
         if(!this.board.board.includes("_")) {
@@ -48,6 +49,7 @@ class Game {
     computerGuesser() {
         while(!this.board.isGameOver(this.board.board)) {
             console.clear();
+            this.board.buildVisualBoard();
             console.log(this.board.board.join(" "));
             console.log(`guesses: ${this.board.guesses.join(", ")}`);
             console.log(`Moves remaining: ${this.board.movesRemaining}`)
@@ -68,6 +70,7 @@ class Game {
     playerGuesser() {
         while(!this.board.isGameOver(this.board.board)) {
             console.clear();
+            this.board.buildVisualBoard();
             console.log(this.board.board.join(" "));
             console.log(`guesses: ${this.board.guesses.join(", ")}`);
             console.log(`Moves remaining: ${this.board.movesRemaining}`);
