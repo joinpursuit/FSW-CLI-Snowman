@@ -60,7 +60,6 @@ class Board {
                     return false;
                 }
             }
-            this.movesTaken++;
             return true;
         }
     } // End of isValidMove() function

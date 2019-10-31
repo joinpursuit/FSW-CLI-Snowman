@@ -76,7 +76,7 @@ class Game {
             console.log(`Moves remaining: ${this.board.movesRemaining}`);
 
             this.board.placeLetter(this.guesser.getMove(this.referee), this.board.answer);
-
+            
             this.board.movesTaken++;
 
             this.board.isGameOver(this.board.board);

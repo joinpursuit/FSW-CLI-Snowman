@@ -4,18 +4,18 @@ class VisualBoard {
     }
 
     initialBoard() {
-        console.log("_________");
-        console.log("|       |");
-        console.log("        |");
-        console.log("        |");
-        console.log("        |");
-        console.log("     -------");
+        console.log("   _________");
+        console.log("   |       |");
+        console.log("           |");
+        console.log("           |");
+        console.log("           |");
+        console.log("        -------");
     }
 
     wrongGuess1Board() {
         console.log("   _________");
         console.log("   |       |");
-        console.log("  { }      |");
+        console.log(" {   }     |");
         console.log("           |");
         console.log("           |");
         console.log("        -------");
@@ -24,7 +24,7 @@ class VisualBoard {
     wrongGuess2Board() {
         console.log("   _________");
         console.log("   |       |");
-        console.log("  { }      |");
+        console.log(" {   }     |");
         console.log("   |       |");
         console.log("           |");
         console.log("        -------");
@@ -33,7 +33,7 @@ class VisualBoard {
     wrongGuess3Board() {
         console.log("   _________");
         console.log("   |       |");
-        console.log("  { }      |");
+        console.log(" {   }     |");
         console.log("   |       |");
         console.log("  /        |");
         console.log("        -------");
@@ -42,7 +42,7 @@ class VisualBoard {
     wrongGuess4Board() {
         console.log("   _________");
         console.log("   |       |");
-        console.log("  { }      |");
+        console.log(" {   }     |");
         console.log("   |       |");
         console.log("  / \\      |");
         console.log("        -------");
@@ -52,7 +52,7 @@ class VisualBoard {
     wrongGuess5Board() {
         console.log("   _________");
         console.log("   |       |");
-        console.log("  { }      |");
+        console.log(" {   }     |");
         console.log("  /|       |");
         console.log("  / \\      |");
         console.log("        -------");
@@ -61,7 +61,7 @@ class VisualBoard {
     wrongGuess6Board() {
         console.log("   _________");
         console.log("   |       |");
-        console.log("  { }      |");
+        console.log(" {   }     |");
         console.log("  /|\\      |");
         console.log("  / \\      |");
         console.log("        -------");
