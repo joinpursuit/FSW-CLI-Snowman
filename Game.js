@@ -223,6 +223,7 @@ class Game {
     } // End of difficultyChoice() function
 
     play() {
+        console.clear();
         let playerNumber = readline.question("How many players? (1 or 2) ");
         this.validNumberPlayers(playerNumber);
 
