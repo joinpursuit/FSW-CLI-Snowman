@@ -133,7 +133,7 @@ class Game {
     } // End of playerNames() function
 
     twoPlayerCharacterChoice(player1, player2) {
-        let p1Choice = readline.question("Player 1 would you like to be the [1] guesser or the [2] referee? ");
+        let p1Choice = readline.question(`${player1.name} would you like to be the [1] guesser or the [2] referee? `);
 
         let validInput = false;
         while(!validInput) {
@@ -154,7 +154,7 @@ class Game {
 
                 default: 
                     console.log("Please enter either 1 or 2.");
-                    p1Choice = readline.question("Player 1 would you like to be the [1] guesser or the [2] referee? ");
+                    p1Choice = readline.question(`${player1.name} would you like to be the [1] guesser or the [2] referee? `);
             } // End of p1Choice switch
         } // End of validInput loop
     }  // End of twoPlayerCharacterChoice() function
