@@ -1,6 +1,6 @@
 const readline = require('readline-sync');
 const Moves = require("./moves.js");
-
+const VisualBoard = require("./VisualBoard.js")
 
 class Board {
     constructor() {
@@ -9,6 +9,7 @@ class Board {
         this.guesses = [];
         this.movesRemaining = 9; 
         this.movesTaken = 0;  
+        this.visualBoard = new VisualBoard();
     } // End of constructor
 
     buildBoard(referee) {
@@ -17,6 +18,30 @@ class Board {
         this.answer = [...referee.newWord]
 
     } // End of buildBoard() function
+
+    buildVisualBoard() {
+        if(this.movesRemaining === 9) {
+            this.visualBoard.initialBoard();
+        } else if(this.movesRemaining === 8) {
+            this.visualBoard.wrongGuess1Board();
+        } else if(this.movesRemaining === 7) {
+            this.visualBoard.wrongGuess2Board();
+        } else if(this.movesRemaining === 6) {
+            this.visualBoard.wrongGuess3Board();
+        } else if(this.movesRemaining === 5) {
+            this.visualBoard.wrongGuess4Board();
+        }  else if(this.movesRemaining === 4) {
+            this.visualBoard.wrongGuess5Board();
+        }  else if(this.movesRemaining === 3) {
+            this.visualBoard.wrongGuess6Board();
+        } else if(this.movesRemaining === 2) {
+            this.visualBoard.wrongGuess7Board();
+        } else if(this.movesRemaining === 1) {
+            this.visualBoard.wrongGuess8Board();
+        } else if(this.movesRemaining === 0) {
+            this.visualBoard.wrongGuess9Board();
+        }
+    }
 
     isMoveLong(guess) {
         if(guess.length > 1 || guess.length === 0) {
