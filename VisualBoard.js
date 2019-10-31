@@ -94,3 +94,5 @@ class VisualBoard {
         console.log("        -------");
     }
 }
+
+module.exports = VisualBoard;
