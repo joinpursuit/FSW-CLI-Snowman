@@ -7,7 +7,7 @@ class Board {
         this.board = []; 
         this.answer = [];
         this.guesses = [];
-        this.movesRemaining = 11; 
+        this.movesRemaining = 9; 
         this.movesTaken = 0;  
     } // End of constructor
 
@@ -35,6 +35,7 @@ class Board {
                     return false;
                 }
             }
+            this.movesTaken++;
             return true;
         }
     } // End of isValidMove() function
