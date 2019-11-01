@@ -1,45 +1,48 @@
 const readline = require("readline-sync");
 let dictionary = ["oh", "yes", "find", "where", "please","welcome", "is", "duck","nine", "company", "fresh", "road", "visit", "frequent", "search", "count", "slow", "fine", "doll", "teeny", "lovely", "jelly", "deserted", "unknown", "whisper", "bat", "pies", "afternoon", "brush", "cream", "fold", "airport", "relation", "hole", "hands", "lake", 
 "flimsy", "bath", "female", "decide", "bounce", "volleyball", "pull", "bike", "woozy", "prickly", "egg", "grease", "ready", "property", "plain", "milk", "rapid", "oceanic"];
-let secretWord = [];
-let guess = undefined;
+// let secretWord = null;
+// let guess = undefined;
 
 
 class ComputerPlayer {
     constructor(name) {
         this.name = name;
-        this.secretWord = secretWord;
+        this.secretWord = null;
         this.dictionary = dictionary;
-        this.guess = guess
+        this.reamining = 9;
+        this.guess = null;
+        this.goodGuess = null;
+        this.badGuess = null;
     }
+
     getWord(){
-        secretWord = dictionary[Math.floor(Math.random()*(dictionary.length))];
-        return secretWord.length
+        this.secretWord = dictionary[Math.floor(Math.random()*(dictionary.length))];
+        return this.secretWord.length
     }
+
     getReveal(){
-        return secretWord
+        return this.secretWord
     }
+
     getMove (){ 
-        return guess = readline.question("Enter your guess   ");
+        this.guess = readline.question("Enter your guess   ");
+        if(this.secretWord.includes(this.guess)){
+                this.goodGuess = this.guess;
+                return (`we have "${this.guess}" and move reamining ${this.reamining-=1}`)
+            }
+            else{
+                    this.badGuess= this.guess;
+                    return (`We dont have any "${this.guess}" in the word` + ` and move reamining ${this.reamining-=1}`)
+                }
+            }
     }
-    // getPostion(guess){
-    //     if(this.secretWord.includes(this.guess)){
-    //         return (`we have ${this.guess}`)  
-    //     }
-    //     else{
-    //         return ("Didnt have any in the word") + this.secretWord.includes(this.guess) + console.log(this.guess)
-    //     }
-    // }
-}
-
-
-let referee = new ComputerPlayer("Referee")
-
-// console.log(referee.getWord())
-// console.log(referee.getReveal())
-// // console.log(referee.getMove())
-// console.log(referee.getPostion(referee.getMove()))
-// console.log(referee.getPostion(referee.getMove()))
-// console.log(ComputerPlayer())
-
-module.exports = ComputerPlayer;
+              
+            
+            let referee = new ComputerPlayer("Referee")
+            
+            console.log(referee.getWord())
+            console.log(referee.getReveal())
+            console.log(referee.getMove())
+            module.exports = ComputerPlayer;
+            
