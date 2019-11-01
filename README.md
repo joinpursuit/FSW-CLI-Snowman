@@ -16,19 +16,19 @@ For this assignment, you will build [hangman](http://www.justhangman.com/)
 
 ### Obeject Oriented Programming 
 You should build this game in true OOP fashion. To write this game it will be helpful to think about the two players as referee and guesser. If you choose to make both roles interchangable your ComputerPlayer and HumanPlayer will need to have the same method calls available. Think about the following classes that may be helpful. 
-1. Board
-  * This would construct a board to the length. 
-  * It should check if the board is complete. 
-  * It should be able to add characters at differnect indicies. 
+1. Board X
+  * This would construct a board to the length.X 
+  * It should check if the board is complete. X
+  * It should be able to add characters at differnect indicies. X
 2. HumanPlayer 
-  * Will need to getMove from player. 
-  * Display the board. 
+  * Will need to getMove from player. X
+  * Display the board. X
   * Possibly a select secret word that returns the length. 
   * Possibly a givePostioins that returns an array of indicies. 
   * Possibly a reveal word. 
 3. ComputerPlayer 
-  * Should have a dictionary.
-  * Should have secretWord and return it's length. 
+  * Should have a dictionary. x
+  * Should have secretWord and return it's length. X
   * Should have a reveal. 
   * Should give the positions of guessed characters. 
   * Possibly have a getMove. 
