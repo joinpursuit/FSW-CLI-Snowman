@@ -13,16 +13,16 @@ class ComputerPlayer {
 
     secretWord(){
       this.newWord = this.dictionary[Math.floor(Math.random() * (this.dictionary.length))]      
-        return this.newWord.length
+      return this.newWord.length
     }
 
     revealWord(){
-       for(let i = 0; i < this.newWord.length, i++){
-        
-       }
+        return this.newWord
     }
+       
+
 
 
 
 }
-  
+module.exports = ComputerPlayer
