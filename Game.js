@@ -31,7 +31,7 @@ class Game {
             return false;
         }
     }
-
+    
     // Game should be able to initiate play
     play() {
         console.clear();

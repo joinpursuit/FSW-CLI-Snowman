@@ -31,6 +31,7 @@ class Referee {
         }
         return guessCharacter
     }
+    
 }
 
 module.exports = Referee
@@ -40,5 +41,5 @@ module.exports = Referee
 // console.log(ref.secretWordLength());
 // console.log(ref.reveal())
 
-
+ 
 
