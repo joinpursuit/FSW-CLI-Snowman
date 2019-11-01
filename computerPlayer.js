@@ -19,7 +19,7 @@ const {dictionary} = require("./dictionary.js")
      return this.secretWord
   }
 
-  computerGuess
+  
 }
 
   
