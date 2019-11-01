@@ -14,8 +14,14 @@ const {dictionary} = require("./dictionary.js")
   }
 
   secretWordLength() { return this.secretWord.length}
+
+  reveal() {
+     return this.secretWord
+  }
 }
+
   
 
 let Con = new ComputerPlayer("Alex")
 console.log(Con.secretWord)
+console.log(Con.reveal())
