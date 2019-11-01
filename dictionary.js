@@ -73,4 +73,4 @@ let dictionary=
     "wool", "word", "work", "worm", "wound", "writing", "wrong", "year", "yellow", "yesterday", "young"
 ];
 
-module.exports = dictionary;
+module.exports = {dictionary};
