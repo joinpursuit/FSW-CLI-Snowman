@@ -1,6 +1,4 @@
 const readline = require("readline-sync");
-const Board = require("./Board.js");
-
 
 class Guesser {
     constructor(name) {
@@ -13,10 +11,6 @@ class Guesser {
         return guess;
     }
 
-    displayBoard(){
-        let disBoard = board.board;
-        return disBoard.join(" ");
-    }
 
 }
 

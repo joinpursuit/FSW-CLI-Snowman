@@ -26,14 +26,11 @@ class Referee {
         let guessCharacter = []
         for (let i = 0; i < this.word.length; i++){
             if(guessLetter === this.word[i]){
-                guessCharacter.push(i)
-               }
-           }
-               return guessCharacter
-       }
+                guessCharacter.push(i);
+            }
+        }
+        return guessCharacter
     }
-
-
 }
 
 module.exports = Referee

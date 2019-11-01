@@ -20,6 +20,11 @@ class Board {
             return false;
         }
     }
+
+    displayBoard(){
+        console.log(this.board.join(" "));
+    }
+
 }
 
 module.exports = Board;
