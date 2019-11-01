@@ -57,7 +57,7 @@ class Game {
 }
 }
 
-
+   
 
 function getValidLetterGuess() {
   function guessIsValid(letter) {
