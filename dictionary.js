@@ -1,4 +1,4 @@
-let words= 
+let dictionary= 
 ["able", "about", "account", "acid", "across",
     "addition", "adjustment", "advertisement", "after", "again", "against",
     "agreement", "almost", "among", "amount", "amusement", "angle", "angry",
@@ -73,4 +73,4 @@ let words=
     "wool", "word", "work", "worm", "wound", "writing", "wrong", "year", "yellow", "yesterday", "young"
 ];
 
-module.exports = words;
+module.exports = dictionary;
