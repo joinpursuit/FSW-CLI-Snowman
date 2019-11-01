@@ -1,7 +1,7 @@
 // ComputerPlayer 
 //   Should have a dictionary.
 //   Should have secretWord and return it's length. 
-//   * Should have a reveal. 
+//   Should have a reveal. 
 //   * Should give the positions of guessed characters. 
 //   * Possibly have a getMove. 
 const {dictionary} = require("./dictionary.js")
@@ -18,6 +18,8 @@ const {dictionary} = require("./dictionary.js")
   reveal() {
      return this.secretWord
   }
+
+  computerGuess
 }
 
   
