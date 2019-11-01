@@ -24,6 +24,7 @@ const {dictionary} = require("./dictionary.js")
 
   
 
-let Con = new ComputerPlayer("Alex")
-console.log(Con.secretWord)
-console.log(Con.reveal())
+// let Con = new ComputerPlayer("Alex")
+// console.log(Con.secretWord)
+// console.log(Con.reveal())
+module.exports = ComputerPlayer

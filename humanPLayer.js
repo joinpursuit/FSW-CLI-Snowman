@@ -12,8 +12,8 @@ class HumanPlayer {
         this.name = name; 
     }
     getMove() {
-        let userGuess = readline.question("Please Enter A Letter!");
-        return userGuess.toLocaleLowerCase();
+        let userGuess = readline.question("Please Enter A Letter: ");
+        return userGuess.toLowerCase();
     }
 }
 

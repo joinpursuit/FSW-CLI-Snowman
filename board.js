@@ -25,7 +25,7 @@ class Board {
   }  
 
   display() {
-    console.log(this.board)
+    console.log(this.board.join(" "))
   }
 }
 
