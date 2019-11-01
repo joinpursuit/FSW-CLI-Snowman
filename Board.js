@@ -41,7 +41,7 @@ class Board {
         } else if(this.movesRemaining === 0) {
             this.visualBoard.wrongGuess9Board();
         }
-    }
+    } // End of buildVisualBoard() function;
 
     isMoveLong(guess) {
         if(guess.length > 1 || guess.length === 0) {
