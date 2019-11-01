@@ -11,10 +11,11 @@ const dictionary = require("./hangmanDictionary.js")
 class computerPlayer {
     constructor () {
         this.dictionary = dictionary
+        this.word = word
     }
     secretWord() {
         let secretWord = this.dictionary[Math.floor(Math.random() * this.dictionary.length)];
-        boardLength = secretWord.length
+        this.word = secretWord
     }
 }
 

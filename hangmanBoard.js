@@ -14,14 +14,14 @@ class Board {
         this.board[i] = "_"
         this.board = this.board.join("")
     }
-  addChar(letter) {
+  addCharacter(character) {
         for(let i = 0; i < this.word.length; i++){
-            if(this.word[i] === letter){
-                this.board[i] = letter
+            if(this.word[i] === character){
+                this.board[i] = character
             }
         }
     }
-    completedGame(){
+    gameTermination(){
         if (this.board.join() === this.word ) {
             return true
         }else{
@@ -30,16 +30,6 @@ class Board {
     }
     
 }
-let board1 = new Board();
-board1.randomWord()
-console.log(board1.board)
-console.log(board1.word)
-board1.fillBoard()
-console.log(board1.board)
-let letter = "a"
-board1.addChar(letter)
-console.log(board1.board)
-console.log(board1.completedGame())
 
 
 
