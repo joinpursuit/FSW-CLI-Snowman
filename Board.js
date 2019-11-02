@@ -1,12 +1,12 @@
 const word = require("./ComputerPlayer")
 
 class Board{
-  constructor(word){
-    this.board = new Array([word].length).fill("_");
+  constructor(){
+    this.board = new Array(word.length).fill("_");
     this.movesRemaining = 6;
   } //Get word from computerRef and should print number of _; 6 tries for arms, legs, body, and head
   displayBoard(){
-    console.log(this.board)
+    console.log()
   }
   checkBoard(){
     for(let i = 0; i < this.board.length; i++){
@@ -27,6 +27,6 @@ class Board{
     });
   }
 }
-
-console.log(Board)
+let board1 = new Board()
+console.log(board1)
 module.exports = Board
