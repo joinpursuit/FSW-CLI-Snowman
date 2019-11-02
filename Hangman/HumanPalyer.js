@@ -6,9 +6,8 @@ class HumanPlayer {
     }
     getGreeting() {
         let getGreetingName = readline.question("What is your name? ")
-        return getGreetingName
+        console.log("Hello " + this.name + "lets play a game of hangman!!!")
     }
-    clear terminal();
 }
 let danielle = new HumanPlayer("danielle")
 console.log(danielle)

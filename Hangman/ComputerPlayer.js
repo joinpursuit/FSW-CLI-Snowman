@@ -3,12 +3,23 @@ const {words} = require("./words.js")
 class ComputerPlayer {
   constructor(){
       this.words = words
-    
     }
     getSecretWord() {
-      return this.words[Math.floor(Math.random() * this.words.length)]
+      let singleWord = words[Math.floor(Math.random() * this.words.length)];
+      return(singleWord);
     }
-  };
+    talk(){
+      console.log("test");
+    }
+    wordRevel() {
+      this.wordRevel = getSecretWord(words)
+    }
+    charGuessed(){
+      
+    }
+  }
+  
+module.exports = {ComputerPlayer}
 
-let computerPlayer = new ComputerPlayer()
-ComputerPlayer.getSecretWord()
+// let refree = new ComputerPlayer()
+// console.log(refree.getSecretWord())
