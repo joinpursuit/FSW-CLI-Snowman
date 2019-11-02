@@ -1,17 +1,28 @@
 const readline = require('readline-sync');
+const ComputerPlayer = require('./ComputerPlayer.js')
+const HumanPlayer = require('./HumanPlayer.js')
+const Board = require('./Board.js')
 
-function getValidLetterGuess() {
-  function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+class HangmanGame {
+  constructor() {
+    this.comp = new ComputerPlayer();
+    this.human = new HumanPlayer();
+    this.guessesRemaining = 6;
+    this.board = new Board();
   }
-  let letter = ""
-  while (!letter) {
-    let input = readline.question("Please enter your guess: ")
-    if (guessIsValid(input)) {
-      letter = input
-    } else {
-      console.log("Please enter a valid letter")
-    }
+  getMove() {
+    return readline.question("Enter a Letter: ")
   }
-  return letter.toLowerCase()
+  play() {
+
+  }
+  isValid() {
+
+  }
+  isGameOver() {
+
+  }
 }
+
+let game = new HangmanGame();
+console.log(game.computer.word)
