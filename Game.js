@@ -1,22 +1,32 @@
-const HumanPlayer = require("./HumanPlayer")
-const Board = require("./Board")
-class Game {
-    constructor() {
+const HumanPlayer = require("./HumanPlayer.js")
+const ComputerPlayer = require("./ComputerPlayer.js")
+const Board = require("./Board.js")
+
+class Game{
+    constructor(player){
+        this.player = player;
         this.board = new Board()
     }
-    gameOver(){ // if out of moves
-        if(this.movesremaining === 0){
-            return "You lost try again"
+    play(){
+        while(this.ComputerPlayer.checkBoard() === false){
+            this.board.displayBoard();
+            // console.log(this.player.name, "Its your turn")
+            let move = this.player.getMove();
+            this.board.addLetter();
+            if(this.board.checkBoard() === true){
+                console.log("Congrats you guessed the word")
+            }
         }
     }
-    play(){
-        while(!this.gameOver()){
-            this.board;
-            move = this.human.getMove();
-            this.board.placeMark(move)
+    gameOver(){
+        if (this.movesRemaining === 0){
+            break;
+            console.log("Game over, you lose")
         }
     }
 }
 
-let game = new Game(new HumanPlayer())
-game.play()
+let player = new HumanPlayer ("You");
+let ref = new ComputerPlayer ();
+let game = new Game([player, ref])
+game.play

@@ -1,16 +1,14 @@
 const readline = require("readline-sync");
-class humanPlayer{
-    constructor(){
+
+class HumanPlayer{
+    constructor(name){
         this.name = name;
     }
     getMove(){
-        return readline.question("Please Enter Your Guess: ")   
-    }
-    displayBoard(){
-        return this.board
+        return readline.question("What is your guess? ")
     }
 }
-let corey = new humanPlayer("C-Dog")
-console.log(corey.getMove())
+const player = new HumanPlayer ("You")
+player.getMove()
 
 module.exports = HumanPlayer
