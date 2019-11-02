@@ -21,12 +21,12 @@ class Board {
         for(let i = 0; i < this.word.length; i++){
             if(this.word[i] === this.guess){
             this.board[i] = guess
+            console.log(this.board.join(" "))
             this.guessesRemaining --
             this.letterRemaining --
             this.winner()
             }
         }
-        console.log(this.board.join(" "))
     }
     gameOver(){
         if (guessesRemaining = 0 && this.lettersRemaining < 0){

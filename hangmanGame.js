@@ -1,9 +1,9 @@
 const readline = require('readline-sync')
 
 const readline = require('readline-sync')
-const HumanPlayer = require("./hangmanHumanPlayer.js")
-const ComputerPlayer = require("./hangmanComputerPlayer.js")
-const Board = require("./hangmanBoard.js")
+const humanPlayer = require("./hangmanHumanPlayer.js")
+const computerPlayer = require("./hangmanComputerPlayer.js")
+const board = require("./hangmanBoard.js")
 
 
 // 4. Game 
@@ -20,7 +20,10 @@ class Game {
         this.board = new Board()
         }
     play(){
-        while (!this.gameOver())
+        while (!this.gameOver()){
+            this.board.populateBoard()
+            this.board.addGuess()
+        }
     }
 
 }
