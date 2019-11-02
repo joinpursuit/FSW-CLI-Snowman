@@ -11,16 +11,18 @@ class HumanPlayer {
     userInput = readline.question('Enter your Letter:')
     return userInput
   }
-  displayBoard(){
-      let newBoard = new Board('word')
+  displayBoard(word){
+      
+    let newBoard = new Board(word)
       return newBoard
+     
 
   }
 
 }
-let player1 = new HumanPlayer('danny')
 
 
-player1.displayBoard()
+
+
 
 
