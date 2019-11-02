@@ -8,7 +8,12 @@ class ComputerPlayer{
         return this.dictionary[randIndx]
     }
     reveal(){
-        return 
+        let revealLtr = [];
+        let  i = 0;
+        while(i < this.word.length){
+            revealLtr.push(this.word[i]);
+            i++;
+        }
     }
     guessedCharacters(){
 
