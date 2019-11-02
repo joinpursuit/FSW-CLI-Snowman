@@ -91,7 +91,7 @@ if(this.guessRemaining === 0){
  }
 if(this.board.isComplete(this.computer.word)){
     console.clear()
-    
+
     this.board.displayBoard();
     // let secretWord = this.computer.word
     console.log(`UGH! ${name} YOUR FREE TO GO! RUN! GO ON!`)
@@ -116,6 +116,7 @@ isValid(guess){
     return valid
 }
 
+//checks if gam is over
 isGameOver(){
     if (this.guessesRemaining <= 0 || this.board.isComplete(this.computer.word)){
         return true;

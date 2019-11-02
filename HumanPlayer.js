@@ -15,16 +15,15 @@ class HumanPlayer {
    constructor(player){
        this.player = player
    }
-
+   // ask the player for a move 
    getMove(){
        return readline.question("Please choose a letter")
    }
+
    displayBoard(board){
        return board.join(" ")
    }
-   getName(){
-       return this.name
-   }
+
 }
 module.exports = HumanPlayer
 
