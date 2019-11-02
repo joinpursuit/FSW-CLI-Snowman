@@ -22,15 +22,14 @@ class Game {
         lettersRemaining = this.lettersRemaining
         }
     gameOver(){
-        if (guessesRemaining = 0){
-        console.log("No Guesses Remaining")
+        if (guessesRemaining = 0 && this.lettersRemaining < 0){
+        console.log("No Guesses Remaining.  You LOSE")
         }
     }
-    gameTermination() {
+    Winner() {
         if (this.board.join() === this.word) {
-        return true
-        } else {
-        return false
+        return 
+        } 
         }
     play(){
         while (!this.gameOver())
