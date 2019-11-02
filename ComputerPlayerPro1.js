@@ -1,11 +1,17 @@
+const ALPHABET = [
+    "a", "b", "c", "d", "e",
+    "f", "g", "h", "i", "j",
+    "k", "l", "m", "n", "o",
+    "p", "q", "r", "s", "t",
+    "u", "v", "w", "x", "y",
+    "z"];
+
 class ComputerPlayer {
-    constructor (){
-        this.name = name;
+    constructor() {
+        this.name = "AI"
     }
-    guessLetter() {
-        const letter = 'abcdefghijklmnopqrstuvwxyz';
-        return letter[Math.floor(Math.random() * letter.length)]
+    computerGuess() {
+        return ALPHABET[Math.floor(Math.random() * 26)]
     }
 }
-
 module.exports = ComputerPlayerPro1;

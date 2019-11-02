@@ -1,12 +1,11 @@
 const readline = require("readline-sync");
 
 class HumanPlayer {
-    constructor (){
+    constructor (name){
         this.name = name;
     }
     guessLetter() {
-        const letter = 'abcdefghijklmnopqrstuvwxyz';
-        return letter[Math.floor(Math.random() * letter.length)]
+        return readline.question("guess a letter: ");
     }
 }
 
