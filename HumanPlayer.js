@@ -1,7 +1,7 @@
 const readline = require('readline-sync');
 
 class HumanPlayer {    
-    constructor(name, word) {
+    constructor(name = "player", word) {
         this.newWord = word ? word.toLowerCase() : word;
         this.name = name;
     }

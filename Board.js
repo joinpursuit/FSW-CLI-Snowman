@@ -91,9 +91,9 @@ class Board {
         return inputWord.toLowerCase();
     } // End of validWord() function
 
-    placeLetter(guess, answer) {
+    placeLetter(guess) {
         if(this.isValidMove(guess)) {
-            answer.forEach((el, i) => {
+            this.answer.forEach((el, i) => {
                 if(el === guess.toLowerCase()) {
                     this.board[i] = guess.toLowerCase();
                 }

@@ -55,7 +55,7 @@ class Game {
             console.log(`Moves remaining: ${this.board.movesRemaining}`)
 
             let computerGuess = this.guesser.getMove(this.referee, this.board.guesses, this.board);
-            this.board.placeLetter(computerGuess, this.board.answer);
+            this.board.placeLetter(computerGuess);
             console.log(computerGuess);
             this.board.movesTaken++;
 
@@ -75,7 +75,7 @@ class Game {
             console.log(`guesses: ${this.board.guesses.join(", ")}`);
             console.log(`Moves remaining: ${this.board.movesRemaining}`);
 
-            this.board.placeLetter(this.guesser.getMove(this.referee), this.board.answer);
+            this.board.placeLetter(this.guesser.getMove(this.referee));
             
             this.board.movesTaken++;
 
