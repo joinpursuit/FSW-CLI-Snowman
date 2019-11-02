@@ -14,13 +14,18 @@ class ComputerPlayer{
             revealLtr.push(this.word[i]);
             i++;
         }
+        return revealLtr.join("");
     }
-    guessedCharacters(){
-
-    }
-    getMove(){
-
+    guessedCharacters(gsWrd){
+        let guessedLtr = [];
+        let i = 0;
+        while(i < this.word.length){
+            if(gsWrd === this.word[i]){
+                guessedLtr.push(i);
+            }
+            i++;
+        }
+        return guessedLtr
     }
 }
-let comp = new ComputerPlayer()
-console.log(comp.secretWord())
+module.exports = ComputerPlayer
