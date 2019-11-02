@@ -10,26 +10,14 @@ class HumanPlayer {
         return readline.question("Enter your letter!: ") 
     }
 
-    displayBoard(board) {  // shows the current updated board
-        let arr = []
-        for (let i = 0; i < board.length; i++)     
-        arr.push(board.get(i))
-        return arr
+    displayBoard(board) {  
+       return board.map((el) => {
+           this.board[el]
+        })    
     }
-
-    secretWord() { // returns the length of the board
-        return          
-    }
-
-    givePositions(char, board) {
-        if (board[char]) {
-            return indexOf(board[char])
-        } 
-    }
-
     
 }
 
 let human = new HumanPlayer("Marvin")
-console.log(human.getMove())
+console.log(human.displayBoard(new Array(5)))
 module.exports = HumanPlayer;
