@@ -9,8 +9,8 @@ class Board {
     constructor(){
         this.board = []
         this.word = hangmanComputerPlayer.secretWord()
-        guessesRemaining = 7
-        lettersRemaining = this.lettersRemaining
+        let guessesRemaining = 7
+        let lettersRemaining = this.word.length
     }
     populateBoard(){ 
         for(let i = 0; i < this.word.length; i++){
@@ -21,6 +21,8 @@ class Board {
         for(let i = 0; i < this.word.length; i++){
             if(this.word[i] === this.guess){
             this.board[i] = guess
+            this.guessesRemaining --
+            this.letterRemaining --
             }
         }
         console.log(this.board.join(" "))
@@ -32,7 +34,7 @@ class Board {
     }
     Winner() {
         if (this.board.join("") === this.word) {
-        return 
+        console.log("You know relational cognitive associations!!!"")
         } 
         }
 }
