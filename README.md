@@ -11,7 +11,7 @@
 1. Submit a Pull Request back to the assignment repo
 1. Paste a link to of your Fork on Canvas and submit
 
-For this assignment, you will build [hangman](http://www.justhangman.com/)  
+For this assignment, you will build [hangman](http://www.justhangmancd.com/)  
 
 
 ### Obeject Oriented Programming 
