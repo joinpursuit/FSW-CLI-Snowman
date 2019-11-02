@@ -22,15 +22,16 @@ class Referee {
     }
 
     // Computer should be able to have an array of letter indices that can check where letters are in the word
-    guessCharacters(guessLetter){
-        let guessCharacter = []
-        for (let i = 0; i < this.word.length; i++){
-            if(guessLetter === this.word[i]){
-                guessCharacter.push(i);
-            }
-        }
-        return guessCharacter
-    }
+    // THIS METHOD not needed because we mutate the board and display there
+    // guessCharacters(guessLetter){
+    //     let guessCharacter = []
+    //     for (let i = 0; i < this.word.length; i++){
+    //         if(guessLetter === this.word[i]){
+    //             guessCharacter.push(i);
+    //         }
+    //     }
+    //     return guessCharacter
+    // }
     
 }
 
