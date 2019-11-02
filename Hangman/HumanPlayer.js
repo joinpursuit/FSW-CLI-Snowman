@@ -1,5 +1,5 @@
 const readline = require("readline-sync");
-const Board = require("./Board.js")
+// const Board = require("./Board.js")
 
 class HumanPlayer {
     constructor(name) {
@@ -17,11 +17,11 @@ class HumanPlayer {
     }
 }
 
-// module.exports = {HumanPlayer};
-let danielle = new HumanPlayer();
+module.exports = {HumanPlayer};
+// let danielle = new HumanPlayer();
 
-console.log(danielle)
-danielle.getGreeting()
+// console.log(danielle)
+// danielle.getGreeting()//gettign undefine becaunse conseoling when you don't have to!!!!!!!!
 // console.log(danielle.getMove())
 // console.log(danielle.displayBoard())
 
