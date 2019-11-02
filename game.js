@@ -1,6 +1,6 @@
-const ComputerPlayer = require('./ComputerPlayer.js')
-const HumanPlayer = require('./HumanPlayer.js')
-const Board = require('./Board.js')
+const ComputerPlayer = require('./computerPlayer.js')
+const HumanPlayer = require('./Human.js')
+const Board = require('./board.js')
 const readline = require("readline-sync")
 
 class Game{
