@@ -5,11 +5,26 @@ const {allTheWords} = require("./word.js")
 
 
 class Game {
-    constructor(players) {       
+    constructor() {       
         this.words = allTheWords
-        this.remainingLetters = ""
         this.wrongMoves = 7
-        this.guesser = ""
-        this.referee = ""
+        this.guesser = new HumanPlayer("Bob")
+        this.referee = new ComputerPlayer()
+        this.board = new Board(length)
     }
+
+    play() {
+        while(this.wrongMoves > 0) {
+            this.board(this.referee.secretWord().length)
+            this.guesser.displayBoard(this.board)
+            this.guesser.getMove()
+
+        }
+
+    }
+
 }
+
+let game = new Game()
+
+console.log(game.play())
