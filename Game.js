@@ -54,3 +54,5 @@ class Game{
 let newPlayer = readline.question("What is your name?")
 let newGame = new Game(new HumanPlayer(newPlayer))
 newGame.play()
+
+//cant pusha
