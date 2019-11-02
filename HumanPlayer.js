@@ -1,9 +1,9 @@
 class HumanPlayer{
-    constructor(){
+    constructor(name){
+        this.name = name;
 
     }
     getMove(){
-
+        
     }
-    se
 }
