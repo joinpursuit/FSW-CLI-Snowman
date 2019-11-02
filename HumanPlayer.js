@@ -18,7 +18,7 @@ class HumanPlayer {
     }
 
     secretWord() { // returns the length of the board
-            
+        return          
     }
 
     givePositions(char, board) {

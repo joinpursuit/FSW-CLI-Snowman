@@ -8,17 +8,17 @@ class ComputerPlayer {
     
     secretWord() {
         this.secretWord = Math.floor(Math.random() * this.dictionary.length)
-        return this.secretWord.length
-    }
-
-    reveal() {
         return this.secretWord
     }
 
-    
+    reveal() {
+        return this.secretWord()
+    }
+
+
 }
 
-
+module.exports = ComputerPlayer
 
 
 

@@ -1,24 +1,36 @@
+const {allTheWords} = require("./word.js")
+
 class Board {
-    constructor(word) {         
-        this.board = new Array(word.length).fill("_")
-        this.guessesRemaining = 7
-    }
-    completeBoard() {
-        return this.board.every((el) => {
-            return el !== "_"
-        })       
-
-    }
-
-    addCharacter(move) {
+    constructor(length) {     
+        this.board = new Array(length).fill("_")
+        this.filled = false
         
+    }
+
+    completeBoard() {
+        if (!this.board.includes("_")) {
+            return this.filled = true
+        } else {
+            return this.filled = false
+        }    
+
+    }
+
+    addCharacter(word, char) {
+        for (let i = 0; i < word.length; i++) {
+            if (word[i] === char) {
+                this.board[i] = char
+            } 
+        }
+        return this.board
+            
     }
 
 }
 
 
 let test = new Board(5)
-console.log(test.addCharacter("Pizza", "i"))
+console.log(test.addCharacter("Pizza", "z"))
 
 module.exports = Board
 
