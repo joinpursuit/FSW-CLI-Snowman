@@ -11,6 +11,7 @@ class HumanPlayer {
     }
     getMove() {
         this.getMove = readline.question("Guess a letter ")
+        return 
     }
     displayBoard() {
         
