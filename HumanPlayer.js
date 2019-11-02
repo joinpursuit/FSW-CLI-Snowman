@@ -5,8 +5,8 @@ class HumanPlayer {
         this.name = name;
         // this.guess = guess;
     }
-    getMove(){
-        return this.name + " would make a move now" + readline.question("what is your letter guess")
+    getMove (){ 
+
     }
     getBoard(){
 

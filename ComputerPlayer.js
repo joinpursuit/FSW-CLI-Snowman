@@ -1,9 +1,6 @@
 const readline = require("readline-sync");
 let dictionary = ["oh", "yes", "find", "where", "please","welcome", "is", "duck","nine", "company", "fresh", "road", "visit", "frequent", "search", "count", "slow", "fine", "doll", "teeny", "lovely", "jelly", "deserted", "unknown", "whisper", "bat", "pies", "afternoon", "brush", "cream", "fold", "airport", "relation", "hole", "hands", "lake", 
 "flimsy", "bath", "female", "decide", "bounce", "volleyball", "pull", "bike", "woozy", "prickly", "egg", "grease", "ready", "property", "plain", "milk", "rapid", "oceanic"];
-// let secretWord = null;
-// let guess = undefined;
-
 
 class ComputerPlayer {
     constructor(name) {
@@ -39,10 +36,10 @@ class ComputerPlayer {
     }
               
             
-            let referee = new ComputerPlayer("Referee")
+            // let referee = new ComputerPlayer("Referee")
             
-            console.log(referee.getWord())
-            console.log(referee.getReveal())
-            console.log(referee.getMove())
+            // console.log(referee.getWord())
+            // console.log(referee.getReveal())
+            // console.log(referee.getMove())
             module.exports = ComputerPlayer;
             

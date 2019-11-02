@@ -1,20 +1,22 @@
-const ComputerPlayer = require("./ComputerPlayer.js")
+// const ComputerPlayer = require("./ComputerPlayer.js")
 
 class Board {
-    constructor(word){
-        this.word = word;
-        this.winner = undefined;
-        this.board = new Array(this.word.lenght).fill("_")
+    constructor(length){
+        this.lenght = length
+        this.board = new Array(this.lenght).fill("_")
+    }
+    displayBoard(){
+        return this.board
     }
     placeCharacter(idx, letter){
         this.board[idx] = letter
         return this.board
     }
-    
 }
 
-// let board = new Board(4);
-
+// let board = new Board(5);
+// console.log(board.displayBoard())
+// console.log(board.placeCharacter(0,"a"))
 // console.log(board)
 
 
