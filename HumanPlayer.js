@@ -5,21 +5,6 @@ class HumanPlayer {
         this.name = name;
         // this.guess = guess;
     }
-    getMove (){ 
-
-    }
-    getBoard(){
-
-    }
-    secretWord(){
-
-    }
-    givePostions(){
-
-    }
-    revealWord(){
-
-    }
 }
 
 

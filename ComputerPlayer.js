@@ -10,7 +10,7 @@ class ComputerPlayer {
         this.reamining = 9;
         this.guess = null;
         this.goodGuess = null;
-        this.badGuess = null;
+        this.badGuess = [];
     }
 
     getWord(){
@@ -29,7 +29,7 @@ class ComputerPlayer {
                 return (`we have "${this.guess}" and move reamining ${this.reamining-=1}`)
             }
             else{
-                    this.badGuess= this.guess;
+                    this.badGuess+= this.guess;
                     return (`We dont have any "${this.guess}" in the word` + ` and move reamining ${this.reamining-=1}`)
                 }
             }
