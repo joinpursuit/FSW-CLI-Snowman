@@ -8,7 +8,7 @@ class ComputerPlayer{
         return this.dictionary[randIndx]
     }
     reveal(){
-
+        return 
     }
     guessedCharacters(){
 
