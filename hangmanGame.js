@@ -18,5 +18,23 @@ class Game {
         this.guessee = guessee 
         this.guesser = guesser
         this.board = new Board()
+        guessesRemaining = 7
+        lettersRemaining = this.lettersRemaining
         }
+    gameOver(){
+        if (guessesRemaining = 0){
+        console.log("No Guesses Remaining")
+        }
+    }
+    gameTermination() {
+        if (this.board.join() === this.word) {
+        return true
+        } else {
+        return false
+        }
+    play(){
+        while (!this.gameOver())
+    }
+
 }
+

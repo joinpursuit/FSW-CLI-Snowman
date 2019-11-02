@@ -11,9 +11,16 @@ class HumanPlayer {
     constructor (name){
         this.name = name
     }
-    guessLetter () {
-        let guess = readline.question("Please enter your guess: ")
-        return guess
+    guessLetter() {
+        let guess = readline.question("Please enter your guess (or press 0 to exit): ")
+            if (guess === 0) {
+            console.log("Endgame")
+            } else if (guess.length !== 1 || typeof guess !== "string") {
+            console.log("Please enter one letter.")
+            guessLetter()
+            } else {
+            return guess
+            }
     }
 }
 
