@@ -9,6 +9,8 @@ class Board {
     constructor(){
         this.board = []
         this.word = hangmanComputerPlayer.secretWord()
+        guessesRemaining = 7
+        lettersRemaining = this.lettersRemaining
     }
     populateBoard(){ 
         for(let i = 0; i < this.word.length; i++){
@@ -21,8 +23,18 @@ class Board {
             this.board[i] = guess
             }
         }
-        console.log(this.board.join())
+        console.log(this.board.join(" "))
     }
+    gameOver(){
+        if (guessesRemaining = 0 && this.lettersRemaining < 0){
+        console.log("No Guesses Remaining.  You LOSE")
+        }
+    }
+    Winner() {
+        if (this.board.join("") === this.word) {
+        return 
+        } 
+        }
 }
 
 module.exports = hangmanBoard
