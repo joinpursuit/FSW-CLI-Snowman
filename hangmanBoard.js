@@ -23,18 +23,19 @@ class Board {
             this.board[i] = guess
             this.guessesRemaining --
             this.letterRemaining --
+            this.winner()
             }
         }
         console.log(this.board.join(" "))
     }
     gameOver(){
         if (guessesRemaining = 0 && this.lettersRemaining < 0){
-        console.log("No Guesses Remaining.  You LOSE")
+        console.log("No Guesses Remaining. Unfortunately that's all folx.. :( ")
         }
     }
-    Winner() {
+    winner() {
         if (this.board.join("") === this.word) {
-        console.log("You know relational cognitive associations!!!"")
+        console.log("You know relational cognitive associations!!!")
         } 
         }
 }
