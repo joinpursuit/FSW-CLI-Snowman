@@ -4,15 +4,11 @@ class HumanPlayer {
     constructor(name) {
         this.name = name;
     }
-    getMove(alpha) {
-       return readline.question("Choose a letter: ")
-
-    }
-    displayBoard() {
-        return 
+    getMove() {
+        let guess = readline.question("Choose a letter: ")
+        guess.toLowerCase();
+        return guess
     }
 }
 
 module.exports = HumanPlayer
-let sam = new HumanPlayer
-console.log(sam.getMove());
