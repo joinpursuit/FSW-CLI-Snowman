@@ -12,7 +12,7 @@ class Board {
     boardFill() {
         const ref = new ComputerPlayer();
         let str = ref.getSecretWord();
-        console.log(str)//DELETE!!!
+        console.log(str)//DELETE!!
         let chosenWord = str.split("");
         for(let i = 0; i < chosenWord.length; i++) {
             return chosenWord = chosenWord.fill("_");
