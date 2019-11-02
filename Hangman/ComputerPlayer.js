@@ -8,11 +8,8 @@ class ComputerPlayer {
       let singleWord = words[Math.floor(Math.random() * this.words.length)];
       return(singleWord);
     }
-    talk(){
-      console.log("test");
-    }
     wordRevel() {
-      this.wordRevel = getSecretWord(words)
+      return this.wordRevel = this.getSecretWord(words)
     }
     charGuessed(){
       
@@ -22,4 +19,4 @@ class ComputerPlayer {
 module.exports = {ComputerPlayer}
 
 // let refree = new ComputerPlayer()
-// console.log(refree.getSecretWord())
+// console.log(refree.wordRevel())

@@ -1,25 +1,24 @@
 const {words} = require("./words.js");
-const {ComputerPlayer} = require("./ComputerPlayer.js")
+const ComputerPlayer = require("./ComputerPlayer.js")
+// const HumanPlayer = require("./HumanPlayer.js")
 
 class Board {
     constructor() {
         this.words = words;
-        this.board = new Array (this.words.length);
-        // this.result = results;
+        this.board = new Array (words[i].length).fill("_");
         this.ComputerPlayer = ComputerPlayer;
     }
     boardFill() {
         let ref = new ComputerPlayer();
-        let chosenWord = ref.getSecretWord();
-        let fill = [];
-
+        let str = ref.getSecretWord(words);
+        // let chosenWord = ref.getSecretWord();
+        // let fill = [];
+        let chosenWord = str.split("");
         for(let i = 0; i < chosenWord.length; i++) {
-            fill.push("_")
+            return chosenWord = chosenWord.fill("_");
         }
-        console.log(fill, chosenWord);
-
-     
-        //this.words = getSecretWord(words);
+        // return fil
+        // console.log(fill, chosenWord);
     }
     secretAnswer() {
         this.secretAnswer = words.split("");
@@ -40,4 +39,10 @@ class Board {
 // module.exports = {Board()}
 
 let boardA = new Board();
-console.log(boardA.boardFill());
+console.log(boardA)
+// boardA.boardFill()
+// let danielle = new HumanPlayer();
+// console.log(boardA.boardFill)
+// console.log(danielle.getGreeting)
+// console.log(danielle.getMove)
+// console.log(boardA.boardFill());
