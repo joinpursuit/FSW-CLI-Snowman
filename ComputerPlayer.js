@@ -1,6 +1,8 @@
 const allTheWords = require("./words.js")
+
 class ComputerPlayer{
     constructor(){
+        this.computer = computer;
         this.dictionary = allTheWords;
     }
     secretWord(){
@@ -28,4 +30,4 @@ class ComputerPlayer{
         return guessedLtr
     }
 }
-module.exports = ComputerPlayer
+module.exports = ComputerPlayer;

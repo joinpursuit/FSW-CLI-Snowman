@@ -1,7 +1,7 @@
 const HumanPlayer = require("./HumanPlayer.js")
-const ComputerPlayer = require("./ ComputerPlayer.js")
-const Board = require("./ Board.js")
-const readline = require("./readline - sync");
+const ComputerPlayer = require("./ComputerPlayer.js")
+const Board = require("./Board.js")
+const readline = require('readline-sync');
 class Game{
     constructor(){
         this.board = new Board(this.computer.secretWord());
@@ -31,20 +31,26 @@ class Game{
             this.board.displayDaBoard();
             let guess = this.player.getMove();
             while(this.guessedWrd.includes(guess)){
-
+                guess = readline.question("I guess you have short term memory?!? You already used that word...")
             }
         }if(this.validGuess(guess)){
             this.guessedWrd.push(guess)
             this.board.characDiffInd(this.computer.word, guess);
             this.guessRemng -= 1;
         }else{
-            guess = readline.question("")
+            guess = readline.question("What is the word?")
         }
         if(this.guessRemng){
-            return this.computer.reveal()
+            console.log(this.computer.reveal());
+            console.log("You juat won!")
         }else{
             console.log("You ran out of guesses! Sorry!")
             console.log(this.computer.reveal())
         }
     }
 }
+
+
+let newPlayer = readline.question("What is your name?")
+let newGame = new Game(new HumanPlayer(newPlayer))
+newGame.play()
