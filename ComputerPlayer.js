@@ -32,8 +32,20 @@ class ComputerPlayer {
             this.newWord = this.dictionary[Math.floor(Math.random() * this.dictionary.length)];
         }
     } // End of secretWordDiff4() function
+    // secretWordDiffBetter(length) {
+    //     while(this.newWord.length < length) {
+    //         this.newWord = this.dictionary[Math.floor(Math.random() * this.dictionary.length)];
+    //     }
+    // } // End of secretWordDiff4() function
 
     secretWord() {
+        // let difficulty ={ 
+        //     1: 4,
+        //     2: 6,
+        //     3: 8
+        // }
+        // this.secretWordDiffBetter(difficulity[this.difficulty])
+
         this.newWord = this.dictionary[Math.floor(Math.random() * this.dictionary.length)];
         switch(this.difficulty) {
             case 1:
