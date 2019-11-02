@@ -6,6 +6,8 @@
 //   * Possibly a reveal word. 
 
 const readline = require("readline-sync");
+
+
 class HumanPlayer {
    constructor(name) {
        this.name = name;
@@ -13,9 +15,24 @@ class HumanPlayer {
    getLetter() {
        return readline.question("Enter Your Letter!")
    }
+
+    displayBoad(board) {
+        return board.map((el) => {
+            this.board[el]
+        })
+        return board
+    }
+
+
 }
-let HangmanContestant = new HumanPlayer("contestant")
+
+
+
+let HangmanContestant = new HumanPlayer("")
 // console.log(HangmanContestant.getLetter())
+
+
+
 
 
 

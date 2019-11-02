@@ -25,7 +25,7 @@ class Board {
         return this.board
     }
  }
- let test = new Board(5)
+ let board = new Board()
  
 
  

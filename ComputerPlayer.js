@@ -13,15 +13,25 @@ class ComputerPlayer {
       this.secretWord = this.dictionary[Math.floor(Math.random()) * (this.dictionary.length)];
       }
 
-
-
       word() {
-        let words = Math.floor(Math.random() * this.board.length)
+        let words = Math.floor(Math.random()) * (this.board.length)
         for (let i = 0; i < word; i++) {
             this.board.push(this.board.shift())
+            return words.length
         } 
 
-        
+      revealWord() {
+        let reveal = []
+        let i =0;
+        while (i < this.word.length) {
+          reveal.push(this.word[i])
+        }
+        i++
+      }
+
+
+
+
     }
   
 
@@ -29,11 +39,11 @@ class ComputerPlayer {
 
 
     
-   
   }
+    let Referee = new ComputerPlayer("Marbin");
+   
+    console.log(Referee.word());
   
-  let Referee = new ComputerPlayer("Marbin");
-  console.log(Referee.word());
 
 
 
