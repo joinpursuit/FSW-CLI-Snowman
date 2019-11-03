@@ -44,4 +44,11 @@ let allTheWords = ["able", "about", "account", "acid", "across", "addition", "ad
 "weight", "well", "west", "wheel", "when", "where", "while", "whip", "whistle", "white", "wide", "will", "wind", "window", "wine", "wing", "winter", "wire", 
 "wise", "with", "woman", "wood", "wool", "word", "work", "worm", "wound", "writing", "wrong", "year", "yellow", "yesterday", "young"];
 
-module.exports = allTheWords;
+let allCategories = {
+    1: ["Movies", "la la land", "whiplash"],
+    2: ["TV shows", "game of thrones", "the wire"],
+    3: ["Misc", "addition", "advertisement", "able", "with", "wound", "yellow", "young", "yesterday", "against"],
+    4: ["Music artists", "eminem", "guns n roses", "kyle"]
+}
+
+module.exports = allTheWords, allCategories;
