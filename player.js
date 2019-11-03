@@ -3,19 +3,27 @@ class HumanPlayer {
     constructor(name) {
         this.name = name
     }
+    length(){
+        return this.board.length
+    }
+    get (idx){
+        return this.board[idx]
+    }
     getMove(){
-        return this.name + 'would make a move here'
-        // return readline.questions('what is your letter guess')
+        return readline.question( 'would make a move here').toLowerCase()
+       
     }
-    static saySomething(){
-        return 'start to play'
+     displayBoard(board){
+         let output = ''
+        for(let i = 0; i < board.length(); i++){
+            output +=board.get(i)+ " "
+        }
+        console.log(output)
     }
+    
 }
-// what is needed 
 
-// display remaining moves
-// when game is over 
-// switch player
+
 
 
 
@@ -23,3 +31,8 @@ class HumanPlayer {
 
 
 module.exports = player;
+let board = require('./board.js')
+let test = new Board(6)
+let deja = new HumanPlayer('deja')
+console.log(deja.getMove())
+deja.displayBoard(test)
