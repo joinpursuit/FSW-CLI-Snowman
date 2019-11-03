@@ -203,23 +203,7 @@ class Game {
             diffChoice = readline.question("Choose a difficulty for the computer. (1 - 4) ");
         } // End of diffChoice validity check
 
-        switch(diffChoice) {
-            case "1":
-                this.referee.difficulty = 1;
-                break;
-
-            case "2":
-                this.referee.difficulty = 2;
-                break;
-
-            case "3":
-                this.referee.difficulty = 3;
-                break;
-
-            case "4":
-                this.referee.difficulty = 4;
-                break;
-        } // End of diffChoice switch
+        this.referee.setDifficulty(Number(diffChoice));
     } // End of difficultyChoice() function
 
     play() {
