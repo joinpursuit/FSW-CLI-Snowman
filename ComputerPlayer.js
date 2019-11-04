@@ -2,25 +2,32 @@ const Dictionary = require("./dictionary.js");
 const Moves = require("./moves.js");
 
 class ComputerPlayer {
-    constructor(dictionary = Dictionary) {
-        this.dictionary = dictionary;
+    constructor() {
+        this.dictionary = Dictionary;
         this.newWord = "";
+        this.category = "";
         this.MOVES = Moves;
         this.difficulty;
     } // End of constructor
 
-    secretWordDiffBetter(lengthArr) {
-        this.newWord = this.dictionary[Math.floor(Math.random() * this.dictionary.length)];
+    secretWordDiff(lengthArr) {
+        console.log(this.category);
+        this.newWord = this.dictionary[this.category][Math.floor(Math.random() * this.dictionary[this.category].length)];
+
         if(lengthArr[1]) {
             while(this.newWord.length < lengthArr[0] || this.newWord.length > lengthArr[1]) {
-                this.newWord = this.dictionary[Math.floor(Math.random() * this.dictionary.length)];
+                this.newWord = this.dictionary[this.category][Math.floor(Math.random() * this.dictionary[this.category].length)];
             }
         } else {
             while(this.newWord.length < lengthArr[0]) {
-                this.newWord = this.dictionary[Math.floor(Math.random() * this.dictionary.length)];
+                this.newWord = this.dictionary[this.category][Math.floor(Math.random() * this.dictionary[this.category].length)];
             }
-        }
-    } // End of secretWordDiff4() function
+        }   
+    } // End of secretWordDiff() function
+
+    secretWordCategory() {
+        this.category = this.dictionary["cats"][Math.floor(Math.random() * this.dictionary["cats"].length)];
+    }
 
     secretWord() {
         let difficulty = { 
@@ -30,13 +37,21 @@ class ComputerPlayer {
             4: [0, 4]
         }
 
-        this.secretWordDiffBetter(difficulty[this.difficulty])
+        this.secretWordCategory();
 
-        return this.newWord.length;
+        this.secretWordDiff(difficulty[this.difficulty])
+
+        for(let i = 0; i < this.newWord.length; i++) {
+            if(this.newWord[i] !== " ") {
+                this.newWordLength++;
+            }
+        }
+
+        return this.newWordLength;
     } // End of secretWord() function
 
-    revealWord(board) {
-        return `The word was "${board.answer.join("").toUpperCase()}".`;
+    revealWord() {
+        return `The word was "${this.newWord.toUpperCase()}".`;
     } // End of revealWord() function
 
     randomLetter() {
@@ -84,5 +99,7 @@ class ComputerPlayer {
         this.difficulty = difficulty;
     }
 }
+
+let cpu = new ComputerPlayer();
 
 module.exports = ComputerPlayer;

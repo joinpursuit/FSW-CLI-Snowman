@@ -9,6 +9,7 @@ class Game {
         this.guesser = guesser;
         this.referee = referee;
         this.board = new Board();
+        this.dictionary = Dictionary;
     } // End of constructor
 
     playerWin() {
@@ -38,11 +39,7 @@ class Game {
     } // End of playerWin() function
 
     isGuesserComputer() {
-        if(this.guesser instanceof ComputerPlayer) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.guesser instanceof ComputerPlayer
 
     } // End of isGuesserComputer() function
 
@@ -70,12 +67,15 @@ class Game {
     playerGuesser() {
         while(!this.board.isGameOver(this.board.board)) {
             console.clear();
-            this.board.buildVisualBoard();
-            console.log(this.board.board.join(" "));
-            console.log(`guesses: ${this.board.guesses.join(", ")}`);
-            console.log(`Moves remaining: ${this.board.movesRemaining}`);
 
-            this.board.placeLetter(this.guesser.getMove(this.referee));
+            this.board.printBoard(this.referee);
+
+            this.board.placeLetter(this.guesser.getMove(), this.referee.newWord);
+
+            // while(!this.board.placeLetter(this.guesser.getMove(), this.referee.newWord)) {
+            //     console.log("Please enter a letter guess.");
+            //     this.board.placeLetter(this.guesser.getMove(), this.referee.newWord);
+            // }
             
             this.board.movesTaken++;
 

@@ -5,7 +5,6 @@ const VisualBoard = require("./VisualBoard.js")
 class Board {
     constructor() {
         this.board = []; 
-        this.answer = [];
         this.guesses = [];
         this.movesRemaining = 9; 
         this.movesTaken = 0;  
@@ -13,9 +12,14 @@ class Board {
     } // End of constructor
 
     buildBoard(referee) {
-        let newWordLength = referee.secretWord();
-        this.board = new Array(newWordLength).fill("_");
-        this.answer = [...referee.newWord]
+        referee.secretWord();
+        for(let i = 0; i < referee.newWord.length; i++) {
+            if(referee.newWord[i] !== " ") {
+                this.board.push("_");
+            } else {
+                this.board.push(" ");
+            }
+        }
 
     } // End of buildBoard() function
 
@@ -23,20 +27,25 @@ class Board {
         this.visualBoard[this.movesRemaining]();
     } // End of buildVisualBoard() function;
 
+    printBoard(referee) {
+        this.buildVisualBoard();
+        console.log(referee.category);
+        console.log(this.board.join(" "));
+        console.log(`guesses: ${this.guesses.join(", ")}`);
+        console.log(`Moves remaining: ${this.movesRemaining}`);
+    }
+
     isMoveLong(guess) {
-        if(guess.length > 1 || guess.length === 0) {
-            return false; // If the move is longer than 1 character
-        } else {
-            return true;
-        }
+        return guess.length > 1 || guess.length === 0
     } // End of isMoveLong() function
 
     isValidMove(guess) {
-        if(!isNaN(guess) || guess === undefined || !this.isMoveLong(guess) || this.board.includes(guess.toLowerCase()) || this.guesses.includes(guess.toLowerCase())) {
+        console.log(guess);
+        if(!isNaN(guess) || guess === undefined || this.isMoveLong(guess) || this.board.includes(guess.toLowerCase()) || this.guesses.includes(guess.toLowerCase())) {
             return false; // If the move is a number, undefined, longer than 1 character, or included in guess/board arrays then this returns false
         } else {
             for(let i = 0; i < guess.length; i++) {
-                if(!Moves.hasOwnProperty(guess[i].toUpperCase())) {
+                if(!Moves[guess[i].toUpperCase()]) {
                     return false;
                 }
             }
@@ -71,27 +80,29 @@ class Board {
         return inputWord.toLowerCase();
     } // End of validWord() function
 
-    placeLetter(guess) {
+    placeLetter(guess, answer) {
         if(this.isValidMove(guess)) {
-            this.answer.forEach((el, i) => {
-                if(el === guess.toLowerCase()) {
+            for(let i = 0; i < answer.length; i++) {
+                if(answer[i] === guess.toLowerCase()) {
                     this.board[i] = guess.toLowerCase();
                 }
-            })// End of answer.forEach
+            }
 
             if(!this.board.includes(guess.toLowerCase())) {
                 this.movesRemaining -= 1;
             }
 
             this.guesses.push(guess.toLowerCase());
+        } else {
+            return false;
         }// End of ifValidMove check & placement
     }// End of placeLetter() function
 
-    isGameOver(board) {
+    isGameOver() {
         if(this.movesRemaining === 0) {
             return true; // If there are no moves remaining
         } else {
-            return board.every((el) => el !== "_"); // If there are no underscores remaining
+            return this.board.every((el) => el !== "_"); // If there are no underscores remaining
         }
     } // End of isGameOver() function
 } // End of Board class
