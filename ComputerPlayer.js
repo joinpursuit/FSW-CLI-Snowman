@@ -61,12 +61,12 @@ class ComputerPlayer {
     } // End of randomLetter() function
 
     getMove(referee, guessesArr, board) {
-        let newWordArr = referee.newWord.split("");
+        let newWord = referee.newWord;
         let guess = this.randomLetter();
         
         let guessNotRepeat = false;
         while(!guessNotRepeat) {
-            if(!newWordArr.includes("a") && !newWordArr.includes("e") && !newWordArr.includes("i") && !newWordArr.includes("o") && !newWordArr.includes("u")) {
+            if(!newWord.includes("a") && !newWord.includes("e") && !newWord.includes("i") && !newWord.includes("o") && !newWord.includes("u")) {
                 guess = this.getMoveNoVowels(["a", "e", "i", "o", "u"]);
 
                 if(guessesArr.includes(guess) || !board.isValidMove(guess)) {

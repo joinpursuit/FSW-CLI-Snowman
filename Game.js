@@ -46,13 +46,11 @@ class Game {
     computerGuesser() {
         while(!this.board.isGameOver(this.board.board)) {
             console.clear();
-            this.board.buildVisualBoard();
-            console.log(this.board.board.join(" "));
-            console.log(`guesses: ${this.board.guesses.join(", ")}`);
-            console.log(`Moves remaining: ${this.board.movesRemaining}`)
+            
+            this.board.printBoard(this.referee);
 
             let computerGuess = this.guesser.getMove(this.referee, this.board.guesses, this.board);
-            this.board.placeLetter(computerGuess);
+            this.board.placeLetter(computerGuess, this.referee.newWord);
             console.log(computerGuess);
             this.board.movesTaken++;
 
@@ -99,8 +97,6 @@ class Game {
                     this.twoPlayerCharacterChoice(p1, p2);
 
                     console.clear();
-
-                    this.referee.newWord = this.board.validWord(this.referee);
 
                     validInput = true;
                     break;
@@ -180,8 +176,6 @@ class Game {
                 case "2":
                     this.guesser = cpu;
                     this.referee = player;
-                    
-                    this.referee.newWord = this.board.validWord(this.referee);
 
                     playerChoiceComplete = true;
                     break;

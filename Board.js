@@ -1,6 +1,7 @@
 const readline = require('readline-sync');
 const Moves = require("./moves.js");
 const VisualBoard = require("./VisualBoard.js")
+const HumanPlayer = require("./HumanPlayer.js");
 
 class Board {
     constructor() {
@@ -12,7 +13,13 @@ class Board {
     } // End of constructor
 
     buildBoard(referee) {
-        referee.secretWord();
+        if(referee instanceof HumanPlayer) {
+            referee.setCategory();
+            referee.setWord(this.validWord(referee))
+        } else {
+            referee.secretWord();
+        }
+        
         for(let i = 0; i < referee.newWord.length; i++) {
             if(referee.newWord[i] !== " ") {
                 this.board.push("_");
@@ -31,26 +38,32 @@ class Board {
         this.buildVisualBoard();
         switch(referee.category) {
             case "musicArtists":
+            case 4:
                 console.log("category: Music Artists");
                 break;
 
             case "misc":
+            case 3:
                 console.log("category: Miscellaneous");
                 break;
 
             case "tvShows":
+            case 2:
                 console.log("category: TV Shows");
                 break;
 
             case "movies":
+            case 1:
                 console.log("category: Movies");
                 break;
 
             case "books":
+            case 5:
                 console.log("category: Books");
                 break;
 
             case "games":
+            case 6:
                 console.log("category: Video Games");
                 break;
 
@@ -85,7 +98,7 @@ class Board {
         while(!wordValidity) {
             let invalidChar = false;
             for(let i = 0; i < inputWord.length; i++) {
-                if(!Moves[inputWord[i].toUpperCase()]) {
+                if(!Moves[inputWord[i].toUpperCase()] && inputWord[i] !== " ") {
                     invalidChar = true;
                 }
             } // Check for invalid character
