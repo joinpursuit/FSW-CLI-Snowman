@@ -11,7 +11,6 @@ class ComputerPlayer {
     } // End of constructor
 
     secretWordDiff(lengthArr) {
-        console.log(this.category);
         this.newWord = this.dictionary[this.category][Math.floor(Math.random() * this.dictionary[this.category].length)];
 
         if(lengthArr[1]) {
@@ -25,8 +24,13 @@ class ComputerPlayer {
         }   
     } // End of secretWordDiff() function
 
-    secretWordCategory() {
-        this.category = this.dictionary["cats"][Math.floor(Math.random() * this.dictionary["cats"].length)];
+    setCategory(categoryChoice) {
+        for(let i = 0; i <= 6; i++) {
+            if(i === categoryChoice) {
+                this.category = this.dictionary["cats"][categoryChoice - 1];
+                break;
+            }
+        }
     }
 
     secretWord() {
@@ -36,8 +40,6 @@ class ComputerPlayer {
             3: [5, 7],
             4: [0, 4]
         }
-
-        this.secretWordCategory();
 
         this.secretWordDiff(difficulty[this.difficulty])
 

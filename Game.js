@@ -204,7 +204,36 @@ class Game {
         } // End of diffChoice validity check
 
         this.referee.setDifficulty(Number(diffChoice));
+
+        this.categoryChoice();
     } // End of difficultyChoice() function
+
+    categoryChoice() {
+        console.log("Choose a category:");
+        console.log("[1] Movies");
+        console.log("[2] TV shows")
+        console.log("[3] Miscellaneous");
+        console.log("[4] Musicians");
+        console.log("[5] Books");
+        console.log("[6] Video Games");
+        let catChoice = readline.question("");
+
+        while(catChoice !== "1" && catChoice !== "2" && catChoice !== "3" && catChoice !== "4" && catChoice !== "5" && catChoice !== "6") {
+            console.clear();
+            console.log("Enter a number between 1 & 6")
+            console.log("Choose a category:");
+            console.log("[1] Movies");
+            console.log("[2] TV shows")
+            console.log("[3] Miscellaneous");
+            console.log("[4] Musicians");
+            console.log("[5] Books");
+            console.log("[6] Video Games");
+            catChoice = readline.question("");
+        }
+
+        this.referee.setCategory(Number(catChoice));
+
+    } // End of categoryChoice() function
 
     play() {
         console.clear();

@@ -45,6 +45,15 @@ class Board {
             case "movies":
                 console.log("category: Movies");
                 break;
+
+            case "books":
+                console.log("category: Books");
+                break;
+
+            case "games":
+                console.log("category: Video Games");
+                break;
+
         }
         console.log(this.board.join(" "));
         console.log(`guesses: ${this.guesses.join(", ")}`);
