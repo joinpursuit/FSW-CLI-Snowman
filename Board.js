@@ -29,7 +29,23 @@ class Board {
 
     printBoard(referee) {
         this.buildVisualBoard();
-        console.log(referee.category);
+        switch(referee.category) {
+            case "musicArtists":
+                console.log("category: Music Artists");
+                break;
+
+            case "misc":
+                console.log("category: Miscellaneous");
+                break;
+
+            case "tvShows":
+                console.log("category: TV Shows");
+                break;
+
+            case "movies":
+                console.log("category: Movies");
+                break;
+        }
         console.log(this.board.join(" "));
         console.log(`guesses: ${this.guesses.join(", ")}`);
         console.log(`Moves remaining: ${this.movesRemaining}`);
