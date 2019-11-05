@@ -1,6 +1,7 @@
 const Board = require("./Board.js");
 const Guesser = require("./Guesser.js")
 const Referee = require("./Referee.js")
+const {hangManPics} = require("./hangmanPics");
 const readline = require("readline-sync");
 
 class Game {
@@ -37,6 +38,7 @@ class Game {
         console.log(`WELCOME to HANGMAN ${this.player.name}!`);
         // sees if game is over
         while(!this.isGameOver()){
+            console.log(hangManPics[this.guessesRemaining]);
             this.board.displayBoard();
             console.log(`You have ${this.guessesRemaining} guesses left.`);
             console.log("Letters already used: ", this.guessedAlready.join(", "))
@@ -48,11 +50,13 @@ class Game {
             }
             
             // sees if letter is valid, if it is - push letter into guessedAlready, add to board, decrement guessesRemaining
-            if(this.isValidGuess(guess)){
+            if(this.isValidGuess(guess) && !this.computer.word.includes(guess)){
+                this.guessedAlready.push(guess);
+                this.guessesRemaining -= 1;
+            } else if(this.isValidGuess(guess)){
                 this.guessedAlready.push(guess)
                 this.board.addChar(this.computer.word, guess);
-            }  else{
-                this.guessesRemaining -= 1;
+            } else{
                 guess = readline.question("Please enter a valid letter: ")
             }
             console.clear();
