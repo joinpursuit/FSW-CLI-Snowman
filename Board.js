@@ -30,21 +30,6 @@ class Board {
 module.exports = Board;
 
  
-// TEST Board
-// let referee = new Referee("computer");
-// let board = new Board();    // new board instance
-
-// console.log(referee.reveal());
-
-// console.log(referee.word);
-// console.log(board.board)
-// let letter = 'a'
-// board.addChar(letter);
-
-// console.log(board.board);
-// console.log(board.isComplete());
-
-
 
 
 

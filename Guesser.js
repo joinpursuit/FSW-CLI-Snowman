@@ -16,13 +16,3 @@ class Guesser {
 
 module.exports = Guesser;
 
-
-// TEST Guesser
-// let referee = new Referee("referee");
-// let board = new Board();
-// let guesser = new Guesser("corey");
-// console.log(guesser.getGuess());
-// console.log(guesser.displayBoard());
-
-// console.log(board.board);
- 
