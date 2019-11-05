@@ -102,6 +102,4 @@ class ComputerPlayer {
     }
 }
 
-let cpu = new ComputerPlayer();
-
 module.exports = ComputerPlayer;
