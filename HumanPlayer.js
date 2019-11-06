@@ -57,6 +57,6 @@ class HumanPlayer {
     isCategoryMisc() {
         return this.category === "misc";
     } // End of isCategoryMisc()
-}
+} // End of HumanPlayer() class
 
 module.exports = HumanPlayer;
