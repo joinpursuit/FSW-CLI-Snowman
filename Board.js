@@ -7,7 +7,7 @@ class Board {
     constructor() {
         this.board = []; 
         this.guesses = [];
-        this.movesRemaining = 9; 
+        this.movesRemaining = 6; 
         this.movesTaken = 0;  
         this.visualBoard = VisualBoard;
     } // End of constructor
@@ -30,12 +30,32 @@ class Board {
 
     } // End of buildBoard() function
 
-    buildVisualBoard() {
+    buildVisualBoardMisc() {
         this.visualBoard[this.movesRemaining]();
-    } // End of buildVisualBoard() function;
+    } // End of buildVisualBoardMisc() function;
+
+    buildVisualBoard() {
+        this.visualBoard[this.movesRemaining + 3]();
+    } // End of buildVisualBoard() function
+
+    setMoves(num) {
+        this.movesRemaining = (num);
+    } // End of setMoves() function
+
+    initializeBoard() {
+        this.board = [];
+        this.guesses = [];
+        this.movesRemaining = 6;
+        this.movesTaken = 0;
+    } // End of initializeBoard()
 
     printBoard(referee) {
-        this.buildVisualBoard();
+        if(referee.isCategoryMisc()) {
+            this.buildVisualBoardMisc();
+        } else {
+            this.buildVisualBoard()
+        }
+        
         switch(referee.category) {
             case "musicArtists":
             case 4:
@@ -71,7 +91,7 @@ class Board {
         console.log(this.board.join(" "));
         console.log(`guesses: ${this.guesses.join(", ")}`);
         console.log(`Moves remaining: ${this.movesRemaining}`);
-    }
+    } // End of printBoard() function
 
     isMoveLong(guess) {
         return guess.length > 1 || guess.length === 0
@@ -135,6 +155,50 @@ class Board {
             return false;
         }// End of ifValidMove check & placement
     }// End of placeLetter() function
+
+    doesGuessHaveNums(guess) {
+        let nums = [0,1,2,3,4,5,6,7,8,9]
+        for(let i = 0; i < guess.length; i++) {
+            if(nums.includes(guess[i])) {
+                return true;
+            }
+        }
+        return false;
+    } // End of doesGuessHaveNums() function
+
+    isValidGuess(guess) {
+        if(guess === undefined || guess.length !== this.board.length || this.doesGuessHaveNums(guess)) {
+            return false;
+        } else {
+            return true;
+        }
+    } // End of isValidGuess() function
+
+    guessWord(referee) {
+        let guess = readline.question("Input your word guess: ");
+
+        if(!this.isValidGuess(guess)) {
+            let validGuess = false;
+            while(!validGuess) {
+                console.log("please enter a valid word guess.");
+                guess = readline.question("");
+                if(this.isValidGuess(guess)) {
+                    validGuess = true;
+                    break;
+                }
+            }
+        }      
+
+        for(let i = 0; i < referee.newWord.length; i++) {
+            if(referee.newWord[i] !== guess[i].toLowerCase()) {
+                this.movesRemaining = 0;
+                return "You guessed wrong!";
+            }
+        }
+
+        this.board = [...referee.newWord];
+        return "You guessed the word!";
+    } // End of guessWord() function
 
     isGameOver() {
         if(this.movesRemaining === 0) {

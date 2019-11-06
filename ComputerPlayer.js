@@ -8,6 +8,7 @@ class ComputerPlayer {
         this.category = "";
         this.MOVES = Moves;
         this.difficulty;
+        this.wins = 0;
     } // End of constructor
 
     secretWordDiff(lengthArr) {
@@ -31,7 +32,7 @@ class ComputerPlayer {
                 break;
             }
         }
-    }
+    } // End of setCategory() function
 
     secretWord() {
         let difficulty = { 
@@ -88,7 +89,6 @@ class ComputerPlayer {
         return guess;
     } // End of getMove() function
 
-
     getMoveNoVowels(vowels, guess) {
         while(vowels.includes(guess) || guess === undefined) {
             guess = this.randomLetter();
@@ -99,7 +99,15 @@ class ComputerPlayer {
 
     setDifficulty(difficulty) {
         this.difficulty = difficulty;
-    }
+    } // End of setDifficulty() function
+
+    incrementWins() {
+        this.wins += 1;
+    } // End of incrementWins()
+
+    isCategoryMisc() {
+        return this.category === "misc";
+    } // End of isCategoryMisc()
 }
 
 module.exports = ComputerPlayer;
