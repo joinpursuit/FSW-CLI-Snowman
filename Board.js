@@ -2,6 +2,7 @@ const readline = require('readline-sync');
 const Moves = require("./moves.js");
 const VisualBoard = require("./VisualBoard.js")
 const HumanPlayer = require("./HumanPlayer.js");
+const chalk = require("chalk");
 
 class Board {
     constructor() {
@@ -97,17 +98,44 @@ class Board {
         return guess.length > 1 || guess.length === 0
     } // End of isMoveLong() function
 
+    isGuessNumber(guess) {
+        return !isNaN(guess);
+    } // End of isGuessNumber() function
+
+    isGuessUndefined(guess) {
+        return guess === undefined;
+    } // End of isGuessUndefined
+
+    isGuessGuessed(guess) {
+        return this.guesses.includes(guess.toLowerCase());
+    }
+
     isValidMove(guess) {
-        console.log(guess);
-        if(!isNaN(guess) || guess === undefined || this.isMoveLong(guess) || this.board.includes(guess.toLowerCase()) || this.guesses.includes(guess.toLowerCase())) {
-            return false; // If the move is a number, undefined, longer than 1 character, or included in guess/board arrays then this returns false
+        let isGuessNum = this.isGuessNumber(guess);
+        let isGuessUndf = this.isGuessUndefined(guess);
+        let isLong = this.isMoveLong(guess);
+        let isGuessed = this.isGuessGuessed(guess);
+
+        if(isGuessUndf || isGuessNum || isLong || isGuessed) {
+            if(isGuessUndf || isLong) {
+                console.log(chalk.red("Please enter 1 letter."));
+            } else if(isGuessNum) {        
+                console.log(chalk.red("Numbers aren't accepted!"));
+            } else {
+                console.log(chalk.red("You guessed that already!"));
+            }
+
+            return false;
+
         } else {
             for(let i = 0; i < guess.length; i++) {
                 if(!Moves[guess[i].toUpperCase()]) {
+                    console.log(chalk.red("That character isn't valid!"));
                     return false;
                 }
             }
             return true;
+
         }
     } // End of isValidMove() function
 
@@ -173,6 +201,27 @@ class Board {
             return true;
         }
     } // End of isValidGuess() function
+
+    guessWordComputer(referee, guesser) {
+        let guess = guesser.randomGuess();
+
+        if(!this.isValidGuess(guess)) {
+            let validGuess = false;
+            while(!validGuess) {
+                guess = guesser.randomGuess();
+            }
+        }
+
+        for(let i = 0; i < referee.newWord.length; i++) {
+            if(referee.newWord[i] !== guess[i]) {
+                this.movesRemaining = 0;
+                return "The computer guessed wrong!";
+            };
+        }
+
+        this.board = [...referee.newWord];
+        return "The computer guessed correctly!";
+    } // guessWordComputer() function
 
     guessWord(referee) {
         let guess = readline.question("Input your word guess: ");
