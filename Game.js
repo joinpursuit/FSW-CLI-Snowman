@@ -6,9 +6,9 @@ const Dictionary = require("./dictionary.js");
 const chalk = require("chalk")
 
 class Game {
-    constructor(guesser, referee) {
-        this.guesser = guesser;
-        this.referee = referee;
+    constructor() {
+        this.guesser;
+        this.referee;
         this.player1;
         this.player2;
         this.board = new Board();
@@ -20,7 +20,7 @@ class Game {
     } // End of constructor
 
     userInput(question) {
-        return readline.question(question);
+        return readline.question(chalk.yellow(question));
     } // End of userInput() function
 
     isValidInput(userInput, ...args) {
@@ -56,7 +56,6 @@ class Game {
 
                 console.clear();
 
-                validInput = true;
                 break;
 
             case "1":
@@ -69,7 +68,6 @@ class Game {
 
                 this.setSoloCharacter();
 
-                validInput = true;
                 break;
                     
             } // End of playerInput switch
@@ -143,13 +141,11 @@ class Game {
 
                 this.difficultyChoice();
                     
-                playerChoiceComplete = true;
                 break;
             case "2":
                 this.guesser = this.player2;
                 this.referee = this.player1;
 
-                playerChoiceComplete = true;
                 break;
             } // End of playerChoice switch
             return playerChoice;
@@ -158,7 +154,7 @@ class Game {
     difficultyChoice() {
         let diffChoice = this.userInput("Choose a difficulty for the computer. (1 - 4) ");
 
-        while(this.isValidInput(diffChoice, "1", "2", "3", "4")) {
+        while(!this.isValidInput(diffChoice, "1", "2", "3", "4")) {
             console.log(chalk.red("Enter a number between 1 and 4."));
             diffChoice = this.userInput("Choose a difficulty for the computer. (1 - 4) ");
         } // End of diffChoice validity check
@@ -169,20 +165,20 @@ class Game {
     } // End of difficultyChoice() function
 
     displayCategories() {
-        console.log("[1] Movies");
-        console.log("[2] TV shows");
-        console.log("[3] Miscellaneous");
-        console.log("[4] Musicians");
-        console.log("[5] Books");
-        console.log("[6] Video Games");
+        console.log(chalk.magenta("[1] Movies"));
+        console.log(chalk.magenta("[2] TV shows"));
+        console.log(chalk.magenta("[3] Miscellaneous"));
+        console.log(chalk.magenta("[4] Musicians"));
+        console.log(chalk.magenta("[5] Books"));
+        console.log(chalk.magenta("[6] Video Games"));
     } // End of displayCategories() function
 
     categoryChoice() {
-        console.log(this.isRefereePlayer() ? `${this.referee.name} choose a category.` : `${this.guesser.name} choose a category.`);
+        console.log(this.isRefereePlayer() ? chalk.yellow(`${this.referee.name} choose a category.`) : chalk.yellow(`${this.guesser.name} choose a category.`));
         this.displayCategories();
         let catChoice = this.userInput("");
 
-        while(this.isValidInput(catChoice, "1", "2", "3", "4", "5", "6")) {
+        while(!this.isValidInput(catChoice, "1", "2", "3", "4", "5", "6")) {
             console.clear();
             console.log(chalk.red("Enter a number between 1 & 6"));
             this.displayCategories();
@@ -230,12 +226,12 @@ class Game {
     playerWin() {
         console.clear();
         this.referee.category === "misc" ? this.board.buildVisualBoardMisc() : this.board.buildVisualBoard();
-        console.log(this.referee.revealWord(this.board));
+        console.log(this.referee.revealWord());
 
         if(this.isGuesserWin()) {
-            this.guesserWin();
+            console.log(this.guesserWin());
         } else {
-            this.refereeWin();
+            console.log(this.refereeWin());
         }
     } // End of playerWin() function
 
@@ -317,7 +313,7 @@ class Game {
     }// End of playerGuesser() function  
     
     isPlayAgain() {
-        console.log("Would you like to play again? ");
+        console.log(chalk.yellow("Would you like to play again? "));
         let playAgain = this.isYesOrNo();
 
         return playAgain.toUpperCase() === "Y";
@@ -327,7 +323,10 @@ class Game {
         let p1 = this.player1.name.toUpperCase();
         let p2 = this.player2.name ? this.player2.name : "CPU";
 
-        console.table([p1, p2], ["wins"]);
+        console.table({
+            [p1]: this.player1.wins,
+            [p2]: this.player2.wins
+        });
     } // End of displayLeaderboard() function
 
     play() {
@@ -349,7 +348,7 @@ class Game {
                 this.playerGuesser();
             }
 
-            console.log(this.playerWin())
+            this.playerWin()
 
             this.displayLeaderboard();
 
