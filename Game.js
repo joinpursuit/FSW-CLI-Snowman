@@ -287,7 +287,7 @@ class Game {
     } // End of guessWordSure() function
 
     playerGuesser() {
-        while(!this.board.isGameOver(this.board.board)) {
+        while(!this.board.isGameOver()) {
             console.clear();
 
             this.board.printBoard(this.referee);

@@ -108,7 +108,7 @@ class Board {
 
     isGuessGuessed(guess) {
         return this.guesses.includes(guess.toLowerCase());
-    }
+    } // End of is GuessGuessed
 
     isValidMove(guess) {
         let isGuessNum = this.isGuessNumber(guess);
@@ -139,27 +139,33 @@ class Board {
         }
     } // End of isValidMove() function
 
+    isInvalidChar(inputWord) {
+        for(let i = 0; i < inputWord.length; i++) {
+            if(!Moves[inputWord[i].toUpperCase()] && inputWord[i] !== " ") {
+                return true;
+            }
+        } // Check for invalid character
+        return false;
+    } // End of isInvalidChar() function
+
     validWord(referee) {
         let inputWord = readline.question(`${referee.name} please input a word: `);
 
         let wordValidity = false;
         while(!wordValidity) {
-            let invalidChar = false;
-            for(let i = 0; i < inputWord.length; i++) {
-                if(!Moves[inputWord[i].toUpperCase()] && inputWord[i] !== " ") {
-                    invalidChar = true;
-                }
-            } // Check for invalid character
+            let invalidChar = this.isInvalidChar(inputWord);
 
-            if(!isNaN(Number(inputWord)) || invalidChar) {
+            if(!isNaN(Number(inputWord))) {
                 console.clear();
-                console.log("Please enter a valid word.");
+                console.log(chalk.red("Your word contains a number."));
                 inputWord = readline.question("Input a word: ");
-
+            } else if(invalidChar) {
+                console.clear();
+                console.log(chalk.red("Your word contains an invalid character."));
+                inputWord = readline.question("Input a word: ");
             } else {
                 wordValidity = true;
                 break;
-
             }
         } // End of validWord validity check
 
@@ -187,7 +193,7 @@ class Board {
     doesGuessHaveNums(guess) {
         let nums = [0,1,2,3,4,5,6,7,8,9]
         for(let i = 0; i < guess.length; i++) {
-            if(nums.includes(guess[i])) {
+            if(nums.includes(Number(guess[i]))) {
                 return true;
             }
         }
@@ -195,8 +201,18 @@ class Board {
     } // End of doesGuessHaveNums() function
 
     isValidGuess(guess) {
-        if(guess === undefined || guess.length !== this.board.length || this.doesGuessHaveNums(guess)) {
+        if(guess === undefined) {
+            console.log(chalk.red("Please enter a guess."))
             return false;
+        } else if(guess.length !== this.board.length) {
+            if(guess.length > this.board.length) {
+                console.log(chalk.red("Your guess is too long."))
+            } else {
+                console.log(chalk.red("Your guess is too short."))
+            }
+            return false;
+        } else if(this.doesGuessHaveNums(guess)) {
+            console.log(chalk.red("Your guess contains numbers."))
         } else {
             return true;
         }
@@ -229,7 +245,6 @@ class Board {
         if(!this.isValidGuess(guess)) {
             let validGuess = false;
             while(!validGuess) {
-                console.log("please enter a valid word guess.");
                 guess = readline.question("");
                 if(this.isValidGuess(guess)) {
                     validGuess = true;
