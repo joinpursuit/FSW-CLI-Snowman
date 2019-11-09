@@ -113,14 +113,12 @@ class Game {
                 this.guesser = this.player1;
                 this.referee = this.player2;
 
-                validInput = true;
                 break;
 
             case "2": 
                 this.guesser = this.player2;
                 this.referee = this.player1;
 
-                validInput = true;
                 break;
             } // End of p1Choice switch
     }  // End of twoPlayerCharacterChoice() function

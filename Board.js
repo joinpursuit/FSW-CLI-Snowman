@@ -213,6 +213,7 @@ class Board {
             return false;
         } else if(this.doesGuessHaveNums(guess)) {
             console.log(chalk.red("Your guess contains numbers."))
+            return false;
         } else {
             return true;
         }
