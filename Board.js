@@ -60,38 +60,38 @@ class Board {
         switch(referee.category) {
             case "musicArtists":
             case 4:
-                console.log("category: Music Artists");
+                console.log(chalk.magenta("category: ") + "Music Artists");
                 break;
 
             case "misc":
             case 3:
-                console.log("category: Miscellaneous");
+                console.log(chalk.magenta("category: ") + "Miscellaneous");
                 break;
 
             case "tvShows":
             case 2:
-                console.log("category: TV Shows");
+                console.log(chalk.magenta("category: ") + "TV Shows");
                 break;
 
             case "movies":
             case 1:
-                console.log("category: Movies");
+                console.log(chalk.magenta("category: ") + "Movies");
                 break;
 
             case "books":
             case 5:
-                console.log("category: Books");
+                console.log(chalk.magenta("category: ") + "Books");
                 break;
 
             case "games":
             case 6:
-                console.log("category: Video Games");
+                console.log(chalk.magenta("category: ") + "Video Games");
                 break;
 
         }
         console.log(this.board.join(" "));
-        console.log(`guesses: ${this.guesses.join(", ")}`);
-        console.log(`Moves remaining: ${this.movesRemaining}`);
+        console.log(chalk.magenta("guesses: ") + this.guesses.join(", "));
+        console.log(chalk.magenta("Moves remaining: ") + this.movesRemaining);
     } // End of printBoard() function
 
     isMoveLong(guess) {
