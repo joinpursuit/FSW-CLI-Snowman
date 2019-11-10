@@ -6,6 +6,14 @@ const Dictionary = require("./dictionary.js");
 const chalk = require("chalk")
 const fetch = require("node-fetch");
 
+const getMovies = (search, arr) => {
+  return fetch(`https://api.themoviedb.org/3/search/movie?api_key=01b1d1956246aa6d8bfdaaa66cdab0e9&language=en-US&query=${search}&page=1&include_adult=false`)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data["results"]);
+  })
+}
+
 const getPopularMovie = (movie) => {
   return fetch('https://api.themoviedb.org/3/movie/popular?api_key=01b1d1956246aa6d8bfdaaa66cdab0e9')
   .then(response => response.json())
@@ -15,7 +23,9 @@ const getPopularMovie = (movie) => {
   .catch(error => console.error(error))
 }
 
-getPopularMovie(0);
+
+
+// getPopularMovie(0);
 
 // getOmdbData();
 

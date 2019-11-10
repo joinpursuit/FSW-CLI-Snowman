@@ -191,9 +191,9 @@ class Board {
     }// End of placeLetter() function
 
     doesGuessHaveNums(guess) {
-        let nums = [0,1,2,3,4,5,6,7,8,9]
+        let nums = ["0","1","2","3","4","5","6","7","8","9"];
         for(let i = 0; i < guess.length; i++) {
-            if(nums.includes(Number(guess[i]))) {
+            if(nums.includes(guess[i])) {
                 return true;
             }
         }
@@ -273,5 +273,9 @@ class Board {
         }
     } // End of isGameOver() function
 } // End of Board class
+
+let board = new Board();
+
+console.log(board.doesGuessHaveNums("asri2"))
 
 module.exports = Board;
