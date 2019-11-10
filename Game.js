@@ -46,8 +46,8 @@ class Game {
 
         switch(playerInput) {
             case "2":
-                this.player1 = new HumanPlayer();
-                this.player2 = new HumanPlayer();
+                this.player1 = new HumanPlayer("Player 1")
+                this.player2 = new HumanPlayer("Player 2")
                 this.setPlayerNames();
 
                 console.clear();
@@ -77,25 +77,60 @@ class Game {
         return this.player1 instanceof HumanPlayer && this.player2 instanceof HumanPlayer;
     } // End of isTwoPlayers() function
 
+    playerNameLong(player) {
+        console.log(chalk.red(`${player.name} your name is too long!`));
+        return this.userInput(`${player.name} input your name. `);
+    } // End of playerNameLong() function
+
+    noNameInput(player) {
+        console.log(chalk.red(`No name was inputted for ${player.name}.`))
+        return this.userInput(`${player.name}, input your name. `);
+    } // End of noNameInput() function
+
+    isNameInvalid(name) {
+        return name === "" || name.length > 10 
+    } // End of isNameInvalid() function
+
     setPlayerNames() {
         if(this.player2 instanceof HumanPlayer) {
-            this.player1.name = this.userInput("Player 1, input your name. ");
-            this.player2.name = this.userInput("Player 2, input your name. ");
+            let name1 = this.userInput("Player 1, input your name. (10 characters or less) ");
+            let name2 = this.userInput("Player 2, input your name. (10 characters or less) ");
 
-            while(this.player1.name === "" || this.player2.name === "") {
-                if(this.player1.name === "") {
-                    this.player1.name = this.userInput("Player 1, input your name. ");
-                } else {
-                    this.player2.name = this.userInput("Player 2, input your name. ");
-                }
-            } // End of undefined name check
+            while(this.isNameInvalid(name1) || this.isNameInvalid(name2)) {
+                while(name1 === "" || name2 === "") {
+                    if(name1 === "") {
+                        name1 = this.noNameInput(this.player1);
+                    } else {
+                        name2 = this.noNameInput(this.player2);
+                    }
+                } // End of undefined name check
+
+                while(name1.length > 10 || name2.length > 10) {
+                    if(name1.length> 10) {
+                        name1 = this.playerNameLong(this.player1);
+                    } else {
+                        name2 = this.playerNameLong(this.player2);
+                    }
+                } // End of long name check
+            } // End of invalid name check
+            
+            this.player1.setName(name1);
+            this.player2.setName(name2);
 
         } else {
-            this.player1.name = this.userInput("Input your name. ");
+            let name = this.userInput("Input your name. (10 characters or less) ");
 
-            while(this.player1.name === "") {
-                this.player1.name = this.userInput("Player 1, input your name. ");
-            } // End of undefined name check
+            while(this.isNameInvalid(name)) {
+                while(name === "") {
+                    name = this.noNameInput(this.player1);
+                } // End of undefined name check
+
+                while(name.length > 10) {
+                    name = this.playerNameLong(this.player1);
+                } // End of long name check
+            } // End of invalid name check
+
+            this.player1.setName(name);
 
         }
     } // End of playerNames() function

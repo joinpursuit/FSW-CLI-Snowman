@@ -8,6 +8,10 @@ class HumanPlayer {
         this.wins = 0;
     } // End of constructor()
 
+    setName(name) {
+        this.name = name
+    } // End of setName() function
+
     secretWord() {
         return this.newWord.length;
     } // End of secretWord() function
