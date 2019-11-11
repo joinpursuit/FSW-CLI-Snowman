@@ -11,8 +11,16 @@ class ComputerPlayer {
         this.wins = 0;
     } // End of constructor
 
+    getValidGuess(referee) {
+        let cat = referee.category;
+        let answer = referee.newWord;
+        return this.dictionary[cat].filter((word) => word.length === answer.length);
+    } // End of getValidGuess() function
+
     randomGuess(referee) {
-        let cat = this.referee.category;
+        let validGuesses = this.getValidGuess(referee);
+        let guessIdx = Math.floor(Math.random() * validGuesses.length);
+        return validGuesses[guessIdx];
     } // End of randomGuess() function
 
     secretWordDiff(lengthArr) {
