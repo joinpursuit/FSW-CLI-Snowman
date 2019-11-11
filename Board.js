@@ -15,7 +15,7 @@ class Board {
 
     buildBoard(referee) {
         if(referee instanceof HumanPlayer) {
-            referee.setCategory();
+            referee.chooseCategory();
             referee.setWord(this.validWord(referee))
         } else {
             referee.secretWord();

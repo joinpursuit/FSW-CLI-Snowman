@@ -11,6 +11,10 @@ class ComputerPlayer {
         this.wins = 0;
     } // End of constructor
 
+    randomGuess(referee) {
+        let cat = this.referee.category;
+    } // End of randomGuess() function
+
     secretWordDiff(lengthArr) {
         this.newWord = this.dictionary[this.category][Math.floor(Math.random() * this.dictionary[this.category].length)];
 
@@ -26,12 +30,7 @@ class ComputerPlayer {
     } // End of secretWordDiff() function
 
     setCategory(categoryChoice) {
-        for(let i = 0; i <= 6; i++) {
-            if(i === categoryChoice) {
-                this.category = this.dictionary["cats"][categoryChoice - 1];
-                break;
-            }
-        }
+        this.category = this.dictionary["cats"][categoryChoice - 1];
     } // End of setCategory() function
 
     secretWord() {

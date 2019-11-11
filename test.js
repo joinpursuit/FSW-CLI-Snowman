@@ -6,7 +6,7 @@ const Dictionary = require("./dictionary.js");
 const chalk = require("chalk")
 const fetch = require("node-fetch");
 
-const getMovies = (search, arr) => {
+const getMovies = (search) => {
   return fetch(`https://api.themoviedb.org/3/search/movie?api_key=01b1d1956246aa6d8bfdaaa66cdab0e9&language=en-US&query=${search}&page=1&include_adult=false`)
   .then(response => response.json())
   .then(data => {
@@ -24,7 +24,7 @@ const getPopularMovie = (movie) => {
 }
 
 
-
+getMovies("b");
 // getPopularMovie(0);
 
 // getOmdbData();

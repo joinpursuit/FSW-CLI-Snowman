@@ -280,6 +280,10 @@ class Game {
         return this.referee instanceof HumanPlayer;
     } // End of isRefereePlayer() function
 
+    computerWordGuess() {
+        // Depending on computer difficulty will get the computers guess at different points
+    } // End of computerWordGuess() function
+
     computerGuesser() {
         while(!this.board.isGameOver(this.board.board)) {
             console.clear();
@@ -325,7 +329,10 @@ class Game {
 
             this.board.printBoard(this.referee);
 
-            this.guessWord();
+            if(this.board.movesTaken % 3 === 0) {
+                this.guessWord();
+            }
+            
             if(this.board.isGameOver()) {
                 break;
             }

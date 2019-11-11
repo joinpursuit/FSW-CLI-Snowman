@@ -1,4 +1,6 @@
 const readline = require('readline-sync');
+const chalk = require("chalk");
+const Dictionary = require("./dictionary.js");
 
 class HumanPlayer {    
     constructor(name = "player", word) {
@@ -6,6 +8,7 @@ class HumanPlayer {
         this.name = name;
         this.category;
         this.wins = 0;
+        this.dictionary = Dictionary;
     } // End of constructor()
 
     setName(name) {
@@ -20,30 +23,34 @@ class HumanPlayer {
         return readline.question("Choose a letter: ");
     } // End of getMove() function
 
-    setCategory() {
-        console.log(`${this.name} choose a category:`);
-        console.log("[1] Movies");
-        console.log("[2] TV shows")
-        console.log("[3] Miscellaneous");
-        console.log("[4] Musicians");
-        console.log("[5] Books");
-        console.log("[6] Video Games");
+    chooseCategory() {
+        console.log(chalk.yellow(`${this.name} choose a category:`));
+        console.log(chalk.magenta("[1] Movies"));
+        console.log(chalk.magenta("[2] TV shows"));
+        console.log(chalk.magenta("[3] Miscellaneous"));
+        console.log(chalk.magenta("[4] Musicians"));
+        console.log(chalk.magenta("[5] Books"));
+        console.log(chalk.magenta("[6] Video Games"));
         let catChoice = readline.question("");
 
         while(catChoice !== "1" && catChoice !== "2" && catChoice !== "3" && catChoice !== "4" && catChoice !== "5" && catChoice !== "6") {
             console.clear();
-            console.log("Enter a number between 1 & 6")
-            console.log(`${this.name} choose a category:`);
-            console.log("[1] Movies");
-            console.log("[2] TV shows")
-            console.log("[3] Miscellaneous");
-            console.log("[4] Musicians");
-            console.log("[5] Books");
-            console.log("[6] Video Games");
+            console.log(chalk.red("Enter a number between 1 & 6"));
+            console.log(chalk.yellow(`${this.name} choose a category:`));
+            console.log(chalk.magenta("[1] Movies"));
+            console.log(chalk.magenta("[2] TV shows"));
+            console.log(chalk.magenta("[3] Miscellaneous"));
+            console.log(chalk.magenta("[4] Musicians"));
+            console.log(chalk.magenta("[5] Books"));
+            console.log(chalk.magenta("[6] Video Games"));
             catChoice = readline.question("");
         }
 
         this.category = Number(catChoice);
+    } // End of chooseCategory() function
+
+    setCategory() {
+        this.category = this.dictionary["cats"][this.category - 1];
     } // End of setCategory() function
 
     setWord(word) {
