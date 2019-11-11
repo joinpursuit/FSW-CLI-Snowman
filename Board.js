@@ -220,14 +220,7 @@ class Board {
     } // End of isValidGuess() function
 
     guessWordComputer(referee, guesser) {
-        let guess = guesser.randomGuess();
-
-        if(!this.isValidGuess(guess)) {
-            let validGuess = false;
-            while(!validGuess) {
-                guess = guesser.randomGuess();
-            }
-        }
+        let guess = guesser.randomGuess(referee);
 
         for(let i = 0; i < referee.newWord.length; i++) {
             if(referee.newWord[i] !== guess[i]) {

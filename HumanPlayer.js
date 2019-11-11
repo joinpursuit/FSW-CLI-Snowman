@@ -47,6 +47,7 @@ class HumanPlayer {
         }
 
         this.category = Number(catChoice);
+        this.setCategory();
     } // End of chooseCategory() function
 
     setCategory() {
@@ -55,7 +56,9 @@ class HumanPlayer {
 
     setWord(word) {
         this.newWord = word;
-        this.dictionary[this.category].unshift(word);
+        if(!this.dictionary[this.category].includes(word)) {
+            this.dictionary[this.category].unshift(word);
+        }
     } // End of setWord() function
 
     revealWord() {
@@ -68,7 +71,7 @@ class HumanPlayer {
 
     isCategoryMisc() {
         return this.category === "misc";
-    } // End of isCategoryMisc()
+    } // End of isCategoryMisc() function
 } // End of HumanPlayer() class
 
 module.exports = HumanPlayer;

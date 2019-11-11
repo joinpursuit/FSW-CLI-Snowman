@@ -290,6 +290,11 @@ class Game {
             
             this.board.printBoard(this.referee);
 
+            if(this.board.movesTaken === 8) {
+                this.board.guessWordComputer(this.referee, this.guesser);
+                this.userInput(chalk.yellow("Press enter to continue."));
+            }
+
             let computerGuess = this.guesser.getMove(this.referee, this.board.guesses, this.board);
             this.board.placeLetter(computerGuess, this.referee.newWord);
             console.log(computerGuess);
