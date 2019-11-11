@@ -55,6 +55,7 @@ class HumanPlayer {
 
     setWord(word) {
         this.newWord = word;
+        this.dictionary[this.category].unshift(word);
     } // End of setWord() function
 
     revealWord() {
