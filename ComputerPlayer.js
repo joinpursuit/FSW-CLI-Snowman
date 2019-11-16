@@ -85,7 +85,7 @@ class ComputerPlayer {
                 }
             }
 
-            if(guessesArr.includes(guess) || !board.isValidMove(guess) || guess === undefined) {
+            if(guess === undefined || guessesArr.includes(guess) || !board.isValidMove(guess)) {
                 guess = this.randomLetter();
             } else {
                 guessNotRepeat = true;

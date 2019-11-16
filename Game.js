@@ -171,8 +171,6 @@ class Game {
             case "1": 
                 this.guesser = this.player1;
                 this.referee = this.player2;
-
-                this.difficultyChoice();
                     
                 break;
             case "2":
@@ -181,6 +179,10 @@ class Game {
 
                 break;
             } // End of playerChoice switch
+
+
+            this.difficultyChoice();
+
             return playerChoice;
     } // End setSoloCharacter() function
 
@@ -192,9 +194,13 @@ class Game {
             diffChoice = this.userInput("Choose a difficulty for the computer. (1 - 4) ");
         } // End of diffChoice validity check
 
-        this.referee.setDifficulty(Number(diffChoice));
+        this.player2.setDifficulty(Number(diffChoice));
 
-        this.categoryChoice();
+        if(this.isRefereePlayer) {
+            this.referee.setCategory();
+        } else {
+            this.categoryChoice();
+        }
     } // End of difficultyChoice() function
 
     displayCategories() {
@@ -280,8 +286,37 @@ class Game {
         return this.referee instanceof HumanPlayer;
     } // End of isRefereePlayer() function
 
+    computerGuessCheck(letterCount, checkNumber) {
+        if(Math.floor(letterCount / checkNumber) > Math.floor(this.referee.newWord / checkNumber)) {
+            this.board.guessWordComputer(this.referee, this.guesser);
+        }
+    } // End of computerGuessCheck() function
+
     computerWordGuess() {
-        // Depending on computer difficulty will get the computers guess at different points
+        let count = this.board.board.reduce((acc, el) => {
+            if(el !== " ") acc++
+            return acc;
+        }, 0);
+
+        switch(this.guesser.difficulty) {
+            case 1:
+                this.computerGuessCheck(count, 10);
+                break;
+
+            case 2:
+                this.computerGuessCheck(count, 8);
+                break;
+
+            case 3:
+                this.computerGuessCheck(count, 6);
+                break;
+
+            case 4:
+                this.computerGuessCheck(count, 4);
+        }
+
+        this.userInput(chalk.yellow("Press enter to continue."));
+
     } // End of computerWordGuess() function
 
     computerGuesser() {
@@ -290,10 +325,7 @@ class Game {
             
             this.board.printBoard(this.referee);
 
-            if(this.board.movesTaken === 8) {
-                this.board.guessWordComputer(this.referee, this.guesser);
-                this.userInput(chalk.yellow("Press enter to continue."));
-            }
+            this.computerWordGuess();
 
             let computerGuess = this.guesser.getMove(this.referee, this.board.guesses, this.board);
             this.board.placeLetter(computerGuess, this.referee.newWord);
