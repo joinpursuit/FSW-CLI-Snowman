@@ -19,9 +19,15 @@ class Game {
          this.currentPlayer === this.HumanPlayer ? this.ComputerPlayer : this.HumanPlayer
     }
 
+    wordCheck(){
+        if(this.board.displyWord.join("") === this.guessWord){
+            this.board.wordFound = true
+        }
+    }
+
     gameIsOver() {
         this.board.wordCheck()
-        if(this.guessRemaining === 0 || this.board.wordCheck() === true){
+        if(this.guessRemaining === 0 || this.board.wordFound === true){
             return this.gameOver = true
         } 
     }
@@ -37,6 +43,7 @@ class Game {
 
     gameDisplay(){
         console.log(`lets play a game`)
+        console.log(this.board.guessWord)
         console.log(this.board.displyWord)
         console.log(`you have ${this.guessRemaining} guesses left`)
         console.log(`you have tried ${this.board.guessedLetters}`)
@@ -57,8 +64,9 @@ class Game {
             this.guess = this.player1.getGuess()
             if(this.board.isValidGuess(this.guess)){
                 this.board.replace(this.guess)
+            }else{
+                this.guessRemaining -=1
             }
-            this.guessRemaining -=1
             this.gameIsOver()
         }
         this.reveal()

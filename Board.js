@@ -9,11 +9,11 @@ class Board {
         this.wordFound = false
     }
     
-    disply = () => {
+    disply(){
         return this.displyWord = Array(this.guessWord.length).fill("_");
     }
     
-    replace = (letter) =>{
+    replace(letter){
 
         for(let i = 0; i <= this.guessWord.length-1;i++){
             if(this.guessWord[i] === letter){
@@ -21,7 +21,7 @@ class Board {
             }
         }
     }
-    isValidGuess = (letter) =>{
+    isValidGuess(letter){
         if(this.guessWord.includes(letter) && !this.guessedLetters.includes(letter)){
             this.guessedLetters.push(letter);
             return true
@@ -31,14 +31,14 @@ class Board {
         }
     }
     
-    fillSpace = (letter)=>{
+    fillSpace(letter){
         if(this.isValidGuess(letter) === true){
             this.replace(letter)
         } else {
             console.log("try again")
         }
     }
-    wordCheck = () =>{
+    wordCheck(){
         if(this.displyWord.join("") === this.guessWord){
             this.wordFound = true
         }
