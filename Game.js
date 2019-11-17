@@ -23,7 +23,7 @@ class Game {
         return readline.question(chalk.yellow(question));
     } // End of userInput() function
 
-    isValidInput(userInput, ...args) {
+    isValidInput(userInput, ...args) { 
         return args.includes(userInput.toUpperCase());
     } // End of isValidInput() function
 
