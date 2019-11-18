@@ -1,38 +1,27 @@
-let {allTheWords} = require ('./words.js')
-const {ComputerPlayer} = require('./ComputerPlayer.js')
+// This would construct a board to the length.
+// It should check if the board is complete.
+// It should be able to add characters at differnect indicies.
+class Board {
+    constructor(length) {
+        this.board = new Array(length).fill("_");
+    }
 
+    length() {
+        return this.board.length;
+    }
 
-class Board{
-    constructor(length){
-   this.board = new Array(length).fill("_")
-   }
+    get(idx) {
+        return this.board[idx];
+    }
+    isComplete() {
+        return this.board.every(el => el !== "_");
+    }
 
-
-
-addLetter(word, letter) {
-    for(let i = 0; i < word.length; i++){
-        if(word[i] === letter){
-            this.board[i] = letter;
+    addChar(indicies, char) {
+        for(let i of indicies) {
+            this.board[i] = char; 
         }
     }
 }
 
-
-isComplete(word){
-        if(this.board.join("") === word){
-            return true;
-        } else {
-            return false;
-        }
-}
-
-
-
-displayBoard(){
-        console.log(this.board.join(" "));
-    }
-}
-
-
-
-module.exports = Board
+module.exports = Board;

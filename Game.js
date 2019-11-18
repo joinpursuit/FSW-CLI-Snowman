@@ -1,100 +1,64 @@
-// * Should have guesser and referee. 
-// * Should have guesses remaining. 
-// * Should have a play function. 
-// * Should check for validity of guess. 
-// * Should have an isGameOver. 
-const readline = require('readline-sync')
-const ComputerPlayer = require('./ComputerPlayer.js')
-const HumanPlayer = require('./HumanPlayer.js')
-const Board = require('./Board.js')
+// Should have guesser and referee.
+// Should have guesses remaining.
+// Should have a play function.
+// Should check for validity of guess.
+// Should have an isGameOver.
+const Board = require("./Board.js")
+const HumanPlayer = require("./HumanPlayer.js")
+const ComputerPlayer =  require("./ComputerPlayer.js")
+const {hangManPics} = require("./hangmanPics.js")
 
-class Game{
-    constructor(name){
-        this.computer = new ComputerPlayer()
-        this.human = new HumanPlayer(name)
-        this.board = new Board(this.computer.lengthSecretWord())
-        this.guessRemaining = 5
-   }
-   gameOver(){
-    if (this.guessesRemaining <= 0 || this.board.isComplete(this.computer.word)){
-        return true;
-    } else {
-        return false;
+class Game {
+    constructor(players) {
+        this.ref = players["ref"]
+        this.guesser = players["guesser"]
+        this.guessesRemaining = 6; 
+        this.guessedLetters = [];
     }
-}
-playGame(){
-
-    let allguessLetters = []
-    let secretWord = this.computer.word
-    let message = "Guess the word or your coming with me!"
-
-
-while(!this.isGameOver()){
-
-    console.clear()
-    this.guessRemaining
-    this.board.displayBoard();
-    console.log(allguessLetters.join())  
-    console.log(message)
-    console.log(`You have ${this.guessRemaining} remaining`)
-   
-    let guess = this.human.getMove()
-
-if (this.isValid(guess) && (!allguessLetters.includes(guess)) ){
-
-    if(secretWord.includes(guess)){
-        this.board.addChar(this.computer.word, guess);
-        allguessLetters.push(guess)
-        message = "You Guessed Right"
-    }else{
-    allguessLetters.push(guess)
-    this.guessRemaining -= 1
-    message = "You Guessed Wrong "
-    }
-
-}else{
-    message = "Invalid Move"
-}
-if(this.guessRemaining === 0){
-    console.clear()
-    this.board.displayBoard();
-    console.log(`HA! the word was ${this.computer.revealWord()}`)
-    console.log(`No more guesses ${name} 👽 time to start testing!`)
-     break;
- }
-if(this.board.isComplete(this.computer.word)){
-    console.clear()
-
-    this.board.displayBoard();
-    console.log('Game won')
-     break;
+    play() {
+        let boardLength = this.ref.chooseSecretWord()
+        this.board = new Board(boardLength);
+        while(!this.isGameOver()) {
+            console.log(hangManPics[this.guessesRemaining])
+            console.log("Letters guessed so far");
+            console.log("Guessed so far: " + this.guessedLetters.join(", "));
+        
+            this.guesser.displayBoard(this.board);
+            this.ref.displayBoard(this.board);
+            let guess = "0"; 
+            while(!this.isValidGuess(guess)) {
+                guess = this.guesser.getMove();
+                if(!this.isValidGuess(guess)) {
+                    console.log("INVALID GUESS!")
+                }
+            }
+            this.guessedLetters.push(guess)
+            let positions = this.ref.checkGuess(guess);
+            if(positions.length === 0) {
+                this.guessesRemaining--;
+            }
+            this.board.addChar(positions, guess);
+        }
+        if(this.guessesRemaining > 0) {
+            console.log(this.guesser.name + " wins!")
+        } else {
+            let winningWord = this.ref.reveal();
+            console.log("word was " + winningWord)
+            console.log(this.ref.name + " wins!")
+        }
 
     }
-}
-}
-isValid(guess){
-    let valid = false
-    let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-    if(alphabet.includes(guess.toLowerCase())){
-        valid = true
-    } else {
-        valid = false
+    isValidGuess(char) {
+        let alph = "abcdefghijklmnopqrstuvwxyz";
+        return char.length === 1 && alph.includes(char) && 
+        !this.guessedLetters.includes(char);
     }
-    return valid
-}
-
-isGameOver(){
-    if (this.guessesRemaining <= 0 || this.board.isComplete(this.computer.word)){
-        return true;
-    } else {
-        return false;
+    isGameOver() {
+       return  this.board.isComplete() || this.guessesRemaining === 0;
     }
 }
-}
 
-
-let name = readline.question("What is your name?")
-let game = new Game(name)
-
-
-game.playGame()
+let human = new HumanPlayer("corey")
+let robo = new ComputerPlayer();
+let game = new Game({ref: human, guesser: robo})
+game.play();
