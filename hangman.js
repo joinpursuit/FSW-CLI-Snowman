@@ -1,17 +1,6 @@
-const readline = require('readline-sync');
+import View from './view.js';
+import Game from './GamePro1.js'
 
-function getValidLetterGuess() {
-  function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
-  }
-  let letter = ""
-  while (!letter) {
-    let input = readline.question("Please enter your guess: ")
-    if (guessIsValid(input)) {
-      letter = input
-    } else {
-      console.log("Please enter a valid letter")
-    }
-  }
-  return letter.toLowerCase()
-}
+document.addEventListener("DOMContentLoaded", ()=> {
+   console.log('hey')
+})

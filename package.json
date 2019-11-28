@@ -1,0 +1,29 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "![Hangman Gif](https://github.com/joinpursuit/Pursuit-Core-Web-Hangman/blob/master/hangmanWebGif.gif)",
+  "main": "hangman.js",
+  "dependencies": {
+    "cli": "^1.0.1",
+    "init": "^0.1.2",
+    "readline-sync": "^1.4.10",
+    "webpack": "^4.41.2"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.10"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karenm09/Pursuit-Core-Web-Hangman.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karenm09/Pursuit-Core-Web-Hangman/issues"
+  },
+  "homepage": "https://github.com/karenm09/Pursuit-Core-Web-Hangman#readme"
+}

@@ -4,7 +4,7 @@ const ALPHABET = [
     "k", "l", "m", "n", "o",
     "p", "q", "r", "s", "t",
     "u", "v", "w", "x", "y",
-    "z"];
+    "z", " "];
 
 class ComputerPlayer {
     constructor() {
@@ -14,4 +14,4 @@ class ComputerPlayer {
         return ALPHABET[Math.floor(Math.random() * 26)]
     }
 }
-module.exports = ComputerPlayerPro1;
+module.exports = ComputerPlayer;

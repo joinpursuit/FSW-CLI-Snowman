@@ -1,3 +1,4 @@
+
 class Board {
     constructor() {
         this.word = //grab from file;
@@ -17,7 +18,7 @@ class Board {
     }
     //show guessed letters not in word
     letterNotInWord() {
-        return "Guessed Letters: " + Array.from(this.letters).sort();
+        return "Guessed Letters: " + Array.from(this.letters);
     }
     //show number of failed guesses
     failedGuesses() {
@@ -27,4 +28,4 @@ class Board {
 
 
 
-module.exports = BoardPro1;
+module.exports = Board;

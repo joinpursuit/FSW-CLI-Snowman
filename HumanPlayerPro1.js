@@ -1,4 +1,4 @@
-const readline = require("readline-sync");
+//const readline = require("readline-sync");
 
 class HumanPlayer {
     constructor (name){
@@ -9,4 +9,4 @@ class HumanPlayer {
     }
 }
 
-module.exports = HumanPlayerPro1;
+module.exports = HumanPlayer;

@@ -1,7 +1,3 @@
-const HumanPlayer = require("./HumanPlayerPro1.js")
-const ComputerPlayer = require("./ComputerPlayerPro1.js")
-const Board = require("./BoardPro1.js")
-
 class Game {
     constructor() {
         this.playing = true
@@ -42,3 +38,4 @@ class Game {
         }
     }
 }
+export default Game;
