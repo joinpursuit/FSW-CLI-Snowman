@@ -1,48 +1,80 @@
-const {allTheWords} = require("./word.js")
+const { allTheWords } = require("./words.js")
 
-class Board {
-    constructor(length) {     
-        this.board = new Array(length).fill("_")
-        this.filled = false
-        
+class ComputerPlayer {
+    constructor(name = "Robo Bobo") {
+        this.dictionary = allTheWords;
+        this.name = name; 
+        this.guessesMade = new Set();
     }
 
-    completeBoard() {
-        if (!this.board.includes("_")) {
-            return this.filled = true
-        } else {
-            return this.filled = false
-        }    
-
+    displayBoard(board) {
+        this.board = board; 
     }
 
-    addCharacter(word, char) {
-        for (let i = 0; i < word.length; i++) {
-            if (word[i] === char) {
-                this.board[i] = char
-            } 
+    getMove() {
+        let alph = "abcdefghijklmnopqrstuvwxyz";
+        this.dictionary = this.dictionary.filter(word => word.length === this.board.length())
+        let missed = new Set([...this.guessesMade])
+        for(let i = 0; i < this.board.length(); i++) {
+            let char = this.board.get(i)
+            if(char !== "_") {
+                missed.delete(char);
+                this.dictionary = this.dictionary.filter(word => word[i] === char);
+            }
         }
-        return this.board
-            
+
+        missed.forEach(char => {
+            this.dictionary = this.dictionary.filter(word => !word.includes(char))
+        })
+
+        let lettersCount = {}
+        this.dictionary.forEach(word => {
+            for(let char of word) {
+                lettersCount[char] ? lettersCount[char]++ : lettersCount[char] = 1;
+            }
+        })
+
+        let max = 0; 
+        let guess = null; 
+
+        for(let char in lettersCount) {
+            if(lettersCount[char] > max && !this.guessesMade.has(char)) {
+                max = lettersCount[char];
+                guess = char; 
+            }
+        }
+
+        while(!guess) {
+            let rand = Math.floor(Math.random() * alph.length);
+            let char = alph[rand];
+            if(!this.guessesMade.has(char)) {
+                guess = char;
+            }
+        }
+        this.guessesMade.add(guess)
+        return guess; 
+
     }
 
+    chooseSecretWord() {
+        let idx = Math.floor(Math.random() * this.dictionary.length)
+        this.secretWord = this.dictionary[idx];
+        return this.secretWord.length; 
+    }
+
+    checkGuess(char) {
+        let indicies = [];
+        for(let i = 0 ; i < this.secretWord.length; i++) {
+            if(this.secretWord[i] === char) {
+                indicies.push(i);
+            }
+        }
+        return indicies
+    }
+
+    reveal() {
+        return this.secretWord;
+    }
 }
 
-
-let test = new Board(5)
-console.log(test.addCharacter("Pizza", "z"))
-
-module.exports = Board
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default ComputerPlayer;
