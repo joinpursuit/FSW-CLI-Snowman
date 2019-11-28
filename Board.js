@@ -1,11 +1,22 @@
 class Board{
-    constructor(){
-        this.board = new Array (length).fill("_")
+    constructor(length){
+        this.board = new Array(length).fill("_");
     }
-    addChar = (idx, letter) => {
-       this.board[idx] = letter;
- }
- 
- }
+    length() {
+        return this.board.length
+    }
+    get(index) {
+        return this.board[index]
+    }
+    isOver() {
+        return this.board.every(el => el !== "_")
+    }
+    addLetter(indicies, letter) {
+        for(let i of indicies){
+            this.board[i] = letter
+        }
+    }
+}
 
+module.exports = Board
 

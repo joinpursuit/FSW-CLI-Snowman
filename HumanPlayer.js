@@ -1,18 +1,21 @@
+// import { builtinModules } from "module";
+const readline = require('readline-sync')
+
 class HumanPlayer {
     constructor(name){
         this.name = name;
     }
     getMove() {
-        return readline.questions("What is your letter guess")
+        return readline.question("What is your letter guess: ")
     }
-    displayBoard() {
-
-    }
-    selectWord(word) {
-
-    }
-    givePositions() {
-        
+    displayBoard(board) {
+        let output = "";
+        for(let i = 0; i < board.length(); i++) {
+            output += board.get(i) + " "
+        }
+        console.log(output)
     }
 }
 
+console
+module.exports = HumanPlayer
