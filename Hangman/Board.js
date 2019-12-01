@@ -1,64 +1,25 @@
-const {words} = require("./words.js");
-// const {ComputerPlayer} = require("./ComputerPlayer.js")
-// const HumanPlayer = require("./HumanPlayer.js")
-
 class Board {
-    constructor() {
-        this.words = "";
-        this.board = [];
-        // new Array (this.words.length);
-        // this.ComputerPlayer = ComputerPlayer;
+    constructor(length) {
+        this.board = new Array (length).fill("_");
     }
-    boardFill() {
-        // const ref = new ComputerPlayer();
-        // let str = ref.getSecretWord();
-        // console.log(str)//DELETE!!
-        // let chosenWord = str.split("");
-        for(let i in this.words)
-        this.board[i] = "_";
-        this.board = this.board.join("");
-        this.board.forEach((el,i)=> {
-             el[i] = this.board[i] = " _"
+
+    isComplete() {
+        return this.board.every(el => {
+            return el !== "_";
         })
-        return el[i];
     }
-    boardComplete() {
-        if(this.board.join() === this.word) {
-            return true
-        } else {
-            return false
-        }
-    }
-    charsAdded(char) {
-        for(let i = 0; i < this.word.length; i++) {
-            if(this.word[i] === char) {
-                this.board[i] = char
-            }
+
+    addChar(indicies, char) {
+        for (let i of indicies) {
+            this.board[i] = char;
         }
     }
 }
 
-
-module.exports = {Board()}
-
-// let boardA = new Board();
-// console.log(boardA)
-// // console.log(charsAdded())
-// console.log(boardA.boardFill())
-// // let danielle = new HumanPlayer();
-// // console.log(boardA.boardFill)
-// // console.log(danielle.getGreeting)
-// // console.log(danielle.getMove)
-// // console.log(boardA.boardFill());
-
-
-
-
-// // charsAdded(char){
-// //     this.charsAdded = char
-// //     for(let i = 0; i < this.words.length; i++) {
-// //         if(this.words[i] === char) {
-// //             this.board[i] = char;
-// //         }
-// //     }
-// // }
+module.exports = Board;
+let board = new Board(6);
+console.log(board);
+console.log(board.isComplete());
+board.addChar([3], "s")
+console.log(board.isComplete());
+console.log(board)
