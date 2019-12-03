@@ -1,0 +1,25 @@
+body {
+    text-align: center;
+    background: peru;
+}
+
+header {
+    color: sienna;
+    font-weight: bold;
+    font-size: 35px;
+    margin-bottom: 25px;
+}
+
+#playerText {
+    padding: 15px;
+}
+
+#playAgain {
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+#playAgain:hover {
+    cursor: pointer;
+}

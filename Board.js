@@ -1,14 +1,21 @@
 class Board {
-    constructor(secretWord) {
+    constructor(secretWord, length) {
         this.secretWord = secretWord;
-        
+        this.board = new Array(length).fill("_")
     }
-    displayBoard() {
-        let str = "";
-        for (let i = 0; i < this.secretWord.length; i++) {
-            str += " _ ";
+    length() {
+        return this.board.length;
+    }
+    get(idx) {
+        return this.board[idx];
+    }
+    isComplete() {
+        return this.board.every(el => el !== "-")
+    }
+    addChar(indicies, char) {
+        for (let i of indicies) {
+            this.board[i] = char;
         }
-        return str;
     }
 }
 // let board1 = new Board('suspenders')

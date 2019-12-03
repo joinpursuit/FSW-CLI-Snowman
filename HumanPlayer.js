@@ -1,4 +1,4 @@
-const readline = require("readline-sync");
+// const readline = require("readline-sync");
 
 class HumanPlayer {
     constructor(name) {
@@ -6,7 +6,14 @@ class HumanPlayer {
         this.guessedLetters = "";
     }
     getMove() {
-        return readline.question("Enter your guess:")
+        return readline.question("Enter your guess:").toLowerCase();
+    }
+    displayBoard() {
+        let str = "";
+        for (let i = 0; i < this.secretWord.length; i++) {
+            str += " _ ";
+        }
+        return str;
     }
     
 }
