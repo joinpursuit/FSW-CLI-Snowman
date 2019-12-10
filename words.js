@@ -101,4 +101,4 @@ const allTheWords = ["able", "about", "account", "acid", "across",
    "work", "worm", "wound", "writing", "wrong", "year", "yellow", 
    "yesterday", "young"]
   
-   module.exports = {allTheWords};
+   module.exports = allTheWords;
