@@ -5,21 +5,29 @@ const Board = require("./board.js")
 class HumanPlayer {
   constructor(name){
     this.name = name;
+    this.currentMove = ""
 
   }
-  getMove(userInput){
-    userInput = readline.question('Enter your Letter:')
-    return userInput
+  getMove(){
+    let userInput = readline.question('Enter your Letter:')
+    this.currentMove = userInput
   }
   displayBoard(word){
       
-    let newBoard = new Board(word)
+    let newBoard = new Board(word.length)
       return newBoard
      
 
   }
 
 }
+
+
+
+
+
+module.exports = HumanPlayer;
+
 
 
 

@@ -2,12 +2,13 @@
 
 
 class Board {
-    constructor(word){
-       this.board = new Array(word.length).fill('_')
+    constructor(length){
+      this.board = this.board = new Array(length).fill('_')
+      this.correctLettersCount = 0
     } 
           
-    ifBoardComplete(correctLetters){
-        if (this.board.length === correctLetters.length){
+    isBoardComplete(){
+        if (this.board.length === this.correctLettersCount){
             return true 
         } else {
             return false
@@ -15,23 +16,14 @@ class Board {
         
     } 
    
-    displayBoard(word){
-       for (let i = 0; i < word.length; i++){
-        let blankLetter = i
-        blankLetter = '_'
-        this.board.push(blankLetter)
-       }
-       
-    }
     addCharacter(character,index){
-       this.board[index] = character
+        
+    this.board[index] = character
+    this.correctLettersCount += 1
+
+       
     }
                                             
 }
 
-
 module.exports = Board;
-
-
-
-
