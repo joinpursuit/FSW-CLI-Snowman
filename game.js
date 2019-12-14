@@ -33,10 +33,14 @@ class Game {
             console.log(`You have ${this.guessesRemaining} guess's remaining`);
             console.log(this.guesser.displayBoard(this.ref.reveal()));
             this.guesser.getMove()
+            console.log(this.ref.secretWord)
             if(this.moveIsValid()){
-                this.ref.givePosition()
+                this.ref.givePosition(this.ref.secretWord,this.guesser.currentMove)
+                console.log(this.ref.currentPostionsArr);
+                this.ref.currentPostionsArr = []
+                
             }else{
-                this.guessesRemaining +=1
+                this.guessesRemaining -=1
                 this.play()
             }
         }
@@ -45,11 +49,13 @@ class Game {
 
     }
     moveIsValid(){
-        if(this.guesser.currentMove){
+        if(this.ref.secretWord.includes(this.guesser.currentMove)){
           return true
         } else {
           return false
-        }
+        }  
+        
+        
     }
     
     

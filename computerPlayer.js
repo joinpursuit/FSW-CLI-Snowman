@@ -7,6 +7,7 @@ class ComputerPlayer {
     constructor(){
         this.dictionary = allWords
         this.secretWord = "" 
+        this.currentPostionsArr = []
     } 
     getWord(){
         this.secretWord = allWords[(Math.floor(Math.random() * (((allWords.length-1) - 0) + 0 )))]
@@ -19,12 +20,14 @@ class ComputerPlayer {
     reveal(){
         return this.secretWord
     }
-    givePosition(){
-        for(let i=0;i < this.secretWord.length; i++){
-         if (this.secretWord[i] === guesser.currentMove){
-            return i
+    givePosition(secretWord,currentMove){
+        
+        for(let i=0;i < secretWord.length; i++){
+         if (secretWord[i] === currentMove){
+            this.currentPostionsArr.push(i)
          } 
         }
+        
     }
 } 
 
