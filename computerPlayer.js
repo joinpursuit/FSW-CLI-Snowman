@@ -30,22 +30,4 @@ class ComputerPlayer {
         
     }
 } 
-
-// let danny = new HumanPlayer("danny")
-
-
-
-
-
-// let ref = new ComputerPlayer()
-
-// let guesser = new HumanPlayer("danny")
-// console.log(ref.getWord())
-// console.log(ref.secretWord)
-
-// guesser.getMove()
-// console.log(guesser.currentMove)
-
-// console.log(ref.givePosition())
-
 module.exports = ComputerPlayer;

@@ -25,16 +25,6 @@ class HumanPlayer {
   }
   
 }
-
-
-let danny = new HumanPlayer("danny")
-// danny.getMove()
-// console.log(danny.currentMove)
-// console.log(danny.isValid())
-// console.log(danny)
-
-
-
 module.exports = HumanPlayer;
 
 

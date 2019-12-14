@@ -22,14 +22,7 @@ class Board {
         this.board[el] = character 
       })  
       this.correctLettersCount += 1
-
-       
     }
                                             
 }
-
-// let board1 = new Board(6)
-// board1.addCharacter("d",[1,2])
-// console.log(board1["board"])
-
 module.exports = Board;
