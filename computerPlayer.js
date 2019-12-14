@@ -20,23 +20,14 @@ class ComputerPlayer {
         return this.secretWord
     }
     givePosition(){
-        if(guesser.moveIsValid()){
-            
-            for(let i=0;i < this.secretWord.length; i++){
-                if (this.secretWord[i] === guesser.currentMove){
-                    return i
-                }
-            }
-        } else{
-            return "error"
-            
-
+        for(let i=0;i < this.secretWord.length; i++){
+         if (this.secretWord[i] === guesser.currentMove){
+            return i
+         } 
         }
-
-    
-    
+    }
 } 
-}
+
 // let danny = new HumanPlayer("danny")
 
 

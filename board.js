@@ -3,7 +3,7 @@
 
 class Board {
     constructor(length){
-      this.board = this.board = new Array(length).fill('_')
+      this.board = new Array(length).fill('_')
       this.correctLettersCount = 0
     } 
           

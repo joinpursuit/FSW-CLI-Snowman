@@ -9,8 +9,8 @@ class HumanPlayer {
 
   }
   getMove(){
-    
-    let userInput = readline.question('Enter your Letter:')
+  let userInput = readline.question('Enter your Letter:')
+      
     if(userInput.length > 0 && userInput.length < 2){
       this.currentMove = userInput
     } else {
@@ -20,20 +20,10 @@ class HumanPlayer {
 
   }
   displayBoard(word){
-      
     let newBoard = new Board(word.length)
-      return newBoard
-     
-
+    return newBoard["board"]
   }
-  moveIsValid(){
-    if(this.currentMove.length === 1){
-      return true
-    } else {
-      return false
-    }
-  }
-
+  
 }
 
 
