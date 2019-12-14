@@ -9,8 +9,15 @@ class HumanPlayer {
 
   }
   getMove(){
+    
     let userInput = readline.question('Enter your Letter:')
-    this.currentMove = userInput
+    if(userInput.length > 0 && userInput.length < 2){
+      this.currentMove = userInput
+    } else {
+      console.log("Sorry Try Again!")
+      this.getMove()
+    }
+
   }
   displayBoard(word){
       
@@ -19,10 +26,22 @@ class HumanPlayer {
      
 
   }
+  moveIsValid(){
+    if(this.currentMove.length === 1){
+      return true
+    } else {
+      return false
+    }
+  }
 
 }
 
 
+let danny = new HumanPlayer("danny")
+// danny.getMove()
+// console.log(danny.currentMove)
+// console.log(danny.isValid())
+// console.log(danny)
 
 
 
