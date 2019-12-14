@@ -9,6 +9,7 @@ class Board {
           
     isBoardComplete(){
         if (this.board.length === this.correctLettersCount){
+            console.log("you win")
             return true 
         } else {
             return false
@@ -16,14 +17,19 @@ class Board {
         
     } 
    
-    addCharacter(character,index){
-        
-    this.board[index] = character
-    this.correctLettersCount += 1
+    addCharacter(character,indexArr){
+      indexArr.forEach(el => {
+        this.board[el] = character 
+      })  
+      this.correctLettersCount += 1
 
        
     }
                                             
 }
+
+// let board1 = new Board(6)
+// board1.addCharacter("d",[1,2])
+// console.log(board1["board"])
 
 module.exports = Board;

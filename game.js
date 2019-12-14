@@ -16,37 +16,42 @@ class Game {
     gameStart(){
         this.ref.getWord()
         this.board = new Board(this.ref.secretWord.length)
-        
         this.play()
-
     }
-
     isGameover(){
         if(this.board.isBoardComplete() || this.guessesRemaining === 0){
             return true
         } else {
+            
             return false
         }
     }
     play(){
         while(!this.isGameover()){
             console.log(`You have ${this.guessesRemaining} guess's remaining`);
-            console.log(this.guesser.displayBoard(this.ref.reveal()));
+            console.log(this.board.board);
+            console.log(`Guessed Letters:${this.guessedLetters}`)
             this.guesser.getMove()
             console.log(this.ref.secretWord)
             if(this.moveIsValid()){
                 this.ref.givePosition(this.ref.secretWord,this.guesser.currentMove)
-                console.log(this.ref.currentPostionsArr);
+                
+                this.board.addCharacter(this.guesser.currentMove,this.ref.currentPostionsArr)
+                this.board.correctLettersCount +1
+                this.guessedLetters.push(this.guesser.currentMove)
+                
+                
                 this.ref.currentPostionsArr = []
+                console.clear()
+
                 
             }else{
                 this.guessesRemaining -=1
+                this.guessedLetters.push(this.guesser.currentMove)
+                console.clear()
                 this.play()
             }
         }
-        
-        
-
     }
     moveIsValid(){
         if(this.ref.secretWord.includes(this.guesser.currentMove)){
@@ -54,11 +59,7 @@ class Game {
         } else {
           return false
         }  
-        
-        
     }
-    
-    
 }
 
 let game1 = new Game()
