@@ -6,7 +6,7 @@
 const HumanPlayer = require("./HumanPlayer.js")
 const ComputerPlayer = require("./ComputerPlayer.js")
 const Board = require("./Board.js")
-const hangManPics = require("./hangman-pics.js")
+const hangmanPics = require("./hangman-pics.js")
 const readline = require("./readline-sync")
 class Game {
     constructor(gamer){
@@ -34,7 +34,15 @@ class Game {
         }
     }
     play(){
-        
+        console.clear();
+        let guessedLetters = [];
+        let secretWord = this.computerPlayer.secretWord;
+        console.log(`Welcome to my Hangman Game ${gamerTag}`)
+        while(!this.isGameOver()){
+            console.log(hangmanPics[this.guessesLeft])
+            this.board.displayBoard();
+            console.log(`You have ${this.guessesLeft} guesses left.`)
+        }
     }
 }
 let gamerTag = readline.question("Enter your name: ");
