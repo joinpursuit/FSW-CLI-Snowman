@@ -38,10 +38,36 @@ class Game {
         let guessedLetters = [];
         let secretWord = this.computerPlayer.secretWord;
         console.log(`Welcome to my Hangman Game ${gamerTag}`)
+
+
         while(!this.isGameOver()){
             console.log(hangmanPics[this.guessesLeft])
             this.board.displayBoard();
             console.log(`You have ${this.guessesLeft} guesses left.`)
+            console.log(`You have already guessed ${this.alreadyGuessed.join(", ")}`)
+            
+            let guess = this.gamer.getMove();
+            while(this.alreadyGuessed.includes(guess)){
+                readline.question("You already guessed that letter, guess again.")
+            }
+            if(this.validMove(guess) && !this.computerPlayer.secretWord.includes(guess)){
+                this.alreadyGuessed.push(guess)
+                this.guessesLeft -= 1;   
+            }else if(this.validMove(guess)){
+                this.alreadyGuessed.push(guess)
+                this.board.guesser(this.computerPlayer.secretWord, guess)
+            }else{
+                guess = readline.question("Enter a valid guess")
+            }
+            console.clear()
+        }
+        if(this.guessesLeft){
+            console.log(this.computerPlayer.unsecret())
+            console.log("Winner! Winner! Chicken Dinner!")
+        }
+        else{
+            console.log("YOU GET NOTHING!! YOU LOSE!!")
+            console.log(this.computerPlayer.unsecret())
         }
     }
 }
