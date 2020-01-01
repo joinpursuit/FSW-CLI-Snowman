@@ -8,6 +8,7 @@ const {allTheWords} = require("./words.js")
 class ComputerPlayer{
     constructor(name="AM"){
         this.name = name
+        this.secretWord = allTheWords[Math.floor(Math.random() * allTheWords.length)]
     }
     secret(){
         this.word
