@@ -2,7 +2,6 @@
 // It should check if the board is complete.
 // It should be able to add characters at differnect indicies.
 let allTheWords = require("./words.js")
-let hangmanPics = require("./hangman-pics.js")
 class Board {
     constructor(word) {
         this.board = new Array(word).fill("_")

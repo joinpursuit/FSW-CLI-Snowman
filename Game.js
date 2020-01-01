@@ -6,7 +6,14 @@
 const HumanPlayer = require("./HumanPlayer.js")
 const ComputerPlayer = require("./ComputerPlayer.js")
 const Board = require("./Board.js")
+const hangManPics = require("./hangman-pics.js")
+const readline = require("./readline-sync")
 class Game {
-    constructor(){
+    constructor(gamer){
+        this.gamer = gamer;
+        this.computerPlayer = new ComputerPlayer()
+        this.board = new Board(this.computerPlayer.secret())
+        this.guessesLeft = 6
+        this.alreadyGuessed = []
     }
 }
