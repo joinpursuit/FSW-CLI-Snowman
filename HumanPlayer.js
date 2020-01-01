@@ -9,12 +9,11 @@
 //   * Possibly a givePostioins that returns an array of indicies. 
 //   * Possibly a reveal word. 
 const readline = require("readline");
-const reader = readline.createInterface({
-    input: process.stdin,
-  output: process.stdout
-});
-class HumanPlayer {
-    constructor(name) {
-    }
+
+const Board = require("./Board.js");
+
+class HumanPlayer{
+  constructor(name){
+    this.name = name
+  }
 }
-module.exports = HumanPlayer;
