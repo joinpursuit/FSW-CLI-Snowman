@@ -16,4 +16,13 @@ class HumanPlayer{
   constructor(name){
     this.name = name
   }
+  getMove(){
+    let guess =readline.quetion("Make your guess");
+    guess.toLowerCase();
+    return guess
+  }
+  displayBoard(board){
+    return board.join(" ")
+
+  }
 }
