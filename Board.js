@@ -2,9 +2,11 @@
 // It should check if the board is complete.
 // It should be able to add characters at differnect indicies.
 let allTheWords = require("./words.js")
+let hangmanPics = require("./hangman-pics.js")
 class Board {
     constructor(word) {
         this.board = new Array(word).fill("_")
+        this.movesLeft = 10
     }
     guesser(word, letter){
         for(let i = 0; i < word.length; i++){
@@ -21,6 +23,7 @@ class Board {
             return false
         }
     }
+    
     displayBoard(){
         console.log(this.board.join(" "))
     }
