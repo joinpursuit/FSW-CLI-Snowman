@@ -27,7 +27,14 @@ class Game {
         return valid
     }
     isGameOver(){
-        if(this.guessesLeft <= 0  || this.)
+        if(this.guessesLeft <= 0  || this.board.isComplete(this.computerPlayer.secretWord)){
+            return true;
+        }else{
+            return false
+        }
+    }
+    play(){
+        
     }
 }
 let gamerTag = readline.question("Enter your name: ");
