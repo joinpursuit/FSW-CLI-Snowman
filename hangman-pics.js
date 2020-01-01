@@ -96,8 +96,8 @@ const hangmanPics = [
    _|_      #
   /_|_\     #
    /-\      #
-  R.I.P     #
             #
+  R.I.P     #
     __________`,
 ];
 module.exports = hangmanPics;

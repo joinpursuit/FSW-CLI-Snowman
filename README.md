@@ -31,7 +31,7 @@ You should build this game in true OOP fashion. To write this game it will be he
   * Should have secretWord and return it's length. 
   * Should have a reveal. 
   * Should give the positions of guessed characters. 
-  * Possibly have a getMove. 
+  * Possibly have a getMove.  
 4. Game 
   * Should have guesser and referee. 
   * Should have guesses remaining. 

@@ -3,8 +3,13 @@
 // Should have a reveal.
 // Should give the positions of guessed characters.
 // Possibly have a getMove.
+let allTheWords = require("./words.js")
 class ComputerPlayer{
-    constructor(){
+    constructor(name="AM"){
+        this.name = name
+    }
+    secret(){
+        this.word
     }
 }
 module.exports = ComputerPlayer
