@@ -17,3 +17,6 @@ class Game {
         this.alreadyGuessed = []
     }
 }
+let gamerTag = readline.question("Enter your name: ");
+let game = new Game(new HumanPlayer(gamerTag));
+game.play();
