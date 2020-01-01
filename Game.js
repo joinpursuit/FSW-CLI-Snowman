@@ -16,6 +16,19 @@ class Game {
         this.guessesLeft = 6
         this.alreadyGuessed = []
     }
+    validMove(guess){
+        let valid = false;
+        let alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+        if(alphabet.includes(guess)){
+            valid = true;
+        }else{
+            valid = false
+        }
+        return valid
+    }
+    isGameOver(){
+        if(this.guessesLeft <= 0  || this.)
+    }
 }
 let gamerTag = readline.question("Enter your name: ");
 let game = new Game(new HumanPlayer(gamerTag));
