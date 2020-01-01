@@ -11,7 +11,17 @@ class ComputerPlayer{
         this.secretWord = allTheWords[Math.floor(Math.random() * allTheWords.length)]
     }
     secret(){
-        this.word
+        let secretWord = this.secretWord;
+        return secretWord.length;
+    }
+    unsecret(){
+        let wordStr = [];
+        let i = 0;
+        while(i < this.secretWord.length){
+            wordStr.push(this.secretWord[i])
+            i++
+        }
+        return wordStr.join(" ")
     }
 }
 module.exports = ComputerPlayer
