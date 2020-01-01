@@ -5,8 +5,6 @@ let allTheWords = require("./words.js")
 class Board {
     constructor(word) {
         this.board = new Array(word).fill("_")
-        this.wordDisplay = []
-        this.lettersGuessed = []
     }
     guesser(word, letter){
         for(let i = 0; i < word.length; i++){
@@ -22,6 +20,9 @@ class Board {
         } else {
             return false
         }
+    }
+    displayBoard(){
+        console.log(this.board.join(" "))
     }
 }
 module.exports = Board;
