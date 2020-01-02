@@ -8,7 +8,7 @@
 //   * Possibly a select secret word that returns the length. 
 //   * Possibly a givePostioins that returns an array of indicies. 
 //   * Possibly a reveal word. 
-const readline = require("readline");
+const readline = require("./readline-sync");
 
 const Board = require("./Board.js");
 
@@ -17,7 +17,7 @@ class HumanPlayer{
     this.name = name
   }
   getMove(){
-    let guess =readline.quetion("Make your guess");
+    let guess =readline.question("Make your guess:")
     guess.toLowerCase();
     return guess
   }
