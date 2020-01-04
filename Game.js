@@ -5,7 +5,7 @@ const readline = require('readline-sync');
 const Dictionary = require("./dictionary.js");
 const chalk = require("chalk")
 
-class Game { 
+class Game {
     constructor() {
         this.guesser;
         this.referee;
