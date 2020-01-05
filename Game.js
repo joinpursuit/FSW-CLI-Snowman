@@ -196,7 +196,7 @@ class Game {
 
         this.player2.setDifficulty(Number(diffChoice));
 
-        if(this.isRefereePlayer) {
+        if(this.isRefereePlayer()) {
             this.referee.setCategory();
         } else {
             this.categoryChoice();
@@ -223,6 +223,8 @@ class Game {
             this.displayCategories();
             catChoice = this.userInput("");
         }
+
+        console.log(catChoice);
 
         this.referee.setCategory(Number(catChoice));
 
