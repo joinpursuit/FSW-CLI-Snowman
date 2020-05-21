@@ -1,11 +1,13 @@
 ## Command Line Hangman
 
+For this assignment, you will build a game of [hangman](http://www.justhangman.com/) that lets you play in the terminal!
+
 ![Hangman Gif](https://github.com/joinpursuit/Pursuit-Core-Web-Hangman/blob/master/hangmanWebGif.gif)
 
 ## Setup Instructions
 
 1. Fork the assignment repo
-1. Clone your Fork to your machine
+1. Clone your fork to your machine
 1. `cd` to the cloned directory and run `npm install`
 1. Create a `.gitignore` file
 1. Inside .gitignore, write `node_modules`
@@ -13,13 +15,10 @@
 
 ## Submission Instructions
 
-
 1. Complete the project
-1. Push your changes to your Fork
+1. Commit and push your changes to your fork
 1. Submit a Pull Request back to the assignment repo
 1. Paste a link to of your Fork on Canvas and submit
-
-For this assignment, you will build [hangman](http://www.justhangman.com/)  
 
 ### Object Oriented Programming 
 You should build this game in true OOP fashion. To write this game it will be helpful to think about the two players as referee and guesser. If you choose to make both roles interchangable your ComputerPlayer and HumanPlayer will need to have the same method calls available. Think about the following classes:
@@ -48,7 +47,6 @@ You should build this game in true OOP fashion. To write this game it will be he
   * Should have an isGameOver. 
   
 Although all of these methods are not strictly required, they are highly recommened. With OOP it can sometimes be tough to determine which object should truly have responsibilty for what. You are allowed to make adjustments to structure where you see fit. 
-
 
 ## Requirements
 
