@@ -2,7 +2,7 @@
 
 For this assignment, you will build a game of [hangman](http://www.justhangman.com/) that lets you play in the terminal!
 
-![Hangman Gif](https://github.com/joinpursuit/Pursuit-Core-Web-Hangman/blob/master/hangmanWebGif.gif)
+![Hangman Gif](./hangmanWebGif.gif)
 
 ## Setup Instructions
 
