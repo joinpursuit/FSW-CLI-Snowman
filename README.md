@@ -1,4 +1,4 @@
-## Command Line Hangman
+## Command Line Snowman
 
 For this assignment, you will build a game of [snowman](https://benstone1.github.io/Snowman-App/) that lets you play in the terminal!
 
