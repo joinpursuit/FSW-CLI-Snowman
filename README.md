@@ -1,8 +1,8 @@
 ## Command Line Hangman
 
-For this assignment, you will build a game of [hangman](http://www.justhangman.com/) that lets you play in the terminal!
+For this assignment, you will build a game of [snowman](https://benstone1.github.io/Snowman-App/) that lets you play in the terminal!
 
-![Hangman Gif](./hangmanWebGif.gif)
+![Snowman Gif](./hangmanWebGif.gif)
 
 ## Setup Instructions
 
