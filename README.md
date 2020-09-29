@@ -2,7 +2,7 @@
 
 For this assignment, you will build a game of [snowman](https://benstone1.github.io/Snowman-App/) that lets you play in the terminal!
 
-![Snowman Gif](./hangmanWebGif.gif)
+![Snowman Gif](./snowman.gif)
 
 ## Setup Instructions
 
@@ -11,7 +11,7 @@ For this assignment, you will build a game of [snowman](https://benstone1.github
 1. `cd` to the cloned directory and run `npm install`
 1. Create a `.gitignore` file
 1. Inside .gitignore, write `node_modules`
-1. Write your code in `hangman.js`
+1. Write your code in `snowman.js`
 
 ## Submission Instructions
 
@@ -20,35 +20,25 @@ For this assignment, you will build a game of [snowman](https://benstone1.github
 1. Submit a Pull Request back to the assignment repo
 1. Paste a link to of your Fork on Canvas and submit
 
-### Object Oriented Programming 
-You should build this game in true OOP fashion. To write this game it will be helpful to think about the two players as referee and guesser. If you choose to make both roles interchangable your ComputerPlayer and HumanPlayer will need to have the same method calls available. Think about the following classes:
 
-1. Board
-  * This would construct a board to the length of the word. 
-  * It should check if the board is complete. 
-  * It should be able to add characters at different indices. 
-2. HumanPlayer 
-  * Will need to inherit getMove from player. 
-  * Display the board. 
-  * Possibly a select secret word that returns the length. 
-  * Possibly a givePositions that returns an array of indices. 
-  * Possibly a reveal word. 
-3. ComputerPlayer 
-  * Should have a dictionary.
-  * Should have secretWord and return it's length. 
-  * Should have a reveal. 
-  * Should give the positions of guessed characters. 
-  * Possibly have a getMove. 
-4. Game 
-  * Should have guesser and referee. 
-  * Should have incorrect guesses remaining. 
-  * Should have a play function. 
-  * Should check for validity of guess. 
-  * Should have an isGameOver. 
-  
-Although all of these methods are not strictly required, they are highly recommened. With OOP it can sometimes be tough to determine which object should truly have responsibilty for what. You are allowed to make adjustments to structure where you see fit. 
+## User Stories
 
-## Requirements
+### As a user, I should be presented with a random word to guess
+
+#### Acceptance criteria
+
+- The computer should pick a word at random from the list below
+- The user should see a number of `_` characters equal to the number of letters in the word
+
+### As a user, I should be able to enter guesses
+
+- Handle invalid guesses by displaying a message and having the user enter a different guess.  Invalid guesses don't count against the guess count.
+- After each guess, the user should see the new updated word, replacing all `_` with letters they have guessed
+- After each guess, the user should see the letters they have guessed already
+
+### As a user, I should know how many guesses I have left
+
+### As a user, I should know when I win or lose and see the correct answer.
 
 1. The user must be able to play against the computer
 1. The word that the computer chooses must be random. There is a large array of words below.
