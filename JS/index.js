@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   displayWord(word);
   playerTurns(word);
   submitLetter();
+  submitWordBtn();
 });
 
 let wordList = [
@@ -67,7 +68,7 @@ const pickAWord = (wordList) => {
   let num = wordList.length;
   let random = Math.floor(Math.random() * num);
   word = wordList[random];
-  turnsNum = word.length;
+  turnsNum = word.length - 1;
   console.log(word);
 };
 
@@ -82,7 +83,7 @@ const displayWord = (word) => {
 
 const playerTurns = () => {
   let turns = document.querySelector("#turns");
-  turns.innerText = `You have ${turnsNum} to guess the word`;
+  turns.innerText = `You have ${turnsNum} chances to guess the word`;
 };
 
 const guessLetter = (word) => {
@@ -106,6 +107,7 @@ const guessLetter = (word) => {
   }
   turnsNum = turnsNum - 1;
   playerTurns();
+  endGame(turnsNum);
 };
 
 const submitLetter = () => {
@@ -113,4 +115,28 @@ const submitLetter = () => {
   button.addEventListener("click", () => {
     guessLetter(word);
   });
+};
+
+const endGame = (turnsNum) => {
+  if (turnsNum === 0) {
+    message.innerText = "You Lose";
+  }
+};
+
+const submitWordBtn = () => {
+  let submitWord = document.querySelector("#submitWord");
+  submitWord.addEventListener("click", () => {
+    enterWord();
+  });
+};
+
+const enterWord = () => {
+  let message = document.querySelector("#message");
+  let wordInput = document.querySelector("#winWord");
+  let wordInputVal = wordInput.value;
+  console.log(hiddenWord);
+  if (wordInputVal === word) {
+    hiddenWord.innerText = word;
+    message.innerText = "You Win!!";
+  }
 };
