@@ -21,6 +21,11 @@ For this assignment, you will build a game of [snowman](https://benstone1.github
 1. Paste a link to of your Fork on Canvas and submit
 
 
+## Technical Requirements
+
+- Complete all the User stories listed below
+- For the "stats" like **number of remaining guesses** and **previously guessed letters**, use one object rather than several global variables.
+
 ## User Stories
 
 ### As a user, I should be presented with a random word to guess
