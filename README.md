@@ -54,4 +54,5 @@ Copy the user stories from the Trello board [here](https://trello.com/b/8OErA3xI
 
 ## Rubric
 
-![snowmanRubric](./snowmanRubric.png)
+![acceptanceCriteriaRubric](./acceptanceCriteriaRubric.png)
+![outcomesRubric](./outcomesRubric.png)
