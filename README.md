@@ -32,8 +32,6 @@ Copy the user stories from the Trello board [here](https://trello.com/b/8OErA3xI
 
 ### As a user, I should be presented with a random word to guess
 
-#### Acceptance criteria
-
 - The computer should pick a word at random
 - The user should see a number of `_` characters equal to the number of letters in the word (ex. A _ _ L E, for apple)
 
