@@ -2,6 +2,8 @@
 
 For this assignment, you will build a game of [snowman](https://benstone1.github.io/Snowman-App/) that lets you play in the terminal!
 
+https://trello.com/b/kd9Pybza/coreen-cooper-project-2-snowman-game
+
 ![Snowman Gif](./snowman.gif)
 
 ## Setup Instructions
