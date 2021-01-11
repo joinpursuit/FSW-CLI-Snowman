@@ -21,13 +21,18 @@ For this assignment, you will build a game of [snowman](https://benstone1.github
 1. Paste a link to of your Fork on Canvas and submit
 
 
+## Technical Requirements
+
+- Complete all the User stories listed below
+- For the "stats" like **number of remaining guesses** and **previously guessed letters**, use one object rather than several global variables.
+
 ## User Stories
+
+Copy the user stories from the Trello board [here](https://trello.com/b/8OErA3xI/command-line-snowman-project-plan) into your own board.
 
 ### As a user, I should be presented with a random word to guess
 
-#### Acceptance criteria
-
-- The computer should pick a word at random from the list below
+- The computer should pick a word at random
 - The user should see a number of `_` characters equal to the number of letters in the word (ex. A _ _ L E, for apple)
 
 ### As a user, I should be able to enter guesses
@@ -49,4 +54,5 @@ For this assignment, you will build a game of [snowman](https://benstone1.github
 
 ## Rubric
 
-![snowmanRubric](./snowmanRubric.png)
+![acceptanceCriteriaRubric](./acceptanceCriteriaRubric.png)
+![outcomesRubric](./outcomesRubric.png)
