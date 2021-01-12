@@ -9,9 +9,14 @@ let stats = {
 
 //Generates random word
 const randomWord = () =>{
+  let arr = []
   let word = dictionary[Math.floor(Math.random() * dictionary.length)]
-
+  for(let i = 0; i < word.length; i++){
+    arr.push(`_`)
+  }
+  console.log(arr.join(" "))
 }
+randomWord()
 
 //The user should see a number of `_` characters equal to the number of letters in the word (ex. A _ _ L E, for apple)
 
