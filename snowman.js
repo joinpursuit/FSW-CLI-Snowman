@@ -35,11 +35,11 @@ function getValidLetterGuess() {
 }
 
 const checkLetter = (letter) => {
-  words.includes(letter) ?  rightGuesses++ : / wrongGuesses--
+  cLetters.includes(letter) ?  rightGuesses++ : / wrongGuesses--
 }
 
 const alreadyGuessed = (letter) =>
-gLetters.includes(letter) ? console.log("You already guessed this letter try again!") : 
+gLetters.includes(letter) ? console.log("You already guessed this letter try again!") : gLetters.push(letter)
 
 const gameOver = () => {
   if(wrongGuesses === 0) {
