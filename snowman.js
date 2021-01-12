@@ -17,7 +17,6 @@ let displayAns = () => {
   }
 }
 
-
 function getValidLetterGuess() {
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
@@ -32,14 +31,15 @@ function getValidLetterGuess() {
     }
   }
   return letter.toLowerCase()
+  alreadyGuessed()
 }
 
 const checkLetter = (letter) => {
-  cLetters.includes(letter) ?  rightGuesses++ : / wrongGuesses--
+  cLetters.includes(letter) ?  console.log("Good job! The secret word includes this letter!" rightGuesses++ : / console.log("Sorry, that letter isn't in the secret word! Try Again!" wrongGuesses--
 }
 
 const alreadyGuessed = (letter) =>
-gLetters.includes(letter) ? console.log("You already guessed this letter try again!") : gLetters.push(letter)
+gLetters.includes(letter) ? console.log("You already guessed this letter try again!") : checkLetter()
 
 const gameOver = () => {
   if(wrongGuesses === 0) {
