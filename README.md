@@ -30,6 +30,8 @@ For this assignment, you will build a game of [snowman](https://benstone1.github
 
 Copy the user stories from the Trello board [here](https://trello.com/b/8OErA3xI/command-line-snowman-project-plan) into your own board.
 
+Kenia's Trello board: https://trello.com/b/5IBpLoi7/kenia-rodriguez-project-2
+
 ### As a user, I should be presented with a random word to guess
 
 - The computer should pick a word at random
