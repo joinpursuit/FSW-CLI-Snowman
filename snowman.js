@@ -4,9 +4,8 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 let randomWordArr = []
 let randomWordStr = ""
-let totalGuesses = []
 let reveal = []
-let stats = {guesses: 10, wrongGuesses: []}
+let stats = {guesses: 10, guessedLetters: []}
 
 const playGame = () => {
   randomWordStr = dictionary[Math.floor(Math.random() * dictionary.length)]
@@ -26,7 +25,7 @@ const letterGuess = () => {
     console.log(chalk`\n{cyan You have {red ${stats.guesses}} incorrect guesses left.}\n`)
   }
   playerGuess = getValidLetterGuess();
-  if (totalGuesses.includes(playerGuess)){
+  if (stats.guessedLetters.includes(playerGuess)){
     console.log(chalk`\n{yellow You've already guessed that! Try again.}`)
     letterGuess();
   }
@@ -50,10 +49,10 @@ const correctGuess = (array, value) => {
   })
 
   revealWord = reveal.join(" ")
-  wrongGuessesJoin = stats.wrongGuesses.join(" ")
-  console.log(chalk`{magenta.bold ${wrongGuessesJoin}}`)
+  stats.guessedLetters.push(playerGuess)
+  guessedLettersJoin = stats.guessedLetters.join(" ")
+  console.log(chalk`Guessed Letters: {magenta.bold ${guessedLettersJoin}}`)
   console.log(`\n` + revealWord)
-  totalGuesses.push(playerGuess)
   if (reveal.indexOf('_') < 0){
     console.log(chalk`\n{green You win! You guessed the right word!}`)
   } else {
@@ -62,10 +61,9 @@ const correctGuess = (array, value) => {
 }
 
 const wrongGuess = () => {
-  stats.wrongGuesses.push(playerGuess)
-  wrongGuessesJoin = stats.wrongGuesses.join(" ")
-  totalGuesses.push(playerGuess)
-  console.log(chalk`{magenta.bold ${wrongGuessesJoin}}`)
+  stats.guessedLetters.push(playerGuess)
+  guessedLettersJoin = stats.guessedLetters.join(" ")
+  console.log(chalk`Guessed Letters: {magenta.bold ${guessedLettersJoin}}`)
   stats.guesses--
   console.log(chalk`\n{red Incorrect. Try Again.}\n`)
   console.log(revealWord)
