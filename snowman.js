@@ -14,15 +14,18 @@ function getValidLetterGuess() {
   }
   let letter = ""
   while (!letter) {
+    space()
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input
     } else {
+      space()
       console.log("Please enter a valid letter")
     }
   }
   return letter.toLowerCase()
 }
+
 
 
 
@@ -39,7 +42,7 @@ const startGame = () => {
       function rules(){
         space()
         console.log(`The goal of the game is for you to guess, letter by letter, a word of my choosing.`)
-        console.log(`Depending on how many letters are in the word, you'll have double that amount of chances to guess the letters.`)
+        console.log(`Depending on how many letters are in the word, you'll have that amount of chances (plus a few extra since I'm so nice =D ) to guess the letters.`)
         console.log(`If you guess the whole word before you're out of chances, you win!`)
       }
 
@@ -67,8 +70,51 @@ const startGame = () => {
 
 }
 
+// ${guessedLetters}
+const gameLoop = () => {
+  let word = randWord()
+  console.log(word)
+  let string = ''
+  let guessed = ''
+  let result = ''
 
-const gameLoop = () => {}
+
+  for (let numOfGuesses = word.length + 4 ; numOfGuesses > 0; numOfGuesses -- ){
+    
+    let endGameDialogue = {
+      win: `Aw man, looks like you ran out of guesses my friend. \n The word that you were trying to solve for was ${word}. `,
+      lose: `YOU WIN !! And it only took you ${numOfGuesses} to get there! \n Awesome game =D `
+    }
+
+    if (numOfGuesses === 1 && result !== word){
+      space()
+      endGameDialogue.win
+      quitGame()
+    } else if (result === word){
+      space()
+      endGameDialogue.lose 
+      quitGame()
+    } 
+
+
+
+  for (letterEl of word){
+    string += ` _`
+  } console.log(string) 
+  
+  space()
+  console.log(`Letters already guessed -> ${guessed || ''} `)
+  console.log(`You have ${numOfGuesses} number of guesses to go.`)
+
+
+  guessed += getValidLetterGuess() 
+ 
+  
+
+
+
+}
+}
 
 
 
