@@ -13,7 +13,7 @@ const welcome = () => { // Added a welcome function!
 }
 const startGame = () => {
   console.log("It's time play the game!")
-  console.log("Here's your word" + secretWord) 
+  console.log("Here's your word" + secretWord) // This just logs the word. Need to learn how to get the word to print in secret! 
 } 
 function getValidLetterGuess() {
   function guessIsValid(letter) {
