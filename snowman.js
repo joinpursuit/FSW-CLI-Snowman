@@ -35,7 +35,7 @@ function getValidLetterGuess() {
 }
 
 const checkLetter = (letter) => {
-  cLetters.includes(letter) ?  console.log("Good job! The secret word includes this letter!" rightGuesses++ : / console.log("Sorry, that letter isn't in the secret word! Try Again!" wrongGuesses--
+  cLetters.includes(letter) ?  console.log("Good job! The secret word includes this letter!" rightGuesses++ gLetters.push(letter): / console.log("Sorry, that letter isn't in the secret word! Try Again!" wrongGuesses-- gLetters.push(letter)
 }
 
 const alreadyGuessed = (letter) =>
