@@ -50,7 +50,8 @@ const correctGuess = (array, value) => {
   })
 
   revealWord = reveal.join(" ")
-  console.log(stats.wrongGuesses)
+  wrongGuessesJoin = stats.wrongGuesses.join(" ")
+  console.log(chalk`{magenta.bold ${wrongGuessesJoin}}`)
   console.log(`\n` + revealWord)
   totalGuesses.push(playerGuess)
   if (reveal.indexOf('_') < 0){
@@ -62,8 +63,9 @@ const correctGuess = (array, value) => {
 
 const wrongGuess = () => {
   stats.wrongGuesses.push(playerGuess)
+  wrongGuessesJoin = stats.wrongGuesses.join(" ")
   totalGuesses.push(playerGuess)
-  console.log(stats.wrongGuesses)
+  console.log(chalk`{magenta.bold ${wrongGuessesJoin}}`)
   stats.guesses--
   console.log(chalk`\n{red Incorrect. Try Again.}\n`)
   console.log(revealWord)
