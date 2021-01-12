@@ -4,7 +4,6 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 let guesses = {}
 let word = "";
 let totalGuesses = 6;
-let wrongGuesses = {}
 
 function play() {
   console.clear();
@@ -27,14 +26,15 @@ function display() {
   let displayString = "";
   for (let char of word) {
     if (guesses[char]) {
-      displayString += lchar
+      displayString += char
     } else {
       displayString += "-"
     }
 
   }
   console.log("\n" + displayString)
-  console.log("Guessed Letters: ")
+  console.log("Letters guessed correctly: " + Object.keys(guesses).filter(el => guesses[el]));
+  console.log("Letters guessed wrong: " + Object.keys(guesses).filter(el => !guesses[el]));
   console.log("\nYou have " + totalGuesses + " guesses remaining.")
 }
 
@@ -79,7 +79,21 @@ function evaluateLetter(letter) {
 
 }
 
+function playerWins() {
+  for (char of word) {
+    if (guesses[char] === undefined) {
+      return false;
+    }
+  }
+  return true;
+}
+
 function isGameOver() {
+  if (playerWins()) {
+    console.log("\nCongratulations, You Win!")
+    return true;
+  }
+
   if (totalGuesses === 0) {
     return true;
   }
