@@ -7,6 +7,16 @@ const getWord = () => {
 }
 getWord();
 
+doesSecretWordContainLetter = () => {
+  for (let i = 0; i < secretWord.length; i++){
+    if (letter = secretWord[i]){
+      console.log("Good Guess!")
+    }
+  }
+}
+
+let guessesLeft = 7
+
 function getValidLetterGuess() {
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
@@ -14,8 +24,11 @@ function getValidLetterGuess() {
   let letter = ""
   while (!letter) {
     let input = readline.question("Please enter your guess: ")
-    if (guessIsValid(input)) {
+    if (guessIsValid(input) && guessesLeft !== 0) {
       letter = input
+      guessesLeft--;
+      doesSecretWordContainLetter();
+      console.log("You have " + guessesLeft + " guesses left")
     } else {
       console.log("Please enter a valid letter")
     }
