@@ -4,39 +4,51 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 let word = dictionary[Math.floor(Math.random() * dictionary.length)];
 
 
-function getValidLetterGuess() {
-  function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
-  }
-  let letter = ""
-  while (!letter) {
-    let input = rls.question("Please enter your guess: ")
-    if (guessIsValid(input)) {
-      letter = input
-    } else {
-      console.log("Please enter a valid letter")
-    }
-  }
-  return letter.toLowerCase() 
-}
+// function getValidLetterGuess() {
+//   function guessIsValid(letter) {
+//     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+//   }
+//   let letter = ""
+//   while (!letter) {
+//     let input = rls.question("Please enter your guess: ")
+//     if (guessIsValid(input)) {
+//       letter = input
+//     } else {
+//       console.log("Please enter a valid letter")
+//     }
+//   }
+//   return letter.toLowerCase() 
+// }
 
 
-const guessCount = () => {
-    let count = 6;
-while(count >= 0) {
-    getValidLetterGuess()
-    if (count > 1) {
-        console.log(`You have ${count} guesses left`)
-    } else if (count === 1){
-        console.log(`You have ${count} guess left`)
-    } else {
-        console.log(`You are out of guesses`)
-    }
-    count--
-}
+// const guessCount = () => {
+//     let count = 6;
+// while(count >= 0) {
+//     getValidLetterGuess()
+//     if (count > 1) {
+//         console.log(`You have ${count} guesses left`)
+//     } else if (count === 1){
+//         console.log(`You have ${count} guess left`)
+//     } else {
+//         console.log(`You are out of guesses`)
+//     }
+//     count--
+// }
+// }
+
+// guessCount()
+
+// wordSplit.length < 0
+
+const makeUnderscores = () => {
+    let wordSplit = word.split("")
+    return wordSplit.map((el) => {
+        return el = "_";
+    })
 }
 
-guessCount()
+console.log(makeUnderscores())
+
 
 // const greeting = () => {
 //     let name = rls.question("What's your name?\n")
