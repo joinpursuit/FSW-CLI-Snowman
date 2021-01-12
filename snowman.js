@@ -3,17 +3,19 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 /////////////////////////////GAME VARIABLES
 let word = dictionary[Math.floor(Math.random() * dictionary.length)]
+let cLetters = word.split("")
 let ansArr = []
+let gLetters = []
 let wrongGuesses = 5
 let rightGuesses = 0
 let letsLeft = word.length
+let letter = ""
 
 let displayAns = () => {
   for(let i = 0; i < word.length; i++){
     ansArr[i] = "_"
   }
 }
-
 
 
 function getValidLetterGuess() {
@@ -32,8 +34,21 @@ function getValidLetterGuess() {
   return letter.toLowerCase()
 }
 
+const checkLetter = (letter) => {
+  words.includes(letter) ?  rightGuesses++ : / wrongGuesses--
+}
+
+const alreadyGuessed = (letter) =>
+gLetters.includes(letter) ? console.log("You already guessed this letter try again!") : 
+
+const gameOver = () => {
+  if(wrongGuesses === 0) {
+    console.log(`Sorry, you lost! The word was ${word}.`);
+  }
+}
+
 const intro = () => {
-  console.log("Welcome to snowman! We have picked a random word and it is up to you to guess the letters to find out the word!\nYou only have 5 times to put in a wrong letter before you lose so watch out!");
+  console.log("Welcome to Snowman! We have picked a random word and it is up to you to guess the letters to find out the word!\nYou only have 5 times to put in a wrong letter before you lose so watch out!");
   getValidLetterGuess()
 }
 
