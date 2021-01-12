@@ -3,6 +3,13 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 let word = dictionary[Math.floor(Math.random() * dictionary.length)];
 
 
+const makeUnderscores = () => {
+  let wordSplit = word.split("")
+  return wordSplit.map((el) => {
+      return el = "_";
+  })
+}
+
 function getValidLetterGuess() {
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
@@ -21,18 +28,25 @@ function getValidLetterGuess() {
 }
 
 const guessCount = () => {
-  let count = 6;
+  let count = 7;
 while(count >= 0) {
-  getValidLetterGuess()
-  if (count > 1) {
+  if (count === 7) {
+      console.log(`You have 7 guesses total`)
+      console.log(displayUnderscores().join(" "))
+   } else if (count > 1) {
       console.log(`You have ${count} guesses left`)
   } else if (count === 1){
       console.log(`You have ${count} guess left`)
   } else {
       console.log(`You are out of guesses`)
+      break;
   }
+  getValidLetterGuess()
   count--
 }
 }
+
+
+
 
 guessCount()
