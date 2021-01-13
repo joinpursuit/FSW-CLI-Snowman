@@ -4,7 +4,8 @@ const secretWord = dictionary[Math.floor(Math.random() * dictionary.length)]
 
 const welcome = () => { // Added a welcome function! 
   console.log ("Hello, welcome to The Snowman Game")
-  if(readline.keyInYN("Would you like to start playing with me")){
+  yourName = readline.question("What's your name?")
+  if(readline.keyInYN(`${yourName}! What an awesome name! Are you ready play?`)){
     console.clear();
      startGame();
   } else {
@@ -13,9 +14,9 @@ const welcome = () => { // Added a welcome function!
 }
 const startGame = () => {
   let dash = "" 
-  console.log("It's time play the game!")
+  console.log("Great! Let's Go!!!")
   for (let i = 0; i < secretWord.length; i++){
-    dash += "_" 
+    dash += "_" + " "
    
   } 
   console.log(dash)
@@ -27,7 +28,6 @@ function getValidLetterGuess() {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
   }
   let letter = ""
-  // let guessCount = 8
   while (!letter) {
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
@@ -41,11 +41,17 @@ function getValidLetterGuess() {
 }
 
 const guessRight= () =>{
-console.log("Awesome guess")
+console.log("Awesome guess") //Logs Awesome after 
 // "You have this many guess left"
-}
+} 
 
+// const guessLetter = (letter) => {
+//   for (let i = 0; i < secretWord.length; i++) {
+//     if (){
 
+//     }
+//   }
+// }
 
 
 
