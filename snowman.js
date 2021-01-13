@@ -5,20 +5,11 @@ let word = dictionary[Math.floor(Math.random() * dictionary.length)];
 
 console.log(word)
 
-
 const gameLoop = () => { // Corey's suggestion
   while (true) {
     let guessedLetter = getValidLetterGuess()
     console.log(guessedLetter)
   }
-}
-
-
-const displayUnderscores = () => { // remove this function
-  let wordSplit = word.split("")
-  return wordSplit.map((el) => {
-      return el = "_"; // don't need el = 
-  })
 }
 
 function getValidLetterGuess() {
@@ -36,8 +27,6 @@ function getValidLetterGuess() {
   }
   return letter.toLowerCase() 
 }
-
-
 
 const guessCount = () => {
   let count = 7;
