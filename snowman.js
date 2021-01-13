@@ -7,64 +7,41 @@ function randWord() {
   return dictionary[Math.floor(Math.random() * dictionary.length)]
 }
 
-
-// function getValidLetterGuess() {
-//   function guessIsValid(letter) {
-//     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
-//   }
-//   let letter = ""
-//   while (!letter) {
-//     space()
-//     let input = readline.question("Please enter your guess: ")
-//     if (guessIsValid(input)) {
-//       letter = input
-//     } else {
-//       space()
-//       console.log("Please enter a valid letter")
-//     }
-//   }
-//   return letter.toLowerCase()
-// }
-
-
-
-
-const startGame = () => {
-  console.log(`Hello there stranger!`)
-  let start = readline.keyInYN(`Want to play a game of Snowman?`)
-
+const startGame= () => {
+  console.log(`Hello there stranger!`);
+  let start = readline.keyInYN(`Want to play a game of Snowman?`);
   if (start) {
-    space()
-    console.log(`Do you need to know the rules of the game?`)
-    let responses = [`Yes, Please explain.`, `I'm familiar with the game but need a refresher.`, `I Know what to do. Let's play!`]
-    let askRules = readline.keyInSelect(responses, 'What option do you choose?')
+    space();
+    console.log(`Do you need to know the rules of the game?`);
+    let responses = [`Yes, Please explain.`, `I'm familiar with the game but need a refresher.`, `I Know what to do. Let's play!`];
+    let askRules = readline.keyInSelect(responses, 'What option do you choose?');
 
     function rules() {
-      space()
-      console.log(`The goal of the game is for you to guess, letter by letter, a word of my choosing. \nEach blank letter of the word will look like this: _`)
-      console.log(`\nDepending on how many letters are in the word, you'll have that amount of chances.. \n(plus a few extra since I'm so nice =D ) to guess the letters.`)
-      console.log(`\nIf you fill in all the blanks before you're out of chances, you win! GOOD LUCK!\n`)
+      space();
+      console.log(`The goal of the game is for you to guess, letter by letter, a word of my choosing. \nEach blank letter of the word will look like this: _`);
+      console.log(`\nDepending on how many letters are in the word, you'll have that amount of chances.. \n(plus a few extra since I'm so nice =D ) to guess the letters.`);
+      console.log(`\nIf you fill in all the blanks before you're out of chances, you win! GOOD LUCK!\n`);
     }
 
     if (responses[askRules] === responses[0]) {
-      rules()
-      gameLoop()
+      rules();
+      gameLoop();
     } else if (responses[askRules] === responses[1]) {
-      space()
-      console.log(`No problemo! I'd be happy to refresh your memory.`)
-      rules()
-      gameLoop()
+      space();
+      console.log(`No problemo! I'd be happy to refresh your memory.`);
+      rules();
+      gameLoop();
     } else if (responses[askRules] === responses[2]) {
-      space()
-      console.log(`Good luck!\n`)
-      gameLoop()
+      space();
+      console.log(`Good luck!\n`);
+      gameLoop();
     } else {
-      quitGame()
+      quitGame();
     }
 
 
   } else {
-    quitGame()
+    quitGame();
   }
 
 
@@ -76,68 +53,87 @@ const gameLoop = () => {
   console.log(word)
   let string = []
   let stringFinal = ''
-  // let stringFinal = string.join('')
+
   let guessed = ''
   let numOfGuesses = word.length + 4
   let endGameDialogue = {
-    lose: `Aw man, looks like you ran out of guesses my friend. \n The word that you were trying to solve for was ${word}. `,
-    win: `YOU WIN !! And it only took you ${numOfGuesses} to get there! \n Awesome game =D `
+    lose: `Aw man, looks like you ran out of guesses my friend. \nThe word that you were trying to solve for was ${word}.\nBetter luck next time! `,
+    win: `YOU WIN !! You figured it out!\n And it only took you ${numOfGuesses} guesses to get there! \n Awesome game =D `
   }
 
-  for (let i = 0; i < word.length; i++ ){
+  for (let i = 0; i < word.length; i++) {
     string[i] = "_"
   }
 
 
-  for (let i = 0; numOfGuesses > i; numOfGuesses--) {   
+  for (let i = 0; numOfGuesses > i; numOfGuesses--) {
 
-   
+
 
     space()
     console.log(`${string}\n`)
-    console.log(`Letters already guessed -> ${guessed || ''} `)
-    console.log(`You have ${numOfGuesses} number of guesses to go.`)
+    console.log(`Guessed Letters -> ${guessed || ''} `)
+    if (numOfGuesses === 1) {
+      console.log(`You have ${numOfGuesses} guess left !`)
+    } else {
+      console.log(`You have ${numOfGuesses} number of guesses to go.`)
+    }
     getValidLetterGuess()
 
-    
 
-  function getValidLetterGuess() {
-    function guessIsValid(letter) {
-      return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
-    }
-    let letter = ""
-    while (!letter) {
-      space()
-      let input = readline.question("Please enter your guess: ")
-      if (guessIsValid(input)) {
-        letter = input
-              if(guessed.length === 0){
-                guessed += letter
-              } else{
-                guessed += `, ${letter}`
-              }
-      } else {
+
+    function getValidLetterGuess() {
+      function guessIsValid(letter) {
+        return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+      }
+      let letter = ""
+      while (!letter) {
         space()
-        console.log("Please enter a valid letter")
+        let input = readline.question("Please enter your guess: ")
+        if (guessIsValid(input)) {
+          letter = input.toLowerCase()
+
+          if (guessed.includes(letter)) {
+            space()
+            console.log(`You've already guessed that letter.`)
+            getValidLetterGuess()
+          }
+
+          if (guessed.length === 0) {
+            guessed += letter
+          } else {
+            guessed += `, ${letter}`
+          }
+
+          for (let i = 0; i < word.length; i++) {
+            if (letter === word[i]) {
+              string[i] = letter
+              stringFinal = string.join('')
+            }
+          }
+
+          if (numOfGuesses === 1 && stringFinal !== word) {
+            space()
+            console.log(endGameDialogue.lose)
+            quitGame()
+          } else if (stringFinal === word) {
+            space()
+            console.log(string + ` ---> ` + stringFinal)
+            space()
+            console.log(endGameDialogue.win)
+            quitGame()
+          }
+
+        } else {
+          space()
+          console.log("Please enter a valid letter.")
+        }
       }
+
     }
-    for (let i = 0; i < word.length; i++){
-      if (letter === word[i]){
-          string[i] = letter
-      }
-  }  
 
   }
-
-
 }
-
-}
-
-
-
-
-
 
 
 
@@ -145,21 +141,8 @@ const quitGame = () => {
   space()
   console.log(`Goodbye.`)
   process.exit()
-}
+} 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+{}
 startGame()
