@@ -5,32 +5,40 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 // As a user, I should be presented with a random word to guess
 // The computer should pick a word at random
 // The user should see a number of _ characters equal to the number of letters in the word (ex. A _ _ L E, for apple)
-let maxGuesses = 8
+
 let randomWord = '';
-randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-console.log(randomWord);
+let hiddenLetterArray = [];
+let hiddenWord;
+let stats = {maxGuesses: 0, guessedLetters: []}
 
-// const startGame = () => {
-//   maxGuesses = 8;
-//   randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+const startGame = () => {
+  randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+  // sets start of max guess based one the word
+  stats.maxGuesses = randomWord.length - 1;
+  // console.log(randomWord);
+  console.log(stats.maxGuesses);
+  console.log(hideLetters(randomWord));
+
+}
+
+const hideLetters = word => {
+  hiddenLetterArray = [];
+  hiddenWord;
+  for (let i = 0; i < word.length; i++) {
+    hiddenLetterArray[i] = "_";    
+  };
+  hiddenWord = hiddenLetterArray.join(' ');
+  return hiddenWord;
+}
 
 
-// }
-
-// const hideLetters = word => {
-//   hiddenLetters = word.split('');
-//   for (let i = 0; i < word.length; i++) {
-//     hiddenLetters[i] = '_';
-//   }
-//   return hiddenLetters.join(' ');
-// }
-// console.log(hideLetters(randomWord));
 
 
 // As a user, I should be able to enter guesses
 // Handle invalid guesses by displaying a message and having the user enter a different guess. Invalid guesses don't count against the guess count.
 // After each guess, the user should see the new updated word, replacing all _ with letters they have guessed
 // After each guess, the user should see the letters they have guessed already
+
 const getValidLetterGuess = () => {
   const guessIsValid = letter => {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
@@ -47,7 +55,8 @@ const getValidLetterGuess = () => {
   return letter.toLowerCase()
 }
 
-getValidLetterGuess();
+
+// getValidLetterGuess();
 // As a user, I should know how many guesses I have left
 // At the beginning of the game, the number of guesses remaining should be visible
 // After each guess, the updated number of guesses should be visible
@@ -56,3 +65,5 @@ getValidLetterGuess();
 // The game should continue until the user has won or lost
 // Once the full word is guessed, the game should display how many guesses it took and display a victory message
 // If the user runs out of guesses, the full word should be revealed and the game should display a defeat message
+
+startGame();
