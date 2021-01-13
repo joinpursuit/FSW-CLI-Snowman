@@ -3,16 +3,85 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 let ranWordArray = []
 let ranWord = ""
-let numberOfGuesses = { MaxGuesses: 8, guessedLetters: []}
-let reveal = []
+let numberOfGuesses = { maxGuesses: 8, guessedLetters: []}
+let showAnswer = []
 
 
 const startGame = () => {
   console.log(`Welcome to the Snowman game.`);
   let nameOfPlayer = readline.question(`What is your name?`);
   console.log(`Ok ${nameOfPlayer}. Let's start.`);
+  ranWordFunction();
 }
 
+const ranWordFunction = () => {
+  randWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+  ranWordArray = ranWord.split('')
+  ranWordArray.forEach((el) => {
+    showAnswer.push("_")
+  })
+  answer = showAnswer.join(" ");
+  console.log(answer)
+  guessTheLetters();
+}
+
+const guessTheLetters = () => {
+  if (numberOfGuesses.maxGuesses === 1) {
+    console.log(`You now have ${numberOfGuesses.maxGuesses} guess left.`)
+  } else {
+    console.log(`You now have ${numberOfGuesses.maxGuesses} guesses left.`)
+  }
+  let guess = getValidLetterGuess();
+  if(numberOfGuesses.guessedLetters.includes(guess)) {
+    console.log(`You have already guess that letter!`)
+    guessTheLetters();
+  }
+}
+
+const correctAndWrongGuesses = () => {
+  if (ranWordArray.includes(guess)) {
+    correctGuessFunction();
+  } else {
+    wrongGuessFunction()
+  }
+}
+
+const wrongGuessFunction = () => {
+  numberOfGuesses.guessedLetters.push(guess)
+  console.log(`the letters you guessed are : ${guessedLettersJoin}`)
+  numberOfGuesses.maxGuesses --
+  console.log(`wrong letter, try again.`)
+  console.log(answer)
+  if(numberOfGuesses.maxGuesses === 0) {
+    console.log(`sorry, no more tries. You lost ${nameOfPlayer}.`)
+    console.log(`Your word was : ${randWord}.`)
+    Process.exit();
+  } else {
+    guessTheLetters();
+  }
+}
+
+const correctGuessFunction = (ranWordArray, guess) => {
+  let indexOfWord = []
+  ranWordArray.forEach((el, i) => {
+    if (el === guess) {
+      indexOfWord.push(i)
+    }
+  })
+  indexOfWord.forEach((el) => {
+    showAnswer.splice(el, 1, guess)
+  })
+  correctGuessWord = showAnswer.join(" ")
+  numberOfGuesses.guessedLetters.push(Guess)
+  guessedLettersJoin = numberOfGuesses.guessedLetters.join(" ")
+  console.log(`the letters you guessed are :${guessedLettersJoin}}`)
+  console.log(correctGuessWord)
+  if (showAnswer.indexOf('_') < 0){
+    console.log(`You guessed it all under the amount of guesses, YOU WON !`)
+  } else {
+    guessTheLetters()
+  }
+}
 
 function getValidLetterGuess() {
   function guessIsValid(letter) {
