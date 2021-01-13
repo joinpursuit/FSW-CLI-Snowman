@@ -54,7 +54,8 @@ const correctGuess = (array, value) => {
   console.log(chalk`Guessed Letters: {magenta.bold ${guessedLettersJoin}}`)
   console.log(`\n` + revealWord)
   if (reveal.indexOf('_') < 0){
-    console.log(chalk`\n{green You win! You guessed the right word!}`)
+    playerGuessTotal = 10 - stats.guesses
+    console.log(chalk`\n{green You win! You guessed the right word in ${playerGuessTotal} guesses!}`)
   } else {
     letterGuess()
   }
