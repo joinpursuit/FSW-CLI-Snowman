@@ -6,6 +6,7 @@ let randomWordArr = []
 let randomWordStr = ""
 let reveal = []
 let stats = {guesses: 10, guessedLetters: []}
+let playerGuessTotal = 0
 
 const playGame = () => {
   randomWordStr = dictionary[Math.floor(Math.random() * dictionary.length)]
@@ -51,10 +52,10 @@ const correctGuess = (array, value) => {
   revealWord = reveal.join(" ")
   stats.guessedLetters.push(playerGuess)
   guessedLettersJoin = stats.guessedLetters.join(" ")
+  playerGuessTotal++
   console.log(chalk`Guessed Letters: {magenta.bold ${guessedLettersJoin}}`)
   console.log(`\n` + revealWord)
   if (reveal.indexOf('_') < 0){
-    playerGuessTotal = 10 - stats.guesses
     console.log(chalk`\n{green You win! You guessed the right word in ${playerGuessTotal} guesses!}`)
   } else {
     letterGuess()
@@ -66,6 +67,7 @@ const wrongGuess = () => {
   guessedLettersJoin = stats.guessedLetters.join(" ")
   console.log(chalk`Guessed Letters: {magenta.bold ${guessedLettersJoin}}`)
   stats.guesses--
+  playerGuessTotal++
   console.log(chalk`\n{red Incorrect. Try Again.}\n`)
   console.log(revealWord)
   if (stats.guesses === 0){
