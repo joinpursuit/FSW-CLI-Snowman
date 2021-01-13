@@ -12,19 +12,27 @@ const welcome = () => { // Added a welcome function!
   }
 }
 const startGame = () => {
+  let dash = "" 
   console.log("It's time play the game!")
-  console.log("Here's your word" + secretWord) // This just logs the word. Need to learn how to get the word to print in secret! 
-} 
+  for (let i = 0; i < secretWord.length; i++){
+    dash += "_" 
+   
+  } 
+  console.log(dash)
+//console.log("Here's your word" + " " +secretWord) // This just logs the word. Need to learn how to get the word to print in secret! 
+  getValidLetterGuess();
+}
 function getValidLetterGuess() {
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
   }
   let letter = ""
-  let guessCount = 8
+  // let guessCount = 8
   while (!letter) {
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input
+      guessRight();
     } else {
       console.log("Please enter a valid letter")
     }
@@ -32,6 +40,15 @@ function getValidLetterGuess() {
   return letter.toLowerCase()
 }
 
+const guessRight= () =>{
+console.log("Awesome guess")
+// "You have this many guess left"
+}
+
+
+
+
+
+
 welcome();
 
-getValidLetterGuess();
