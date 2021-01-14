@@ -28,12 +28,19 @@ if(leave){
 };
 
 function numOfChar(){
-
+charNum = ''
+for(let i = 0; i < randomWord.length; i++){
+  if(i === 0){
+    charNum += '_'
+  }else{
+    charNum += ' _'
+  }
+}
 };
 
-function gameLoop(){
+// function gameLoop(){
 
-};
+// };
 
 
 // function getValidLetterGuess() {
@@ -64,7 +71,6 @@ function gameLoop(){
 // };
 
 startGame();
-
-// numOfChar();
+// getValidLetterGuess();
 // gameLoop();
 
