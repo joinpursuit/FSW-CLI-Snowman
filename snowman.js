@@ -39,22 +39,6 @@ for(let i = 0; i < randomWord.length; i++){ // maybe set this < = ?
 console.log(charNum);
 };
 
-// function gameLoop(){
-// letter = ''
-// let randomWordArr = randomWord.split('');
-// let charNumArr = charNum.split('');
-// for(let i = 0; i < randomWord.length; i++){
-//   if(letter === randomWord[i]){
-//     randomWordArr[i] = charNumArr[i * 2]
-//   }
-// }
-//   randomWord = randomWordArr.join('');
-//   charNum = charNumArr.join('')
-//   console.log(randomWord)
-//   // console.log(charNum)
-// };
-
-
 function getValidLetterGuess() {
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
@@ -64,45 +48,59 @@ function getValidLetterGuess() {
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input
-    } else {
+      let randomWordArr = randomWord.split('');
+      let charNumArr = charNum.split('');
+      for(let i = 0; i < randomWordArr.length; i++){
+        if(randomWordArr[i] === letter){
+          charNumArr[i * 2] = letter
+        };
+      }
+      let charNumJoined = charNumArr.join('');
+        console.log(charNumJoined);
+} else {
       console.log("Please enter a valid letter")
     }
   }
   return letter.toLowerCase()
+
 };
 
-function gameLoop(){
-  letter = ''
-  let randomWordArr = randomWord.split('');
-  let charNumArr = charNum.split('');
-  for(let i = 0; i < randomWord.length; i++){
-    if(letter === randomWord[i]){
-      randomWordArr[i] = charNumArr[i * 2]
-    }
-  }
-    randomWord = randomWordArr.join('');
-    charNum = charNumArr.join('')
-    console.log(randomWord)
-    console.log(charNum)
-  };
 
-function wonGame(){
-  console.log('You\'re so smart! You won the game!')
-  restartGame();
-}
+// function gameLoop(){
+//   letter = 'a'
+//   let randomWordArr = randomWord.split('');
+//   // console.log(randomWordArr)
+//   let charNumArr = charNum.split('');
+//   // console.log(charNumArr)
+//   for(let i = 0; i < randomWordArr.length; i++){
+//     if(randomWordArr[i] === letter){
+//       charNumArr[i * 2] = letter
+//     };
+// }
+//   let randomWordJoined = randomWordArr.join('');
+//   let charNumJoined = charNumArr.join('');
+//   console.log(randomWordJoined);
+//   console.log(charNumJoined);
+// };
 
-function restartGame(){
-  if(readline.keyInYN('Play Again?\n')){
-    numOfChar();
-    // getValidLetterGuess();
-    gameLoop();
-  }else{
-    leaveGame(leave)
-  }
-};
+// function wonGame(){
+//   console.log('You\'re so smart! You won the game!')
+//   restartGame();
+// }
+
+// function restartGame(){
+//   if(readline.keyInYN('Play Again?\n')){
+//     randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+//     numOfChar();
+//     getValidLetterGuess();
+//     gameLoop();
+//   }else{
+//     leaveGame(leave)
+//   }
+// };
 
 startGame();
 getValidLetterGuess();
-gameLoop();
-wonGame();
+// gameLoop();
+// wonGame();
 
