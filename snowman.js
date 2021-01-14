@@ -3,26 +3,24 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 let word = dictionary[Math.floor(Math.random() * dictionary.length)]
 let wordSplit = word.split("")
+let board = displayUnderscores()
 
 console.log(word);
+
+
 
 const getValidLetterGuess = () => {
   const guessIsValid = (letter) => {
     return letter.length === 1 && letter.toUpperCase() !== letter.toLowerCase()
   }
+  
   let letter = ""
   while (!letter) {
+    console.log(board.join(" "));
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input
-      
-      const correctGuess = () => {
-        return wordSplit.filter((el) => {
-          return el === letter
-        })
-      }
-      console.log(correctGuess())
-      
+      compareLetters(letter)
     } else {
       console.log("Please enter a valid letter")
     }
@@ -30,6 +28,20 @@ const getValidLetterGuess = () => {
   return letter.toLowerCase()
 }
 
+const compareLetters = (userInput) => {
+  for (let i = 0; i < wordSplit.length; i++) {
+    if (userInput === wordSplit[i]) {
+      board[i] = wordSplit[i]
+      getValidLetterGuess()
+    }
+  }
+}
+
+function displayUnderscores() {
+  return wordSplit.map((el) => {
+      return el = "_";
+  })
+}
 
 const wrongGuesses = () => {
 
@@ -40,26 +52,20 @@ const wrongGuesses = () => {
 
     if (guesses === 7) {
       console.log(`You have ${guesses} opportunities to guess`);
-      console.log(displayUnderscores().join(" "));
-    } else if (guesses > 1)
+    } else if (guesses > 1) {
       console.log(`You have ${guesses} guesses left`);
-    else if (guesses === 1) {
+    } else if (guesses === 1) {
       console.log(`You have ${guesses} guess left`);
     } else {
       console.log(`You ran out of guesses`);
       break;
     }
 
-    getValidLetterGuess()
     guesses--
+    getValidLetterGuess()
   }
 }
 
-const displayUnderscores = () => {
-  return wordSplit.map((el) => {
-      return el = "_";
-  })
-}
 
 
 
