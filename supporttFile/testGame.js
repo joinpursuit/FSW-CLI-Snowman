@@ -29,6 +29,7 @@ const hideLetters = word => {
 }
 
 const gameLoop = () => {
+  let totalGuesses = 0;
   while (stats.maxGuesses > 0) {
     console.log(hiddenWord);
     console.log(`You have ${stats.maxGuesses} incorrect guesses remaining.`);
@@ -39,8 +40,9 @@ const gameLoop = () => {
       console.clear();
       console.log('You\'ve already guessed that! Try again.');
     } else {
+      totalGuesses++;
       if (randomWordArray.includes(playerGuess)){
-        correctGuess(randomWordArray, playerGuess);
+        correctGuess(randomWordArray, playerGuess, totalGuesses);
       } else {
         incorrectGuess(playerGuess);
       }
@@ -48,10 +50,6 @@ const gameLoop = () => {
   }
 }
 
-// As a user, I should be able to enter guesses
-// Handle invalid guesses by displaying a message and having the user enter a different guess. Invalid guesses don't count against the guess count.
-// After each guess, the user should see the new updated word, replacing all _ with letters they have guessed
-// After each guess, the user should see the letters they have guessed already
 const getValidLetterGuess = () => {
   const guessIsValid = letter => {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
@@ -67,15 +65,12 @@ const getValidLetterGuess = () => {
   }
   return letter.toLowerCase()
 }
-// As a user, I should know how many guesses I have left
-// At the beginning of the game, the number of guesses remaining should be visible
-// After each guess, the updated number of guesses should be visible
 
 // As a user, I should know when I win or lose and see the correct answer.
 // The game should continue until the user has won or lost
 // Once the full word is guessed, the game should display how many guesses it took and display a victory message
 // If the user runs out of guesses, the full word should be revealed and the game should display a defeat message
-const correctGuess = (array, pGuess) => {
+const correctGuess = (array, pGuess, totalGuesses) => {
   console.clear();
   stats.guessedLetters.push(pGuess);
   // Reveal Conditions
@@ -91,7 +86,7 @@ const correctGuess = (array, pGuess) => {
   hiddenWord = hiddenLetterArray.join(' ');
   // Win condition
   if (!hiddenLetterArray.includes('_')){
-    console.log('You win!');
+    console.log(`You win! It only took you ${totalGuesses} total guesses to win.`);
     process.exit();
   }
 }
