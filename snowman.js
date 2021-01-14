@@ -4,13 +4,13 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 let stats = {
   guessesRemaining: 6,
   previouslyGuessed: [],
-  guessCounter: 0
+  guessCounter: 0,
+  word: dictionary[Math.floor(Math.random() * dictionary.length)]
 }
 
 const displayBoard = () => {
-  word = dictionary[Math.floor(Math.random() * dictionary.length)]
   arr = []
-  for(let i = 0; i < word.length; i++){
+  for(let i = 0; i < stats.word.length; i++){
     arr.push(`_`)
   }
   console.log(arr.join(" "))
@@ -37,7 +37,12 @@ function getValidLetterGuess() {
 }
 
 const guess = () => {
-  if(word.includes(getValidLetterGuess())){
+  //  if(the guess is included in stats.previouslyGuessed){
+  //    console.log(`Invalid guess. You already guessed this letter."`)
+  //    player has to guess again
+  //  }
+
+  if(stats.word.includes(getValidLetterGuess())){
     guessedRight()
   } else {
     guessedWrong()
@@ -75,11 +80,14 @@ const guessedWrong = () => {
 
 const winGame = () => {
   console.log(`Congrats! You won in ${stats.totalGuesses} guesses!`)
+  console.log(`${word}`)
+  process.exit()
 }
 
 const loseGame = () => {
   console.log(`You lost! You ran out of guesses!`)
   console.log(`The word was ${word}`)
+  process.exit()
 }
 
 
