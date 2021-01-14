@@ -13,7 +13,6 @@ const startGame = () => {
   // sets start of max guess based one the word
   stats.maxGuesses = randomWord.length - 1;
   randomWordArray = randomWord.split('');
-  console.log(randomWord);
   hideLetters(randomWord);
   gameLoop();
 }
