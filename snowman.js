@@ -745,11 +745,16 @@ const dictionary = [
   'young'
 ]
 
+let opportunity = 6
 let countoLose = 0
 let wordMagic = []
 let goodWord = []
 let displayW = ''
 let guess = ''
+let guessedLetters = []
+let timemachine = 0
+let a = ''
+let b = ''
 
 function getValidLetterGuess () {
   function guessIsValid (letter) {
@@ -757,15 +762,18 @@ function getValidLetterGuess () {
   }
   let letter = ''
   while (!letter) {
-    let input = readline.question('\nPlease enter your guess: ')
+    let input = readline.question('\n\tPlease enter your guess: \f')
     if (guessIsValid(input)) {
       letter = input
+      guessedLetters.push(letter)
+      timemachine = countoLose
+      countoLose += 1
     } else {
-      console.log('\nPlease enter a valid letter')
+      console.log('\n\t\tPlease enter a valid letter')
     }
   }
   guess = letter.toLowerCase()
-  countoLose += 1
+
   return guess
 }
 
@@ -785,11 +793,11 @@ const hiddenWord = randomWord => {
   //return wordMagic
 }
 
-const display = (wordMagic) => {
-  for (let i = 0; i < wordMagic.length ; i += 1) {
-    if(i === (wordMagic.length-1)){
-    displayW += wordMagic[i]}
-    else{
+const display = wordMagic => {
+  for (let i = 0; i < wordMagic.length; i += 1) {
+    if (i === wordMagic.length - 1) {
+      displayW += wordMagic[i]
+    } else {
       displayW += wordMagic[i] + ' '
     }
     //console.log(chalk.bgBlack(displayW))
@@ -804,36 +812,83 @@ const display = (wordMagic) => {
 
 const verification = (goodWord, guess) => {
   for (let x = 0; x < goodWord.length; x += 1) {
-    
     if (goodWord[x] === guess) {
       wordMagic[x] = guess
+      countoLose = timemachine
     }
   }
- // console.log(wordMagic)
+  // console.log(wordMagic)
 }
 
 //verification(goodWord, guess)
 
+const equal = (goodWord, WordMagic) => {
+  a = goodWord.join('')
+  //console.log(`string a : ${a}`)
 
-const letsPlay = () =>{
+  b = WordMagic.join('')
+  //console.log(`string b : ${b}`)
+
+  return a === b
+}
+
+const letsPlay = () => {
   console.clear()
   randomWord = getrandom(dictionary)
   hiddenWord(randomWord)
-  console.log(`Hi your word is : `)
+  opportunity = goodWord.length
+
+  console.log(`\n\t\t * * WELCOME TO SNOWMAN * *`)
+  console.log(`\nHi  ${chalk.italic.redBright('user')}  your word is : `)
   console.log(chalk.bold(`\n${display(wordMagic)}`))
 
-    while(countoLose < 6 ){
+  while (countoLose < opportunity) {
+    console.log(`\nGuessed letters : ${guessedLetters}`)
+    console.log(
+      `\nYou have ${chalk.italic.cyanBright(
+        opportunity - countoLose
+      )} guesses left..`
+    )
 
-      getValidLetterGuess()
+    getValidLetterGuess()
 
-      verification(goodWord,guess)
-      displayW =''
+    verification(goodWord, guess)
+    //console.log(`goodword : ${goodWord}`)
+    //console.log(`wordMAgic: ${wordMagic}`)
+
+    if (equal(goodWord, wordMagic)) {
+      console.log(chalk.greenBright(`\n\tCongratulations.. You WON !!`))
+      console.log(
+        chalk.yellowBright(
+          `\n\tYou did it in  ${chalk.cyanBright.italic(
+            guessedLetters.length
+          )}  turns`
+        )
+        
+      )
+      readline.question(chalk.gray(`\n\nPress enter to continue..`), {
+        hideEchoBack: true
+      })
+    
+      countoLose *= 100
+    } else {
+      displayW = ''
       console.log(chalk.bold(`\n${display(wordMagic)}`))
-
+    }
   }
-  displayW = ''
-  console.log(`\nYour word was : ${display(goodWord)}`)
 
+  //console.log(countoLose)
+
+  if (countoLose === opportunity && countoLose < 100) {
+    displayW = ''
+    console.log(
+      chalk.redBright(`\n\nGAME OVER , It looks like you run out of turns..`)
+    )
+    console.log(`\n\nYour word was : ${display(goodWord)}`)
+    readline.question(chalk.gray(`\n\nPress enter to continue..`), {
+      hideEchoBack: true
+    })
+  }
 }
 
 letsPlay()
