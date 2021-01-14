@@ -66,10 +66,6 @@ const getValidLetterGuess = () => {
   return letter.toLowerCase()
 }
 
-// As a user, I should know when I win or lose and see the correct answer.
-// The game should continue until the user has won or lost
-// Once the full word is guessed, the game should display how many guesses it took and display a victory message
-// If the user runs out of guesses, the full word should be revealed and the game should display a defeat message
 const correctGuess = (array, pGuess, totalGuesses) => {
   console.clear();
   stats.guessedLetters.push(pGuess);
@@ -90,7 +86,6 @@ const correctGuess = (array, pGuess, totalGuesses) => {
     process.exit();
   }
 }
-// distribution
 const incorrectGuess = pGuess => {
   console.clear();
   stats.guessedLetters.push(pGuess);
