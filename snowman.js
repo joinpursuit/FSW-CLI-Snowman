@@ -29,48 +29,80 @@ if(leave){
 
 function numOfChar(){
 charNum = ''
-for(let i = 0; i < randomWord.length; i++){
+for(let i = 0; i < randomWord.length; i++){ // maybe set this < = ?
   if(i === 0){
     charNum += '_'
   }else{
     charNum += ' _'
   }
 }
+console.log(charNum);
 };
 
 // function gameLoop(){
-
+// letter = ''
+// let randomWordArr = randomWord.split('');
+// let charNumArr = charNum.split('');
+// for(let i = 0; i < randomWord.length; i++){
+//   if(letter === randomWord[i]){
+//     randomWordArr[i] = charNumArr[i * 2]
+//   }
+// }
+//   randomWord = randomWordArr.join('');
+//   charNum = charNumArr.join('')
+//   console.log(randomWord)
+//   // console.log(charNum)
 // };
 
 
-// function getValidLetterGuess() {
-//   function guessIsValid(letter) {
-//     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
-//   }
-//   let letter = ""
-//   while (!letter) {
-//     let input = readline.question("Please enter your guess: ")
-//     if (guessIsValid(input)) {
-//       letter = input
-//     } else {
-//       console.log("Please enter a valid letter")
-//     }
-//   }
-//   return letter.toLowerCase()
-// };
+function getValidLetterGuess() {
+  function guessIsValid(letter) {
+    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+  }
+  let letter = ""
+  while (!letter) {
+    let input = readline.question("Please enter your guess: ")
+    if (guessIsValid(input)) {
+      letter = input
+    } else {
+      console.log("Please enter a valid letter")
+    }
+  }
+  return letter.toLowerCase()
+};
 
+function gameLoop(){
+  letter = ''
+  let randomWordArr = randomWord.split('');
+  let charNumArr = charNum.split('');
+  for(let i = 0; i < randomWord.length; i++){
+    if(letter === randomWord[i]){
+      randomWordArr[i] = charNumArr[i * 2]
+    }
+  }
+    randomWord = randomWordArr.join('');
+    charNum = charNumArr.join('')
+    console.log(randomWord)
+    console.log(charNum)
+  };
 
+function wonGame(){
+  console.log('You\'re so smart! You won the game!')
+  restartGame();
+}
 
-// function restartGame(){
-//   if(readline.keyInYN('Play Again?\n')){
-//     numOfChar();
-//     gameLoop();
-//   }else{
-//     leaveGame(leave)
-//   }
-// };
+function restartGame(){
+  if(readline.keyInYN('Play Again?\n')){
+    numOfChar();
+    // getValidLetterGuess();
+    gameLoop();
+  }else{
+    leaveGame(leave)
+  }
+};
 
 startGame();
-// getValidLetterGuess();
-// gameLoop();
+getValidLetterGuess();
+gameLoop();
+wonGame();
 
