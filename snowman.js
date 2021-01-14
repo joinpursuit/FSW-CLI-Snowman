@@ -3,6 +3,7 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 const secretWord = dictionary[Math.floor(Math.random() * dictionary.length)]
 let guessCount = {maxGuess: 8, usedLetter: []}
 let secretAnswer = []
+let secretWordArr = []
 const welcome = () => { // Added a welcome function! 
   console.log ("Hello, welcome to The Snowman Game")
   yourName = readline.question("What's your name?")
@@ -45,10 +46,23 @@ function getValidLetterGuess() {
 const rightOrWrongGuess =(guess) => {
 
 }
-const guessRight= () =>{
-console.log("Awesome guess") //Logs Awesome after 
-// "You have this many guess left"
-} 
+const guessRight= (secretWordArr, guess) =>{
+  let letterOfWord = []
+  secretWordArr.forEach((el, i) => {
+    if (el === guess){
+      letterOfWord.push(i)
+    }
+  })
+  letterOfWord.forEach((el) => {
+    secretAnswer.splice(el, 1, guess)
+    console.log(letterOfWord)
+  })
+// console.log("Awesome guess") //Logs Awesome after 
+
+//   console.log(` You only have ${guessCount.maxGuess} guess left`) // "You have this many guess left"
+// } 
+
+}
 
 // const guessLetter = (letter) => {
 //   for (let i = 0; i < secretWord.length; i++) {
@@ -61,5 +75,5 @@ console.log("Awesome guess") //Logs Awesome after
 
 
 
-welcome();
-
+// welcome();
+guessRight();
