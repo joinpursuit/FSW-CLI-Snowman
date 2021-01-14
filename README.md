@@ -42,6 +42,16 @@ My Trello Board: https://trello.com/b/2v4DCwZ2/jq-command-line-snowman-projectht
 - After each guess, the user should see the new updated word, replacing all `_` with letters they have guessed
 - After each guess, the user should see the letters they have guessed already
 
+// Use array 
+01234
+apple
+apple.split(")
+[a,p,p,l,e] - l is in 3rd index
+
+- - - - - 
+012345678 - l is in the 6th index 
+refer to gameLoop screenshot 
+
 ### As a user, I should know how many guesses I have left
 
 - At the beginning of the game, the number of guesses remaining should be visible
