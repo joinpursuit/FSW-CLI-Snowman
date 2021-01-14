@@ -46,25 +46,24 @@ function getValidLetterGuess() {
 }
 
 const checkLetter = (letter) => {
-  console.log(gameVars.cLetters);
-  console.log(gameVars.gLetters);
  if(gameVars.cLetters.includes(letter)){
     console.log("Good job! The secret word includes this letter!") 
     gameVars.rightGuesses++
     gameVars.gLetters.push(letter) 
-    console.log(gameVars.rightGuesses);
+    gameLoop()
  } else {
     console.log("Sorry, that letter isn't in the secret word! Try Again!") 
     gameVars.wrongGuesses--
-     gameVars.gLetters.push(letter)
-     console.log("hi",gameVars.wrongGuesses);
+   gameVars.gLetters.push(letter)
+   console.log(gameVars.wrongGuesses);
+   gameLoop()
+   
  }
-  getValidLetterGuess()
+  gameLoop()
 }
 
 
 const alreadyGuessed = (letter) => {
-  console.log(gameVars.gLetters);
 if(gameVars.gLetters.includes(letter)) {
  console.log("You already guessed this letter try again!") 
 } else { checkLetter(letter)
