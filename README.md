@@ -29,6 +29,7 @@ For this assignment, you will build a game of [snowman](https://benstone1.github
 ## User Stories
 
 Copy the user stories from the Trello board [here](https://trello.com/b/8OErA3xI/command-line-snowman-project-plan) into your own board.
+- [My trello board](https://trello.com/b/tWJDsxsL/snowman-project-plan)
 
 ### As a user, I should be presented with a random word to guess
 
