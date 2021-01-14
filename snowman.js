@@ -3,6 +3,7 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 let word = dictionary[Math.floor(Math.random() * dictionary.length)];
 let wordSplit = word.split("");
 let board = displayUnderscores()
+let gameData = {};
 console.log(word)
 
 
@@ -28,7 +29,7 @@ function getValidLetterGuess() {
 
 //////////////////// compareLetters //////////////////////
 
-const compareLetters = (userInput) => {
+const compareLetters = (userInput) => { // update for duplicate letters
   for (let i = 0; i < wordSplit.length; i++) {
     if (userInput === wordSplit[i]) {
       board[i] = wordSplit[i]
@@ -63,12 +64,14 @@ const guessCount = () => {
   }
 };
 
-
+//////////////// quitGame() //////////////////
 
 const quitGame = () => {
     console.log(console.log("You're no fun.")); // add you lose // look for undefined
     process.exit();
 };
+
+///////////// startGame() ///////////////////
 
 const startGame = () => {
     console.log(`The Snowman Game.\nby Coreen Cooper\n`)
