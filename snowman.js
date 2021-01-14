@@ -37,30 +37,38 @@ function getValidLetterGuess() {
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input
+      alreadyGuessed(letter)
     } else {
       console.log("Please enter a valid letter")
     }
   }
   return letter.toLowerCase()
-  alreadyGuessed()
 }
 
 const checkLetter = (letter) => {
+  console.log(gameVars.cLetters);
+  console.log(gameVars.gLetters);
  if(gameVars.cLetters.includes(letter)){
     console.log("Good job! The secret word includes this letter!") 
     gameVars.rightGuesses++
-     gameVars.gLetters.push(letter) 
+    gameVars.gLetters.push(letter) 
+    console.log(gameVars.rightGuesses);
  } else {
     console.log("Sorry, that letter isn't in the secret word! Try Again!") 
-    gameVars.wrongGuesses++
+    gameVars.wrongGuesses--
      gameVars.gLetters.push(letter)
+     console.log("hi",gameVars.wrongGuesses);
  }
   getValidLetterGuess()
 }
 
 
 const alreadyGuessed = (letter) => {
-gameVars.gLetters.includes(letter) ? console.log("You already guessed this letter try again!") : checkLetter()
+  console.log(gameVars.gLetters);
+if(gameVars.gLetters.includes(letter)) {
+ console.log("You already guessed this letter try again!") 
+} else { checkLetter(letter)
+  }
 }
 
 const gameOver = () => {
