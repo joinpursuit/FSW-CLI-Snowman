@@ -3,18 +3,17 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 /////////////////////////////GAME VARIABLES
  let gameVars = {
- word : dictionary[Math.floor(Math.random() * dictionary.length)],
- cLetters : word.split(""),
+ word : "",
+ cLetters : [],
  ansArr : [],
  gLetters : [],
  wrongGuesses : 5,
- rightGuesses : 0,
- letsLeft : word.length,
+ rightGuesses : 0
  }
 
 
 let displayAns = () => {
-   ansArr[i] = "_"
+   gameVars.ansArr[i] = "_"
   for(let letr of gameVars) {
     if(cLetters[letr]){
       ansArr += letr
@@ -24,17 +23,10 @@ let displayAns = () => {
   }
 }
 
-
-
-
- for (let char of data.word) {
-    if (data.letters[char]) {
-      displayString += char
-    } else {
-      displayString += "-"
-    }
-
-  }
+const getRanWord = () => {
+  gameVars.word = dictionary[Math.floor(Math.random() * dictionary.length)]
+  gameVars.cLetters = gameVars.word.split("")
+}
 
 function getValidLetterGuess() {
   function guessIsValid(letter) {
@@ -54,22 +46,47 @@ function getValidLetterGuess() {
 }
 
 const checkLetter = (letter) => {
-  cLetters.includes(letter) ?  console.log("Good job! The secret word includes this letter!" rightGuesses++ gLetters.push(letter): / console.log("Sorry, that letter isn't in the secret word! Try Again!" wrongGuesses-- gLetters.push(letter)
+ if(gameVars.cLetters.includes(letter)){
+    console.log("Good job! The secret word includes this letter!") 
+    gameVars.rightGuesses++
+     gameVars.gLetters.push(letter) 
+ } else {
+    console.log("Sorry, that letter isn't in the secret word! Try Again!") 
+    gameVars.wrongGuesses++
+     gameVars.gLetters.push(letter)
+ }
   getValidLetterGuess()
 }
 
-const alreadyGuessed = (letter) =>
-gLetters.includes(letter) ? console.log("You already guessed this letter try again!") : checkLetter()
+
+const alreadyGuessed = (letter) => {
+gameVars.gLetters.includes(letter) ? console.log("You already guessed this letter try again!") : checkLetter()
+}
 
 const gameOver = () => {
-  if(wrongGuesses === 0) {
-    console.log(`Sorry, you lost! The word was ${word}.`);
+  if(gameVars.wrongGuesses === 0) {
+    console.log(`Sorry, you lost! The word was ${gameVars.word}.`);
   }
+}
+
+const gameLoop = () => {
+  while(gameVars.wrongGuesses > 0) {
+    getValidLetterGuess()
+  }
+   gameOver()
+
 }
 
 const intro = () => {
   console.log("Welcome to Snowman! We have picked a random word and it is up to you to guess the letters to find out the word!\nYou only have 5 times to put in a wrong letter before you lose so watch out!");
-  getValidLetterGuess()
+  if(readline.keyInYNStrict("Do you want to play?")) {
+    console.clear()
+    getRanWord()
+    gameLoop()
+  } else {
+    console.log("Okay, goodbye.");
+    process.exit()
+  }
 }
 
 
