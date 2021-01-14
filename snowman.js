@@ -6,7 +6,7 @@ let randomWord = '';
 let randomWordArray = [];
 let hiddenLetterArray = [];
 let hiddenWord;
-let stats = {maxGuesses: 0, guessedLetters: []}
+let stats = {maxGuesses: 0, guessedLetters: [], totalGuesses: 0}
 
 const startGame = () => {
   randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
@@ -28,7 +28,7 @@ const hideLetters = word => {
 }
 
 const gameLoop = () => {
-  let totalGuesses = 0;
+  stats.totalGuesses = 0;
   while (stats.maxGuesses > 0) {
     console.log(hiddenWord);
     console.log(`You have ${stats.maxGuesses} incorrect guesses remaining.`);
@@ -39,9 +39,9 @@ const gameLoop = () => {
       console.clear();
       console.log('You\'ve already guessed that! Try again.');
     } else {
-      totalGuesses++;
+      stats.totalGuesses++;
       if (randomWordArray.includes(playerGuess)){
-        correctGuess(randomWordArray, playerGuess, totalGuesses);
+        correctGuess(randomWordArray, playerGuess, stats.totalGuesses);
       } else {
         incorrectGuess(playerGuess);
       }
