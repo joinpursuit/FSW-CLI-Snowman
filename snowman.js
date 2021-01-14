@@ -13,15 +13,29 @@ function getValidLetterGuess() {
   }
   let letter = ""
   while (!letter) {
+
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input
+      compareLetters(letter) // passing in the userInput
     } else {
       console.log("Please enter a valid letter")
     }
   }
   return letter.toLowerCase() 
 }
+//////////////////// compareLetters //////////////////////
+
+const compareLetters = (userInput) => {
+  for (let i = 0; i < wordSplit.length; i++) {
+    if (userInput === wordSplit[i]) {
+      board[i] = wordSplit[i]
+      guessCount();
+      getValidLetterGuess()
+    }
+  }
+}
+
 //////////////////// guessCount //////////////////////////
 const guessCount = () => {
   let count = 7;
@@ -41,4 +55,7 @@ const guessCount = () => {
   count--
   }
 }
+
+
+
 guessCount()
