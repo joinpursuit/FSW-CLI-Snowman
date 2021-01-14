@@ -14,9 +14,8 @@ function getValidLetterGuess() {
   }
   let letter = ""
   while (!letter) {
-    console.log(board)
+    console.log(board.join(" "))
     let input = readline.question("Please enter your guess: ")
-
     if (guessIsValid(input)) {
       letter = input
       compareLetters(letter) // passing in the userInput
