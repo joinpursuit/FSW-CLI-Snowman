@@ -38,7 +38,7 @@ const compareLetters = (userInput) => {
 }
 ///////////////////// displayUnderscores() ////////////////////////
 
-function displayUnderscores() {
+function displayUnderscores() { // ES5 hoisting
   return wordSplit.map((el) => {
     return (el = "_");
   });
@@ -56,12 +56,30 @@ const guessCount = () => {
         console.log(`You have ${count} guess left`)
     } else {
         console.log(`You are out of guesses`)
-        break;
+        quitGame();
     }
     count--
     getValidLetterGuess()
   }
 };
 
-guessCount();
+
+
+const quitGame = () => {
+    console.log(console.log("You're no fun.")); // add you lose // look for undefined
+    process.exit();
+};
+
+const startGame = () => {
+    console.log(`The Snowman Game.\nby Coreen Cooper\n`)
+    if (readline.keyInYN("Would you like to play a game?")) {
+        guessCount();
+  } else {
+    quitGame()
+  }
+};
+
+startGame();
+
+
 
