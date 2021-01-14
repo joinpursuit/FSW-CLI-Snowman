@@ -4,7 +4,7 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 function getValidLetterGuess() {
   function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+    return letter.length === 1
   }
   let letter = ""
   while (!letter) {
