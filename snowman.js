@@ -22,7 +22,7 @@ const spacesFilled = () => {
     return el !== "_"
   })
 }
-console.log(spacesFilled())
+// console.log(spacesFilled())
 
 // let goToGuessCount = enterGuessCount()
 
@@ -40,7 +40,8 @@ const guessCount = () => {
     guesses--
     getValidLetterGuess()
   }
-  return console.log("You won! Nice job guessing!!!")
+  console.log("You won! Nice job guessing!!!")
+  return console.log(updateBlankSpaces.join(" "))
 }
 // guessCount()
 
