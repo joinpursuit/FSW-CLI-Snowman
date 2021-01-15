@@ -25,7 +25,7 @@ const playSnowman = () => {
         randomWordArr = randomWordArr.map((e, i) => {
           if(guessLetter === randomWord.charAt(i)){
             counter.letterFilled++
-            return randomWord.charAt(i).toUpperCase()
+            return guessLetter.toUpperCase()
           } else {
             return e
           }
@@ -50,10 +50,13 @@ const getLetter = history => {
   const guessIsValid = letter => letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
   while(true){
     let input = readline.question(chalk.rgb(168, 164, 53)`Please enter a letter to guess:\n👉 `)
-    if(input === "cheat ON"){ //cheat code
+    if(input === "cheat ON"){ //game cheat code
       return input
-    } else if(guessIsValid(input) && !history.includes(input)){
-      return input.toLowerCase()
+    } else {
+      input = input.toLowerCase()
+    }
+    if(guessIsValid(input) && !history.includes(input)){
+      return input
     } else if(history.includes(input)){
       textColor("You have already made that guess.", "red"); wait(seconds/2);
     } else {
