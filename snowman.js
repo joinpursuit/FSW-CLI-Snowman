@@ -17,20 +17,28 @@ function blankSpaces() {
   return wordArray
 }
 
+//says blank spaces are filled
+const spacesFilled = () => {
+  updateBlankSpaces.every((el) => {
+    return el === "_"
+  })
+}
+
 const guessCount = () => {
   let guesses = 7
-  while(guesses >= 0) {
+  while(guesses >= 0 && !rightGuesses() && !spacesFilled()) {
     if(guesses === 7) {
       console.log(`You have ${guesses} guesses.`)
     } else if(guesses >=1) {
       console.log(`You have ${guesses} guesses remaining.`)
     } else if (guesses === 0) {
-      console.log(`You have ${guesses} guesses remaining.`)
-      break;
+      console.log("Sorry! You lose!")
+      break; /// add quit game here
     }
     guesses--
     getValidLetterGuess()
   }
+  return console.log("You won! Nice job guessing!!!")
 }
 // guessCount()
 
