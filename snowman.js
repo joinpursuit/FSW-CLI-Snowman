@@ -8,6 +8,13 @@ let randomWordSplit = randomWord.split("")
 let updateBlankSpaces = blankSpaces()
 
 
+const userInput = () => {
+  while(true) {
+    let someVariable = guessRandomletter
+    console.log(someVariable)
+  }
+}
+
 function blankSpaces() {
   let wordArray = [];
   for (let i = 0; i < randomWord.length; i++) {
@@ -33,8 +40,8 @@ const guessCount = () => {
       console.log(`You have ${guesses} guesses.`)
     } else if(guesses >=1) {
       console.log(`You have ${guesses} guesses remaining.`)
-    } else if (guesses === 0) {
-      console.log("Sorry! You lose!")
+    } else {
+      console.log(`Sorry! You did not guess correctly!\nThe word was ${randomWord}.`)
       quitGame(); /// add quit game here
     }
     guesses--
@@ -43,7 +50,6 @@ const guessCount = () => {
   console.log("You won! Nice job guessing!!!")
   return console.log(updateBlankSpaces.join(" "))
 }
-// guessCount()
 
 const enterGuessCount = () => {
   if (guesses >= 0 && !rightGuesses() && !spacesFilled()) {
@@ -92,28 +98,6 @@ const quitGame = () => {
 //   }
 //   console.log("See you soon then!")
 //   process.exit()
-// }
-
-//TO LOG WRONG GUESSES, DOESN'T WORK
-// const wrongGuesses = (wrongInput) => {
-//   let wrongGuessArray = []
-//   for (let i = 0; i < randomWordSplit.length; i++) {
-//     if(wrongInput !== randomWordSplit[i]) {
-//       wrongGuessArray.push(wrongInput)
-//       console.log(`Guessed letters: ${wrongGuessArray}`)
-//     }
-//   }
-// }
-
-//GUESSES MADE, DOESN'T WORK
-// const guessesMade = (userInput) => {
-//   let guessArray = []
-//   for (let i = 0; i < randomWordSplit.length; i++) {
-//     if(userInput === typeof("")) {
-//       guessArray.push(userInput)
-//       console.log(`Guessed letters: ${wrongGuessArray}`)
-//     }
-//   }
 // }
 
 
