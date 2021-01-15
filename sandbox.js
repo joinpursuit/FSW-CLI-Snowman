@@ -30,21 +30,27 @@ function getValidLetterGuess() {
   return letter.toLowerCase() 
 }
 
+//////////////// userInput ////////////////
+
+const gameLoop = () => { // Corey
+  while (startGame()) {
+    let guessedLetter = getValidLetterGuess()
+  }
+  console.log(guessedLetter)
+}
+
+
+
+
 //////////////////// compareLetters //////////////////////
 
 function compareLetters (userInput) { // update for duplicate letters
   for (let i = 0; i < wordSplit.length; i++) {
     if (userInput === wordSplit[i]) {
       board[i] = wordSplit[i]
-      // getValidLetterGuess()
-    }
-  }
+    } 
+  } 
 }
-// const compareLetters2 = (wordArr) => {
-//   return wordArr.filter((el) => {
-//     return el === 
-//   })
-// }
 
 ///////////////// isBoardFull() /////////////
 
@@ -64,7 +70,7 @@ function displayUnderscores() { // ES5 hoisting
 //////////////////// guessCount //////////////////////////
 const guessCount = () => {
   let count = 7;
-  while(count >= 0 && !isBoardFull()) {
+  while(count >= 0 && !isBoardFull() && !compareLetters()) {
     if (count === 7) {
         console.log(`You have 7 guesses total`)
     } else if (count > 1) {
@@ -72,19 +78,18 @@ const guessCount = () => {
     } else if (count === 1) {
         console.log(`You have ${count} guess left`)
     } else {
-        console.log(`You are out of guesses`)
+        console.log(`Sorry. You lose\nThe word was ${word}`)
         quitGame();
     }
     count--
     getValidLetterGuess()
   }
-  return console.log(board.join(" "))
+  return console.log(`${board.join(" ")}\nYou're Brillant! You Won!`)
 };
 
 //////////////// quitGame() //////////////////
 
 const quitGame = () => {
-    console.log(console.log("You're no fun.")); // add you lose // look for undefined
     process.exit();
 };
 
@@ -94,9 +99,11 @@ const quitGame = () => {
 const startGame = () => {
     // console.log(`The Snowman Game by Coreen Cooper\n`)
     if (readline.keyInYN("Would you like to play a game?")) {
+      
         guessCount();
   } else {
-    quitGame()
+    console.log("You're no fun.");
+    // quitGame()
   }
 };
 
