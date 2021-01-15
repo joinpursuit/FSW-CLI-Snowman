@@ -3,27 +3,105 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 
 
-dictionaryIndexNum = (zero, totalWords) => {
+dictionaryIndexNum = (zero, totalWords) => {//random number between 1 and dictionary.length
   let iNum = Math.floor(Math.random() * (totalWords - zero) + 1)
-  return iNum;
+    return iNum;
 }
-wordGrab = () => {
+
+wordGrab = () => {//call rng and call the index of the dictionary array
   let i = dictionaryIndexNum(0, dictionary.length - 1)
   return dictionary[i]
 }
 
+const answer = wordGrab().split('')//turn our new word into letters
 
+guessCount = 0//should increase by 1 with every guess interaction
 
-start = () => {
-  const answer = wordGrab().split('')
-  
+let chances = answer.length - 1; //total letters that need to be guessed derived from our rng word
+ 
+let greet = readline.question('Hello! Enter name: ')
 
+gameLoop = (chances) => {
+  while (chances >= 1) {
+  let symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '\\', '{', '}', '`', '~', '|', '?', '.']
+  for (let i = 0; i < symbols.length - 1; i++){
+    symbol = symbols[i];
+    console.log(symbol)
+    return symbol;
+  }
+  let input = readline.question("Be my guest, take a guess: ")
 
-
-
-
+  if (input === answer[i]) {
+    guessCount++
+    chances + 0
+    hiddenAnswer[i] = answer[i];
+  } else if (typeof input === typeof 1) {
+    console.log('Whoops wrong input! Remember, letters only and one at a time!')
+  } else if (input === symbol) {
+    console.log('Whoops wrong input! Remember, letters only and one at a time!')
+  } else if (typeof input === typeof {}) { 
+    console.log('Whoops wrong input! Remember, letters only and one at a time!')
+  } else {
+    chances -= 1
+    if (wrongCount < 1) {
+      start()
+    }
+  }
+ }//end of while
 }
 
+start = () => {//start the game with a greeting and a nameAsk. Must also initialise the gameLoop. Opp to quitGame
+  console.log(`Hello ${greet}! Good luck!`)//call greet
+
+  let starter = readline.keyInYN('Do you wanna build a Snowmannnn?')//we want a false here
+  
+  if (starter === false) {//Lumiere is the candelabra from Beuaty and the Beast, he does NOT appreciate snowmen.
+
+    console.log('Lumiere: Bien, car les bonhommes de neige n\'aiment pas mes flammes. Good! Ze snowmen, zey do not like my fire!')
+    gameLoop(chances)//gonna have an init problem here. 
+
+  } else {
+    quitGame();
+  }
+}
+quitGame = () => {
+  console.log('Lumiere: Au revoir mon aime, give a good Bonjour to Elsa for me!');
+}
+
+
+hiddenAnswer = () => {
+  for (let i = 0; i < answer.length; i++) {
+    let hiddenAnswer = answer[i].replace(answer[i], '_')
+    return hiddenAnswer
+  }
+}
+console.log(hiddenAnswer)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // if (input === answer[i]) {
+  //   guessCount++;
+  //   let answerSwap = answer[i].replace(answer[i], input)
+  //  } else {
+  //   guessCount++;
+  
+  //  }
+  // }  
+
+start()
 
 
 
