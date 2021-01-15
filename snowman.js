@@ -10,6 +10,7 @@ const playSnowman = () => {
   let counter = {availableGuess : 8, correctGuess : 0, wrongGuess : 0, letterFilled : 0}
   console.clear()
   welcome()
+  snowmanLives(counter.availableGuess)
   textColor(`You will guess a letter at a time to get the word.\n`)
   textColor(`Here is the word: ${printScreenWord(randomWordArr)}\n`)
   while(counter.letterFilled !== randomWord.length && counter.availableGuess > 0){
@@ -33,18 +34,26 @@ const playSnowman = () => {
       } else{
         counter.wrongGuess++
         counter.availableGuess--
-        textColor("Oh, sorry! Try another letter."); wait(seconds);
+        textColor("Oh, no! You killed a snowman."); wait(seconds);
       }
     }
     console.clear()
     welcome()
+    snowmanLives(counter.availableGuess)
     textColor(printScreenWord(randomWordArr), "blue")
     console.log("") //format screen
     console.log(chalk.rgb(213, 155, 51)`Your guesses: ` + chalk.bold.rgb(128, 57, 198)`${printScreenWord(guessHistory)}\n`)
   }
   resultScreen(counter, randomWord)
 }
-const welcome = () => textColor("\nWelcome to snowman game! ⛄️⛄️⛄️\n", "magenta")
+const welcome = () => textColor("\nWelcome to snowman game!", "magenta")
+const snowmanLives = count => {
+  let arr = []
+  for(let i = count; i > 0; i--){
+    arr.push("⛄️")
+  }
+  console.log(`${arr.join("")}\n`)
+}
 const printScreenWord = wordArr => wordArr.join(" ")
 const getLetter = history => {
   const guessIsValid = letter => letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
