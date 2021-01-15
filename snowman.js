@@ -89,10 +89,15 @@ const guessCount = () => {
     }
     count--
     getValidLetterGuess()
-  }
-  return console.log(`${board.join(" ")}\nYou're Brillant! You Won!`)
+}
+return console.log(`${board.join(" ")}\nYou're Brilliant! You Won! It took ${winCount(count)} guesses.`)
 };
 
+///////////////// winCount //////////////////////////////
+
+const winCount = (count) => {
+return 7 - count
+}
 //////////////// quitGame() //////////////////
 
 const quitGame = () => {
