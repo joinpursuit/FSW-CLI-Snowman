@@ -8,20 +8,14 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
  ansArr : [],
  gLetters : [],
  wrongGuesses : 5,
- rightGuesses : 0
+ rightGuesses : 0,
+ totalG : 0
  }
-
-
-let displayAns = () => {
-   gameVars.ansArr[i] = "_"
-  for(let letr of gameVars) {
-    if(cLetters[letr]){
-      ansArr += letr
-    } else {
-      ansArr += "_"
-    }
-  }
+let display = () => {
+    console.log(`You have ${gameVars.wrongGuesses} wrong guesses left!`)
+    console.log(`So far you've guessed ${gameVars.gLetters.join(", ")}`);;
 }
+
 
 const getRanWord = () => {
   gameVars.word = dictionary[Math.floor(Math.random() * dictionary.length)]
@@ -29,6 +23,7 @@ const getRanWord = () => {
 }
 
 function getValidLetterGuess() {
+  while(gameVars.wrongGuesses > 0) {
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
   }
@@ -43,29 +38,30 @@ function getValidLetterGuess() {
     }
   }
   return letter.toLowerCase()
+  }
+ gameOver()
 }
 
 const checkLetter = (letter) => {
  if(gameVars.cLetters.includes(letter)){
-    console.log("Good job! The secret word includes this letter!") 
+    console.log("Good job! The secret word includes this letter!")
+    gameVars.gLetters.push(letter)
     gameVars.rightGuesses++
-    gameVars.gLetters.push(letter) 
-    gameLoop()
+    gameVars.totalG++ 
  } else {
-    console.log("Sorry, that letter isn't in the secret word! Try Again!") 
+   console.log("Sorry, the word does not include this letter!");
+    gameVars.gLetters.push(letter)
     gameVars.wrongGuesses--
-   gameVars.gLetters.push(letter)
-   console.log(gameVars.wrongGuesses);
-   gameLoop()
-   
- }
-  gameLoop()
+    gameVars.totalG++
+ } display()
+  getValidLetterGuess()
 }
 
 
 const alreadyGuessed = (letter) => {
 if(gameVars.gLetters.includes(letter)) {
  console.log("You already guessed this letter try again!") 
+ getValidLetterGuess()
 } else { checkLetter(letter)
   }
 }
@@ -89,7 +85,7 @@ const intro = () => {
   if(readline.keyInYNStrict("Do you want to play?")) {
     console.clear()
     getRanWord()
-    gameLoop()
+    getValidLetterGuess()
   } else {
     console.log("Okay, goodbye.");
     process.exit()
