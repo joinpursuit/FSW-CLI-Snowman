@@ -5,19 +5,36 @@ let stats = {
   guessesRemaining: 6,
   previouslyGuessed: [],
   guessCounter: 0,
-  word: dictionary[Math.floor(Math.random() * dictionary.length)]
+  word: dictionary[Math.floor(Math.random() * dictionary.length)],
+  board: []
 }
 
+console.log(stats.word)
+
 const displayBoard = () => {
-  arr = []
   for(let i = 0; i < stats.word.length; i++){
-    arr.push(`_`)
+    stats.board.push(`_`)
   }
-  console.log(arr.join(" "))
-  console.log(`\nGuessed letters: ${stats.previouslyGuessed.join(" ")}`)
-  console.log(`Guesses remaining: ${stats.guessesRemaining}`)
-  
-  guess()
+  gameLoop()
+}
+
+const gameLoop = () => {
+  while(stats.guessesRemaining >= 0 || !`_`.includes(stats.board.join(` `))){
+    
+    console.log(`${stats.board.join(` `)}`)
+    console.log(`\nGuessed letters: ${stats.previouslyGuessed}`)
+    console.log(`Guesses remaining: ${stats.guessesRemaining}`)
+    guess = getValidLetterGuess()
+
+    for(let i = 0; i < stats.word.length; i++){
+      if(stats.word[i].includes(guess)){
+        stats.board[i] = guess
+      }
+    }
+  }
+  stats.guessesRemaining--
+  stats.previouslyGuessed.push(guess)
+  stats.guessCounter++
 }
 
 function getValidLetterGuess() {
@@ -26,69 +43,41 @@ function getValidLetterGuess() {
   }
   let letter = ""
   while (!letter) {
-    let input = readline.question("Please enter your guess: ")
-    if (guessIsValid(input)) {
-      letter = input
-    } else {
-      console.log("Please enter a valid letter")
-    }
+    let input = readline.question(`\nPlease enter your guess: `)
+      if (guessIsValid(input)) {
+        letter = input
+      } else {
+        console.log("Please enter a valid letter")
+      }
   }
   return letter.toLowerCase()
 }
-
-const guess = () => {
-  //  if(the guess is included in stats.previouslyGuessed){
-  //    console.log(`Invalid guess. You already guessed this letter."`)
-  //    player has to guess again
-  //  }
-
-  if(stats.word.includes(getValidLetterGuess())){
-    guessedRight()
-  } else {
-    guessedWrong()
-  }
-}
-
-const guessedRight = () => {
-  // if (board full of letters){
-  //   winGame()
-  //}
-
-  //updateBoard
-  //console.log(`updated board`)
-  console.log(`\nGuessed letters: ${stats.previouslyGuessed.join(" ")}`)
-  console.log(`Guesses remaining: ${stats.guessesRemaining}`)
-  stats.guessCounter++
-
-}
-
-const guessedWrong = () => {
-  if(stats.guessesRemaining === 0){
-    loseGame()
-  }
-
-  stats.guessesRemaining--
-  //stats.previouslyGuessed.push(getValidLetterGuess())
-
-  //console.log(same board)
-  console.log(`\nGuessed letters: ${stats.previouslyGuessed.join(" ")}`)
-  console.log(`Guesses remaining: ${stats.guessesRemaining}\n`)
-  stats.guessCounter++
   
-  getValidLetterGuess()
-}
+    //UPDATE BOARD
+    // const updateBoard = () => {
+    //   for(let i = 0; i < stats.word.length; i++){
+    //     if(stats.word[i].includes(getValidLetterGuess())){
+    //       stats.board[i] = getValidLetterGuess()
+    //       stats.guessCounter++
+    //     } else {
+    //       stats.guessesRemaining--
+    //       stats.previouslyGuessed.push(getValidLetterGuess())
+    //       stats.guessCounter++
+    //     }
+    //   }
+    // }
 
-const winGame = () => {
-  console.log(`Congrats! You won in ${stats.totalGuesses} guesses!`)
-  console.log(`${word}`)
-  process.exit()
+const winOrLose = () => {
+  if(stats.guessesRemaining === 0){
+    console.log(`${stats.board.join(` `)}`)
+    console.log(`You lost! You ran out of guesses!`)
+    console.log(`The word was ${stats.word}`)
+    process.exit()
+  } else if (stats.word.includes(stats.board.join(` `))){
+    console.log(`Congrats! You won in ${stats.totalGuesses} guesses!`)
+    console.log(`The word was ${stats.word}`)
+    process.exit()
+  }
 }
-
-const loseGame = () => {
-  console.log(`You lost! You ran out of guesses!`)
-  console.log(`The word was ${word}`)
-  process.exit()
-}
-
 
 displayBoard()
