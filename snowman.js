@@ -132,7 +132,7 @@ function pickAWord() {
   return dictionary[Math.round((dictionary.length - 1) * (Math.random()))]
 }
 
-//tursn the dictionary word into a hidden word
+//turns the dictionary word into a hidden word
 function makeTheBlanks() {
   snowmanObject.chosenWord = pickAWord()
   snowmanObject.hiddenWord = ''
