@@ -67,6 +67,12 @@ function displayUnderscores() { // ES5 hoisting
   });
 };
 
+// const wrongGuess = (userInput) => {
+//   if (userInput !== wordSplit[i]) {
+//     guessCount()  
+// }
+// }
+
 //////////////////// guessCount //////////////////////////
 const guessCount = () => {
   let count = 7;
