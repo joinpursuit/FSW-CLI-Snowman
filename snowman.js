@@ -17,13 +17,15 @@ let winCard = {
   Winner: "",
   "Word": "",
   "Wrong Guesses": 0,
-  "Total Guesses": 0
+  "Total Guesses": 0,
+  Prize: '🏆'
 }
 let loseCard = {
   Loser: "",
   "Word": "",
   "Right Guesses": 0,
-  "Total Guesses": 0
+  "Total Guesses": 0,
+  Prize: '💩'
 }
 const initialQ = () => {
   obj.name = rls.question("Hi!\nWhat's your name? ")
