@@ -6,11 +6,10 @@ let data = {
   totalGuesses: 0,
   word: "",
   displayString: "",
-  letters: {}
+  letters: []
 }
 
 function play() {
-  
   console.clear();
   getRandomWord();
 
@@ -19,7 +18,7 @@ function play() {
     let newLetter = false;
     while (!newLetter) {
       letter = getValidLetterGuess();
-      if (data.letters[letter] === undefined) {
+      if (!data.letters.includes(letter)) {
         newLetter = true;
       } else {
         console.log(`You already picked ${letter}, pick a different letter.`)
@@ -32,24 +31,20 @@ function play() {
 
 function getRandomWord() {
   data.word = dictionary[Math.floor(Math.random() * dictionary.length)]
+  updateDisplayString()
 }
 
 function display() {
-  updateDisplayString()
-
-  console.log(data.word)
-  console.log("\n " + data.displayString)
-  if (data.totalGuesses > 0) {
-    console.log("Letters guessed correctly: " + Object.keys(data.letters).filter(el => data.letters[el]));
-    console.log("Letters guessed wrong: " + Object.keys(data.letters).filter(el => !data.letters[el]));
-  }
+  console.log("\n" + data.displayString)
+  console.log("Letters guessed correctly: " + data.letters.filter(el => data.word.includes(el)));
+  console.log("Letters guessed wrong: " + data.letters.filter(el => !data.word.includes(el)));
   console.log("\nYou have " + data.guessesRemaining + " guesses remaining.")
 }
 
 function updateDisplayString() {
   data.displayString = ""
   for (let char of data.word) {
-    data.letters[char] ? data.displayString += char : data.displayString += "-"
+    data.letters.includes(char) ? data.displayString += char : data.displayString += "-"
   }
 }
 
@@ -71,17 +66,17 @@ function getValidLetterGuess() {
 
 function evaluateLetter(char) {
   data.totalGuesses++;
-  if (data.word.includes(char)) {
-    data.letters[char] = true;
-  } else {
-    data.letters[char] = false;
+  data.letters.push(char)
+  updateDisplayString()
+  if (!data.word.includes(char)) {
     data.guessesRemaining--;
   }
+
 }
 
 function playerWins() {
   for (char of data.word) {
-    if (data.letters[char] === undefined) {
+    if (!data.letters.includes(char)) {
       return false;
     }
   }
@@ -90,10 +85,9 @@ function playerWins() {
 
 function gameOver() {
   if (playerWins()) {
-    console.log(`\nCongratulations, You Win!\nIt took you only ${data.totalGuesses} guesses to win.\n`)
+    console.log(`\nCongratulations, You Win!\nIt took you only ${data.totalGuesses} guesses to get the word: ${data.word}\n`)
     return true;
   }
-
   if (data.guessesRemaining === 0) {
     console.log(`\nYOU LOSE! The word was: ${data.word.toUpperCase()}\n`)
     return true;
