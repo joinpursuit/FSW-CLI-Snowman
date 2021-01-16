@@ -47,8 +47,11 @@ const guessCount = () => {
     guesses--
     getValidLetterGuess()
   }
-  console.log("You won! Nice job guessing!!!")
-  return console.log(updateBlankSpaces.join(" "))
+  return console.log(`You won in ${numOfGuesses(guesses)} guesses!!! Nice job guessing the word: ${updateBlankSpaces.join(" ")}`)
+}
+
+const numOfGuesses = (guesses) => {
+  return 7-guesses
 }
 
 const enterGuessCount = () => {
