@@ -51,9 +51,9 @@ const guessTheSecret = () => {
 //rightOrWrongGuess
 const rightOrWrongGuess = (guess) => { //With the "guess" param i am able to fun this function through the getValidLetter function. 
   if(dash.includes(guess)) { // Setting the conditions that every dash will includee the guess param. 
-    guessRight(dash, guess)
+    guessRight(dash, guess) //If guess is right run to this function 
   } else {
-    guessWrong()
+    guessWrong() // if its not right it will run to this function 
   }
 }
 
