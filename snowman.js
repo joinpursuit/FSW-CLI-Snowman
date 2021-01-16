@@ -744,29 +744,42 @@ const dictionary = [
   "young",
 ];
 
-let randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+// let randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+let randomWord = "banana"
 let guessWord = [];
 let stats = {guessesRemaining: 8, guessedLetters: "" };
 
+console.log(randomWord)
 function startGame() {
   for (let i = 0; i < randomWord.length; i++) {
     guessWord.push("_");
   }
   console.log(guessWord.join(" "));
-  guessedNumbers();
+  console.log("\n")
+  console.log("Guessed Letters:")
+  console.log("\n")
+  numOfGuesses();
 }
 
 function gameOver() {
   if (stats.guessesRemaining === 0) {
-    
+  console.log("No more guesses, better luck next time!")
+  return true 
   }
-}
+  for (let i = 0; i < randomWord.length; i++) {
+    if (randomWord[i] !== guessWord[i]) {
+      return false 
+    } 
+  }
+   console.log("You found the word!" + stats.guessesRemaining)
+  }
 
-function guessedNumbers () {
+
+function numOfGuesses () {
+  logGuessesRemaining()
   while (stats.guessesRemaining > 0) {
-  console.log(`You have ${stats.guessesRemaining} guesses remaining.`)
-  let guessedLetters = getValidLetterGuess()
-  validLetters(guessedLetters)
+  let guessedLetter = getValidLetterGuess()
+  validLetters(guessedLetter)
     }
 }
 
@@ -784,6 +797,7 @@ function getValidLetterGuess() {
     let input = readline.question("Please enter your guess: ");
     if (guessIsValid(input)) {
       letter = input;
+      break 
     } else {
       console.log("Please enter a valid letter");
     }
@@ -791,17 +805,23 @@ function getValidLetterGuess() {
   return letter.toLowerCase();
 }
 
+const logGuessesRemaining = () => {
+  console.log(`You have ${stats.guessesRemaining} guesses remaining.`)
+
+}
 
 const validLetters = (letter) => {
   for (let i = 0; i < randomWord.length; i++) {
-      if (randomWord[i] === letter.toUpperCase()) {
-        guessWord[i] = letter.toUpperCase();
-      } else {
-    }
+      if (randomWord[i] === letter.toLowerCase()) {
+        guessWord[i] = letter.toLowerCase();
+        } 
   }
-  console.log(guessWord.join(""));
+  console.log(guessWord.join(" "));
+  stats[stats.guessesRemaining] = stats[--stats.guessesRemaining]
+  if (!gameOver()) {
+    logGuessesRemaining();
+  }
 };
 
-
-
 startGame()  
+
