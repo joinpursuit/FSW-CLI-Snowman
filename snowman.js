@@ -1,3 +1,4 @@
+const readLineSync = require("readline-sync");
 const readline = require("readline-sync");
 const dictionary = [
   "able",
@@ -743,65 +744,104 @@ const dictionary = [
   "yesterday",
   "young",
 ];
+gameBoard = {};
 
-let gameObject = { guessesLeft: 7, correctGuesses: [], wrongGuesses: [], gameBoard: []};
+let secretWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+console.log("\nThe secret word is: " + secretWord);
 
+let lettersRemaining = secretWord.length;
 
-const getWord = () => {
-  secretWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-  console.log("The secret word is: " + secretWord);
-  // gameBoardDisplay();
+let guessesLeft = 7;
+// deincrement guess function
+let deincrementGuess = () => {
+  guessesLeft -= 1;
+  console.log("\nYou have " + guessesLeft + " guesses remaining");
 };
 
+let guessedLetters = [];
+// declare function that creates guessedLeters array
+let guessedLettersArray = (letter,guessedLeters) => {
+  guessedLetters.push(letter);
+  console.log("\nGuessed letters: " + guessedLetters);
+};
+// declare function that updates gameboard if correct letter chosen
+let updateGameBoard = (letter) => {
+  for (k = 0; k < secretWord.length; k++) {
+    if (secretWord[k] === letter) {
+      gameBoard[k] = letter;
+      lettersRemaining--;
+      
+    }
+  }
+  console.log(Object.values(gameBoard).join(" "));
+  console.log("\nLetters Remaining = " + lettersRemaining);
+};
+// win game function
+let winGame = (lettersRemaining) => {
+  if (lettersRemaining === 0) {
+    console.log("\nCongratulations YOU HAVE WON!!");
+    console.log("\nThe word was: " + secretWord);
+    process.exit();
+  }
+};
+// create reset game function
+let resetGame = () => {
+  guessesLeft = 7;
+  guessedLetters = [];
+  gameBoard = {};
+  let secretWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+  console.log("\nThe secret word is: " + secretWord);
+  lettersRemaining = secretWord.length;
+};
+//game over function
+let gameOver = (guessesLeft) => {
+  if (guessesLeft === 0 && lettersRemaining !== 0) {
+    console.log("\nSorry you ran out of guesses! Better luck next time!");
+    if (readLineSync.keyInYN("\nWould you like to try again?")) {
+      resetGame();
+      getValidLetterGuess();
+    } else {
+      process.exit();
+    }
+  }
+};
+// The loop creating the answer array - will update with correct guesses
+for (let i = 0; i < secretWord.length; i++) {
+  gameBoard[i] = "_";
+}
+console.log(Object.values(gameBoard).join(" "));
 
-// const gameBoardDisplay = (secretWord) => {
-//   for (i = 0; i < secretWord.length; i++) {
-//     gameObject[gameboard.push("_")];
-//   }
-//   console.log(gameObject.gameboard)
+//has letter already been guessed function
+// let hasLetterBeenGuessedAlready = (letter,guessedLetters)
+// for(let p = 0; p < guessedLetters.length; p++){
+//   if (guessedLetters[p] === letter)
 // }
 
-const doesSecretWordContainLetter = (letter) => {
-  for (let i = 0; i < secretWord.length; i++) {
-    let char = secretWord[i];
-    if ((letter === char)) {
-      console.log("Good Guess!");
-      gameObject.correctGuesses += char;
-      console.log("This is what you have guesses correctly: " + gameObject.correctGuesses)
-      console.log("You have " + gameObject.guessesLeft + " guesses left!");
-      getValidLetterGuess();
-      break;
-
-    } else {
-      console.log("Sorry that was not a correct Guess! Please try again!");
-      gameObject.guesses--;
-      console.log("You have " + gameObject.guessesLeft + " guesses left!");
+// the game loop
+while (guessesLeft > 0 && lettersRemaining !== 0) {
+  winGame(lettersRemaining);
+  function getValidLetterGuess() {
+    function guessIsValid(letter) {
+      return (
+        letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+      );
     }
+    let letter = "";
+    while (!letter) {
+      let input = readline.question("\nPlease enter your guess: ");
+      if (guessIsValid(input)) {
+        letter = input;
+      } else {
+        console.log("\nPlease enter a valid letter");
+      }
+    }
+    // hasLetterBeenGuessedAlready(letter);
+    deincrementGuess(guessesLeft);
+    updateGameBoard(letter);
+    guessedLettersArray(letter);
+    return letter.toLowerCase();
   }
-  getValidLetterGuess();
-};
-
-while (gameObject.guessesLeft != 0) {
   getValidLetterGuess();
 }
 
-function getValidLetterGuess() {
-  function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
-  }
-  let letter = "";
-  while (!letter) {
-    let input = readline.question("Please enter your guess: ");
-    if (guessIsValid(input)) {
-      letter = input;
-
-      doesSecretWordContainLetter(letter);
-      console.log("You have " + guessesLeft + " guesses left");
-    } else {
-      console.log("Please enter a valid letter");
-    }
-  }
-  return letter.toLowerCase();
-}
-getWord();
-getValidLetterGuess();
+gameOver(guessesLeft);
