@@ -825,12 +825,28 @@ const correctGuesses = (wordArr, guess) => {
   stats.guessedLetters.push(validGuess);
   if (stats.revealWord.indexOf('_') < 0) {
     console.log(`NICE JOB! YOU WON!`);
-    playAgain();
+    process.exit();
   } else {
     letterGuess();
   }
 }
 
+const wrongGuesses = () => {
+  stats.wrongGuesses.push(validGuess);
+  stats.guessedLetters.push(validGuess);
+  console.log(`Your guessed letters: ${stats.wrongGuesses}`);
+  stats.guessesRemaining --;
+  console.log(`Negative.. Try again.`);
+  answer = stats.revealWord.join(" ");
+  console.log(answer);
+  if (stats.guessesRemaining === 0) {
+    console.log(`I can see you're not very good at this game ${nameInput}.. You lost. \n`)
+    console.log(`Your word was: ${randomWord}. \n`);
+    process.exit();
+  } else {
+    letterGuess();
+  }
+};
 
 function getValidLetterGuess() {
   function guessIsValid(letter) {
