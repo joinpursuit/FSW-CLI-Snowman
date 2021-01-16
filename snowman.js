@@ -5,6 +5,9 @@ let word = dictionary[Math.floor(Math.random() * dictionary.length)];
 let wordSplit = word.split("");
 let board = displayUnderscores()
 let gameData = [];
+let obj = {};
+let guessCountDecrement = 7;
+let turnTaken = 1;
 console.log(word)
 
 
@@ -16,12 +19,13 @@ function getValidLetterGuess() {
   }
   let letter = ""
   while (!letter) {
-    console.log(board.join(" "))
+    console.log(board.join(" ")) // added
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input
+      console.log(displayLettersGuessed(letter)) // added
       compareLetters(letter) // passing in the userInput
-      console.log(`guesses: ${guessedLetters(input).join(", ")}`)
+      // console.log(`guesses: ${guessedLetters(input).join(", ")}`)
     } else {
       console.log("Please enter a valid letter")
     }
@@ -30,19 +34,21 @@ function getValidLetterGuess() {
 }
 ///////////////////// guessedLetters /////////////////////////
 
-function guessedLetters(input) { // check if letter is entered twice 
-    gameData.push(input)
-    return gameData
-  }
+// const guessedLetters = (input) => { // check if letter is entered twice // created an object instead
+//     gameData.push(input)
+//     return gameData
+//   }
 
-//////////////// userInput ////////////////
+// //////////////// userInput ////////////////
 
-const gameLoop = () => { // Corey
-  while (startGame()) {
-    let guessedLetter = getValidLetterGuess()
-  }
-  console.log(guessedLetter)
-}
+// const gameLoop = () => { // Corey
+//   while (startGame()) {
+//     let guessedLetter = getValidLetterGuess()
+//   }
+//   console.log(guessedLetter)
+// }
+
+///////////////////
 
 
 
@@ -50,11 +56,16 @@ const gameLoop = () => { // Corey
 //////////////////// compareLetters //////////////////////
 
 function compareLetters (userInput) { // update for duplicate letters
+  let isGuessCorrect = false;
   for (let i = 0; i < wordSplit.length; i++) {
     if (userInput === wordSplit[i]) {
       board[i] = wordSplit[i]
+      isGuessCorrect = true;
     } 
   } 
+  if (isGuessCorrect === false) {
+    guessCountDecrement--
+  }
 }
 
 ///////////////// isBoardFull() /////////////
@@ -62,6 +73,17 @@ function compareLetters (userInput) { // update for duplicate letters
 const isBoardFull = () => { // win
   return !board.includes("_")
 } 
+
+/////////////////////////////
+
+
+const displayLettersGuessed = (userInput) => {
+  if (userInput) {
+    obj[turnTaken] = userInput
+    turnTaken++
+  }
+  return `Letters guessed: ${Object.values(obj).join(", ")} `
+}
 
 
 ///////////////////// displayUnderscores() ////////////////////////
@@ -74,33 +96,33 @@ function displayUnderscores() { // ES5 hoisting
 
 // const wrongGuess = (userInput) => {
 //   if (userInput !== wordSplit[i]) {
-//     guessCount()  
+//     printGuessCount()  
 // }
 // }
 
-//////////////////// guessCount //////////////////////////
-const guessCount = () => {
-  let count = 7;
-  while(count >= 0 && !isBoardFull() && !compareLetters()) {
-    if (count === 7) {
+//////////////////// printGuessCount //////////////////////////
+const printGuessCount = () => {
+  // let count = 7;
+  while(guessCountDecrement >= 0 && !isBoardFull()) {
+    if (guessCountDecrement === 7) {
         console.log(`You have 7 guesses total`)
-    } else if (count > 1) {
-        console.log(`You have ${count} guesses left`)
-    } else if (count === 1) {
-        console.log(`You have ${count} guess left`)
+    } else if (guessCountDecrement > 1) {
+        console.log(`You have ${guessCountDecrement} guesses left`)
+    } else if (guessCountDecrement === 1) {
+        console.log(`You have ${guessCountDecrement} guess left`)
     } else {
         console.log(`Sorry. You lose\nThe word was ${word}`)
         quitGame();
     }
-    count--
+    // count--
     getValidLetterGuess()
 }
-return console.log(`${board.join(" ")}\nYou're Brilliant! You Won! It took ${winCount(count)} guesses.`)
+return console.log(`${board.join(" ")}\nYou're Brilliant! You Won! It took ${winCount(turnTaken)} guesses.`)
 };
 
 ///////////////// winCount //////////////////////////////
 
-const winCount = count => 7 - count
+const winCount = turnTaken => turnTaken  - 1
 
 //////////////// quitGame() //////////////////
 
@@ -112,15 +134,9 @@ const quitGame = () => {
 ///////////// startGame() ///////////////////
 
 const startGame = () => {
-    // console.log(`The Snowman Game by Coreen Cooper\n`)
-    if (readline.keyInYNStrict("Would you like to play a game?")) {
-      
-        guessCount();
-  } else {
-    console.log("You're no fun.");
-    // quitGame()
-  }
-};
+    console.log(`The Snowman Game by Coreen Cooper\n`);
+    return readline.keyInYNStrict("Would you like to play a game?") ? printGuessCount() : console.log("You're no fun.")
+  };
 
 startGame();
 
