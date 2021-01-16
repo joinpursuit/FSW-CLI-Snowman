@@ -7,7 +7,7 @@ let board = displayUnderscores()
 let gameData = [];
 let obj = {};
 let guessCountDecrement = 7;
-let turnTaken = 7;
+let turnTaken = 1;
 console.log(word)
 
 
@@ -19,11 +19,11 @@ function getValidLetterGuess() {
   }
   let letter = ""
   while (!letter) {
-    console.log(board.join(" "))
+    console.log(board.join(" ")) // added
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input
-      console.log(createObj(letter))
+      console.log(displayLettersGuessed(letter)) // added
       compareLetters(letter) // passing in the userInput
       console.log(`guesses: ${guessedLetters(input).join(", ")}`)
     } else {
@@ -77,12 +77,12 @@ const isBoardFull = () => { // win
 /////////////////////////////
 
 
-const createObj = (userInput) => {
+const displayLettersGuessed = (userInput) => {
   if (userInput) {
     obj[turnTaken] = userInput
-    turnTaken--
-  } 
-  return obj
+    turnTaken++
+  }
+  return `Letters guessed: ${Object.values(obj).join(", ")} `
 }
 
 
@@ -117,12 +117,12 @@ const printGuessCount = () => {
     // count--
     getValidLetterGuess()
 }
-return console.log(`${board.join(" ")}\nYou're Brilliant! You Won! It took ${winCount(guessCountDecrement)} guesses.`)
+return console.log(`${board.join(" ")}\nYou're Brilliant! You Won! It took ${winCount(turnTaken)} guesses.`)
 };
 
 ///////////////// winCount //////////////////////////////
 
-const winCount = guessCountDecrement => 7 - guessCountDecrement
+const winCount = turnTaken => turnTaken  - 1
 
 //////////////// quitGame() //////////////////
 
