@@ -25,6 +25,11 @@ const gameLoop = () => {
     
     guess = getValidLetterGuess()
 
+    if(stats.previouslyGuessed.includes(guess)){
+      console.log(`You already guessed that letter! Please guess again.`)
+      gameLoop()
+    }
+
     for(let i = 0; i < stats.word.length; i++){
       if(stats.word[i].includes(guess)){
         stats.board[i] = guess
