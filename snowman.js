@@ -103,16 +103,18 @@ const quitGame = () => {
 //   console.log("See you soon then!")
 //   process.exit()
 // }
+
+
 let guessesArray = []
 const guessesMade = (userInput) => {
-  for (let i = 0; i < randomWordSplit.length; i++) {
-    if(userInput === randomWordSplit[i]) {
-            guessesArray.push(randomWordSplit[i])
-        }
-    } 
-    return console.log(`Guessed letters: ${guessesArray}`)
-} 
-guessesMade()
+    for (let i = 0; i < randomWordSplit.length; i++) {
+        if(!guessesArray.includes(userInput)) {
+            guessesArray.push(userInput)
+        } 
+    }
+    return console.log(`Guessed letters: ${guessesArray} `) 
+
+}
 
 
 guessCount()
