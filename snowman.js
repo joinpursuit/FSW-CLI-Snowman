@@ -28,15 +28,19 @@ const gameLoop = () => {
     for(let i = 0; i < stats.word.length; i++){
       if(stats.word[i].includes(guess)){
         stats.board[i] = guess
-        stats.previouslyGuessed.push(guess)
         stats.guessCounter++
+        if(!stats.previouslyGuessed.includes(guess)){
+          stats.previouslyGuessed.push(guess)
+        }
       }
     }
 
     if(!stats.word.includes(guess)){
       stats.guessesRemaining--
-      stats.previouslyGuessed.push(guess)
       stats.guessCounter++
+      if(!stats.previouslyGuessed.includes(guess)){
+        stats.previouslyGuessed.push(guess)
+      }
     }
 
     if(stats.guessesRemaining === 0 || !stats.board.includes(`_`)){
