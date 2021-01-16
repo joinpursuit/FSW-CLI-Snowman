@@ -9,8 +9,6 @@ let stats = {
   board: []
 }
 
-console.log(stats.word)
-
 const displayBoard = () => {
   for(let i = 0; i < stats.word.length; i++){
     stats.board.push(`_`)
@@ -19,22 +17,44 @@ const displayBoard = () => {
 }
 
 const gameLoop = () => {
-  while(stats.guessesRemaining >= 0 || !`_`.includes(stats.board.join(` `))){
+  while(stats.guessesRemaining > 0 || stats.board.includes(`_`)){
     
     console.log(`${stats.board.join(` `)}`)
     console.log(`\nGuessed letters: ${stats.previouslyGuessed}`)
     console.log(`Guesses remaining: ${stats.guessesRemaining}`)
+    
     guess = getValidLetterGuess()
 
     for(let i = 0; i < stats.word.length; i++){
       if(stats.word[i].includes(guess)){
         stats.board[i] = guess
+        stats.previouslyGuessed.push(guess)
+        stats.guessCounter++
       }
     }
+
+    if(!stats.word.includes(guess)){
+      stats.guessesRemaining--
+      stats.previouslyGuessed.push(guess)
+      stats.guessCounter++
+    }
+
+    if(stats.guessesRemaining === 0 || !stats.board.includes(`_`)){
+      winOrLose()
+    }
   }
-  stats.guessesRemaining--
-  stats.previouslyGuessed.push(guess)
-  stats.guessCounter++
+}
+
+const winOrLose = () => {
+  if(stats.guessesRemaining === 0){
+    console.log(`\nYou lost! You ran out of guesses!`)
+    console.log(`The word was ${stats.word}`)
+    process.exit()
+  } else if (!stats.board.includes(`_`)){
+    console.log(`\nCongrats! You won in ${stats.guessCounter} guesses!`)
+    console.log(`The word was ${stats.word}`)
+    process.exit()
+  }
 }
 
 function getValidLetterGuess() {
@@ -52,32 +72,6 @@ function getValidLetterGuess() {
   }
   return letter.toLowerCase()
 }
-  
-    //UPDATE BOARD
-    // const updateBoard = () => {
-    //   for(let i = 0; i < stats.word.length; i++){
-    //     if(stats.word[i].includes(getValidLetterGuess())){
-    //       stats.board[i] = getValidLetterGuess()
-    //       stats.guessCounter++
-    //     } else {
-    //       stats.guessesRemaining--
-    //       stats.previouslyGuessed.push(getValidLetterGuess())
-    //       stats.guessCounter++
-    //     }
-    //   }
-    // }
-
-const winOrLose = () => {
-  if(stats.guessesRemaining === 0){
-    console.log(`${stats.board.join(` `)}`)
-    console.log(`You lost! You ran out of guesses!`)
-    console.log(`The word was ${stats.word}`)
-    process.exit()
-  } else if (stats.word.includes(stats.board.join(` `))){
-    console.log(`Congrats! You won in ${stats.totalGuesses} guesses!`)
-    console.log(`The word was ${stats.word}`)
-    process.exit()
-  }
-}
 
 displayBoard()
+
