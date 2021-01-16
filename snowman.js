@@ -4,6 +4,7 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 let word = dictionary[Math.floor(Math.random() * dictionary.length)] //"account"
 let wordSplit = word.split("") // ["a","c","c","o","u","n","t"]
 let board = displayUnderscores() // ["_", "_", "_", "_", "_", "_", "_"]
+let guess = 7
 let gameData = {
   guessedLetters: "",
   incorrectGuessedLetter: ""
@@ -20,11 +21,11 @@ const getValidLetterGuess = () => {
   
   let letter = ""
   while (!letter) {
-    console.log(`Guessed Letters: ` + gameData.guessedLetters + "\n" + `Current Incorrect Letter: ` + gameData.incorrectGuessedLetter + "\n");
     console.log(board.join(" "));
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input
+      console.clear()
       console.log(updateData(letter));
       compareLetters(letter)
     } else {
@@ -33,6 +34,8 @@ const getValidLetterGuess = () => {
   }
   return letter.toLowerCase()
 }
+
+
 
 const compareLetters = (userInput) => {
   for (let i = 0; i < wordSplit.length; i++) {
@@ -56,9 +59,17 @@ function displayUnderscores() {
   })
 }
 
+
+
 const rightGuesses = (sub) => {
-  return 7 - sub
+  if (sub === 7) {
+    return sub
+  } else {
+    sub = word.length
+  }
 }
+
+
 
 const updateData = (userInput) => {
   for (let i = 0; i < wordSplit.length; i++) {
@@ -66,50 +77,58 @@ const updateData = (userInput) => {
     if (userInput === element) {
       gameData["guessedLetters"] += element
     } 
-  } for (let i = 0; i < wordSplit.length; i++) {
-    const element = wordSplit[i];
-    if (!wordSplit.includes(userInput)) {
-      gameData["incorrectGuessedLetter"] = userInput
+  } 
+  if (!wordSplit.includes(userInput)) {
+      gameData["incorrectGuessedLetter"] += userInput
+      guess--
     }
-  }
-  return `Guessed Letters: ` + gameData.guessedLetters + "\n" + `Current Incorrect Letter: ` + gameData.incorrectGuessedLetter + "\n"
+  
+  return `Guessed Letters: ` + gameData.guessedLetters + "\n" + `Incorrect Letters: ` + gameData.incorrectGuessedLetter + "\n"
 }
 
-const guessCount = () => {
 
-  let guesses = 7; 
 
-  while (guesses >= 0) {
+const mainGame = () => {
+
+  console.log(`Guessed Letters: ` + gameData.guessedLetters + "\n" + `Current Incorrect Letter: ` + gameData.incorrectGuessedLetter + "\n");
+  while (guess >= 0) {
     
     if (isBoardFull()) {
       console.log(wordSplit.join(" "));
       console.log(`\nCongratulations! You won!!\n`);
-      console.log(`It took ${rightGuesses(guesses)} guesses to do it!! `);
+      console.log(`It took ${rightGuesses(guess)} guesses to do it!! `);
       if (readline.keyInYN(`\nDo you want to play again?\n`)) {
-        guessCount()
+        mainGame()
       } else {
         quitGame()
       }
-    } else if (guesses === 7) {
-      console.log(`\nYou have ${guesses} opportunities to guess\n`);
-    } else if (guesses > 1) {
-      console.log(`\nYou have ${guesses} guesses left\n`);
-    } else if (guesses === 1) {
-      console.log(`You have ${guesses} guess left`);
+    } else if (guess === 7) {
+      console.log(`\nYou have ${guess} opportunities to guess\n`);
+      
+    } else if (guess > 1) {
+      console.log(`\nYou have ${guess} guesses left\n`);
+    } else if (guess === 1) {
+      console.log(`\nYou have ${guess} guess left\n`);
     } else {
       console.log(`You ran out of guesses\n`);
       console.log("\nThe right word is " + wordSplit.join(" ") + "\n");
       if (readline.keyInYN(`Do you want to play again?\n`)) {
-        guessCount()
+        console.clear()
+         word = dictionary[Math.floor(Math.random() * dictionary.length)] 
+         wordSplit = word.split("") 
+         board = displayUnderscores() 
+         guess = 7
+         gameData = {
+          guessedLetters: "",
+          incorrectGuessedLetter: ""
+        }
+        mainGame()
       } else {
         quitGame()
       }
     }
-    getValidLetterGuess()
-    guesses--
-    
+    getValidLetterGuess() 
   }
-  
 }
 
 
@@ -117,17 +136,20 @@ const guessCount = () => {
 const startGame = () => {
   console.log(`Welcome to the Snowman Game`);
   if (readline.keyInYN(`Do you want to start?`)) {
-    // console.clear()
-    guessCount()
+    console.clear()
+    mainGame()
   } else {
     quitGame()
   }
 }
 
+
+
 const quitGame = () => {
   console.log(`Perfect. See you next time!`);
   process.exit()
 }
+
 
 
 startGame()
