@@ -749,7 +749,7 @@ let guessCounter = 0;
 
 // getting random word
 let secretWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-console.log("\nThe secret word is: " + secretWord);
+// console.log("\nThe secret word is: " + secretWord);
 
 // letters remaining will help win game function
 let lettersRemaining = secretWord.length;
