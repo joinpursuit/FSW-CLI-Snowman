@@ -9,6 +9,11 @@ let hiddenWord;
 let stats = {maxGuesses: 0, guessedLetters: [], totalGuesses: 0}
 
 const startGame = () => {
+  randomWord = '';
+  randomWordArray = [];
+  hiddenLetterArray = [];
+  hiddenWord;
+  stats = {maxGuesses: 0, guessedLetters: [], totalGuesses: 0}
   randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
   // sets start of max guess based one the word
   stats.maxGuesses = randomWord.length - 1;
@@ -55,11 +60,11 @@ const getValidLetterGuess = () => {
   }
   let letter = ""
   while (!letter) {
-    let input = readline.question("Please enter your guess: ")
+    let input = readline.question("Please enter your guess: ");
     if (guessIsValid(input)) {
       letter = input
     } else {
-      console.log("Please enter a valid letter")
+      console.log("Please enter a valid letter");
     }
   }
   return letter.toLowerCase()
@@ -82,16 +87,37 @@ const correctGuess = (array, pGuess, totalGuesses) => {
   // Win condition
   if (!hiddenLetterArray.includes('_')){
     console.log(`You win! It only took you ${totalGuesses} total guesses to win.`);
-    process.exit();
+    let input = readline.keyInYNStrict('Would you like to play again?');
+    if(!input){
+        console.clear();
+        console.log('Thank you for playing!');
+        quitGame();
+    }else{
+        console.clear();
+        startGame();
+    }
   }
 }
+const quitGame = () => {
+  console.log('Have a nice life!');
+  process.exit();
+}
+
 const incorrectGuess = pGuess => {
   console.clear();
   stats.guessedLetters.push(pGuess);
   stats.maxGuesses--;
   if (stats.maxGuesses === 0){
     console.log(`You lost the game. The correct word was '${randomWord}'.`);
-    process.exit();
+    let input = readline.keyInYNStrict('Would you like to play again?');
+    if(!input){
+        console.clear();
+        console.log('Thank you for playing!');
+        quitGame();
+    }else{
+        console.clear();
+        startGame();
+    }
   } else {
     console.log(`Incorrect guess. Please try Again.`);
   }
