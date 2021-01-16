@@ -5,7 +5,9 @@ let word = dictionary[Math.floor(Math.random() * dictionary.length)];
 let wordSplit = word.split("");
 let board = displayUnderscores()
 let gameData = [];
+let obj = {};
 let guessCountDecrement = 7;
+let turnTaken = 7;
 console.log(word)
 
 
@@ -21,6 +23,7 @@ function getValidLetterGuess() {
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input
+      console.log(createObj(letter))
       compareLetters(letter) // passing in the userInput
       console.log(`guesses: ${guessedLetters(input).join(", ")}`)
     } else {
@@ -45,6 +48,8 @@ function guessedLetters(input) { // check if letter is entered twice
 //   console.log(guessedLetter)
 // }
 
+///////////////////
+
 
 
 
@@ -68,6 +73,17 @@ function compareLetters (userInput) { // update for duplicate letters
 const isBoardFull = () => { // win
   return !board.includes("_")
 } 
+
+/////////////////////////////
+
+
+const createObj = (userInput) => {
+  if (userInput) {
+    obj[turnTaken] = userInput
+    turnTaken--
+  } 
+  return obj
+}
 
 
 ///////////////////// displayUnderscores() ////////////////////////
@@ -101,12 +117,12 @@ const printGuessCount = () => {
     // count--
     getValidLetterGuess()
 }
-return console.log(`${board.join(" ")}\nYou're Brilliant! You Won! It took ${winCount(count)} guesses.`)
+return console.log(`${board.join(" ")}\nYou're Brilliant! You Won! It took ${winCount(guessCountDecrement)} guesses.`)
 };
 
 ///////////////// winCount //////////////////////////////
 
-const winCount = count => 7 - count
+const winCount = guessCountDecrement => 7 - guessCountDecrement
 
 //////////////// quitGame() //////////////////
 
