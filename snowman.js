@@ -20,11 +20,12 @@ const getValidLetterGuess = () => {
   
   let letter = ""
   while (!letter) {
-
+    console.log(`Guessed Letters: ` + gameData.guessedLetters + "\n" + `Current Incorrect Letter: ` + gameData.incorrectGuessedLetter + "\n");
     console.log(board.join(" "));
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input
+      console.log(updateData(letter));
       compareLetters(letter)
     } else {
       console.log("Please enter a valid letter")
@@ -37,7 +38,6 @@ const compareLetters = (userInput) => {
   for (let i = 0; i < wordSplit.length; i++) {
     if (userInput === wordSplit[i]) {
       board[i] = wordSplit[i]
-      isBoardFull()
     }
   }
 }
@@ -60,6 +60,20 @@ const rightGuesses = (sub) => {
   return 7 - sub
 }
 
+const updateData = (userInput) => {
+  for (let i = 0; i < wordSplit.length; i++) {
+    const element = wordSplit[i];
+    if (userInput === element) {
+      gameData["guessedLetters"] += element
+    } 
+  } for (let i = 0; i < wordSplit.length; i++) {
+    const element = wordSplit[i];
+    if (!wordSplit.includes(userInput)) {
+      gameData["incorrectGuessedLetter"] = userInput
+    }
+  }
+  return `Guessed Letters: ` + gameData.guessedLetters + "\n" + `Current Incorrect Letter: ` + gameData.incorrectGuessedLetter + "\n"
+}
 
 const guessCount = () => {
 
@@ -77,9 +91,9 @@ const guessCount = () => {
         quitGame()
       }
     } else if (guesses === 7) {
-      console.log(`You have ${guesses} opportunities to guess`);
+      console.log(`\nYou have ${guesses} opportunities to guess\n`);
     } else if (guesses > 1) {
-      console.log(`You have ${guesses} guesses left`);
+      console.log(`\nYou have ${guesses} guesses left\n`);
     } else if (guesses === 1) {
       console.log(`You have ${guesses} guess left`);
     } else {
@@ -102,7 +116,7 @@ const guessCount = () => {
 
 const startGame = () => {
   console.log(`Welcome to the Snowman Game`);
-  if (readline.keyInYN(`Do you want to start?\n`)) {
+  if (readline.keyInYN(`Do you want to start?`)) {
     // console.clear()
     guessCount()
   } else {
