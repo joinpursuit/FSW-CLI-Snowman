@@ -21,7 +21,7 @@ function getValidLetterGuess() {
     if (guessIsValid(input)) {
       letter = input
       compareLetters(letter) // passing in the userInput
-      console.log(guessedLetters(input))
+      console.log(`guesses: ${guessedLetters(input).join(", ")}`)
     } else {
       console.log("Please enter a valid letter")
     }
