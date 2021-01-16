@@ -809,6 +809,29 @@ const guessCheck = () => {
   }
 }
 
+const correctGuesses = (wordArr, guess) => {
+  const indexOfWord = [];
+  wordArr.forEach((letter, i) => {
+  if (letter === guess) {
+      indexOfWord.push(i)
+    }
+  });
+  indexOfWord.forEach((el) => {
+    stats.revealWord.splice(el, 1, validGuess)
+  })
+  answer = stats.revealWord.join(" ");
+  console.log(`Your guessed letters: ${stats.wrongGuesses}`);
+  console.log(answer);
+  stats.guessedLetters.push(validGuess);
+  if (stats.revealWord.indexOf('_') < 0) {
+    console.log(`NICE JOB! YOU WON!`);
+    playAgain();
+  } else {
+    letterGuess();
+  }
+}
+
+
 function getValidLetterGuess() {
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
