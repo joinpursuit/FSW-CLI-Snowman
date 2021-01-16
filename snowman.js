@@ -4,14 +4,12 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 let word = dictionary[Math.floor(Math.random() * dictionary.length)];
 let wordSplit = word.split("");
 let board = displayUnderscores()
-let gameData = {};
-// let guess = getValidLetterGuess()
+let gameData = [];
 console.log(word)
-// console.log(guess)
-
 
 
 ////////////// default code /////////////////////
+
 function getValidLetterGuess() {
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
@@ -23,12 +21,19 @@ function getValidLetterGuess() {
     if (guessIsValid(input)) {
       letter = input
       compareLetters(letter) // passing in the userInput
+      console.log(guessedLetters(input))
     } else {
       console.log("Please enter a valid letter")
     }
   }
   return letter.toLowerCase() 
 }
+///////////////////// guessedLetters /////////////////////////
+
+function guessedLetters(input) {
+    gameData.push(input)
+    return gameData
+  }
 
 //////////////// userInput ////////////////
 
@@ -95,9 +100,8 @@ return console.log(`${board.join(" ")}\nYou're Brilliant! You Won! It took ${win
 
 ///////////////// winCount //////////////////////////////
 
-const winCount = (count) => {
-return 7 - count
-}
+const winCount = count => 7 - count
+
 //////////////// quitGame() //////////////////
 
 const quitGame = () => {

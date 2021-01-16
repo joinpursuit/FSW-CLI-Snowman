@@ -4,10 +4,8 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 let word = dictionary[Math.floor(Math.random() * dictionary.length)];
 let wordSplit = word.split("");
 let board = displayUnderscores()
-let gameData = {};
-// let guess = getValidLetterGuess()
+let gameData = [];
 console.log(word)
-// console.log(guess)
 
 
 
@@ -20,56 +18,42 @@ function getValidLetterGuess() {
   let letter = ""
   while (!letter) {
     console.log(board.join(" "))
-    // console.log(guessedLetters(letter))
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input
       compareLetters(letter) // passing in the userInput
+      console.log(guessedLetters(input))
     } else {
       console.log("Please enter a valid letter")
     }
   }
   return letter.toLowerCase() 
 }
+//////////////////////////
 
-
-
-
-
+function guessedLetters(input) {
+    gameData.push(input)
+    return gameData
+  }
 
 ///////////////////// guessedLetters /////////////////////////
 
-// const guessedLetters = (userInput) => {
-//   let guessedObj = {};
-//   for (let i = 0; i < wordSplit.length; i++) {
-//     guessedObj[i] = userInput[i];
-//   }
-//   return guessedObj
+
+
+// function guessedLetters(userInput) {
+//   let gameData = {};
+  
+//     if (userInput) {
+//       gameData["alpha"] = userInput
+//       for (let i = 7; i >= 0; i--) {
+
+//       console.log(gameData)
+//     } 
+//   } 
+//   // return console.log(Object.values(dataEl))
+//   return console.log(Object.values(gameData))
 // }
 
-// console.log(guessedLetters(wordSplit))
-// console.log(guessedLetters("wordSplit"))
-// console.log(guessedLetters("w"))
-
-// //////////////////// guessCount //////////////////////////
-// const guessCount = () => {
-//   let count = 7;
-//   while(count >= 0 && !isBoardFull() && !compareLetters()) {
-//     if (count === 7) {
-//         console.log(`You have 7 guesses total`)
-//     } else if (count > 1) {
-//         console.log(`You have ${count} guesses left`)
-//     } else if (count === 1) {
-//         console.log(`You have ${count} guess left`)
-//     } else {
-//         console.log(`Sorry. You lose\nThe word was ${word}`)
-//         quitGame();
-//     }
-//     count--
-//     getValidLetterGuess()
-//   }
-//   return console.log(`${board.join(" ")}\nYou're Brillant! You Won!`)
-// };
 
 
 //////////////////// compareLetters //////////////////////
@@ -134,7 +118,6 @@ const winCount = (count) => {
 const quitGame = () => {
     process.exit();
 };
-
 
 ///////////// startGame() ///////////////////
 
