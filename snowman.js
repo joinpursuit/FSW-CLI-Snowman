@@ -764,6 +764,7 @@ function startGame() {
 function gameOver() {
   if (stats.guessesRemaining === 0) {
   console.log("No more guesses, better luck next time!")
+  console.log("The word was " + randomWord)
   return true 
   }
   for (let i = 0; i < randomWord.length; i++) {
@@ -772,6 +773,7 @@ function gameOver() {
     } 
   }
    console.log("You found the word!" + stats.guessesRemaining)
+   return true 
   }
 
 
@@ -820,6 +822,8 @@ const validLetters = (letter) => {
   stats[stats.guessesRemaining] = stats[--stats.guessesRemaining]
   if (!gameOver()) {
     logGuessesRemaining();
+  } else {
+    process.exit(1) 
   }
 };
 
