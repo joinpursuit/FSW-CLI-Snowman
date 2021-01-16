@@ -118,13 +118,14 @@ const quitGame = () => {
 // }
 
 //GUESSES MADE, DOESN'T WORK
+let guessesArray = []
 const guessesMade = (userInput) => {
-  let guessesArray = []
   for (let i = 0; i < randomWordSplit.length; i++) {
     if(userInput === randomWordSplit[i]) {
             guessesArray.push(randomWordSplit[i])
         }
-    } return console.log(`Guessed letters: ${guessesArray}`)
+    } 
+    return console.log(`Guessed letters: ${guessesArray}`)
 } 
 guessesMade()
 
