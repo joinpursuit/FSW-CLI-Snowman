@@ -746,9 +746,11 @@ const dictionary = [
 ];
 gameBoard = {};
 
+// getting random word
 let secretWord = dictionary[Math.floor(Math.random() * dictionary.length)];
 console.log("\nThe secret word is: " + secretWord);
 
+// letters remaining will help win game function
 let lettersRemaining = secretWord.length;
 
 let guessesLeft = 7;
@@ -760,7 +762,7 @@ let deincrementGuess = () => {
 
 let guessedLetters = [];
 // declare function that creates guessedLeters array
-let guessedLettersArray = (letter,guessedLeters) => {
+let guessedLettersArray = (letter, guessedLeters) => {
   guessedLetters.push(letter);
   console.log("\nGuessed letters: " + guessedLetters);
 };
@@ -770,7 +772,6 @@ let updateGameBoard = (letter) => {
     if (secretWord[k] === letter) {
       gameBoard[k] = letter;
       lettersRemaining--;
-      
     }
   }
   console.log(Object.values(gameBoard).join(" "));
@@ -781,7 +782,12 @@ let winGame = (lettersRemaining) => {
   if (lettersRemaining === 0) {
     console.log("\nCongratulations YOU HAVE WON!!");
     console.log("\nThe word was: " + secretWord);
-    process.exit();
+    if (readLineSync.keyInYN("\nWould you like to try again?")) {
+      resetGame();
+      getValidLetterGuess();
+    } else {
+      process.exit();
+    }
   }
 };
 // create reset game function
@@ -812,14 +818,19 @@ for (let i = 0; i < secretWord.length; i++) {
 console.log(Object.values(gameBoard).join(" "));
 
 //has letter already been guessed function
-// let hasLetterBeenGuessedAlready = (letter,guessedLetters)
-// for(let p = 0; p < guessedLetters.length; p++){
-//   if (guessedLetters[p] === letter)
-// }
+let hasLetterBeenGuessedAlready = (letter) => {
+  for (let p = 0; p < guessedLetters.length; p++) {
+    if (guessedLetters[p] === letter) {
+      guessesLeft++;
+      console.log(
+        "\n YOU ALREADY GUESSED THAT LETTER - PLEASE TRY A DIFFERENT GUESS"
+      );
+    }
+  }
+};
 
 // the game loop
-while (guessesLeft > 0 && lettersRemaining !== 0) {
-  winGame(lettersRemaining);
+while (guessesLeft > 0) {
   function getValidLetterGuess() {
     function guessIsValid(letter) {
       return (
@@ -835,10 +846,11 @@ while (guessesLeft > 0 && lettersRemaining !== 0) {
         console.log("\nPlease enter a valid letter");
       }
     }
-    // hasLetterBeenGuessedAlready(letter);
+    hasLetterBeenGuessedAlready(letter);
     deincrementGuess(guessesLeft);
     updateGameBoard(letter);
     guessedLettersArray(letter);
+    winGame(lettersRemaining);
     return letter.toLowerCase();
   }
   getValidLetterGuess();
