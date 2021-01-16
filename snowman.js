@@ -76,7 +76,7 @@ function evaluateLetter(char) {
 }
 
 function playerWins() {
-  for (char of data.word) {
+  for (let char of data.word) {
     if (!data.letters.includes(char)) {
       return false;
     }
