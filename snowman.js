@@ -9,6 +9,7 @@ let gameData = {
   guessedLetters: "",
   incorrectGuessedLetter: ""
 }
+let removeDups = [] // ["a", "c", "o","u","n","t"]
 
 console.log(word);
 
@@ -16,7 +17,7 @@ console.log(word);
 
 const getValidLetterGuess = () => {
   const guessIsValid = (letter) => {
-    return letter.length === 1 && letter.toUpperCase() !== letter.toLowerCase()
+    return letter.length === 1 && letter.toUpperCase() !== letter.toLowerCase() && !board.includes(letter)
   }
   
   let letter = ""
@@ -29,6 +30,7 @@ const getValidLetterGuess = () => {
       console.log(updateData(letter));
       compareLetters(letter)
     } else {
+      console.clear()
       console.log("Please enter a valid letter")
     }
   }
@@ -61,20 +63,31 @@ function displayUnderscores() {
 
 
 
-const rightGuesses = (sub) => {
-  if (sub === 7) {
-    return sub
+const rightGuesses = (guess) => {
+  if (guess === 7) {
+    return guess = removeDups.length
   } else {
-    sub = word.length
+    return (7 - guess) + removeDups.length
   }
+}
+
+const noDuplicates = () => {
+  for (let i = 0; i < wordSplit.length; i++) {
+    const element = wordSplit[i];
+    if (!removeDups.includes(element)) {
+      removeDups.push(element)
+    }
+  }
+  return removeDups
 }
 
 
 
 const updateData = (userInput) => {
-  for (let i = 0; i < wordSplit.length; i++) {
-    const element = wordSplit[i];
-    if (userInput === element) {
+  noDuplicates()
+  for (let i = 0; i < removeDups.length; i++) {
+    const element = removeDups[i];
+    if (userInput === element && !board.includes(element)) {
       gameData["guessedLetters"] += element
     } 
   } 
@@ -122,8 +135,10 @@ const mainGame = () => {
           guessedLetters: "",
           incorrectGuessedLetter: ""
         }
+        removeDups = []
         mainGame()
       } else {
+        console.clear()
         quitGame()
       }
     }
