@@ -744,7 +744,8 @@ const dictionary = [
   "yesterday",
   "young",
 ];
-gameBoard = {};
+let gameBoard = {};
+let guessCounter = 0;
 
 // getting random word
 let secretWord = dictionary[Math.floor(Math.random() * dictionary.length)];
@@ -772,6 +773,7 @@ let updateGameBoard = (letter) => {
     if (secretWord[k] === letter) {
       gameBoard[k] = letter;
       lettersRemaining--;
+      guessesLeft++;
     }
   }
   console.log(Object.values(gameBoard).join(" "));
@@ -781,6 +783,7 @@ let updateGameBoard = (letter) => {
 let winGame = (lettersRemaining) => {
   if (lettersRemaining === 0) {
     console.log("\nCongratulations YOU HAVE WON!!");
+    console.log("\nIt took you " + guessCounter + " guesses!")
     console.log("\nThe word was: " + secretWord);
     if (readLineSync.keyInYN("\nWould you like to try again?")) {
       resetGame();
@@ -793,8 +796,12 @@ let winGame = (lettersRemaining) => {
 // create reset game function
 let resetGame = () => {
   guessesLeft = 7;
-  guessedLetters = [];
+  guessedLetters = []
   gameBoard = {};
+  guessCounter = 0
+//  for (let key in gameBoard){
+//    delete gameBoard[key]
+//  }
   let secretWord = dictionary[Math.floor(Math.random() * dictionary.length)];
   console.log("\nThe secret word is: " + secretWord);
   lettersRemaining = secretWord.length;
@@ -842,6 +849,7 @@ while (guessesLeft > 0) {
       let input = readline.question("\nPlease enter your guess: ");
       if (guessIsValid(input)) {
         letter = input;
+        guessCounter++
       } else {
         console.log("\nPlease enter a valid letter");
       }
