@@ -30,7 +30,7 @@ function getValidLetterGuess() {
 }
 ///////////////////// guessedLetters /////////////////////////
 
-function guessedLetters(input) {
+function guessedLetters(input) { // check if letter is entered twice 
     gameData.push(input)
     return gameData
   }
@@ -113,7 +113,7 @@ const quitGame = () => {
 
 const startGame = () => {
     // console.log(`The Snowman Game by Coreen Cooper\n`)
-    if (readline.keyInYN("Would you like to play a game?")) {
+    if (readline.keyInYNStrict("Would you like to play a game?")) {
       
         guessCount();
   } else {

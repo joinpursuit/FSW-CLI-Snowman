@@ -5,6 +5,7 @@ let word = dictionary[Math.floor(Math.random() * dictionary.length)];
 let wordSplit = word.split("");
 let board = displayUnderscores()
 let gameData = [];
+let guessCount = 7;
 console.log(word)
 
 
@@ -22,7 +23,7 @@ function getValidLetterGuess() {
     if (guessIsValid(input)) {
       letter = input
       compareLetters(letter) // passing in the userInput
-      console.log(guessedLetters(input))
+      console.log(`guesses: ${guessedLetters(input).join(", ")}`)
     } else {
       console.log("Please enter a valid letter")
     }
@@ -31,14 +32,33 @@ function getValidLetterGuess() {
 }
 //////////////////////////
 
-function guessedLetters(input) {
+function guessedLetters(input) { // check if letter is entered twice 
     gameData.push(input)
     return gameData
   }
-
-///////////////////// guessedLetters /////////////////////////
-
-
+  
+  ////////////////////////////////////////////////////////////
+  
+  
+  
+  // const updateData = (userInput) => { // Jordan
+  //   for (let i = 0; i < wordSplit.length; i++) {
+  //     const element = wordSplit[i];
+  //     if (userInput === element) {
+  //       gameData["guessedLetters"] += element
+  //     } 
+  //   } for (let i = 0; i < wordSplit.length; i++) {
+  //     const element = wordSplit[i];
+  //     if (!wordSplit.includes(userInput)) {
+  //       gameData["incorrectGuessedLetter"] = userInput
+  //     }
+  //   }
+  //   return `Guessed Letters: ` + gameData.guessedLetters + "\n" + `Current Incorrect Letter: ` + gameData.incorrectGuessedLetter + "\n"
+  // }
+  
+  
+  
+  ///////////////////// guessedLetters /////////////////////////
 
 // function guessedLetters(userInput) {
 //   let gameData = {};
@@ -62,8 +82,11 @@ function compareLetters (userInput) { // update for duplicate letters
   for (let i = 0; i < wordSplit.length; i++) {
     if (userInput === wordSplit[i]) {
       board[i] = wordSplit[i]
-    } 
-  } 
+    } else if (userInput !== wordSplit[i]) {
+      guessCount--
+    }
+  }
+  return guessCount 
 }
 
 ///////////////// isBoardFull() /////////////
@@ -83,25 +106,31 @@ function displayUnderscores() { // ES5 hoisting
 
 // const wrongGuess = (userInput) => {
 //   if (userInput !== wordSplit[i]) {
-//     guessCount()  
+//     printGuessCount()  
 // }
 // }
 
-//////////////////// guessCount //////////////////////////
-const guessCount = () => {
-  let count = 7;
-  while(count >= 0 && !isBoardFull() && !compareLetters()) {
-    if (count === 7) {
+//////////////////// count /////////////////////////
+
+const count = (wordSplit) => {
+  for (let i = 0; i < 7; i++) {
+    return 
+  }
+}
+
+//////////////////// printGuessCount //////////////////////////
+const printGuessCount = () => {
+  while(guessCount >= 0 && !isBoardFull()) {
+    if (guessCount === 7) {
         console.log(`You have 7 guesses total`)
-    } else if (count > 1) {
-        console.log(`You have ${count} guesses left`)
-    } else if (count === 1) {
-        console.log(`You have ${count} guess left`)
+    } else if (guessCount > 1) {
+        console.log(`You have ${guessCount} guesses left`)
+    } else if (guessCount === 1) {
+        console.log(`You have ${guessCount} guess left`)
     } else {
         console.log(`Sorry. You lose\nThe word was ${word}`)
         quitGame();
     }
-    count--
     getValidLetterGuess()
   }
   return console.log(`${board.join(" ")}\nYou're Brilliant! You Won! It took ${winCount(count)} guesses.`)
@@ -110,7 +139,7 @@ const guessCount = () => {
 ///////////////// winCount //////////////////////////////
 
 const winCount = (count) => {
-  return 7 - count
+  return guessedLetter - count
  }
 
 //////////////// quitGame() //////////////////
@@ -123,9 +152,9 @@ const quitGame = () => {
 
 const startGame = () => {
     // console.log(`The Snowman Game by Coreen Cooper\n`)
-    if (readline.keyInYN("Would you like to play a game?")) {
+    if (readline.keyInYNStrict("Would you like to play a game?")) {
       
-        guessCount();
+        printGuessCount();
   } else {
     console.log("You're no fun.");
     // quitGame()
