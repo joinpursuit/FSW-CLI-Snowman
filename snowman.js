@@ -43,8 +43,10 @@ const guessTheSecret = () => {
   if(guessCount.usedLetter.includes(guess)) { // Here I set the condition that the value of the guess is being entered again
     console.log("Sorry you already used that letter! Try again!!") // here I am console logging the message for the player that they have already entered the previous letter. 
     guessTheSecret(); //I am calling it back to this function how that after the player input the letter it will come back here
+  } else {
+    rightOrWrongGuess(guess) //Calling the function to run to through the next function 
   }
-  rightOrWrongGuess(guess) //Calling the function to run to through the next function 
+  
 }
 
 
@@ -58,33 +60,43 @@ const rightOrWrongGuess = (guess) => { //With the "guess" param i am able to fun
 }
 
 // //guessRight
-const guessRight = (dash, guess) => {
-  let letters = []
-  dash.forEach((abc, i) => {
-    if (abc === guess){
-      letters.push(i)
+const guessRight = (dash, guess) => { // Setting the two a param makes it easier to call variables from previous functions 
+  let letters = [] // declaring a new variable of an empty array to call later 
+  dash.forEach((abc, i) => { // using this array method will in fact make sure that each letter will run througg this loop. 
+    if (abc === guess){ // I set the condition that if "abc" letter is to the validtiy of being a letter 
+      letters.push(i) // that it would push into the index of the array  
     }
   })
-  letters.forEach((abc) => {
-    eachDash.splice(abc, 1, guess)
-  }) 
-  secretAnswer = eachDash.join(" ")
+  letters.forEach((abc) => { // set a new function with array method to 
+    eachDash.splice(abc, 1, guess) // 
+  })
+  if (!secretWord.includes(guess)) {
+    guessCount.maxGuess --
+  secretAnswer = eachDash.join(" ") //
   guessCount.usedLetter.push(guess)
   usedLettersTogether = guessCount.usedLetter.join(" ") 
   console.log(`Letters you have used : ${usedLettersTogether}`)
   console.log(secretAnswer)
+  // Set a condition that would get you to the guessWrong function 
+   // If the guess is wrong,  Go into the wrongGuess function 
+  // No need for an else statement 
   if (secretAnswer.indexOf("_") < 0) { 
     console.log('Hey!!! You Won!!!')
   } else {
     guessTheSecret();
   }
+} else {
+guessTheSecret();
 }
+}
+
+
 //guessWrong
 const guessWrong = () => {
   guessCount.usedLetter.push(guess)
   usedLettersTogether = guessCount.usedLetter.join (" ")
   console.log(`Letters you have used : ${usedLettersTogether}`)
-  guessCount.maxGuess --
+  guessCount.maxGuess -- // Need to set an command that decreses the maxGuess # each time the player gets it wrong 
   console.log("Yikes! Try again!")
   console.log(secretAnswer)
   if (guessCount.maxGuess === 0) {
