@@ -54,11 +54,11 @@ const numOfGuesses = (guesses) => {
   return 7-guesses
 }
 
-const enterGuessCount = () => {
-  if (guesses >= 0 && !rightGuesses() && !spacesFilled()) {
-    guessCount()
-  }
-}
+// const enterGuessCount = () => {
+//   if (guesses >= 0 && !rightGuesses() && !spacesFilled()) {
+//     guessCount()
+//   }
+// }
 
 //GIVEN CODE
 function getValidLetterGuess() {
@@ -72,6 +72,7 @@ function getValidLetterGuess() {
     if (guessIsValid(input)) {
       letter = input
       rightGuesses(letter)
+      guessesMade(letter)
     } else {
       console.log("Please enter a valid letter")
     }
@@ -102,7 +103,16 @@ const quitGame = () => {
 //   console.log("See you soon then!")
 //   process.exit()
 // }
-
+let guessesArray = []
+const guessesMade = (userInput) => {
+  for (let i = 0; i < randomWordSplit.length; i++) {
+    if(userInput === randomWordSplit[i]) {
+            guessesArray.push(randomWordSplit[i])
+        }
+    } 
+    return console.log(`Guessed letters: ${guessesArray}`)
+} 
+guessesMade()
 
 
 guessCount()
