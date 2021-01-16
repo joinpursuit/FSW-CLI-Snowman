@@ -4,27 +4,37 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 /////////////////////////////GAME VARIABLES
  let gameVars = {
  word : "",
- cLetters : [],
  ansArr : [],
  gLetters : [],
- wrongGuesses : 5,
+ wrongGuesses : 10,
  rightGuesses : 0,
- totalG : 0
+ tGuesses : 0,
+ gBoard : []
  }
 
-let display = () => {
-    console.log(`You have ${gameVars.wrongGuesses} wrong guesses left!`)
-    console.log(`So far you've guessed ${gameVars.gLetters.join(", ")}`)
-}
-
-
+ //////////////////////////////////Board and Display
 const getRanWord = () => {
   gameVars.word = dictionary[Math.floor(Math.random() * dictionary.length)]
-  gameVars.cLetters = gameVars.word.split("")
+  gameVars.gBoard = gameVars.word.split("").map(el => {
+    return el = "_"
+  })
+
 }
 
+let board = (letter) => {
+  for(let i = 0; i < gameVars.word.length; i++){
+    if(letter === gameVars.word[i]){
+      gameVars.gBoard[i] = gameVars.word[i]
+    } 
+  }
+  console.log(gameVars.gBoard.join(" "))
+  console.log(`You have ${gameVars.wrongGuesses} wrong guesses left!`)
+  console.log(`So far you've guessed ${gameVars.gLetters.join(", ")}`)
+}
+
+///////////////////////// Game Loop
 function getValidLetterGuess() {
-  console.log(gameVars.word);
+  win()
   while(gameVars.wrongGuesses > 0) {
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
@@ -44,23 +54,24 @@ function getValidLetterGuess() {
  gameOver()
 }
 
+////////////////////////////Check If Valid Letter
+
 const checkLetter = (letter) => {
- if(gameVars.cLetters.includes(letter)){
+  console.clear()
+ if(gameVars.word.includes(letter)){
     console.log("Good job! The secret word includes this letter!")
     gameVars.gLetters.push(letter)
     gameVars.rightGuesses++
-    gameVars.totalG++ 
-    board(letter)
+    gameVars.tGuesses++ 
  } else {
    console.log("Sorry, the word does not include this letter!");
     gameVars.gLetters.push(letter)
     gameVars.wrongGuesses--
-    gameVars.totalG++
-    board(letter)
+    gameVars.tGuesses++
  }
+  board(letter)
   getValidLetterGuess()
 }
-
 
 const alreadyGuessed = (letter) => {
 if(gameVars.gLetters.includes(letter)) {
@@ -70,31 +81,27 @@ if(gameVars.gLetters.includes(letter)) {
   }
 }
 
+/////////////////////////// Win Or Lose
 const gameOver = () => {
   if(gameVars.wrongGuesses === 0) {
     console.log(`Sorry, you lost! The word was ${gameVars.word}.`);
   }
 }
 
-
-let board = (letter) => {
-  let gBoard = []
-  for(let i = 0; i < gameVars.word.length; i++){
-    if(letter === gameVars.word[i]){
-      gBoard.push(gameVars.word[i])
-    } else {
-      gBoard.push("_")
-    }
+let win = () => {
+  if(gameVars.gBoard.every((v, i) => v === gameVars.word.split("")[i])) {
+console.log(`Congratulations, you win! It took you ${gameVars.tGuesses} guesses!'`) 
+process.exit()
   }
-  console.log(gBoard.join(" "))
-  display()
 }
 
+/////////////////////////////Game Start
 
 const intro = () => {
   console.log("Welcome to Snowman! We have picked a random word and it is up to you to guess the letters to find out the word!\nYou only have 5 times to put in a wrong letter before you lose so watch out!");
   if(readline.keyInYNStrict("Do you want to play?")) {
     getRanWord()
+    console.log(gameVars.gBoard.join(', '));
     getValidLetterGuess()
   } else {
     console.log("Okay, goodbye.");
