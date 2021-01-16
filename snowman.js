@@ -15,6 +15,7 @@ function play() {
 
   while (!gameOver()) {
     display();
+    let letter;
     let newLetter = false;
     while (!newLetter) {
       letter = getValidLetterGuess();
