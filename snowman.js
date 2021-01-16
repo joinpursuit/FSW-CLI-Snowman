@@ -3,10 +3,10 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 
 let guessCount = {maxGuess: 8, usedLetter: []}
-// let secretAnswer = []
-// let secretWordArr = []
-//
+let secretAnswer = []
+let secretWordsArr = []
 
+//Welcome function
 const welcomeToStartGame = () => { // Added a welcome function! 
   console.log ("Hello, welcome to The Snowman Game")
   yourName = readline.question("What's your name?")
@@ -17,6 +17,8 @@ const welcomeToStartGame = () => { // Added a welcome function!
     leaveGame();
   }
 }
+
+//secretVocab 
 const secretVocab = () => {
   console.log("Great! Let's Go!!!")
   let secretWord = dictionary[Math.floor(Math.random() * dictionary.length)]
@@ -30,7 +32,7 @@ const secretVocab = () => {
 //console.log("Here's your word" + " " +secretWord) // This just logs the word. Need to learn how to get the word to print in secret! 
 }
 
-
+//guessTheSecret
 const guessTheSecret = () => {
   if(guessCount.maxGuess === 1) { // I am setting the condition that if the key in object of max guess have been reached 
     console.log(`You have ${guessCount.maxGuess} guess left`) // it would log the 1 guess that the player would have left 
@@ -39,32 +41,66 @@ const guessTheSecret = () => {
   }
   guess = getValidLetterGuess() //Assigning guess so that guess could be the getValidLetterGuess function
   if(guessCount.usedLetter.includes(guess)) { // Here I set the condition that the value of the guess is being entered again
-    console.log(`Sorry you already used that letter! Try again!!`) // here I am console logging the message for the player that they have already entered the previous letter. 
+    console.log("Sorry you already used that letter! Try again!!") // here I am console logging the message for the player that they have already entered the previous letter. 
     guessTheSecret(); //I am calling it back to this function how that after the player input the letter it will come back here
   }
-  rightOrWrongGuess(guess)
+  rightOrWrongGuess(guess) //Calling the function to run to through the next function 
 }
 
-const guessRight= (secretWordArr, guess) =>{
+
+//rightOrWrongGuess
+const rightOrWrongGuess = (guess) => { //With the "guess" param i am able to fun this function through the getValidLetter function. 
+  if(secretWordsArr.includes(guess)) {
+    guessRight(secretWordsArr, guess)
+  } else {
+    guessWrong()
+  }
+}
+
+// //guessRight
+const guessRight= (secretWordsArr, guess) => {
   let letterOfWord = []
-  secretWordArr.forEach((el, i) => {
-    if (el === guess){
+  secretWordsArr.forEach((letter, i) => {
+    if (letter === guess){
       letterOfWord.push(i)
     }
   })
-  letterOfWord.forEach((el) => {
-    secretAnswer.splice(el, 1, guess)
+  letterOfWord.forEach((letter) => {
+    secretAnswer.splice(letter, 1, guess)
   }) 
   answer = secretAnswer.join(" ")
   guessCount.usedLetter.push(guess)
   usedLettersTogether = guessCount.usedLetter.join(" ") 
-  console.log(`What you've guessed so far: `)
+  console.log(`What you've guessed so far: ${usedLettersTogether}`)
   console.log(answer)
-  if (dash < 0) {
+  if (dash < 0) { 
     console.log('Hey!!! You Won!!!')
   } else {
     guessTheSecret();
   }
+}
+//guessWrong
+const guessWrong = (guess) => {
+  guessCount.usedLetter.push(guess)
+  allTheLetters = guessCount.usedLetter.join (" ")
+  console.log(`Letters you have used : ${allTheLetters}`)
+  guessCount.maxGuess --
+  console.log("Yikes! Try again!")
+  console.log(answer)
+  if (guessCount.maxGuess === 0) {
+    console.log(`Dang! You have no chances left! You lose!`)
+    console.log(`Better luck next time ${yourName}`) 
+    if (readline.keyInYN(`Would you like another chance to prove that this machine is infirior to you ${yourName}`)){
+      secretVocab();
+    } else {
+      leaveGame();
+    } 
+  } else {
+    guessTheSecret();
+  }
+}
+
+//getValidLetterGuess
 function getValidLetterGuess() {
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
@@ -82,29 +118,10 @@ function getValidLetterGuess() {
   return letter.toLowerCase()
 }
 
-//rightOrWrongGuess
-const rightOrWrongGuess =(guess) => {
-
+//leaveGame
+const leaveGame = () => {
+  console.log ("Thank you for playing the game!")
+  process.exit()
 }
-
-// console.log("Awesome guess") //Logs Awesome after 
-
-//   console.log(` You only have ${guessCount.maxGuess} guess left`) // "You have this many guess left"
-// } 
-
-}
-
-// const guessLetter = (letter) => {
-//   for (let i = 0; i < secretWord.length; i++) {
-//     if (){
-
-//     }
-//   }
-// }
-
-
-
 
 welcomeToStartGame();
-getValidLetterGuess();
-guessRight();
