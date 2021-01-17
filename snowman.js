@@ -12,8 +12,11 @@ console.log("Yup! I know you've heard of it.");
 console.log("Now let's play!");
 console.log("You have 5 guesses.");
 console.log("HINT! The stars are bright. They lead with might. Look Up!");
+let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+'t', 'u', 'v', 'w', 'x', 'y', 'z'];
 // gameTakeOff
-//const pickRandomLetter = () => {
-//  let pickRandomLetter = readlineSync.question();
-//  while(wordHasNotBeenGuessed)
-//}
+const randomLetter = () => {
+  let pickRandomLetter = readlineSync.question("Pick a letter");
+  if(pickRandomLetter )
+}
