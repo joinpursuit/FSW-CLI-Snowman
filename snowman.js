@@ -3,8 +3,9 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 let gameStats = {
     guessedLetters: [],
     numberOfGuesses: 10,
-    guessCounter: [],
+    answerInput: [],
     wrongGuess: [],
+    guessCounter: 0,
     randomWord: dictionary[Math.floor(Math.random() * dictionary.length)],
     gameBoard: []
 }
@@ -30,9 +31,9 @@ const play = () =>{
 const startGame = () =>{
   gameStats.guessedLetters = gameStats.randomWord.split('')
   for(let i = 0; i < gameStats.randomWord.length; i++){
-    gameStats.gameBoard.push("_")
+    gameStats.gameBoard.push('_')
   }
-  input = gameStats.gameBoard.join(" ")
+  input = gameStats.gameBoard.join(' ')
   console.log(input)
   remainingGuesses()  
 }
@@ -42,7 +43,7 @@ const remainingGuesses = () =>{
     console.log("Remaining Guesses: " + gameStats.numberOfGuesses);
   }
   guess = getValidLetterGuess()
-  if(gameStats.guessCounter.includes(guess)){
+  if(gameStats.answerInput.includes(guess)){
     console.log("You already used that letter buddy");
     remainingGuesses()
   }else{
@@ -72,9 +73,11 @@ const validLetter = () => {
       answer = gameStats.gameBoard.join(" ")
       console.log("Your Guesses: " + gameStats.wrongGuess)
       console.log(answer)
-      gameStats.guessCounter.push(guess)
+      gameStats.answerInput.push(guess)
+      gameStats.guessCounter++
       if(gameStats.gameBoard.indexOf("_") < 0){
         console.log("Winner Winner Chicken Dinner")
+        console.log("It took you: " + gameStats.guessCounter + " tries to guess the word");
         process.exit()
       }else{
         remainingGuesses()
@@ -83,10 +86,10 @@ const validLetter = () => {
 
   const wrongGuesses = () => {
     gameStats.wrongGuess.push(guess)
-    gameStats.guessCounter.push(guess)
+    gameStats.answerInput.push(guess)
     console.log("Guessed Letters: " + gameStats.wrongGuess)
     gameStats.numberOfGuesses--
-    word = gameStats.gameBoard.push(guess)
+    word = gameStats.answerInput.push(guess)
     console.log(gameStats.gameBoard.join(" "))
     if(gameStats.numberOfGuesses === 0){
       console.log("Loser Loser " + "The correct word is: " + gameStats.randomWord)
@@ -94,18 +97,6 @@ const validLetter = () => {
       remainingGuesses()
     }
   }
-
-// const gameEnd = () =>{
-//   if(gameStats.numberOfGuesses === 0){
-//     console.log("Game Over!")
-//     console.log(`The correct word was ${gameStats.randomWord}`)
-//     quitGame()
-//   }else if(!gameStats.gameBoard.includes('_')){
-//     console.log(`Winner! You guess the word in ${gameStats.guessCounter} guesses total`)
-//     console.log(`The word was ${gameStats.randomWord}`);
-//     quitGame()
-//   }
-// }
 
 function getValidLetterGuess() {
   function guessIsValid(letter) {
