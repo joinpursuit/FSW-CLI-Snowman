@@ -4,7 +4,7 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 let nameInput = readline.question('What is your name?\n')
 let randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
 lost = `Sorry ${nameInput}, you ran out of guesses!`
-leave = `Aww man, that\'s too bad. Hope to see you soon! ${nameInput}`
+leave = `Aww man, that\'s too bad. Hope to see you soon ${nameInput}!`
 let randomWordArr = []
 let charNumArr = []
 let a = ''
@@ -17,7 +17,6 @@ let stats = {
   guessedLetterArr : [],
   numOfGuesses : randomWord.length
 }
-
 
 
 const startGame = () => {
@@ -75,8 +74,7 @@ if(randomWord !== c && stats.numOfGuesses !== 0){
   gameLoop();
 }else if(stats.numOfGuesses === 0){
   console.log(lost)
-  console.log(`The word was: ${randomWord}`)
-  restartGame();
+  console.log(`\nThe word was: ${randomWord}`)
 }else{
   wonGame();
 }
@@ -88,8 +86,11 @@ if(!randomWordArr.includes(stats.guess)){
 }
 b = charNumArr.join(' ');
 console.log(b)
-console.log('You have ' + stats.numOfGuesses + ' guesses remaining.')
-console.log(randomWord)//remove this 
+if(stats.numOfGuesses === 1){
+  console.log('You have ' + stats.numOfGuesses + ' guess remaining.')
+}else{
+  console.log('You have ' + stats.numOfGuesses + ' guesses remaining.')
+}
 lettersGuessed();
 }
 
@@ -97,7 +98,11 @@ function lettersGuessed(){
   if(stats.guess){
     stats.guessedLetterArr.push(stats.guess)
   }
-    console.log(`\nGuessed Letters: ${stats.guessedLetterArr}\n`)   
+  if(stats.guessedLetterArr.length > 1){
+    console.log(`\nGuessed Letters: ${stats.guessedLetterArr}\n`) 
+  }else{
+    console.log(`\nGuessed Letter: ${stats.guessedLetterArr}\n`) 
+  }   
   };
 
 
@@ -109,21 +114,7 @@ function wonGame(){
   }else{
     console.log('You\'re so smart ' + nameInput +  ',' + ' you guessed wrong ' +  (randomWord.length - stats.numOfGuesses )+ ' times!')
   }
-  restartGame();
   }
-
-
-//How do you clear terminal if the game restarts?
-function restartGame(){
-if(readline.keyInYN('Play Again?\n')){
-  randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-  numOfChar();
-  getValidLetterGuess();
-  gameLoop();
-  }else{
-    leaveGame(leave)
-  }
-};
 
 startGame();
 getValidLetterGuess();
