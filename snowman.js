@@ -14,16 +14,27 @@ console.log('Guessed letters:')
 let emptyStr = ""
 let newArr = []
 let answer = []
-let userStatus = {guessedNum: 12, guessedLetters: []}
+let userStatus = {guessedNum: 8, guessedLetters: []}
 let countTotalGuessed = 0
+let set = emptyStr
 let name = readline.question(`enter your name: \n` )
 
 const startGame =()=>{
+  
+  if(name){
+    loop()
+  }else{
+    quitGame()
+  }
+  
+}
+
+const loop = ()=>{
   console.log(`Hello,\n Welcome to the world: ${"word soup".toUpperCase()}`)
   pause(0.9)
-  console.log(`This game consists of determining how well \n your spelling is in our language but, through guessing the letters`)
+  console.log(`This game consists of determining how well's \n your spelling in our language but, through guessing the letters`)
   pause(1.2)
-  console.log(`In the game you will see your status \n` + ` ` + `you van do this!!!`)
+  console.log(`In the game you will see your status \n` + ` ` + `you can do this!!!`)
   pause(1.5)
   let play = readline.keyInYN( `Do you wanna play ` + name + "  ? \n" )
   if(play){
@@ -34,12 +45,14 @@ const startGame =()=>{
 }
 
 
-
-
 const generateWord = () =>{
+  
   emptyStr = dictionary[Math.floor(Math.random()* dictionary.length)]
   newArr = emptyStr.split('')
-  newArr.forEach((el) => {
+  newArr.forEach((elem) => {
+    if(elem === emptyStr){
+      return set
+    }
     answer.push("_")
   })
   answerUser = answer.join(" ")
@@ -86,6 +99,7 @@ const rightGuess = (arr, v) => {
   console.log(`\n ` + answerUser)
   if(answer.indexOf('_') < 0){
     console.log(`You win. you guessed the right word in: ` + countTotalGuessed + ` guesses`)
+    startGame()
 
   }else{
     letterGuessed()
