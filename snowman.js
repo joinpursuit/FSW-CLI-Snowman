@@ -63,7 +63,8 @@ function getValidLetterGuess() {
       console.log(updateGuessedLetters(letter));
       console.log("\n");
     } else {
-      console.log("Please enter a valid letter");
+      console.log("\n")
+      console.log(chalk.yellow("Please enter a valid letter"));
     }
   }
   return letter.toLowerCase();
@@ -87,15 +88,15 @@ const updateGuessedLetters = (letter) => {
 };
 
 const validLetters = (letter) => {
-  let found = false;
+  let foundLetter = false;
   for (let i = 0; i < randomWord.length; i++) {
     if (randomWord[i] === letter.toLowerCase()) {
       guessWord[i] = letter.toLowerCase();
-      found = true;
+      foundLetter = true;
     }
   }
   console.log(guessWord.join(" "));
-    if(!found) { 
+    if(!foundLetter) { 
       stats[stats.guessesRemaining] = stats[--stats.guessesRemaining];
     } 
   if (!gameOver()) {
