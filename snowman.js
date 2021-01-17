@@ -4,7 +4,7 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 let word = dictionary[Math.floor(Math.random() * dictionary.length)];
 let wordSplit = word.split("");
 let board = displayUnderscores()
-let obj = {};
+let gameData = [];
 let guessCountDecrement = 7;
 let turnTaken = 1;
 console.log(word)
@@ -34,11 +34,13 @@ function getValidLetterGuess() {
 // //////////////// userInput ////////////////
 
 // const gameLoop = () => { // Corey
-//   while (startGame()) {
+//   while (!isGameOver) {
 //     let guessedLetter = getValidLetterGuess()
 //   }
 //   console.log(guessedLetter)
 // }
+
+
 
 
 //////////////////// compareLetters //////////////////////
@@ -67,10 +69,10 @@ const isBoardFull = () => { // win
 
 const displayLettersGuessed = (userInput) => {
   if (userInput) {
-    obj[turnTaken] = userInput
+    gameData.push(userInput)
     turnTaken++
   }
-  return `Letters guessed: ${Object.values(obj).join(", ")} `
+  return `Letters guessed: ${gameData.join(", ")} `
 }
 
 
