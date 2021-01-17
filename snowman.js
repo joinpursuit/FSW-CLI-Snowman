@@ -754,6 +754,7 @@ let data = {
   wordArr: [], //  populating the right letter guess
   wrongLetter: [], //revealing the wrong letter
   guessCount: 0,
+  randomWord: dictionary[Math.floor(Math.random() * dictionary.length)]
 };
 
 const play = () => {
@@ -765,10 +766,10 @@ const play = () => {
     exitGame();
   }
 };
-let randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+// let randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
 function startGame() {
-  data.wordArr = randomWord.split("");
-  for (i = 0; i < randomWord.length; i++) {
+  data.wordArr = data.randomWord.split("");
+  for (i = 0; i < data.randomWord.length; i++) {
     data.showUserGuess.push("_"); // show the underscore
   }
   keyLetter = data.showUserGuess.join(" ");
@@ -826,10 +827,11 @@ const wrongGuesses = () => {
   data.answerGuessed.push(validGuess);
   console.log("Guessed Letters: " + data.wrongLetter);
   data.remainingGuesses--;
-  word = data.showUserGuess;
+  data.guessCount++
+  // word = data.showUserGuess;
   console.log(data.showUserGuess.join(" "));
   if (data.remainingGuesses === 0) {
-    console.log("You lose! The hidden word was: " + randomWord);
+    console.log("You lose! The hidden word was: " + data.randomWord);
     exitGame();
   } else {
     guesses();
