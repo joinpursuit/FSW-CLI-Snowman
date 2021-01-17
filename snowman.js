@@ -16,45 +16,36 @@ let newArr = []
 let answer = []
 let userStatus = {guessedNum: 12, guessedLetters: []}
 let countTotalGuessed = 0
-let name = readline.question(`enter your name: \n`)
+let name = readline.question(`enter your name: \n` )
 
 const startGame =()=>{
-  
-  if(name){
+  console.log(`Hello,\n Welcome to the world: ${"word soup".toUpperCase()}`)
+  pause(0.9)
+  console.log(`This game consists of determining how well \n your spelling is in our language but, through guessing the letters`)
+  pause(1.2)
+  console.log(`In the game you will see your status \n` + ` ` + `you van do this!!!`)
+  pause(1.5)
+  let play = readline.keyInYN( `Do you wanna play ` + name + "  ? \n" )
+  if(play){
     generateWord()
   }else{
     quitGame()
   }
 }
 
-function getValidLetterGuess() { 
-  function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
-  }
-  let letter = ""
-  while (!letter) {
-    let input = readline.question("Please enter your guess: ")
-    if (guessIsValid(input)) {
-      letter = input  
-    } else {
-      console.log("Please enter a valid letter")
-    }
-  }
-  return letter.toLowerCase()
 
-}
+
 
 const generateWord = () =>{
   emptyStr = dictionary[Math.floor(Math.random()* dictionary.length)]
   newArr = emptyStr.split('')
   newArr.forEach((el) => {
-    answer.push('_')
+    answer.push("_")
   })
   answerUser = answer.join(" ")
   console.log(answerUser + `\n`)
   letterGuessed()
 }
-
 
 
 
@@ -90,14 +81,12 @@ const rightGuess = (arr, v) => {
   answerUser = answer.join(" ")
   userStatus.guessedLetters.push(guessesPlay)
   letterUnion = userStatus.guessedLetters.join(" ")
-  countTotalGuessed+= 1
+  countTotalGuessed++
   console.log(`Guesses letters =>` + " " + letterUnion)
   console.log(`\n ` + answerUser)
   if(answer.indexOf('_') < 0){
     console.log(`You win. you guessed the right word in: ` + countTotalGuessed + ` guesses`)
-    restartGame()
-  
-    
+
   }else{
     letterGuessed()
   }
@@ -107,8 +96,8 @@ const wrongguess = () => {
   userStatus.guessedLetters.push(guessesPlay)
   letterUnion = userStatus.guessedLetters.join(" ")
   console.log(`guessed letters:` + " " + letterUnion)
-  userStatus.guessedNum-=1
-  countTotalGuessed+=1
+  userStatus.guessedNum--
+  countTotalGuessed++
   console.log(`you got it wrong =>` + "please try again " )
   console.log(answerUser)
   if(userStatus.guessedNum === 0){
@@ -118,6 +107,24 @@ const wrongguess = () => {
   }else{
     letterGuessed()
   }
+}
+
+
+function getValidLetterGuess() { 
+  function guessIsValid(letter) {
+    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+  }
+  let letter = ""
+  while (!letter) {
+    let input = readline.question("Please enter your guess: ")
+    if (guessIsValid(input)) {
+      letter = input  
+    } else {
+      console.log("Please enter a valid letter")
+    }
+  }
+  return letter.toLowerCase()
+
 }
 
 const restartGame = () => {
@@ -131,6 +138,18 @@ const restartGame = () => {
 const quitGame = () => {
   console.log(`Comeback soon to play`)
   process.exit()
+}
+
+const pause = (seconds) =>{
+  //Function comes from group review w MYra et.
+  let ms = seconds * 1000
+  let starttime = Date.now()
+  let now = Date.now()
+  let timeElapsed = now - starttime
+  while(now-starttime -ms){
+      now = Date.now()
+      timeElapsed = now - starttime
+  }
 }
 
 startGame() 
