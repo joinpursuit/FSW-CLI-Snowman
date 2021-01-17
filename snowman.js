@@ -780,7 +780,6 @@ const stats = {
 
 const startGame = () => {
   randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-  console.log(randomWord)
   stats.wordArr = randomWord.split('');
   stats.wordArr.forEach((el) => {
   stats.revealWord.push("_");
