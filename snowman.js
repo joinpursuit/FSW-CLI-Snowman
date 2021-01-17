@@ -9,7 +9,7 @@ let randomWordArr = []
 let charNumArr = []
 let a = ''
 let b = ''
-let letterCheck = false
+
 
 
 let stats = {
@@ -65,35 +65,13 @@ function getValidLetterGuess() {
   return stats.guess
 };
 
-
-// use 1 var for numn of guesses 
-// create a var to track if its the correct guess, initialize to false 
-// think about changing the num of guesses outside for loop
-// at end of gameloop, think about should game coninue, if yes call gameloop again , 
-// OR create all code inside a while loop that checks condition , RUNS WHILE CONDIION IS TRUE 
-
 function gameLoop(){
 for(let i = 0; i < randomWordArr.length; i++){
     if(randomWordArr[i] === stats.guess){
       charNumArr[i] = stats.guess
-      letterCheck = true
     }
-    // else{
-    //   letterCheck = false
-    // }
 }
-if(letterCheck){
-  stats.numOfGuesses++
-  console.log('I\'m adding')
-}else{
-  // stats.numOfGuesses--
-  console.log('I\'m Subtracting')
-}
-lettersGuessed();
-b = charNumArr.join(' ');
-console.log(b)
-console.log(stats.numOfGuesses)
-// console log number of guesses Remaining <---- Key word
+guessCount();
 c = charNumArr.join('')
 if(randomWord !== c){
   getValidLetterGuess();
@@ -103,55 +81,24 @@ if(randomWord !== c){
 }
 };
 
+function guessCount(){
+if(randomWordArr.includes(stats.guess)){
+  console.log('I\'m Adding')
+}else{
+  console.log('I\'m Subtracting')
+}
+lettersGuessed();
+b = charNumArr.join(' ');
+console.log(b)
+console.log(stats.numOfGuesses) // here i will console log whats happening in my if else statement
+}
+
 function lettersGuessed(){
   if(stats.guess){
     stats.guessedLetterArr.push(stats.guess)
   }
     console.log(`\nGuessed Letters: ${stats.guessedLetterArr}\n`)   
   };
-
-// function something(){
-// if(letterCheck === false){
-//   b = charNumArr.join(' ');
-//   console.log(b)
-//     stats.numOfGuesses--
-//      console.log(`Guessed Letters: ${stats.guess}`)  
-//     getValidLetterGuess()
-//     gameLoop()
-//   }else if(letterCheck === true){
-//   b = charNumArr.join(' ');
-//   console.log(b)
-//     stats.numOfGuesses += 1
-//     console.log(`Guessed Letters: ${stats.guess}`)  
-//     getValidLetterGuess()
-//     gameLoop()
-//   }else{
-//     b === randomWord
-//     process.exit()
-//   }
-  
-//   b = charNumArr.join(' ');
-//   console.log(b)
-// }
-// c = charNumArr.join('')
-// console.log(c)
-//if user puts in correct letter numofguesses does not decrease 
-// numofguesses decreases by 1
-// b = charNumArr.join(' ');
-// console.log(b)
-
-
-
-
-function guessCount(){
-
- // numofguesses is the number of guesses ypu will get from the begining, it equals the length of the word
-// each time the user iputs a letter numofguesses should start decreasing by 1
-// if the user guesses the correct letter numofguesses does NOT decrease
- // the 
-// if(stats.guess === )
-// console.log(`You have ${stats.numOfGuesses} guesses remaining`)
-}
 
 
 function wonGame(){
@@ -175,7 +122,5 @@ if(readline.keyInYN('Play Again?\n')){
 startGame();
 getValidLetterGuess();
 gameLoop();
-// guessCount();
-// something()
-// lettersGuessed();
+
 
