@@ -5,6 +5,7 @@ let word = dictionary[Math.floor(Math.random() * dictionary.length)];
 let wordSplit = word.split("");
 let board = displayUnderscores()
 let gameData = [];
+let gameDataObj = {};
 let guessCountDecrement = 7;
 let turnTaken = 1;
 console.log(word)
@@ -65,14 +66,23 @@ const isBoardFull = () => !board.includes("_")
 //////////// log of user guesses ///////
 
 
+// const displayLettersGuessed = (userInput) => {
+//   if (userInput) {
+//     gameData.push(userInput.toLowerCase())
+//     turnTaken++
+//   }
+//   return `Letters guessed: ${gameData.join(", ")} `
+// }
+
+///////////// log of user guesses in an object /////////////////////
+
 const displayLettersGuessed = (userInput) => {
   if (userInput) {
-    gameData.push(userInput.toLowerCase())
-    turnTaken++
+    gameDataObj[turnTaken] = userInput.toLowerCase()
+      turnTaken++
+    }
+    return `Letters guessed: ${Object.values(gameDataObj).join(", ")} `
   }
-  return `Letters guessed: ${gameData.join(", ")} `
-}
-
 
 ///////////////////// create a board with blank spaces ////////////////////////
 // ES5 hoisting
