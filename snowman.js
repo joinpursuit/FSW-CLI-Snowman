@@ -16,8 +16,8 @@ let removeDups = []
 
 const getValidLetterGuess = () => {
   const guessIsValid = (letter) => {
-    return letter.length === 1 && letter.toUpperCase() !== letter.toLowerCase() 
-    && !board.includes(letter) && !gameData.incorrectGuessedLetter.includes(letter)
+    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase() 
+    && !board.includes(letter.toLowerCase()) && !gameData.incorrectGuessedLetter.includes(letter.toLowerCase())
   }
   
   let letter = ""
@@ -42,7 +42,7 @@ const getValidLetterGuess = () => {
 
 const updateBoard = (letter) => {
   for (let i = 0; i < wordSplit.length; i++) {
-    if (letter === wordSplit[i]) {
+    if (letter.toLowerCase() === wordSplit[i]) {
       board[i] = wordSplit[i]
     }
   }
@@ -86,12 +86,12 @@ const updateData = (userInput) => {
   noDuplicates()
   for (let i = 0; i < removeDups.length; i++) {
     const element = removeDups[i];
-    if (userInput === element && !board.includes(element)) {
+    if (userInput.toLowerCase() === element && !board.includes(element)) {
       gameData["guessedLetters"] += element + ", "
     } 
   } 
-  if (!wordSplit.includes(userInput) && !gameData.incorrectGuessedLetter.includes(userInput)) {
-      gameData["incorrectGuessedLetter"] += userInput + ", "
+  if (!wordSplit.includes(userInput.toLowerCase()) && !gameData.incorrectGuessedLetter.includes(userInput.toLowerCase())) {
+      gameData["incorrectGuessedLetter"] += userInput.toLowerCase() + ", "
       guess--
     }
   
