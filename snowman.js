@@ -4,7 +4,7 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 let nameInput = readline.question('What is your name?\n')
 let randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
 lost = `Sorry ${nameInput}, you ran out of guesses!`
-leave = 'Aww man, that\'s too bad. Hope to see you soon!'
+leave = `Aww man, that\'s too bad. Hope to see you soon! ${nameInput}`
 let randomWordArr = []
 let charNumArr = []
 let a = ''
@@ -102,7 +102,13 @@ function lettersGuessed(){
 
 
 function wonGame(){
-  console.log('You\'re so smart ' + nameInput + '!' + ' You won the game in')
+  if(randomWord.length - stats.numOfGuesses === 0){ 
+  console.log('You\'re so smart ' + nameInput +  ',' + ' you guessed correct every time! You lost ' +  (randomWord.length - stats.numOfGuesses )+ ' chances.')
+  }else if(randomWord.length - stats.numOfGuesses === 1){
+    console.log( 'You\'re so smart ' + nameInput +  ',' + ' you only guessed wrong ' +  (randomWord.length - stats.numOfGuesses )+ ' time!')
+  }else{
+    console.log('You\'re so smart ' + nameInput +  ',' + ' you guessed wrong ' +  (randomWord.length - stats.numOfGuesses )+ ' times!')
+  }
   restartGame();
   }
 
