@@ -751,6 +751,106 @@ let data = {
   remainingGuesses: 6, // remaing guesses
   answerGuessed: [], //
   showUserGuess: [], // show the underscores
-  wordArr: [],       // reveal the right word
+  wordArr: [],       //  populating the right letter guess
   wrongLetter: [],    //revealing the wrong letter
 };
+
+const play = () => {
+  if (readLineSync.keyInYNStrict("Start?")) {
+    console.clear();
+    startGame();
+  } else {
+    console.log("Have a nice day!");
+    exitGame();
+  }
+};
+let randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+function startGame() {
+  data.wordArr = randomWord.split("");
+  for (i = 0; i < randomWord.length; i++) {
+    data.showUserGuess.push("_"); // show the underscore
+  }
+  keyLetter = data.showUserGuess.join(" ");
+  console.log(keyLetter);
+  guesses();
+}
+
+const guesses = () => {
+  if (data.remainingGuesses > 0) {
+    console.log("Remaining Guess: " + data.remainingGuesses);
+  }
+  validGuess = getValidLetterGuess();
+  if (data.answerGuessed.includes(validGuess)) {
+    console.log("Try again!");
+    guesses();
+  } else {
+    ifCorrect();
+  }
+};
+
+const ifCorrect = () => {
+  if (data.wordArr.includes(validGuess)) {
+    rightGuesses(data.wordArr, validGuess);
+  } else {
+    wrongGuesses();
+  }
+};
+
+const rightGuesses = (wordArr, guess) => {
+  let letterOfWord = [];
+  wordArr.forEach((el, i) => {
+    if (el === guess) {
+      letterOfWord.push(i);
+    }
+  });
+  letterOfWord.forEach((el) => {
+    data.showUserGuess.splice(el, 1, validGuess);
+  });
+  answer = data.showUserGuess.join(" ");
+  console.log("Your Guesses: " + data.wrongLetter);
+  console.log(answer);
+  data.answerGuessed.push(validGuess);
+  if (data.showUserGuess.indexOf("_") < 0) {
+    console.log("You Won!");
+    process.exit();
+  } else {
+    guesses();
+  }
+};
+
+const wrongGuesses = () => {
+  data.wrongLetter.push(validGuess);
+  data.answerGuessed.push(validGuess);
+  console.log("Guessed Letters: " + data.wrongLetter);
+  data.remainingGuesses--;
+  word = data.showUserGuess;
+  console.log(data.showUserGuess.join(" "));
+  if (data.remainingGuesses === 0) {
+    console.log("You lose! The hidden word was: " + randomWord);
+    exitGame();
+  } else {
+    guesses();
+  }
+};
+function getValidLetterGuess() {
+  function guessIsValid(letter) {
+    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
+  }
+  let letter = "";
+  while (!letter) {
+    let input = readLineSync.question("Please enter your guess: ");
+    if (guessIsValid(input)) {
+      letter = input;
+    } else {
+      console.log("Please enter a valid letter");
+    }
+  }
+  return letter.toLowerCase();
+}
+
+const exitGame = () => {
+  console.log("Sad to see you go!");
+  console.log("Goodbye!");
+  process.exit("Thank you for your Time!");
+};
+play();
