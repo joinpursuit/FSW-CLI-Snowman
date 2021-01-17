@@ -774,11 +774,13 @@ const stats = {
   wrongGuesses: [],
   revealWord: [],
   wordArr: [],
+  totalGuesses: 0,
 };
 
 
 const startGame = () => {
   randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+  console.log(randomWord)
   stats.wordArr = randomWord.split('');
   stats.wordArr.forEach((el) => {
   stats.revealWord.push("_");
@@ -824,7 +826,7 @@ const correctGuesses = (wordArr, guess) => {
   console.log(answer);
   stats.guessedLetters.push(validGuess);
   if (stats.revealWord.indexOf('_') < 0) {
-    console.log(`NICE JOB! YOU WON!`);
+    console.log(`NICE JOB! YOU WON! You guessed it in ${stats.totalGuesses} attempts!`);
     process.exit();
   } else {
     letterGuess();
@@ -861,6 +863,7 @@ function getValidLetterGuess() {
       console.log("Please enter a valid letter!");
     }
   }
+  stats.totalGuesses ++;
   return letter.toLowerCase();
 }
 
