@@ -5,4 +5,6 @@ const CHALK
 const 
 // gameTakeOff
 
-const gameTakeOff = () => {}
+const pickRandomLetter = () => {
+  while(wordHasNotBeenGuessed)
+}
