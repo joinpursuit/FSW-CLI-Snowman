@@ -48,7 +48,7 @@ function getValidLetterGuess() {
 function compareLetters (userInput) { // update for duplicate letters
   let isGuessCorrect = false;
   for (let i = 0; i < wordSplit.length; i++) {
-     if (userInput === wordSplit[i]) {
+     if (userInput.toLowerCase() === wordSplit[i]) {
       board[i] = wordSplit[i]
       isGuessCorrect = true;
     } 
@@ -67,7 +67,7 @@ const isBoardFull = () => !board.includes("_")
 
 const displayLettersGuessed = (userInput) => {
   if (userInput) {
-    gameData.push(userInput)
+    gameData.push(userInput.toLowerCase())
     turnTaken++
   }
   return `Letters guessed: ${gameData.join(", ")} `
