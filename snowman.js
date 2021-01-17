@@ -14,7 +14,7 @@ console.log(word)
 
 function getValidLetterGuess() {
   function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+    return letter.length === 1 && letter.toUpperCase() !== letter.toLowerCase() && !gameData.includes(letter)
   }
   let letter = ""
   while (!letter) {
@@ -48,7 +48,7 @@ function getValidLetterGuess() {
 function compareLetters (userInput) { // update for duplicate letters
   let isGuessCorrect = false;
   for (let i = 0; i < wordSplit.length; i++) {
-    if (userInput === wordSplit[i]) {
+     if (userInput === wordSplit[i]) {
       board[i] = wordSplit[i]
       isGuessCorrect = true;
     } 
@@ -58,13 +58,11 @@ function compareLetters (userInput) { // update for duplicate letters
   }
 }
 
-///////////////// isBoardFull() /////////////
+////////////// check for win ////////////////
 
-const isBoardFull = () => { // win
-  return !board.includes("_")
-} 
+const isBoardFull = () => !board.includes("_") 
 
-/////////////////////////////
+//////////// log of user guesses ///////
 
 
 const displayLettersGuessed = (userInput) => {
@@ -76,15 +74,15 @@ const displayLettersGuessed = (userInput) => {
 }
 
 
-///////////////////// displayUnderscores() ////////////////////////
-
-function displayUnderscores() { // ES5 hoisting
+///////////////////// create a board with blank spaces ////////////////////////
+// ES5 hoisting
+function displayUnderscores() { 
   return wordSplit.map((el) => {
     return (el = "_");
   });
 };
 
-//////////////////// printGuessCount //////////////////////////
+//////////////////// print guess count //////////////////////////
 const printGuessCount = () => {
   console.clear();
   while(guessCountDecrement >= 0 && !isBoardFull()) {
