@@ -753,6 +753,7 @@ let data = {
   showUserGuess: [], // show the underscores
   wordArr: [],       //  populating the right letter guess
   wrongLetter: [],    //revealing the wrong letter
+  guessCount: 0
 };
 
 const play = () => {
@@ -810,7 +811,9 @@ const rightGuesses = (wordArr, guess) => {
   console.log("Your Guesses: " + data.wrongLetter);
   console.log(answer);
   data.answerGuessed.push(validGuess);
+  data.guessCount++
   if (data.showUserGuess.indexOf("_") < 0) {
+    console.log("Guess count: " + data.guessCount)
     console.log("You Won!");
     process.exit();
   } else {
