@@ -18,5 +18,17 @@ let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
 // gameTakeOff
 const randomLetter = () => {
   let pickRandomLetter = readlineSync.question("Pick a letter");
-  if(pickRandomLetter )
+  for(pickRandomLetter;  )
+}
+// gameWord
+const randomWord = () => {
+
+}
+// numberOfGuess
+const numOfGuess = () => {
+
+}
+// guessLog
+const guessLog = () => {
+
 }
