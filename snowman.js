@@ -3,7 +3,7 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 let nameInput = readline.question('What is your name?\n')
 let randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-lost = 'You ran out of guesses!' // once you make variable for number of guesses put it in here.
+lost = `Sorry ${nameInput}, you ran out of guesses!`
 leave = 'Aww man, that\'s too bad. Hope to see you soon!'
 let randomWordArr = []
 let charNumArr = []
@@ -28,13 +28,10 @@ if(readline.keyInYN(`Hello ${nameInput}, would you like to play SNOWMAN?`)){
 }
 };
 
-function leaveGame(leave, lost){
+function leaveGame(leave){
 if(leave){
   console.log(leave);
   process.exit();
-}else{
-  console.log(lost)
-  restartGame();
 }
 };
 
@@ -45,7 +42,7 @@ for(let char of randomWord){
 } 
 b = charNumArr.join(' ');
 console.log(b)
-console.log(`You have ${stats.numOfGuesses} guesses\n`)
+console.log(`You have ${stats.numOfGuesses} guesses.\n`)
 };
 
 function getValidLetterGuess() {
@@ -73,24 +70,27 @@ for(let i = 0; i < randomWordArr.length; i++){
 }
 guessCount();
 c = charNumArr.join('')
-if(randomWord !== c){
+if(randomWord !== c && stats.numOfGuesses !== 0){
   getValidLetterGuess();
   gameLoop();
+}else if(stats.numOfGuesses === 0){
+  console.log(lost)
+  console.log(`The word was: ${randomWord}`)
+  restartGame();
 }else{
-  wonGame()
+  wonGame();
 }
 };
 
 function guessCount(){
-if(randomWordArr.includes(stats.guess)){
-  console.log('I\'m Adding')
-}else{
-  console.log('I\'m Subtracting')
+if(!randomWordArr.includes(stats.guess)){
+  stats.numOfGuesses--
 }
-lettersGuessed();
 b = charNumArr.join(' ');
 console.log(b)
-console.log(stats.numOfGuesses) // here i will console log whats happening in my if else statement
+console.log('You have ' + stats.numOfGuesses + ' guesses remaining.')
+console.log(randomWord)//remove this 
+lettersGuessed();
 }
 
 function lettersGuessed(){
@@ -102,7 +102,7 @@ function lettersGuessed(){
 
 
 function wonGame(){
-  console.log('You\'re so smart! You won the game!')
+  console.log('You\'re so smart ' + nameInput + '!' + ' You won the game in')
   restartGame();
   }
 
@@ -122,5 +122,6 @@ if(readline.keyInYN('Play Again?\n')){
 startGame();
 getValidLetterGuess();
 gameLoop();
+
 
 
