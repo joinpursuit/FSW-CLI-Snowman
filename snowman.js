@@ -850,10 +850,9 @@ function getValidLetterGuess() {
   }
   return letter.toLowerCase();
 }
-
 const exitGame = () => {
-  console.log("Sad to see you go!");
+  console.log("Thank you for your Time!");
   console.log("Goodbye!");
-  process.exit("Thank you for your Time!");
+  process.exit();
 };
 play();
