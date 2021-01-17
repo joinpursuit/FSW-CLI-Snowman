@@ -749,11 +749,11 @@ console.log(`Hello ${nameInput}!  Welcome to my game!`);
 // creating an object that contain my data
 let data = {
   remainingGuesses: 6, // remaing guesses
-  answerGuessed: [], //
+  answerGuessed: [], // if already guess
   showUserGuess: [], // show the underscores
-  wordArr: [],       //  populating the right letter guess
-  wrongLetter: [],    //revealing the wrong letter
-  guessCount: 0
+  wordArr: [], //  populating the right letter guess
+  wrongLetter: [], //revealing the wrong letter
+  guessCount: 0,
 };
 
 const play = () => {
@@ -811,9 +811,9 @@ const rightGuesses = (wordArr, guess) => {
   console.log("Your Guesses: " + data.wrongLetter);
   console.log(answer);
   data.answerGuessed.push(validGuess);
-  data.guessCount++
+  data.guessCount++;
   if (data.showUserGuess.indexOf("_") < 0) {
-    console.log("Guess count: " + data.guessCount)
+    console.log("Guess count: " + data.guessCount);
     console.log("You Won!");
     process.exit();
   } else {
