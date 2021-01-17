@@ -15,7 +15,7 @@ console.log(word)
 
 function getValidLetterGuess() {
   function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() !== letter.toLowerCase() && !gameData.includes(letter)
+    return letter.length === 1 && letter.toUpperCase() !== letter.toLowerCase() && !Object.values(gameDataObj).includes(letter)
   }
   let letter = ""
   while (!letter) {
@@ -95,7 +95,7 @@ function displayUnderscores() {
 //////////////////// print guess count //////////////////////////
 const printGuessCount = () => {
   console.clear();
-  while(guessCountDecrement >= 0 && !isBoardFull()) {
+  while(!isBoardFull()) {
     if (guessCountDecrement === 7) {
         console.log(`\nYou have 7 guesses total`)
     } else if (guessCountDecrement > 1) {
