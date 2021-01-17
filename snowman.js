@@ -782,7 +782,7 @@ const guesses = () => {
   }
   validGuess = getValidLetterGuess();
   if (data.answerGuessed.includes(validGuess)) {
-    console.log("Try again!");
+    console.log("Try again! You already guessed that Letter");
     guesses();
   } else {
     ifCorrect();
