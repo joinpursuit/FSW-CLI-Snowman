@@ -89,6 +89,7 @@ const validLetter = () => {
     gameStats.answerInput.push(guess)
     console.log("Guessed Letters: " + gameStats.wrongGuess)
     gameStats.numberOfGuesses--
+    gameStats.guessCounter++
     word = gameStats.answerInput.push(guess)
     console.log(gameStats.gameBoard.join(" "))
     if(gameStats.numberOfGuesses === 0){
