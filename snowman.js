@@ -9,8 +9,6 @@ let stats = {
   board: []
 }
 
-console.log(stats.word)
-
 const displayBoard = () => {
   for(let i = 0; i < stats.word.length; i++){
     stats.board.push(`_`)
@@ -20,19 +18,23 @@ const displayBoard = () => {
 
 const gameLoop = () => {
   while(stats.guessesRemaining > 0 || stats.board.includes(`_`)){
+    
     console.log(`${stats.board.join(` `)}`)
     console.log(`\nGuessed letters: ${stats.previouslyGuessed}`)
     console.log(`Guesses remaining: ${stats.guessesRemaining}`)
     
     guess = getValidLetterGuess()
 
-    if(stats.previouslyGuessed.includes(guess)){
-      console.log(`You already guessed that letter! Please guess again.`)
-      gameLoop()
+    const duplicateGuess = () => {
+      if(stats.previouslyGuessed.includes(guess)){
+        console.log(`You already guessed that letter! Please guess again.`)
+        gameLoop()
+      }
     }
+    duplicateGuess()
 
     const placeLetter = () => {
-    for(let i = 0; i < stats.word.length; i++){
+      for(let i = 0; i < stats.word.length; i++){
         if(stats.word[i].includes(guess)){
           stats.board[i] = guess
           stats.guessCounter++
