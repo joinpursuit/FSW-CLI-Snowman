@@ -107,6 +107,7 @@ const welcomeAgain = () => {
 const quitGame = () => {
   console.clear();
   console.log(`\t\t\t\t\t\t!!!Good Bye!!!`);
+  console.log(`\t\t\t\t\t\tIt is sad to see you leaving!\n\t\t\t\t\t\tHope to see you soon.`)
   console.log(`\t\t\t${playerName} have successfully guessed following words: `);
   if(isNotEmpty(lettersObj[0])){
     for(const key in lettersObj[0]){
