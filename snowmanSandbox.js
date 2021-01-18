@@ -5,17 +5,36 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 let randomWord = dictionary[Math.floor(Math.random() * dictionary.length)]
 console.log(randomWord) //DNFTR...for debugging
 let randomWordSplit = randomWord.split("")
-let updateBlankSpaces = blankSpaces()
+let board = addBlanks()
+let guesses = 7
 
 
-const userInput = () => {
-  while(true) {
-    let someVariable = guessRandomletter
-    console.log(someVariable)
+// /**
+//  * WELCOME/START/QUIT
+//  * Welcomes the user.
+//  * Starts the game by prompting the user to play.
+//  * Calls either startGame() or quitGame().
+//  */
+const startGame = () => {
+const name = rls.question("Welcome to AnJu's Snowman Game! What's your name?"); {
+  console.log("What's up, " + name + "?")
+  console.log("")
+  if(rls.keyInYNStrict("Do you want to play?")) {
+        countGuesses()
+      } else {
+          quitGame()
+      }
   }
 }
 
-function blankSpaces() {
+// const userInput = () => {
+//   while(true) {
+//     let someVariable = guessRandomletter
+//     console.log(someVariable)
+//   }
+// }
+
+function addBlanks() {
   let wordArray = [];
   for (let i = 0; i < randomWord.length; i++) {
     wordArray[i] = "_";
@@ -24,52 +43,56 @@ function blankSpaces() {
 }
 
 //says blank spaces are filled
-const spacesFilled = () => {
-  return updateBlankSpaces.every((el) => {
+const fillBlanks = () => {
+  return board.every((el) => {
     return el !== "_"
   })
 }
-// console.log(spacesFilled())
+// console.log(fillBlanks())
 
 // let goToGuessCount = enterGuessCount()
 
 
-
-const guessCount = () => {
-  let guesses = 7
-  while(guesses >= 0 && !spacesFilled()) {
+const countGuesses = () => {
+  while(guesses >= 0 && !fillBlanks()) {
     if(guesses === 7) {
       console.log(`You have ${guesses} guesses.`)
-    } else if(guesses >=1) {
+    } else if(guesses >= 2) {
       console.log(`You have ${guesses} guesses remaining.`)
-    } else {
-      console.log(`Sorry! You did not guess correctly!\nThe word was ${randomWord}.`)
-      quitGame(); /// add quit game here
+    } else if(guesses === 1) {
+        console.log(`You have ${guesses} guess remaining.`)
+    } else if (guesses === 0) {
+      console.log("")
+      console.log(`Sorry! You did not guess correctly! The word was ${randomWord}.`)
+      gameOver();
     }
-    guesses--
     getValidLetterGuess()
   }
-  return console.log(`You won in ${numOfGuesses(guesses)} guesses!!! Nice job guessing the word: ${updateBlankSpaces.join(" ")}`)
+  return console.log(`You won in ${guessesTaken(guesses)} guesses!!! Nice job guessing the word: ${board.join("")}`)
 }
 
-const numOfGuesses = (guesses) => {
-    return 7-guesses
-}
-
-const enterGuessCount = () => {
-  if (guesses >= 0 && !rightGuesses() && !spacesFilled()) {
-    guessCount()
+const guessesTaken = (guesses) => {
+  if(guesses === 7) {
+    return randomWord.length
+  } else {
+    return (7-guesses) + randomWord.length
   }
 }
+
+// const enterGuessCount = () => {
+//   if (guesses >= 0 && !rightGuesses() && !fillBlanks()) {
+//     countGuesses()
+//   }
+// }
 
 //GIVEN CODE
 function getValidLetterGuess() {
   function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase() && !guessesArray.includes(letter)
   }
   let letter = ""
   while (!letter) {
-    console.log(updateBlankSpaces.join(" "))
+    console.log(board.join(" "))
     let input = rls.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input
@@ -85,26 +108,10 @@ function getValidLetterGuess() {
 const rightGuesses = (rightInput) => {
   for (let i = 0; i < randomWordSplit.length; i++) {
     if(rightInput === randomWordSplit[i]) {
-      updateBlankSpaces[i] = randomWordSplit[i]
-      // getValidLetterGuess()
+        board[i] = randomWordSplit[i]
     }
   } 
 }
-
-const quitGame = () => {
-  console.log("")
-  console.log("Game over! GOOD BYE!")
-  process.exit()
-}
-
-// const gameOver = () => {
-//   if(rls.keyInYNStrict("Would you like to play again?")) {
-//      guessCount()
-//     //input game flow here
-//   }
-//   console.log("See you soon then!")
-//   process.exit()
-// }
 
 //TO LOG WRONG GUESSES, DOESN'T WORK
 // const wrongGuesses = (wrongInput) => {
@@ -118,17 +125,32 @@ const quitGame = () => {
 // }
 
 
+
+
+
 let guessesArray = []
 const guessesMade = (userInput) => {
     for (let i = 0; i < randomWordSplit.length; i++) {
-        if(!guessesArray.includes(userInput)) {
-            guessesArray.push(userInput)
-        } 
+      if(userInput === randomWordSplit[i] && !guessesArray.includes(randomWordSplit[i])) {
+        guessesArray.push(randomWordSplit[i])
+      } 
+    }       
+      if(!randomWordSplit.includes(userInput) && !guessesArray.includes(userInput)) {
+        guessesArray.push(userInput)
+        guesses--
     }
     return console.log(`Guessed letters: ${guessesArray}`) 
+}
+  
 
+const gameOver = () => {
+    console.log("GAME OVER! Better luck next time!")
+    process.exit()
+  }
+
+const quitGame = () => {
+  console.log("Peace out then!")
+    process.exit()
 }
 
-
-
-guessCount()
+startGame()
