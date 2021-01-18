@@ -745,76 +745,117 @@ const dictionary = [
 	"young",
 ];
 const word = dictionary[Math.floor(Math.random() * dictionary.length - 1)];
-let tracker = {}; //{remainingGuesses: , wrongLetters: }
+//let tracker = {}; //{remainingGuesses: , wrongLetters: , correctLetters}
 
-/*
-/*For the "stats" like number of remaining guesses and previously guessed letters,
-*use one object rather than several global variables.
-==> tracker = {chances: , remainingGuesses: , wrongLetters: }
+/*  **---->> I Don't know how to make this work just yet <<----**
+/* For the "stats" like number of remaining guesses and previously guessed letters,
+* use one object rather than several global variables.
+* ==> tracker = {chances: , remainingGuesses: , wrongLetters: }
 */
  
-// check if the letter is in the word and replace the dash
-const replaceDash = (word, letter) => {
-	let dashedWord = "";
-	for (let i = 0; i < word.length; i++) {
-		if (letter.includes(word[i])) {
-			dashedWord += word[i] + " ";
-		} else {
-			dashedWord += "_ ";
-		}
-	}
-	console.log(dashedWord);
-	return dashedWord;
+
+//end the Game
+const endGame = () => {
+	//console.clear();
+	ansEnd = rls.keyInYN(`Do you want to play again?\n`);
+	ansEnd === true ? startGame() : console.log(`goodbye\n`);
+	process.exit;
 };
 
-// checks if the letter guessed is not an empty string and is lowercase
-function getValidLetterGuess() {
-	function guessIsValid(letter) {
-		return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
-	}
-	let letter = "";
-	while (!letter) {
-		let input = rls.question("\nPlease enter your guess: ");
-		if (guessIsValid(input)) {
-			letter = input;
+const gameLoop = (word) => {
+	let totalChances = word.length + 3;
+	let chances = totalChances;
+	let wrongLetters = "";
+	let correctLetters = "";
+	let dashedWord = "";
+	let tries = 0;
+
+	while (chances > 0) {
+		// console.clear();
+		console.log("\n✅", correctLetters);
+		console.log("\n❌", wrongLetters);
+		console.log("\n⏰", chances);
+		console.log("\n🧐", tries);
+		console.log(dashedWord);
+
+		// get guess and check if valid
+		function guessIsValid(letter) {
+			return (
+				letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+			);
+		}
+		let letter = "";
+
+		//   NOT a valid letter
+		while (!letter) {
+			// not a letter reprompt loop
+			let input = rls.question("\nWhat letter do you guess? ");
+			if (guessIsValid(input)) {
+				letter = input;
+			} else {
+				console.log("Please enter a valid letter\n");
+			}
+		}
+		tries++;
+		// IS a valid letter
+		//if letter is in the word else
+		if (word.includes(letter)) {
+			console.log("\ngood guess!\n");
+			correctLetters += letter;
+
+			// test if the correctLetters are === word ... This test is faulty .. need to rethink how to do this
+			if (correctLetters === word) {
+				console.log(chalk.blue(`\n 🏆 S U P E R S T A R !!! 🏆\n`));
+				console.log(`You took ${totalChances - tries} guesses to win.`); // have to rework this
+				endGame();
+			}
+			// **---->> Don't know how to make this work just yet <<----**
+			//replace the dash with the correct letters
+			// words have indexes --- how do i use this to replace the dashes
+			//const replaceDash = (word, correctLetters) => {
+			// for (let i = 0; i < correctLetters.length; i++) { // loop correct letters
+			// 	let char = correctLetters[i];
+			// 	for (let idx = 0; idx < word.length; idx++) { //loop word
+			// 		if (char.includes(word[idx])) {
+			// 			dashedWord += word[idx] + " ";
+			// 		} else {
+			// 			dashedWord += "_ ";
+			// 		}
+			// 	}
+			// }
+			// console.log(dashedWord, "word in replaceDash");
+			// };
+			//replaceDash(word, correctLetters);
 		} else {
-			console.log("Please enter a valid letter");
+			console.log("nope. That's not it.");
+			wrongLetters += letter;
+			chances--;
+			if (chances === 1) {
+				console.log(`Oh boy. 😰 You have 1 guess left.\n`);
+			}
+			if (chances === 0) {
+				console.log("Sorry Buddy. No more chances.\n");
+				console.log(`The word was ${word}.`);
+				endGame();
+			}
 		}
 	}
-	letter = letter.toLowerCase();
-	replaceDash(word, letter);
-	return letter; // do i need to return letter?
-}
+};
 
- //print the dases for the mystery word
-const dashes = () => {
+//start the Game
+const startGame = () => {
+	console.log(`\nYou have to guess the letters in my 🧐 mystery word.\n`);
+	const chances = word.length + 3;
+	console.log(`You have ${chances} chances.\n`);
+	console.log(chalk.yellow(word));
+
+	//print the dases for the mystery word
 	let dash = "";
 	for (let i = 0; i < word.length; i++) {
 		dash += "_ ";
 	}
 	console.log(dash);
-	getValidLetterGuess();
-	return dash;
-};
-
-//end the Game
-const endGame = () => {
-	console.clear();
-	console.log(`goodbye\n`);
-	process.exit;
-};
-
-
-//start the Game
-const startGame = () => {
-	// let dash = "";
-	console.log(`\nYou have to guess the letters in my 🧐 mystery word.\n`);
-	const chances = word.length + 3;
-	console.log(`You have ${chances} chances.\n`);
-	console.log(chalk.yellow(word));
-	dashes();
-	
-	//playGame(chances);
+	gameLoop(word);
 };
 
 //intro
@@ -838,6 +879,20 @@ function passToValue() {
 passToValue();
  */
 
+/***----** N O T E S **----**
+* newWordString = word.replace(/el/, "*") // cannot take a string
+ * newWordVar = word.replace(/letter/, "*") // cannot take in a variable
+ *
+ * newWordArray = word.replace(/[l]/, "*")   >>> b*ue
+ * newWord = word.replace(/e/, "*")  >>> blu*
+ *
+ */
+
+/* if (word.includes(letter)) {
+		console.log("yes");
+		// newWord = word.replace(/e/, "*")
+ } else {
+ } 
 //startGame ==>
 /* Game Rules
  * 1. pick a word
@@ -905,3 +960,28 @@ const playGame = () => {
 	}
 }; */
  
+// check if the letter is in the word and replace the dash
+// const replaceDash = (word, letter) => {
+// 	let dashedWord = "";
+// 	let correctLetters = [];
+// 	let wrongLetters = "";
+// 	// need to collect all the correct letters and pass them into
+// 	// letter.includes([can this be a string of letters ?]) >> yes it works as a string
+	
+// 		if (word.includes(letter)) {
+// 			correctLetters.push(letter);
+// 			dashedWord += letter.replace(/"_ "/g, correctLetters);
+
+// 			console.log(correctLetters, "correct letters");
+// 		} else {
+// 			dashedWord += "_ ";	
+// 			wrongLetters += letter;
+// 		}
+		
+	
+	
+// 	console.log(dashedWord, "line ");
+// 	console.log(wrongLetters, "wrong ");
+// 	getValidLetterGuess(); // not saving the correct letters if i put this here but does ask for next guess
+// 	return dashedWord;
+// };
