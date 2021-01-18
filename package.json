@@ -1,5 +1,5 @@
 {
-  "name": "FSW-CLI-Hangman",
+  "name": "fswclihangman",
   "version": "1.0.0",
   "description": "![Hangman Gif](https://github.com/joinpursuit/Pursuit-Core-Web-Hangman/blob/master/hangmanWebGif.gif)",
   "main": "hangman.js",
