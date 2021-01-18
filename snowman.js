@@ -743,21 +743,22 @@ const dictionary = [
   "yesterday",
   "young",
 ];
-let randomDictionaryWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+let randomDictionaryWord =
+  dictionary[Math.floor(Math.random() * dictionary.length)];
 let wordToGuess = randomDictionaryWord;
 console.log(wordToGuess); // - remove this when done working!!
 
 let blankedOutWord = [];
-let underscores = showGameBoard();
+let gameBoard = displayGameBoard();
 
-let guessCount = 7;
+let guessCount = 5;
 let guessedLetters = [];
 
-function showGameBoard() {
+function displayGameBoard() {
   for (let i = 0; i < wordToGuess.length; i++) {
     blankedOutWord.push("_");
   }
-  return blankedOutWord; //.join(" ");
+  return blankedOutWord;
 }
 
 function getValidLetterGuess() {
@@ -766,25 +767,23 @@ function getValidLetterGuess() {
   }
   let letter = "";
   while (!letter) {
-    console.log(underscores.join(" "))
-    let input = readline.question(`Please enter your guess: `);
+    console.log(gameBoard.join(" "));
+    let input = readline.question(`\nPlease enter your guess: `);
     if (guessIsValid(input)) {
       letter = input;
-      updateBoard(letter);
-      console.log(showGuessedLetters(letter));
+      updateGameBoard(letter);
+      console.log(displayGuessedLetters(letter));
     } else {
-      console.log(`Please enter a valid letter`);
+      console.log(`Please enter a valid letter\n`);
     }
   }
   return letter.toLowerCase();
 }
 
-function guessCounter() {
-  while (guessCount >= 0 && fullBoard()) {
-    if (guessCount === 7) {
+function displayGuessCount() {
+  while (guessCount >= 0 && fullGameBoard()) {
+    if (guessCount === 5 || guessCount > 1) {
       console.log(`You have ${guessCount} guesses remaining`);
-    } else if (guessCount > 1) {
-      console.log(`You have ${guessCount} guesses remaining `);
     } else if (guessCount === 1) {
       console.log(`You have ${guessCount} guess remaining`);
     } else if (guessCount === 0) {
@@ -792,18 +791,18 @@ function guessCounter() {
     }
     getValidLetterGuess(); // not sure this goes here
   }
+  winAndEndGame();
 }
-// guessCounter();
 
-function updateBoard(letter) {
+function updateGameBoard(letter) {
   for (let i = 0; i < wordToGuess.length; i++) {
     if (wordToGuess[i] === letter) {
-      underscores[i] = letter;
+      gameBoard[i] = letter;
     }
   }
 }
 
-function showGuessedLetters(letter) {
+function displayGuessedLetters(letter) {
   for (let i = 0; i < wordToGuess.length; i++) {
     if (wordToGuess[i] === letter) {
       guessedLetters.push(wordToGuess[i]);
@@ -814,26 +813,25 @@ function showGuessedLetters(letter) {
     guessCount--;
   } else if (wordToGuess.includes(letter)) {
   }
-  return `Guessed Letters:` + guessedLetters;
+  return `Guessed Letters: ${guessedLetters}\n`;
 }
 
-// function winAndEndGame() {
-//   if (!bloop.includes("_")) {
-//     console.log(`YOU WON!!!
-// You took ${guessCount} guesses`);
-//   }
-//   if (readline.keyInYN(`\nWould you like to play again?`)) {
-//     getValidLetterGuess();
-//   } else {
-//     process.exit();
-//   }
-// }
-
-function fullBoard() {
-  return underscores.includes("_");
+function winAndEndGame() {
+  if (!fullGameBoard()) {
+    console.log(`YOU WON!!!
+You took ${guessCount} guesses`); // -- guessCount !== to # of guesses taken
+  }
+  if (readline.keyInYN(`\nWould you like to play again?`)) {
+    getValidLetterGuess(); // -- this should be a gameLoop
+  } else {
+    process.exit();
+  }
 }
 
+function fullGameBoard() {
+  return gameBoard.includes("_");
+}
 
 // function loseAndEndGame() {}
 
-guessCounter();
+displayGuessCount();
