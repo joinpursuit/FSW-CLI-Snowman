@@ -63,39 +63,42 @@ const replay = () => {
 
 const gameLoop = () => {
   let word = randWord()
-  let string = []
-  let stringFinal = ''
-  let guessed = ''
-  let numOfGuesses = word.length + 4
-  let sumOfGuesses = 0
+  let stats = {
+    wordStatus : [],
+    guessedLetters : '',
+    guessCount : word.length + 4,
+    stringFinal : '',
+    sumOfGuesses : 0
+  }
 
   for (let i = 0; i < word.length; i++) {
-    string[i] = "\x1b[1m\x1b[36m_\x1b[0m"
+    stats.wordStatus[i] = "\x1b[1m\x1b[36m_\x1b[0m"
   }
 
 
-  for (let i = 0; numOfGuesses > i; numOfGuesses--) {
+  for (let i = 0; stats.guessCount > i; stats.guessCount --) {
 
     let endGameDialogue = {
       lose: `Awwww, sorry pal but you lost ='( \nThe word that you were trying to solve for was \x1b[36m${word.toUpperCase()}\x1b[0m.\nBetter luck next time! `,
-      win: `\x1b[36mYOU WIN !!\x1b[0m You figured it out!\nAnd it only took you \x1b[1m${sumOfGuesses + 1}\x1b[0m guesses to get there!\n\x1b[36mAwesome game =D\x1b[0m `
+      win: `\x1b[36mYOU WIN !!\x1b[0m You figured it out!\nAnd it only took you \x1b[1m${stats.sumOfGuesses + 1}\x1b[0m guesses to get there!\n\x1b[36mAwesome game =D\x1b[0m `
     }
 
     space()
     display()
     getValidLetterGuess()
-    sumOfGuesses += 1
+    stats.sumOfGuesses += 1
     
+   
 
     function display(){
-      console.log(`${string}\n`)
-      console.log(`Guessed Letters \x1b[1m\x1b[36m--->\x1b[0m ${guessed || ''} `)
-      if (guessed === ''){
-      console.log(`You have a total of ${numOfGuesses} guesses!`)
-      }else if (numOfGuesses === 1) {
-      console.log(`You have ${numOfGuesses} guess left !`)
+      console.log(`${stats.wordStatus}\n`)
+      console.log(`Guessed Letters \x1b[1m\x1b[36m--->\x1b[0m ${stats.guessedLetters || ''} `)
+      if (stats.guessedLetters === ''){
+      console.log(`You have a total of ${stats.guessCount} guesses!`)
+      }else if (stats.guessCount === 1) {
+      console.log(`You have ${stats.guessCount} guess left !`)
       } else {
-      console.log(`You have ${numOfGuesses} guesses to go.`)
+      console.log(`You have ${stats.guessCount} guesses to go.`)
       }
     }
 
@@ -115,7 +118,7 @@ const gameLoop = () => {
         if (guessIsValid(input)) {
           letter = input.toLowerCase()
 
-          if (guessed.includes(letter)) {
+          if (stats.guessedLetters.includes(letter)) {
             space()
             console.log(`\x1b[31mYou've already guessed that letter.\x1b[0m`)
             space()
@@ -123,26 +126,26 @@ const gameLoop = () => {
             getValidLetterGuess()
           }
 
-          if (guessed.includes(letter)){
-            guessed = guessed
-          } else if (guessed.length === 0) {
-            guessed += letter
+          if (stats.guessedLetters.includes(letter)){
+            stats.guessedLetters = stats.guessedLetters
+          } else if (stats.guessedLetters.length === 0) {
+            stats.guessedLetters += letter
           } else {
-            guessed += `,${letter}`
+            stats.guessedLetters += `,${letter}`
           }
 
           for (let i = 0; i < word.length; i++) {
             if (letter === word[i]) {
-              string[i] = letter
-              stringFinal = string.join('')
+              stats.wordStatus[i] = letter
+              stats.stringFinal = stats.wordStatus.join('')
             }
           }
 
-          if (numOfGuesses === 1 && stringFinal !== word) {
+          if (stats.guessCount === 1 && stats.stringFinal !== word) {
             space()
-            console.log(`${string}`)
+            console.log(`${stats.wordStatus}`)
             space()
-            console.log(`Guessed Letters \x1b[1m\x1b[36m--->\x1b[0m ${guessed}`)
+            console.log(`Guessed Letters \x1b[1m\x1b[36m--->\x1b[0m ${stats.guessedLetters}`)
             space()
             console.log(`That was supposed to be your last guess. \nBut I'll give you a freebie if you want. \nOnly this time you'll have to try and guess the whole word.`)
             space()
@@ -151,12 +154,12 @@ const gameLoop = () => {
                 hailSequence()
               } else {
                 space()
-                console.log(`${string}`)
+                console.log(`${stats.wordStatus}`)
                 space()
                 loseSequence()
               }
 
-          } else if (stringFinal === word) {
+          } else if (stats.stringFinal === word) {
             space()
             console.log(`\x1b[1m${word}\x1b[0m`)
             winSequence()
