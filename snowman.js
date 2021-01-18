@@ -26,7 +26,6 @@ function startGame(){
        leaveGame()
       }
     
-
 while(!leaveGame()){
   show();
   let letter;
@@ -48,9 +47,24 @@ function findRandomWord(){
   stats.word = dictionary[Math.floor( Math.random() *dictionary.length)]
   updateShowString()
 }
+function makeMyWordWithUnderscore(mainWord, guessed){
+  let wordWithUnderscore = '';
+for(i=0; i<mainWord.length; i++){
+  let currentLetter = mainWord[i];
+  if(guessed.includes(currentLetter)){
+    wordWithUnderscore = wordWithUnderscore +currentLetter;
+  }
+  else
+  {
+    wordWithUnderscore = wordWithUnderscore + '_'
+  }
+}
+return wordWithUnderscore
+}
 function show(){
   console.log('\n' +stats.showString)
   console.log('letters guessed correctly: ' +stats.letters.filter(el=>stats.word.includes(el)));
+  console.log("My Guessed Word: ", makeMyWordWithUnderscore(stats.word, stats.letters));
   console.log('letters guessed wrong: ' + stats.letters.filter(el=>!stats.word.includes(el)));
   console.log('\n You have '+ stats.remainingGuesses+ "remaining guesses")
 }
