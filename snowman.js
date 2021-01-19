@@ -19,9 +19,9 @@ const displayBoard = () => {
 const gameLoop = () => {
   while(stats.guessesRemaining > 0 || stats.board.includes(`_`)){
     
-    console.log(`${stats.board.join(` `)}`)
-    console.log(`\nGuessed letters: ${stats.previouslyGuessed}`)
-    console.log(`Guesses remaining: ${stats.guessesRemaining}`)
+    console.log(`${stats[`board`].join(` `)}`)
+    console.log(`\nGuessed letters: ${stats[`previouslyGuessed`]}`)
+    console.log(`Guesses remaining: ${stats[`guessesRemaining`]}`)
     
     guess = getValidLetterGuess()
 
@@ -95,4 +95,3 @@ function getValidLetterGuess() {
 }
 
 displayBoard()
-
