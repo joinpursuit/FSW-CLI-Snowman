@@ -16,8 +16,7 @@ function generateSecretWord(random, secret) {
   for (let i = 0; i < random.length; i++) {
     secret.push("_")
   }
-
-  //  WHEN I'M READY, SECRETWORD.SPLIT()
+  //  secret.split(' ') was not logging a string when I wrote it here
 }
 
 function getValidLetterGuess() {
@@ -46,41 +45,50 @@ function isLetterInWord(newLetter, stats, random, secret) {
     }
   }
   if (guessCorrect === false) {
-    stats.guessCount--
+    stats.guessesLeft--
     return stats.guessedLetters.push(newLetter)
   }
 }
 
+
+
+
+
 function gameLoop() {
-  // created stats object to be accessed from other functions
+// created stats object to be accessed from other functions, as long as functions are in gameLoop function, the object is within scope
   let myStats = {
-    guessCount : 7,
-    guessedLetters : []
+    guessesLeft : 7,
+    guessedLetters : [],
+    numOfGuessesUsed : 0,
   }
 
   let randomWord = dictionary[getRandomIndex()]
   let secretWord = []
   generateSecretWord(randomWord, secretWord)
-
-  while (myStats.guessCount > 0) {
+  console.log(randomWord)
+  while (myStats.guessesLeft > 0) {
     let myLetter = getValidLetterGuess();
     isLetterInWord(myLetter, myStats, randomWord, secretWord);
-    console.log(secretWord);
-    finished(secretWord);
-    console.log("Previous guesses: " + myStats.guessedLetters);
-    console.log("Guesses left: " + myStats.guessCount);
+    myStats.numOfGuessesUsed++
+    console.log(secretWord.join(' '));
+    finished(secretWord, myStats.numOfGuessesUsed);
+    console.log("Wrong previous guesses: " + myStats.guessedLetters);
+    console.log("Guesses left: " + myStats.guessesLeft);
   }
+  console.log("You are out of guesses. You lost.")
+  console.log(`The word was "${randomWord}"`)
 }
 
-function finished(secret) {
+function finished(secret, stats) {
   let flag = secret.includes("_")
   if (flag === false) {
     console.log("You've won!")
+    console.log(`It took you ${stats} guesses to win`)
     process.exit()
   }
 }
 
-
 gameLoop()
 
-//  getting rid of global functions was tough. Removed this problem by linking functions
+//  accessing variables and functions was tough, sloppy code including making many variables global
+//  to be accessed. Removed this problem by linking functions, storing returns inside of variables, parameters, etc.
