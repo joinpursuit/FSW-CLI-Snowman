@@ -79,7 +79,7 @@ const correctGuess = (array, value) =>{
  console.log(chalk.blueBright("Guessed letters: " + guessedLettersJoined))
  console.log('\n' + revealWord)
  if(reveal.indexOf('_') < 0){
-   console.log(chalk.yellowBright("You win! You guessed the right word in " + playerGuessTotal + " guesses!!!!"))
+   console.log(chalk.yellowBright(chalk.bold.redBright(nameInput) + '!! '+ " You win! You guessed the right word in " + playerGuessTotal + " guesses!!!!"))
  }
  else{
    letterGuess()
@@ -95,7 +95,7 @@ const wrongGuess = () => {
   console.log(chalk.redBright("Wrong!!! Please try again!!"))
   console.log(revealWord)
   if (playerStats.numberOfGuesses === 0){
-    console.log(chalk.green("You didn't guess the word in the number of moves!!"))
+    console.log(chalk.green(chalk.bold.yellowBright(nameInput) + " unfortunately you didn't guess the word in the number of moves!! \n"))
     console.log(chalk.blueBright("The correct word was " + randomStr))
     restartGame()
   } 
