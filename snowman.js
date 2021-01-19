@@ -11,7 +11,6 @@ let a = ''
 let b = ''
 
 
-
 let stats = {
   guess : '',
   guessedLetterArr : [],
@@ -68,8 +67,8 @@ for(let i = 0; i < randomWordArr.length; i++){
     }
 }
 guessCount();
-c = charNumArr.join('')
-if(randomWord !== c && stats.numOfGuesses !== 0){
+a = charNumArr.join('')
+if(randomWord !== a && stats.numOfGuesses !== 0){
   getValidLetterGuess();
   gameLoop();
 }else if(stats.numOfGuesses === 0){
