@@ -87,4 +87,64 @@ function getValidLetterGuess() {
       wrongguess()
     }
   }
+  const rightGuess = (arr, v) => {
+    const ind = []
+    arr.forEach((el, i) => {
+      if(el === v){
+        ind.push(i)
+      }
+    })
+    ind.forEach((el) => {
+      answer.splice(el, 1, guessesPlay)
+    })
+    answerUser = answer.join(" ")
+    userStatus.guessedLetters.push(guessesPlay)
+    letterUnion = userStatus.guessedLetters.join(" ")
+    countTotalGuessed++
+    console.log(`\nGuessed letters 🔤 ` + " " + letterUnion)
+    console.log(`\n ` + answerUser)
+    if(answer.indexOf('_') < 0){
+      console.log(`You win. you guessed the word correctly: ` + countTotalGuessed + ` guesses`)
+      quitGame()
+    }else{
+      letterGuessed()
+    }
+  }
+  const wrongguess = () => {
+    userStatus.guessedLetters.push(guessesPlay)
+    letterUnion = userStatus.guessedLetters.join(" ")
+    console.log(`\nGuessed letters 🔤 ` + " " + letterUnion)
+    userStatus.guessedNum--
+    countTotalGuessed++
+    console.log(`you guessed incorrectly. Guess again `)
+    console.log(answerUser)
+    if(userStatus.guessedNum === 0) {
+      console.log(`\nYou did not get it this time`)
+      console.log(`\nThe word was ` + emptyStr)
+    }else{
+      letterGuessed()
+    }
+  }
+  function getValidLetterGuess() {
+    function guessIsValid(letter) {
+      return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+    }
+    let letter = ""
+    while (!letter) {
+      let input = readline.question("Please enter your guess: ")
+      if (guessIsValid(input)) {
+        letter = input
+      } else {
+        console.log("Please enter a valid letter")
+      }
+    }
+    return letter.toLowerCase()
+  }
 
+  const quitGame = () => {
+    console.log(`\nThanks for Playing!`)
+    process.exit()
+  }
+
+
+startGame();
