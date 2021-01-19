@@ -79,17 +79,11 @@ function guessedLetters (letter) {
      
     }
     
-    // function wordCheck () {
-    //   for(let i = 0; i < gameboard.word.length; i +=1){
-    //      {
-    // continue       
-    // }
-    // return false
-    //   }}
+
 
 function youWin (){
 
-console.log(`\n\b\tYou win! It took you ${moves} guesses to solve the word "${gameboard.word.join('')}"` )
+console.log(`\n\b\tYou win! It took you ${moves} guesses to solve the word "${gameboard.word.join('')}"\n` )
 gameOver()
 }
 
