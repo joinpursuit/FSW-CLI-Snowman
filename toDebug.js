@@ -747,8 +747,9 @@ const dictionary = [
 
 /* Global variables declaration */
 let guessedLetters = []
-let wordObject = { opportunity: 0 }
 let repeatObject = {}
+let opportunity = 6
+let countoLose = 0
 let wordMagic = []
 let goodWord = []
 let displayW = ''
@@ -760,8 +761,9 @@ let b = ''
 /* I want to be able to restart the game */
 function restart () {
   guessedLetters = []
-  wordObject = { opportunity: 0 }
   repeatObject = {}
+  opportunity = 6
+  countoLose = 0
   wordMagic = []
   goodWord = []
   displayW = ''
@@ -816,19 +818,6 @@ const getrandom = dictionary => {
   return dictionary[indexRandomWord]
 }
 
-/* I want to use Objects instead of global variables */
-const stats = randomWord => {
-  for (let str of randomWord) {
-    if (wordObject[str] === undefined) {
-      wordObject.opportunity += 1
-      wordObject[str] = 1
-    } else {
-      wordObject[str] += 1
-    }
-  }
-  return wordObject
-}
-
 /* I want to create an array containing the word from dictionary and a ghost array containing '_' */
 const hiddenWord = randomWord => {
   for (let ele of randomWord) {
@@ -862,7 +851,7 @@ const verification = (goodWord, guess) => {
 /* I want to count the number of failed attemps by the player */
 const isguessCorrect = (goodWord, guess) => {
   if (!goodWord.includes(guess)) {
-    wordObject.opportunity -= 1
+    countoLose += 1
   }
 }
 
@@ -878,6 +867,7 @@ const letsPlay = () => {
   console.clear()
   randomWord = getrandom(dictionary)
   hiddenWord(randomWord)
+  opportunity = goodWord.length // I match the lenght of the randomword with the number of guesses, to make it fair
 
   console.log(`\n\t\t\t\t * * WELCOME TO SNOWMAN * *`)
   console.log(`\nHi  ${chalk.italic.redBright(nam)}  your word is  : `)
@@ -885,13 +875,11 @@ const letsPlay = () => {
     chalk.bold(`\n\t\t\t\t   ${chalk.cyanBright(display(wordMagic))}`)
   )
 
-  stats(randomWord)
-
-  while (wordObject.opportunity > 0) {
+  while (countoLose < opportunity) {
     console.log(`\nGuessed letters         :\t   ${guessedLetters}`)
     console.log(
       `\nYou have ${chalk.italic.cyanBright(
-        wordObject.opportunity
+        opportunity - countoLose
       )} guesses left`
     )
 
@@ -923,7 +911,7 @@ const letsPlay = () => {
     }
   }
 
-  if (wordObject.opportunity === 0) {
+  if (countoLose === opportunity) {
     displayW = ''
     console.log(
       chalk.redBright(`\n\nGAME OVER , It looks like you run out of turns..`)
