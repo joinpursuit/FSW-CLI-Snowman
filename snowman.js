@@ -744,55 +744,76 @@ const dictionary = [
   'yesterday',
   'young'
 ]
+/* Global variables declaration */
 
+let guessedLetters = []
+let repeatObject = {}
 let opportunity = 6
 let countoLose = 0
 let wordMagic = []
 let goodWord = []
 let displayW = ''
 let guess = ''
-let guessedLetters = []
-let timemachine = 0
 let a = ''
 let b = ''
+
+/* I want to  be able to input a valid guess*/
 
 function getValidLetterGuess () {
   function guessIsValid (letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
   }
+
+  /* I want to keep asking the user for a valid input */
+
   let letter = ''
   while (!letter) {
-    let input = readline.question('\n\tPlease enter your guess: \f')
+    let input = readline.question(
+      chalk.blackBright('\nPlease enter your guess : ')
+    )
+    input = input.toLowerCase()
+
     if (guessIsValid(input)) {
       letter = input
-      guessedLetters.push(letter)
-      timemachine = countoLose
-      countoLose += 1
+
+      if (repeatObject[input] === undefined) {
+        repeatObject[input] = 1
+        guessedLetters.push(letter)
+      } else {
+        for (let key in repeatObject) {
+          if (key === input) {
+            repeatObject[input] += 1
+            console.log(
+              chalk.blueBright(
+                `\nYou try  ${chalk.white.bold.italic(input)}  before...`
+              )
+            )
+            letter = ''
+          }
+        }
+      }
     } else {
-      console.log('\n\t\tPlease enter a valid letter')
+      console.log(chalk.blueBright('\nPlease enter a valid letter...'))
     }
   }
-  guess = letter.toLowerCase()
-
-  return guess
+  guess = letter
 }
 
+/* I want to generate a random Word from the dictionary */
 const getrandom = dictionary => {
   indexRandomWord = (Math.random() * (dictionary.length - 0) + 0).toFixed(0)
   return dictionary[indexRandomWord]
 }
-//randomWord = getrandom(dictionary)
-//console.log(randomWord)
 
+/* I want to create an array containing the word from dictionary and a ghost array containing '_' */
 const hiddenWord = randomWord => {
   for (let ele of randomWord) {
     wordMagic.push('_')
     goodWord.push(ele)
   }
-
-  //return wordMagic
 }
 
+/* I want to create a function that makes a new String using the correct guessed letter */
 const display = wordMagic => {
   for (let i = 0; i < wordMagic.length; i += 1) {
     if (i === wordMagic.length - 1) {
@@ -800,63 +821,59 @@ const display = wordMagic => {
     } else {
       displayW += wordMagic[i] + ' '
     }
-    //console.log(chalk.bgBlack(displayW))
   }
   return displayW
 }
 
-// console.log(hiddenWord(randomWord))
-// console.log(goodWord)
-//console.log(chalk.bgWhite(display(wordMagic)))
-// getValidLetterGuess()
-
+/* I want to verify the guessed word with the random word selected */
 const verification = (goodWord, guess) => {
+  isguessCorrect(goodWord, guess)
   for (let x = 0; x < goodWord.length; x += 1) {
     if (goodWord[x] === guess) {
       wordMagic[x] = guess
-      countoLose = timemachine
     }
   }
-  // console.log(wordMagic)
 }
 
-//verification(goodWord, guess)
+/* I want to count the number of failed attemps by the player */
+const isguessCorrect = (goodWord, guess) => {
+  if (!goodWord.includes(guess)) {
+    countoLose += 1
+  }
+}
 
+/* I want to create new Strings for later comparison */
 const equal = (goodWord, WordMagic) => {
   a = goodWord.join('')
-  //console.log(`string a : ${a}`)
-
   b = WordMagic.join('')
-  //console.log(`string b : ${b}`)
-
   return a === b
 }
 
+/* I want to control flow the game */
 const letsPlay = () => {
   console.clear()
   randomWord = getrandom(dictionary)
   hiddenWord(randomWord)
-  opportunity = goodWord.length
+  opportunity = goodWord.length         // I match the lenght of the randomword with the number of guesses, to make it fair
 
-  console.log(`\n\t\t * * WELCOME TO SNOWMAN * *`)
-  console.log(`\nHi  ${chalk.italic.redBright('user')}  your word is : `)
-  console.log(chalk.bold(`\n${display(wordMagic)}`))
+  console.log(`\n\t\t\t\t * * WELCOME TO SNOWMAN * *`)
+  console.log(`\nHi  ${chalk.italic.redBright('user')}  your word is  : `)
+  console.log(chalk.bold(`\n\t\t\t\t   ${display(wordMagic)}`))
 
   while (countoLose < opportunity) {
-    console.log(`\nGuessed letters : ${guessedLetters}`)
+    console.log(`\nGuessed letters         :\t   ${guessedLetters}`)
     console.log(
       `\nYou have ${chalk.italic.cyanBright(
         opportunity - countoLose
-      )} guesses left..`
+      )} guesses left`
     )
 
     getValidLetterGuess()
-
     verification(goodWord, guess)
-    //console.log(`goodword : ${goodWord}`)
-    //console.log(`wordMAgic: ${wordMagic}`)
 
     if (equal(goodWord, wordMagic)) {
+      displayW = ''
+      console.log(chalk.bold(`\n\t\t\t\t   ${display(wordMagic)}`))
       console.log(chalk.greenBright(`\n\tCongratulations.. You WON !!`))
       console.log(
         chalk.yellowBright(
@@ -864,31 +881,32 @@ const letsPlay = () => {
             guessedLetters.length
           )}  turns`
         )
-        
       )
       readline.question(chalk.gray(`\n\nPress enter to continue..`), {
         hideEchoBack: true
       })
-    
-      countoLose *= 100
+      break
     } else {
       displayW = ''
-      console.log(chalk.bold(`\n${display(wordMagic)}`))
+      console.log(chalk.bold(`\n\t\t\t\t   ${display(wordMagic)}`))
     }
   }
 
-  //console.log(countoLose)
-
-  if (countoLose === opportunity && countoLose < 100) {
+  if (countoLose === opportunity) {
     displayW = ''
     console.log(
       chalk.redBright(`\n\nGAME OVER , It looks like you run out of turns..`)
     )
-    console.log(`\n\nYour word was : ${display(goodWord)}`)
+    console.log(
+      `\n\n\tYour word was   :\t   ${chalk.greenBright(display(goodWord))}`
+    )
     readline.question(chalk.gray(`\n\nPress enter to continue..`), {
       hideEchoBack: true
     })
   }
 }
+
+
+/* Execution of the Game */
 
 letsPlay()
