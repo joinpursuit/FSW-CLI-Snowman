@@ -18,10 +18,6 @@ let totNumOfGuess = 0
 let numOfGuess = 10
 let listOfGuess = {} 
 
-
-
-
-
 let randomWord = ()=> {
   let string = ''
   let randomNum =Math.floor(Math.random()* dictionary.length)
@@ -35,7 +31,6 @@ let randomWord = ()=> {
     blank =''
     for(let i = 0; i< hiddenWord.length;i++){
         blank = `${blank} _`
-  
     }
     return blank
   }
@@ -67,8 +62,6 @@ function getValidLetterGuess (){
 }
 let guess = getValidLetterGuess()
 
-
-
 function lowerByOne  () {
   let array = hiddenWord.split('')
   let wrong = (element) => element !== guess;
@@ -83,10 +76,9 @@ console.log(`you have ${numOfGuess} guesses remaining.`)
 }
 }
 
-
-
 function winLose () {
-if(hiddenWord === blank){
+  let compair = blank.split(" ").join("")
+if(hiddenWord === compair){
   console.log(`You've defeated the snowman. Congratulations!! \n ${totNumOfGuess}`)
 } else if(numOfGuess<=0){
   console.log(`You've been defeated by the snowman. \n The word was ${hiddenWord}`)
@@ -94,15 +86,10 @@ if(hiddenWord === blank){
 }
 }
 winLose()
-
-
 console.log(hiddenWord)
 
 
-
-
 function numPreviousGuessed () {
-
   if(listOfGuess.hasOwnProperty(guess)){
   listOfGuess[guess] = listOfGuess[guess] + 1;
 } else if(!listOfGuess.hasOwnProperty(guess)){
@@ -113,10 +100,6 @@ console.log(`Previous guesses:`, listOfGuess)
 
 }
 numPreviousGuessed()
-// console.log(listOfGuess)
-
-
-
 
 
 // Function to fill in guessed word
@@ -129,28 +112,19 @@ function filler  () {
      array = blank.split(' ')
      array.shift()
      array.splice(i,1,letter)
-     array.unshift()
+     array.unshift('')
      blank= array.join(' ')
-      } else{
-        
+      } else{  
       }
-    })
-   
+    })  
 }
 filler()
 console.log(blank)
 
 
-
-
   console.log(numOfGuess)
   lowerByOne()
-  // console.log(numOfGuess)
-
-
-
-
-
+ 
 
 console.log(`Your total Number of Guesses is: ${totNumOfGuess}`)
 
