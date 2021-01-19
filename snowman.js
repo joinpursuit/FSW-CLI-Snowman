@@ -35,7 +35,7 @@ function getValidLetterGuess() {
     return letter.toLowerCase()
   }
 
-  let name = readline.question(`\n\t\tWelcome to the Snowman game﹗
+  let name = readline.question(`\n\t\tWelcome to the Snowman game ⛄️ !
   \n\t\tHere you will be presented with random words
   \t\twith a certain amount of guesses to figure out what the word is.
   \n\t\tWhat's your name player? `);
