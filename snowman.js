@@ -28,8 +28,8 @@ function snowmanIntro () {
   "\n There will be 8 chances for you to guess the letters in the word." +
   "\n When the letter you guessed is correct, it will appeared in the corresponding spot." +
   "\n When the letter you guessed is not in the word, you will be prompted to guess again and lose a guessing chance." +
-  "\n In order to win, you must guess all the letters in the word before your guessing chances reach 0." +
-  "\n Or else, you lose!")
+  "\n In order to win, you must guess all the letters in the word before your guessing chances reaches 0." +
+  "\n Or else, you lose :(")
   let playOrNot = readline.question("\nWould you like to play? [Please enter: Yes(Y) or No(N)]\n")
   playOrNot.toLowerCase() === "yes" || playOrNot.toLowerCase() === "y" ? gameLoop() : quitGame()
 }
@@ -57,13 +57,17 @@ const gameLoop = () => {
 }
 
 const letterReveal = () => {
-  for (let i = 0; i < object.randomDictionaryWordArray.length; i ++) {
+  while (object.guesses !==0) {
+    getValidLetterGuess()
+    for (let i = 0; i < object.randomDictionaryWordArray.length; i ++) {
     if(object.letter === object.randomDictionaryWordArray[i]) {
-      entireUnderdash[2*i] = object.letter
+      object.entireUnderdash[i] = object.letter
     }
+    // for(let i = 0; i <)
   }
   console.log(object.entireUnderdash)
   // test the game 
+  }
 }
 
 
@@ -84,16 +88,16 @@ function getValidLetterGuess() {
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
   }
-  letter = ""
-  while (!letter) {
+  object.letter = ""
+  while (!object.letter) {
     let input = readline.question("\nPlease enter your guess: ")
     if (guessIsValid(input)) {
-      letter = input
+      object.letter = input
     } else {
       console.log("Please enter a valid letter")
     }
   }
-  return letter.toLowerCase()
+  return object.letter.toLowerCase()
 }
 
 
