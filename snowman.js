@@ -3,17 +3,17 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 
 function getValidLetterGuess() {
-  function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
-  }
-  let letter = ""
-  while (!letter) {
-    let input = readline.question("Please enter your guess: ")
-    if (guessIsValid(input)) {
-      letter = input
-    } else {
-      console.log("Please enter a valid letter")
+    function guessIsValid(letter) {
+        return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
     }
-  }
-  return letter.toLowerCase()
+    let letter = ""
+    while (!letter) {
+        let input = readline.question("Please enter your guess: ")
+        if (guessIsValid(input)) {
+            letter = input
+        } else {
+            console.log("Please enter a valid letter")
+        }
+    }
+    return letter.toLowerCase()
 }
