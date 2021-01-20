@@ -15,23 +15,28 @@ let word = wordGrab()//our word to guess
 
 
 let chances = word.length + 3
-console.log(`${chances} chances left`)//one guess for each letter plus three more chances
 
-let guesses = 0//number of mistakes
-let shadowClone = []
+
+let guesses = 0//number of inputs made
+let fireball = []
 let snowballs = []//letters that were mistakes
 for (let i = 0; i < word.length; i++) {
   snowballs.push('_')
 }
 snowballs = snowballs.join(' ')//turn word into blanks
-console.log(snowballs) 
+
 start = () => {
-  let starter = readline.keyInYN('Do you wanna build a Snowmannnnn? ')
+  let starter = readline.keyInYN('D O   Y O U   W A N N A   B U I L D   A   S N O W M A N N N N? ')
   if (starter === false) {
     console.log('Welcome to Snowman!')
     console.log('Try to flip the blanks by guessing the right letters!')
-    console.log('Mistakes will be kept in Hidden Word: , and all guesses will be counted!')
+    console.log('Mistakes will be kept in Snowballs: , and all guesses will be counted!')
+    console.log(`${chances} chances left`)//one guess for each letter plus three more chances
+    console.log(snowballs)
     getValidLetterGuess()
+    guessIsValid()
+  } else {
+    console.log()
   }
  }
 
@@ -42,11 +47,28 @@ start = () => {
     }
     let letter = ""
     while (!letter) {
+      console.log(fireball)
+      console.log(`Chances left: ${chances}`)
+      console.log(`Snowballs: ${snowballs}`)
       let input = readline.question("Please enter your guess: ")
       if (guessIsValid(input)) {
+        console.log(word)
+        word.split('').some((elem) => input === elem);
+         
+        if ( elem === true) {
+          letterCheck.includes()
+        }
+        
+        console.log(`${guesses++} guesses made so far!`)
         letter = input
+        fireball.push(letter)
+      
+        getValidLetterGuess()
       } else {
+        console.log(`${guesses++}`)
         console.log("Please enter a valid letter")
+        fireball.push(input)
+        getValidLetterGuess()
       }
     }
     return letter.toLowerCase()
