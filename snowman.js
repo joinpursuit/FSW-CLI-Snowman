@@ -81,7 +81,7 @@ function getValidLetterGuess() {
     if(newArr.includes(guessesPlay)){
       rightGuess(newArr, guessesPlay)
     }else if(userStatus.guessedLetters.includes(guessesPlay)){
-      console.log((`You have pick up that letter already. Try again`.toUpperCase()))
+      console.log((`You have picked that letter already. Try again`.toUpperCase()))
       letterGuessed()
     }else{
       wrongguess()
@@ -118,10 +118,10 @@ function getValidLetterGuess() {
     countTotalGuessed++
     console.log(`you guessed incorrectly. Guess again `)
     console.log(answerUser)
-    if(userStatus.guessedNum === 0) {
+    if (userStatus.guessedNum === 0) {
       console.log(`\nYou did not get it this time`)
       console.log(`\nThe word was ` + emptyStr)
-    }else{
+    } else {
       letterGuessed()
     }
   }
