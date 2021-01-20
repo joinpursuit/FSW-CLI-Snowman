@@ -40,6 +40,8 @@ Copy the user stories from the Trello board [here](https://trello.com/b/8OErA3xI
 - Handle invalid guesses by displaying a message and having the user enter a different guess.  Invalid guesses don't count against the guess count.
 - After each guess, the user should see the new updated word, replacing all `_` with letters they have guessed
 - After each guess, the user should see the letters they have guessed already
+- After each incorrect guess, the number of guesses should decrease.
+- After each correct guess, the number of guesses should stay the same.
 
 ### As a user, I should know how many guesses I have left
 
