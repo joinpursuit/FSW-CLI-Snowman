@@ -4,9 +4,10 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 let randomWord = dictionary[Math.floor(Math.random() * dictionary.length)]
 console.log(randomWord)
 let hiddenWord = []
-let count = 8
+//let count = 8
 let gameNotFinished = true 
-let usedLetters =[]
+//let usedLetters =[]
+let tracking = {count:8, usedLetters:[]}
 
 const welcome = () => {
   let name = readLineSync.question("Hello, what is your name? ")
@@ -59,17 +60,17 @@ const gameLoop = () =>{
   console.clear()
   while (gameNotFinished) {
       console.log(hiddenWord.join(" "))
-      console.log(`You have ${count} guesses left.`)
-      console.log("Incorrect letters guessed: " + usedLetters.join(" "))
+      console.log(`You have ${tracking.count} guesses left.`)
+      console.log("Incorrect letters guessed: " + tracking.usedLetters.join(" "))
       const letter = getValidLetterGuess()
-      if(usedLetters.includes(letter) || hiddenWord.includes(letter)){
+      if(tracking.usedLetters.includes(letter) || hiddenWord.includes(letter)){
          console.log(`Letter already guessed.`)
          console.clear()
       }else{
           console.clear()
-          count--
-          usedLetters.push(letter)
-          if(count === 0){
+          tracking.count--
+          tracking.usedLetters.push(letter)
+          if(tracking.count === 0){
               lost()
           }
       }
@@ -79,7 +80,7 @@ const gameLoop = () =>{
 
 
 const amountGuessed = () => {
-    let amount = 8 -  count
+    let amount = 8 -  tracking.count
     if (amount > 1) {
         console.log(`Congrats! You won! You guessed the word "${randomWord}" in ${amount} guesses.`)
         restartGame()
@@ -101,8 +102,10 @@ let restartGame = () =>{
     console.clear()
     hiddenWord = []
     gameNotFinished = [] 
-    count = 8
-    usedLetters = []
+  //  count = 8
+  //  usedLetters = []
+   tracking = {count:8, usedLetters:[]}
+
     randomWord = dictionary[Math.floor(Math.random() * dictionary.length)]
     buildBoard()
   }else{
