@@ -48,7 +48,7 @@ const playGame = () => {
     return el = "_"
   })
   obj.blankSpcStr = obj.blankSpc.join(" ");
-  console.log(obj.randomWrd)
+  //console.log(obj.randomWrd)
   getValidLetterGuess();
 
 }
@@ -56,6 +56,7 @@ const getValidLetterGuess = () => {
   const guessIsValid = (letter) => {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
   }
+  //console.log(obj)
   console.log(`\n${obj.blankSpcStr}`)
   console.log(`Wrong letters:`, chalk`{red ${obj.wrongLetters.join(" ")}}`)
   console.log(`${obj.guesses} guesses remaining`)
