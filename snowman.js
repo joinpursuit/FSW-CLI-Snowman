@@ -17,3 +17,9 @@ function getValidLetterGuess() {
   }
   return letter.toLowerCase()
 }
+
+const startGame = () => {
+  Math.random(dictionary)
+} 
+
+getValidLetterGuess()
