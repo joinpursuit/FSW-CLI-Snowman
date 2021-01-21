@@ -7,9 +7,12 @@ let answerArray = [];
 let remainingAttempts = 0;
 let takenAttempts = 0;
 let lettersObj = [{}, {}]
+let inputLetters;
+let attemptedLetters;
 
 const playGame = () => {
-  
+  attemptedLetters = [];
+  inputLetters = [];
   let word = dictionary[Math.floor(Math.random()*dictionary.length-1)]
   takenAttempts = 0;
   remainingAttempts = word.length + 2;
@@ -25,10 +28,17 @@ const playGame = () => {
     if(answerArray.includes("_")){
       console.log(`\t\t\tYou have ${remainingAttempts} number of remaining attempts.`);
       console.log(`\t\t\t${answerArray.join(" ")}`);
-      checkGuess(word, getValidLetterGuess());
+      let letter = getValidLetterGuess()
+      if(!attemptedLetters.includes(letter)){
+        checkGuess(word, letter);
+      }
     }else{
       console.log(`\t\t\t${answerArray.join(" ")}`);
       console.log(`\t\t\tCongrats! You took ${takenAttempts} number of attempts to guess ${word}.`);
+      console.log(`\t\t\tYou attempted following letters: `);
+      inputLetters.forEach((letter, index) => {
+        console.log(`\t\t\t${index+1}: ${letter}`)
+      })
       saveGuessedWord(word)
       rls.keyInYN("\t\t\tDo you want to play again?") ? welcomeAgain() : quitGame();
     }
@@ -38,22 +48,27 @@ const playGame = () => {
 
   console.clear();
   console.log("\t\t\tYou Lose! You have consumed all your attempts: The answer was " + word);
+  console.log(`\t\t\tYou attempted following letters: `);
+      inputLetters.forEach((letter, index) => {
+        console.log(`\t\t\t${index+1}: ${letter}`)
+      })
   saveNotGuessedWord(word)
   rls.keyInYN("\t\t\tDo you want to play again?") ? welcomeAgain() : quitGame();
 
 }
 const checkGuess = (word, letter) => {
-  if(word.split("").includes(letter)){
-    for(let i = 0; i<word.length; i++){
-      if(word[i] === letter){
-        answerArray[i] = letter;
+    if(word.split("").includes(letter)){
+      for(let i = 0; i<word.length; i++){
+        if(word[i] === letter){
+          answerArray[i] = letter;
+        }
       }
+      takenAttempts += 1;
+    }else{
+      remainingAttempts -= 1; 
+      takenAttempts += 1;
     }
-    takenAttempts += 1;
-  }else{
-    remainingAttempts -= 1;
-    takenAttempts += 1;
-  }
+    attemptedLetters.push(letter);
   return answerArray
 }
 
@@ -81,6 +96,7 @@ const getValidLetterGuess = () => {
 
   while (!letter) {
     let input = rls.question(`\t\t\t${playerName}! Please enter your guess: `)
+    inputLetters.push(input);
     if (guessIsValid(input)) {
       letter = input
     } else {
@@ -114,7 +130,7 @@ const quitGame = () => {
       console.log(`\t\t\t${key}:${lettersObj[0][key]} times`)
     }
   }else{
-    console.log(`You guessed no words.`)
+    console.log(`\t\t\tYou guessed no words.`)
   }
   console.log(`\t\t\t${playerName} has failed to guess following words: `)
   for(const key in lettersObj[1]){
