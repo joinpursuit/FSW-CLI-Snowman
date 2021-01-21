@@ -28,6 +28,10 @@ const playGame = () => {
     if(answerArray.includes("_")){
       console.log(`\t\t\tYou have ${remainingAttempts} number of remaining attempts.`);
       console.log(`\t\t\t${answerArray.join(" ")}`);
+      
+      inputLetters.forEach((letter, index) => {
+        console.log(`\t\t\tGuessed Word # ${index+1}: ${letter}`)
+      })
       let letter = getValidLetterGuess()
       if(!attemptedLetters.includes(letter)){
         checkGuess(word, letter);
