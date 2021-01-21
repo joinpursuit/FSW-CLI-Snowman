@@ -1,3 +1,6 @@
+### First completion of Candy's version of completed game
+![Candy-project](Snowman-node-terminal.gif)
+
 ## Command Line Snowman
 
 For this assignment, you will build a game of [snowman](https://benstone1.github.io/Snowman-App/) that lets you play in the terminal!
