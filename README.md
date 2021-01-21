@@ -1,5 +1,5 @@
 ### First completion of Candy's version of completed game
-![Candy-project](Snowman-node-terminal.gif)
+![Candy-project](assets/Snowman-node-terminal.gif)
 
 ## Command Line Snowman
 
