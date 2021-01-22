@@ -10,6 +10,7 @@ const {
   displayState,
   isGameOver,
   playAgain,
+  displayWinOrLose,
 } = require("./helpers");
 
 
@@ -21,26 +22,22 @@ function startGame() {
   while (!isGameOver(gameStats)) {
     console.clear();
     displayState(gameStats);
+    
     const guessedLetter = getValidLetterGuess(gameStats);
     gameStats.addGuessedLetter(guessedLetter);
-    if (gameStats.secretWord.includes(guessedLetter)) {
+
+    if (gameStats.secretWordIncludes(guessedLetter)) {
       gameStats.updateBoard(guessedLetter);
     } else {
-      gameStats.guessesRemaining--;
+      gameStats.decrementGuessesRemaining();
     }
   }
 
-  if (gameStats.didWin()) {
-    console.log("Congrats you won!");
-    displayBoard(gameStats.board);
-  } else {
-    console.log("You lost :-( ");
-    console.log(`secret word was: ${gameStats.secretWord}`);
-  }
-
+  displayWinOrLose(gameStats);
   playAgain(startGame);
-
 }
 
 
 startGame();
+
+

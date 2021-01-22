@@ -27,7 +27,15 @@ class GameStats {
   }
 
   didWin() {
-    return this.guessesRemaining > 0;
+    return this.guessesRemaining > 0 && !this.board.includes("_");
+  }
+
+  secretWordIncludes(letter) {
+      return this.secretWord.includes(letter);
+  }
+
+  decrementGuessesRemaining() {
+      this.guessesRemaining--;
   }
 }
 

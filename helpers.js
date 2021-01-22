@@ -55,6 +55,17 @@ function playAgain(startGame) {
   }
 }
 
+function displayWinOrLose(gameStats) {
+  if (gameStats.didWin()) {
+    console.log("Congrats you won!");
+    displayBoard(gameStats.board);
+  } else {
+    console.log("You lost :-( ");
+    console.log(`secret word was: ${gameStats.secretWord}`);
+  }
+}
+
+
 module.exports = {
   getValidLetterGuess,
   chooseRandomWord,
@@ -63,4 +74,5 @@ module.exports = {
   displayState,
   isGameOver,
   playAgain,
+  displayWinOrLose,
 };
