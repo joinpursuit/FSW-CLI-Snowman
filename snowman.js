@@ -50,7 +50,6 @@ const loop = ()=>{
 
 
 const generateWord = () =>{
-  
   emptyStr = dictionary[Math.floor(Math.random()* dictionary.length)]
   newArr = emptyStr.split('')
   newArr.forEach((elem) => {
@@ -58,7 +57,10 @@ const generateWord = () =>{
   })
   answerUser = answer.join(" ")
   console.log(answerUser + `\n`)
+  // generateButtons()
   letterGuessed()
+
+
 }
 
 
@@ -66,13 +68,14 @@ const generateWord = () =>{
 const letterGuessed = () => {
   if(userStatus.guessedNum === 1){
     console.log(`You have ` +  `${userStatus.guessedNum} `+ `incorrect guess left \n`)
-  }else{
+  }else {
     console.log(`You have ` + `${userStatus.guessedNum} ` + `incorrect guesses left \n`)
   } 
   guessesPlay = getValidLetterGuess()
+  
   if(newArr.includes(guessesPlay)){
     rightGuess(newArr, guessesPlay)
-  }else if(userStatus.guessedLetters.includes(guessesPlay)){
+  } else if(userStatus.guessedLetters.includes(guessesPlay)){
     console.log((`You have pick up that letter already. Try again`.toUpperCase()))
     letterGuessed()
   }else{
@@ -86,8 +89,12 @@ const rightGuess = (arr, v) => {
   arr.forEach((elem, i) => {
     if(elem === v){
       ind.push(i)
-    }
+    }else if(elem === elem)
+      console.log(`roberto`)
+    
+     
   })
+  
   ind.forEach((elem) => {
     answer.splice(elem, 1, guessesPlay)
   })
@@ -98,6 +105,10 @@ const rightGuess = (arr, v) => {
   countTotalGuessed++
   console.log(`Guesses letters =>` + " " + letterUnion)
   console.log(`\n ` + answerUser)
+  
+  // console.log( userStatus + `rdfff`)
+
+
   if(answer.indexOf('_') < 0){
     console.log(`"-Bravo-"`)
     console.log(`You win. You guessed the right word in: ` + countTotalGuessed + ` guesses`)
@@ -129,8 +140,12 @@ const wrongguess = () => {
   }
 }
 
+// const generateButtons = () =>{
+//   return "q,w,e,r,t,y,u,i,o,p,a,s,d,f,g,h,j,k,l,z,x,c,v,b,n,m".split("").map(letter =>({letter}))
+// }
 
 function getValidLetterGuess() { 
+
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
   }
