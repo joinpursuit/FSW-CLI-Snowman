@@ -743,7 +743,6 @@ const dictionary = [
   "yesterday",
   "young",
 ];
-
 let gameState = {guess: 7, lettersGuessed:[], word: "", dasher: ""};
 function randomWord() {
   let index = Math.floor(Math.random() * dictionary.length); // or 742
@@ -775,23 +774,25 @@ function getValidLetterGuess() {
   }
   return letter.toLowerCase();
 }
+function updateDasher(guess){
+if(gameState.word.includes(guess)){
+  gameState.lettersGuessed.push(guess)
+  console.log(`You've guessed: ${gameState.lettersGuessed}`)
+  console.log(`You have ${gameState.guess} remaining guesses`)
+ } else {
+  gameState.guess--
+ }
 
+}
 const gameLoop = () => {
   while(gameState.guess > 0){
-  
-}
   console.log(gameState.word);
   console.log(gameState.dasher);
-  // store user's input
   let guess = getValidLetterGuess();
-  // compare input to word and then update dash line
-  if(word.includes(guess)){
-    gameState.guess--
-    lettersGuessed['letter'] = guess
-    console.log(`You've guessed: ${gameState.lettersGuessed}`)
-    console.log(`You have ${gameState.guess} remaining guesses`)
-  }
+  updateDasher(guess)
 
+
+}
 };
 const startGame = () => {
   console.log("Let's put this snowman together");
