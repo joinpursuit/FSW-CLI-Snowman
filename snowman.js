@@ -744,11 +744,7 @@ const dictionary = [
   "young",
 ];
 
-let guessCount = { guesses: 7 };
-let lettersGuessed = {};
-// let word = randomWord();
-// let dasher = wordConverter(word.length);
-
+let gameState = {guess: 7, lettersGuessed:[], word: "", dasher: ""};
 function randomWord() {
   let index = Math.floor(Math.random() * dictionary.length); // or 742
   return dictionary[index];
@@ -781,27 +777,33 @@ function getValidLetterGuess() {
 }
 
 const gameLoop = () => {
-  console.clear();
-  // generate word and store in variable
-  let word = randomWord();
-  console.log(word);
-  // generate dash and store in variable
-  let dash = wordConverter(word.length);
-  console.log(dash);
+  while(gameState.guess > 0){
+  
+}
+  console.log(gameState.word);
+  console.log(gameState.dasher);
   // store user's input
-  let newLetter = getValidLetterGuess();
+  let guess = getValidLetterGuess();
   // compare input to word and then update dash line
+  if(word.includes(guess)){
+    gameState.guess--
+    lettersGuessed['letter'] = guess
+    console.log(`You've guessed: ${gameState.lettersGuessed}`)
+    console.log(`You have ${gameState.guess} remaining guesses`)
+  }
 
 };
 const startGame = () => {
   console.log("Let's put this snowman together");
-  console.log(`You have ___ guesses`);
+  console.log(`You have ${gameState.guess} guesses`);
+  gameState.word = randomWord()
+  gameState.dasher = wordConverter(gameState.word.length)
   gameLoop();
 };
 const endGame = () => {};
 const winner = () => {
   console.log(
-    `WOW! You won, and it only took you ${guessCount} guesses! You got it right, the word is indeed ${word}!`
+    `WOW! You won, and it only took you ${gameState.guess} guesses! You got it right, the word is indeed ${word}!`
   );
 };
 const playAgain = () => {
