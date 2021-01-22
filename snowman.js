@@ -41,6 +41,8 @@ const guessTheSecret = () => {
     console.log(`You have ${guessCount.maxGuess} guesses left`) // or it would log the many guesses that the player would have left 
   } else {
     console.log(`You have ${guessCount.maxGuess} guess left`)
+    console.log("Dang! You ran out of guesses!")
+    resetGame();
   }
   guess = getValidLetterGuess() //Assigning guess so that guess could be the getValidLetterGuess function
   if(guessCount.usedLetter.includes(guess)) { // Here I set the condition that the value of the guess is being entered again
@@ -77,6 +79,10 @@ const guessRight = (dash, guess) => { // Setting the two a param makes it easier
     // If the guess is wrong,  Go into the wrongGuess function 
    // No need for an else statement 
     guessCount.maxGuess -- 
+    if (guessCount.maxguess == 0) {
+      console.log("Dang! You ran out of guesses!")
+      resetGame();
+    }
   }
   secretAnswer = eachDash.join(" ") //
   guessCount.usedLetter.push(guess)
@@ -95,16 +101,16 @@ const guessRight = (dash, guess) => { // Setting the two a param makes it easier
 
 
 //guessWrong
-const guessWrong = () => {
+const guessWrong = (guess) => {
   guessCount.usedLetter.push(guess)
   usedLettersTogether = guessCount.usedLetter.join (" ")
   console.log(`Letters you have used : ${usedLettersTogether}`)
   guessCount.maxGuess -- // Need to set an command that decreses the maxGuess # each time the player gets it wrong 
-  // console.log(`Yikes! Try again!`)
+  console.log(`Yikes! Try again!`)
   console.log(secretAnswer)
-  if (guessCount.maxGuess === 0 ) {
+  if (guessCount.maxGuess == 0 ) {
     // command the game to stop 
-    console.log(`Dang! You have no chances left! You lose!`) 
+    // console.log(`Dang! You have no chances left! You lose!`) 
     resetGame();
   } else {
     guessTheSecret();
@@ -124,7 +130,8 @@ function getValidLetterGuess() {
       guessRight(dash, letter);
     } else {
       console.log("Please enter a valid letter")
-    }
+      
+    } 
   }
   return letter.toLowerCase()
 }
