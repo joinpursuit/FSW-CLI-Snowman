@@ -2,7 +2,7 @@
 
 For this assignment, you will build a game of [snowman](https://benstone1.github.io/Snowman-App/) that lets you play in the terminal!
 
-![Snowman Gif](./cassidybeni/Desktop/snowman_gif.gif)
+![Snowman Gif](https://github.com/cassidybeni/FSW-CLI-Snowman/blob/master/snowman_gif.gif)
 
 ## Setup Instructions
 
