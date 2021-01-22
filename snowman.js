@@ -65,15 +65,16 @@ function gameLoop() {
   let randomWord = dictionary[getRandomIndex()]
   let secretWord = []
   generateSecretWord(randomWord, secretWord)
-  console.log(randomWord)
+  console.log(secretWord.join(' '))
+  
   while (myStats.guessesLeft > 0) {
+    console.log("Guesses left: " + myStats.guessesLeft);
     let myLetter = getValidLetterGuess();
     isLetterInWord(myLetter, myStats, randomWord, secretWord);
     myStats.numOfGuessesUsed++
     console.log(secretWord.join(' '));
     finished(secretWord, myStats.numOfGuessesUsed);
     console.log("Wrong previous guesses: " + myStats.guessedLetters);
-    console.log("Guesses left: " + myStats.guessesLeft);
   }
   console.log("You are out of guesses. You lost.")
   console.log(`The word was "${randomWord}"`)
