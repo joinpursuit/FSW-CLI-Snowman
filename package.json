@@ -4,7 +4,10 @@
   "description": "![Hangman Gif](https://github.com/joinpursuit/Pursuit-Core-Web-Hangman/blob/master/hangmanWebGif.gif)",
   "main": "hangman.js",
   "dependencies": {
-    "readline-sync": "^1.4.10"
+    "chalk": "^4.1.0",
+    "figlet": "^1.5.0",
+    "readline-sync": "^1.4.10",
+    "typewriter-effect": "^2.17.0"
   },
   "devDependencies": {},
   "scripts": {

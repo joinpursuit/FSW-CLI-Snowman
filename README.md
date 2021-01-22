@@ -1,3 +1,6 @@
+### First completion of Candy's version of completed game
+![Candy-project](assets/Snowman-node-terminal.gif)
+
 ## Command Line Snowman
 
 For this assignment, you will build a game of [snowman](https://benstone1.github.io/Snowman-App/) that lets you play in the terminal!
@@ -28,7 +31,7 @@ For this assignment, you will build a game of [snowman](https://benstone1.github
 
 ## User Stories
 
-Copy the user stories from the Trello board [here](https://trello.com/b/8OErA3xI/command-line-snowman-project-plan) into your own board.
+Copy the user stories from the Trello board [here](https://trello.com/b/r3yNWaJz/candy-command-line-snowman-project-plan) into your own board.
 
 ### As a user, I should be presented with a random word to guess
 
