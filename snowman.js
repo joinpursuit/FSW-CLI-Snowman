@@ -1,40 +1,26 @@
-const readline = require("readline-sync");
-const dictionary = require("./dictionary");
-const GameStats = require("./gameStats");
-
-const {
-  getValidLetterGuess,
-  chooseRandomWord,
-  makeBoard,
-  displayBoard,
-  displayState,
-  isGameOver,
-  playAgain,
-  displayWinOrLose,
-} = require("./helpers");
-
+const Game = require("./game");
 
 function startGame() {
-  const gameStats = new GameStats()
-  gameStats.secretWord = chooseRandomWord(dictionary);
-  gameStats.board = makeBoard(gameStats.secretWord.length);
+  const game = new Game()
+  game.assignRandomSecretWord();
+  game.makeBoard();
 
-  while (!isGameOver(gameStats)) {
+  while (!game.isGameOver()) {
     console.clear();
-    displayState(gameStats);
+    game.displayState();
     
-    const guessedLetter = getValidLetterGuess(gameStats);
-    gameStats.addGuessedLetter(guessedLetter);
+    const guessedLetter = game.getValidLetterGuess();
+    game.addGuessedLetter(guessedLetter);
 
-    if (gameStats.secretWordIncludes(guessedLetter)) {
-      gameStats.updateBoard(guessedLetter);
+    if (game.secretWordIncludes(guessedLetter)) {
+      game.updateBoard(guessedLetter);
     } else {
-      gameStats.decrementGuessesRemaining();
+      game.decrementGuessesRemaining();
     }
   }
 
-  displayWinOrLose(gameStats);
-  playAgain(startGame);
+  game.displayWinOrLose();
+  game.playAgain(startGame);
 }
 
 
