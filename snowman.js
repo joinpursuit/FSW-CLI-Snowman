@@ -40,10 +40,11 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
   let word = ""            // word to guess str ,
   let theHiddenWord = ""    //blocking view of word      
   let inputLetter 
+  let tempHiddenWordArr
   let correctIndex 
   let inputLetterCorrect 
   let userData = {
-   guessCount : 9,     // guess count num , 
+   guessCount : 10,     // guess count num , 
    correctGuesses : "",   // correct guesses arr, 
    wrongGuesses : ""    // wrong guesses arr 
   }
@@ -59,7 +60,7 @@ function getValidLetterGuess() {
     if (guessIsValid(input)) {
       letter = input
     } else {
-      console.log("Please enter a valid letter")
+      console.log(`Please enter a valid letter \n`)
     }
   }
   return letter.toLowerCase()
@@ -71,38 +72,32 @@ function getValidLetterGuess() {
  const gameLoop = () =>{
   randomWord()
   hideWord(word)
+  console.log(` Lets melt the truth out by playing this guessing game! \n
+  You get ${userData.guessCount} guesses and here we go!\n`)
+  console.log(theHiddenWord + `\n`)
   while(userData.guessCount > 0){
     inputLetter = getValidLetterGuess()
+    console.log(`\n`)
     checkTarget(word, inputLetter)
-    checkIfWon(word,theHiddenWord)
-    
-    
-    
-    
-    console.log("Correct Guesses: " + userData.correctGuesses)
-    console.log("Wrong Guesses: " + userData.wrongGuesses)
-    console.log(word) // testing purposes 
-    console.log(theHiddenWord) // testing 
-    // console.log(inputLetter)
-    // console.log(correctIndex)
-    
-    console.log("your guess count " + userData.guessCount)
+    checkIfWon(word,theHiddenWord) 
+    console.log(`Guessed Letters: ${userData.wrongGuesses+ userData.correctGuesses} \n`)
+    console.log(`Your guess count: ${userData.guessCount} \n`)
   }
-  
+  console.log(`The correct word was ${word} \n`)
   
   endGame()
  }
 
  const randomWord = ( ) =>{
    word = dictionary[ Math.floor(Math.random() * dictionary.length)]
-   return word 
+   return word  // string 
  }
 
- const hideWord = ( word ) =>{
+ const hideWord = ( word ) =>{  //string
    for(let i = 0; i < word.length; i++){
      theHiddenWord += "*" 
    }
-   return theHiddenWord
+   return theHiddenWord  // string 
  }
 
  const endGame = () =>{
@@ -111,7 +106,7 @@ function getValidLetterGuess() {
 
  }
 
- const checkTarget = (str, target) =>{
+ const checkTarget = (str, target) =>{  // strings 
   let tempWordArr = str.split("")
      if(str.includes(target)){
        inputLetterCorrect = inputLetter  
@@ -123,13 +118,12 @@ function getValidLetterGuess() {
               userData.correctGuesses = target + userData.correctGuesses
               correctIndex = i
               userData.guessCount--
-              replaceCorrectWord(correctIndex,theHiddenWord,inputLetter)
-              return 
+              theHiddenWord = replaceCorrectWord(correctIndex,theHiddenWord,inputLetterCorrect)
             } 
-          }
+          }return 
         }
       }else if( userData.wrongGuesses.includes(target)){
-        return console.log("invalid guess try again")
+        return console.log(`Invalid guess try again! \n`)
       }else if(!userData.wrongGuesses.includes(target)){
         userData.wrongGuesses = target + userData.wrongGuesses
         userData.guessCount--
@@ -142,16 +136,18 @@ function getValidLetterGuess() {
  
 const checkIfWon = (str1,str2) =>{
   if (str1 === str2) {
-    return console.log("congrats you won")
+    console.log(`congrats you won, it took you ${10 - userData.guessCount} guesses`)
+    console.log(`The  correct word was ${word}`)
+    endGame()
   }else{
-    console.log(str2)
-    return "keep trying"
+    console.log(str2 + `\n`)
+    return console.log(`Keep trying, youre still not done \n`)
   }
 }
 
 const replaceCorrectWord = (index,theHiddenWord,inputLetterCorrect) =>{
-  let tempHiddenWordArr = theHiddenWord.split("")
-   tempHiddenWordArr.splice(index,1,inputLetterCorrect)
+   tempHiddenWordArr = theHiddenWord.split("")
+   tempHiddenWordArr[index] = inputLetterCorrect
    theHiddenWord = tempHiddenWordArr.join("")
 return theHiddenWord
 }
