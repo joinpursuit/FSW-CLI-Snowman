@@ -120,7 +120,7 @@ const guessWrong = (guess) => {
 //getValidLetterGuess
 function getValidLetterGuess() {
   function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase() && !guessCount.usedLetter.includes(letter)
   }
   let letter = ""
   while (!letter) {
