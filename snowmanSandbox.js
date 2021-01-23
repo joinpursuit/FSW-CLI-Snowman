@@ -146,16 +146,6 @@ const guessesMade = (userInput) => {
 }
 
 /** 
- * LOWERCASE/UPPERCASE
- * Matches the case regardless whether the user inputs lower or uppercase letters.
-*/
-const swapCase = (userInput) => {
-  return userInput.replace(/([a-z]+|([A-Z]+))/g, function(match,char) {
-      return char ? match.toUpperCase() : match.toLowerCase();
-  });
-}
-
-/** 
  * GAME OVER
  * Calls game over when the user loses.
 */
@@ -203,4 +193,14 @@ startGame()
 //       console.log(`Guessed letters: ${wrongGuessArray}`)
 //     }
 //   }
+// }
+
+/** 
+//  * LOWERCASE/UPPERCASE
+//  * Matches the case regardless whether the user inputs lower or uppercase letters.
+// */
+// const swapCase = (userInput) => {
+//   return userInput.replace(/([a-z]+|([A-Z]+))/g, function(match,char) {
+//       return char ? match.toUpperCase() : match.toLowerCase();
+//   });
 // }
