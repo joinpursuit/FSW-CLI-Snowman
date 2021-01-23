@@ -45,35 +45,47 @@ function chooseAWord () {
 }
 
 
+const replaceABlank = () => {
+  for (let i = 0; i < object.randomDictionaryWord.length; i++) {
+    if (object.randomDictionaryWord[i] === object.letter) {
+      object.underdash[i * 2] = object.randomDictionaryWordArray[i]
+      object.arrayCurrentSolvedWord[i] = object.randomDictionaryWordArray[i]
+    }
+  }
+}
+
+const guessCorrectionFactor= () => {
+  for (let i = 0; i < object.randomDictionaryWord.length; i++) {
+    if (object.randomDictionaryWord[i] === object.letter) {
+      object.guesses = object.guesses + 1
+        break
+    }
+  }
+  object.guesses = object.guesses - 1
+  object.guessesCounter = object.guessesCounter + 1
+}
+
+const win = () => {
+  if (object.currentSolvedWord === object.randomDictionaryWord) {
+    console.log("\x1b[33m%s\x1b[0m", "\nCongrats! You won the game! " + `The word was "${object.randomDictionaryWord}"`)
+    console.log("You won the game in " + object.guessesCounter + " guesses!")
+    restartGame()
+  }
+}
+
 const gameLoop = () => {
   chooseAWord()
   while (object.guesses !== 0) {
     getValidLetterGuess()
     object.randomDictionaryWordArray = object.randomDictionaryWord.split('')
     object.underdash = object.entireUnderdash.split('')
-    for (let i = 0; i < object.randomDictionaryWord.length; i++) {
-      if (object.randomDictionaryWord[i] === object.letter) {
-        object.underdash[i * 2] = object.randomDictionaryWordArray[i]
-        object.arrayCurrentSolvedWord[i] = object.randomDictionaryWordArray[i]
-      }
-    }
-    for (let i = 0; i < object.randomDictionaryWord.length; i++) {
-        if (object.randomDictionaryWord[i] === object.letter) {
-          object.guesses = object.guesses + 1
-            break
-        }
-    }
-    object.guesses = object.guesses -1
-    object.randomDictionaryWord = object.randomDictionaryWordArray.join('')
+    replaceABlank()
+    guessCorrectionFactor()
     object.entireUnderdash = object.underdash.join('')
     object.currentSolvedWord = object.arrayCurrentSolvedWord.join('')
-    if (object.currentSolvedWord === object.randomDictionaryWord) {
-      console.log("\x1b[33m%s\x1b[0m", "\nCongrats! You won the game! " + `The word was "${object.randomDictionaryWord}"`)
-      console.log("You won the game in " + object.guessesCounter + " guesses!")
-      restartGame()
-    }
+    win()
     console.log(object.entireUnderdash)
-    showGuessedWord()
+    showGuessedLetters()
   }
   guessLeftCounter()
 }
@@ -83,7 +95,6 @@ function repeatletters (letter) {
     return true 
   }
 }
-
 
 function getValidLetterGuess() {
   guessLeftCounter()
@@ -102,11 +113,11 @@ function getValidLetterGuess() {
       console.log("\nPlease enter a valid letter from A - Z!")
     }
   }
-  // object.guessesCounter = object.guessesCounter ++
   return object.letter.toLowerCase()
 }
 
 const restartGame = () => {
+  console.clear()
   leaveOrNot = readline.question(`\nWould you like to play again ${object.nameInput}? [Please enter: Yes(Y) or No(N)]\n`)
   if(leaveOrNot.toLowerCase() === "y" || leaveOrNot.toLowerCase() === "yes") {
     console.log("\nThat's the spirit, lets play again!~")
@@ -130,7 +141,7 @@ const restartGame = () => {
   }
 }
 
-function showGuessedWord() {
+function showGuessedLetters() {
   console.log('\nThese are the list of letters you have already guessed:')
   if (object.guessedLettersArray.length === 0) {
     object.guessedLettersArray.push(object.letter)
