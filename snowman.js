@@ -16,39 +16,10 @@ let object = {
   leaveOrNot: "",
 }
 
-
-const restartGame = () => {
-  leaveOrNot = readline.question(`\nWould you like to play again ${object.nameInput}? [Please enter: Yes(Y) or No(N)]\n`)
-  // leaveOrNot = readline.keyInYN(`\nWould you like to play again ${nameInput}?\n`)
-  if(leaveOrNot.toLowerCase() === "y" || leaveOrNot.toLowerCase() === "yes") {
-    console.log("\nThat's the spirit, lets play again!~")
-    object = {
-      randomDictionaryWord: dictionary[Math.floor((dictionary.length -1) * (Math.random()))],
-      randomDictionaryWordArray: [],
-      underdash: [],
-      entireUnderdash: "",
-      letter: "",
-      guessedLetters: "",
-      guessedLettersArray: [],
-      guesses: 8,
-      guessesCounter: 0,
-      arrayCurrentSolvedWord: [],
-      currentSolvedWord: "",
-      leaveOrNot: "",
-    }
-    gameLoop()
-  } else {
-    quitGame()
-  }
-}
-
-
 const quitGame = () => {
   console.log("Goodbye! Have a nice life! ~")
   process.exit()
 }
-
-
 
 function snowmanIntro () {
   let nameInput = readline.question ("\nWhat is your name?\n")
@@ -64,7 +35,6 @@ function snowmanIntro () {
   playOrNot.toLowerCase() === "yes" || playOrNot.toLowerCase() === "y" ? gameLoop() : quitGame()
 }
 
-
 function chooseAWord () {
   object.randomDictionaryWordArray = object.randomDictionaryWord.split("")
   object.randomDictionaryWordArray.forEach((elem) => {
@@ -72,11 +42,9 @@ function chooseAWord () {
   })
   object.entireUnderdash = object.underdash.join(" ")
   console.log(`\n${object.entireUnderdash}`)
-  // console.log(`You have ${object.guesses} guesses to start with.`)
 }
 
 
-// loop and push 
 const gameLoop = () => {
   chooseAWord()
   while (object.guesses !== 0) {
@@ -100,7 +68,7 @@ const gameLoop = () => {
     object.entireUnderdash = object.underdash.join('')
     object.currentSolvedWord = object.arrayCurrentSolvedWord.join('')
     if (object.currentSolvedWord === object.randomDictionaryWord) {
-      console.log("\nCongrats! You won the game!\n" + `Yay! You won! The word was "${object.randomDictionaryWord}"`)
+      console.log("\x1b[33m%s\x1b[0m", "\nCongrats! You won the game! " + `The word was "${object.randomDictionaryWord}"`)
       console.log("You won the game in " + object.guessesCounter + " guesses!")
       restartGame()
     }
@@ -109,28 +77,6 @@ const gameLoop = () => {
   }
   guessLeftCounter()
 }
-
-
-function showGuessedWord() {
-  console.log('\nThese are the list of letters you have already guessed:')
-  if (object.guessedLettersArray.length === 0) {
-    object.guessedLettersArray.push(object.letter)
-  }
-  else {
-    object.guessedLettersArray.push((', ' + object.letter))
-  }
-  object.guessedLetters = object.guessedLettersArray.join('')
-  console.log(object.guessedLetters)
-}
-function guessLeftCounter() {
-  console.log("\nYou have " + object.guesses + " guess/guesses remaining.\n")
-  if (object.guesses === 0) {
-    console.log("\nSorry! You ran out of guesses, you lost!")
-    console.log(`The word was ${object.randomDictionaryWord}`)
-    restartGame()
-  }
-}
-
 
 function repeatletters (letter) {
   if ((object.guessedLetters.includes(letter))) {
@@ -146,22 +92,65 @@ function getValidLetterGuess() {
   }
   object.letter = ""
   while (!object.letter) {
-    let input = readline.question("Please enter your guess: \n")
+    let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       object.letter = input
       if (repeatletters(input)) {
-        console.log("You guessed this letter already!")
+        console.log("\x1b[33m%s\x1b[0m", "\nYou guessed this letter already!")
       } 
     } else {
       console.log("\nPlease enter a valid letter from A - Z!")
     }
   }
-  object.guessesCounter = object.guessesCounter + 1
+  // object.guessesCounter = object.guessesCounter ++
   return object.letter.toLowerCase()
 }
 
+const restartGame = () => {
+  leaveOrNot = readline.question(`\nWould you like to play again ${object.nameInput}? [Please enter: Yes(Y) or No(N)]\n`)
+  if(leaveOrNot.toLowerCase() === "y" || leaveOrNot.toLowerCase() === "yes") {
+    console.log("\nThat's the spirit, lets play again!~")
+    object = {
+      randomDictionaryWord: dictionary[Math.floor((dictionary.length -1) * (Math.random()))],
+      randomDictionaryWordArray: [],
+      underdash: [],
+      entireUnderdash: "",
+      letter: "",
+      guessedLetters: "",
+      guessedLettersArray: [],
+      guesses: 8,
+      guessesCounter: 0,
+      arrayCurrentSolvedWord: [],
+      currentSolvedWord: "",
+      leaveOrNot: "",
+    }
+    gameLoop()
+  } else {
+    quitGame()
+  }
+}
 
-console.log(object.randomDictionaryWord)
+function showGuessedWord() {
+  console.log('\nThese are the list of letters you have already guessed:')
+  if (object.guessedLettersArray.length === 0) {
+    object.guessedLettersArray.push(object.letter)
+  }
+  else {
+    object.guessedLettersArray.push((', ' + object.letter))
+  }
+  object.guessedLetters = object.guessedLettersArray.join('')
+  console.log(object.guessedLetters)
+}
+
+function guessLeftCounter() {
+  console.log("\nYou have " + object.guesses + " guess/guesses remaining.\n")
+  if (object.guesses === 0) {
+    console.log("\x1b[33m%s\x1b[0m", "Sorry! You ran out of guesses, you lost!")
+    console.log(`The word was ${object.randomDictionaryWord}`)
+    restartGame()
+  }
+}
+
 snowmanIntro()
 
 
