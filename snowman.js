@@ -17,3 +17,13 @@ function getValidLetterGuess() {
   }
   return letter.toLowerCase()
 }
+
+
+const words = ["arm", "heap", "beau", "geese", "mouse", "phone", "pants"]
+
+
+let randomEl = words[Math.floor(Math.random() * words.length)]
+
+console.log(randomEl)
+
+
