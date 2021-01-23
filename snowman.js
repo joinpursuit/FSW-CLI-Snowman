@@ -743,16 +743,16 @@ const dictionary = [
   "yesterday",
   "young",
 ];
-let gameState = {guess: 7, lettersGuessed:[], word: "", dasher: ""};
+let gameState = { guess: 7, lettersGuessed: [], word: "", dasher: [] };
 function randomWord() {
   let index = Math.floor(Math.random() * dictionary.length); // or 742
   return dictionary[index];
 }
 function wordConverter(num) {
-  dash = "";
-  for (let i = 0; i < num; i++) {
+  dash = [];
+  for (let i = 0; i <= num; i++) {
     if (i) {
-      dash += " - ";
+      dash.push(" - ");
     }
   }
   return dash;
@@ -766,39 +766,52 @@ function getValidLetterGuess() {
     let input = readline.question("Please enter your guess: ");
     if (guessIsValid(input)) {
       letter = input;
-      //update dash here with fuction 
-       // checks if letter is in the word and then call function that updates dash? or updates dash as well
+      //update dash here with fuction
+      // checks if letter is in the word and then call function that updates dash? or updates dash as well
     } else {
       console.log("Please enter a valid letter");
     }
   }
   return letter.toLowerCase();
 }
-function updateDasher(guess){
-if(gameState.word.includes(guess)){
-  gameState.lettersGuessed.push(guess)
-  console.log(`You've guessed: ${gameState.lettersGuessed}`)
-  console.log(`You have ${gameState.guess} remaining guesses`)
- } else {
-  gameState.guess--
- }
-
+function updateDasher(guess) {
+  if (gameState.word.includes(guess)) {
+    gameState.lettersGuessed.push(guess);
+    console.log(`You've guessed: ${gameState.lettersGuessed}`);
+    console.log(`You have ${gameState.guess} remaining guesses`);
+  } else {
+    gameState.guess--;
+    console.log(`You have ${gameState.guess} remaining guesses`);
+    loser();
+  }
 }
+//add dash and if/else it includes then add letter then add dashes again
+function dashMaker(guess) {
+  let dash = [];
+  for (let i = 0; i < gameState.word.length; i++) {
+    if (gameState.word[i].includes(guess)) {
+      dash.push(guess);
+    } else if (i) {
+      dash.push("_");
+    }
+  }
+  return dash;
+}
+
 const gameLoop = () => {
-  while(gameState.guess > 0){
-  console.log(gameState.word);
-  console.log(gameState.dasher);
-  let guess = getValidLetterGuess();
-  updateDasher(guess)
-
-
-}
+  while (gameState.guess > 0) {
+    console.log(gameState.word);
+    console.log(gameState.dasher);
+    let guess = getValidLetterGuess();
+    console.log(updateDasher(guess));
+    console.log(dashMaker(guess));
+  }
 };
 const startGame = () => {
   console.log("Let's put this snowman together");
   console.log(`You have ${gameState.guess} guesses`);
-  gameState.word = randomWord()
-  gameState.dasher = wordConverter(gameState.word.length)
+  gameState.word = randomWord();
+  gameState.dasher = wordConverter(gameState.word.length);
   gameLoop();
 };
 const endGame = () => {};
@@ -815,9 +828,9 @@ const playAgain = () => {
   } else endGame();
 };
 const loser = () => {
-  if (guessCount === 0) {
+  if (gameState.guess === 0) {
     console.log(
-      `Game Over. You lost, you have no more guesses left. The word was ${word}.`
+      `GAME OVER. You lost, you have no more guesses left. The word was ${gameState.word}.`
     );
   }
 };
