@@ -744,21 +744,37 @@ const dictionary = [
   "yesterday",
   "young",
 ];
+// get random word
+let secretWord = "";
+const getWord = () => {
+  secretWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+  // console.log("\nThe secret word is: " + secretWord);
+  return secretWord;
+};
+getWord();
+
 let gameBoard = {};
 let guessCounter = 0;
-
-console.log("Welcome to Snowman! You have 7 guesses - Enjoy!\n");
-
-// getting random word
-let secretWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-// console.log("\nThe secret word is: " + secretWord);
-
-// letters remaining will help win game function
+let guessesLeft = 7;
+let guessedLetters = [];
 let lettersRemaining = secretWord.length;
 
-let guessesLeft = 7;
-// deincrement guess function
-let deincrementGuess = (letter) => {
+const welcomeMessage = () => {
+console.log("Welcome to Snowman! You have 7 guesses - Enjoy!\n");
+}
+welcomeMessage();
+
+// The loop creating the answer array - will update with correct guesses
+const displayBoard = () => {
+for (let i = 0; i < secretWord.length; i++) {
+  gameBoard[i] = "_";
+}
+console.log(Object.values(gameBoard).join(" "));
+}
+displayBoard();
+
+// deincrement guess
+const deincrementGuess = (letter) => {
   if (guessedLetters.includes(letter)) {
     console.log(
       "YOU ALREADY GUESSED THAT LETTER - PLEASE TRY A DIFFERENT GUESS!"
@@ -767,18 +783,17 @@ let deincrementGuess = (letter) => {
     guessesLeft--;
     console.log("\nYou have " + guessesLeft + " guesses remaining\n");
   }
-
-  // guessesLeft -= 1;
 };
 
-let guessedLetters = [];
-// declare function that creates guessedLeters array
-let guessedLettersArray = (letter) => {
+// adds guessed letters to array and displays it
+const guessedLettersArray = (letter) => {
   guessedLetters.push(letter);
   console.log("\nGuessed letters: " + guessedLetters);
 };
-// declare function that updates gameboard if correct letter chosen
-let updateGameBoard = (letter) => {
+
+// updates gameboard if correct letter chosen
+const updateGameBoard = (letter) => {
+  console.clear();
   for (k = 0; k < secretWord.length; k++) {
     if (secretWord[k] === letter) {
       gameBoard[k] = letter;
@@ -789,8 +804,9 @@ let updateGameBoard = (letter) => {
   console.log(Object.values(gameBoard).join(" "));
   // console.log("\nLetters Remaining = " + lettersRemaining);
 };
-// win game function
-let winGame = (lettersRemaining) => {
+
+// displays win game message when players guesses word correctly
+const winGame = (lettersRemaining) => {
   if (lettersRemaining === 0) {
     console.log("\nCongratulations YOU HAVE WON!!");
     console.log("\nIt took you " + guessCounter + " guesses!");
@@ -803,40 +819,41 @@ let winGame = (lettersRemaining) => {
     }
   }
 };
-// create reset game function
-let resetGame = () => {
+
+// resets the game if players wants to play again
+const resetGame = () => {
+  getWord();
   guessesLeft = 7;
   guessedLetters = [];
   gameBoard = {};
   guessCounter = 0;
-  //  for (let key in gameBoard){
-  //    delete gameBoard[key]
-  //  }
-  let secretWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-  // console.log("\nThe secret word is: " + secretWord);
   lettersRemaining = secretWord.length;
+  console.clear();
+  welcomeMessage();
+  displayBoard();
+  getValidLetterGuess();
+
+  // let secretWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+  // // console.log("\nThe secret word is: " + secretWord);
+  // lettersRemaining = secretWord.length;
 };
-//game over function
-let gameOver = (guessesLeft) => {
+
+// displays game over message when player runs out of guesses
+const gameOver = (guessesLeft) => {
   if (guessesLeft === 0 && lettersRemaining !== 0) {
     console.log("\nSorry you ran out of guesses! Better luck next time!");
     console.log("\nThe word was: " + secretWord);
     if (readLineSync.keyInYN("\nWould you like to try again?")) {
       resetGame();
-      getValidLetterGuess();
+      // getValidLetterGuess();
     } else {
       process.exit();
     }
   }
 };
-// The loop creating the answer array - will update with correct guesses
-for (let i = 0; i < secretWord.length; i++) {
-  gameBoard[i] = "_";
-}
-console.log(Object.values(gameBoard).join(" "));
 
-//has letter already been guessed function
-let hasLetterBeenGuessedAlready = (letter) => {
+// has letter already been guessed function
+const hasLetterBeenGuessedAlready = (letter) => {
   for (let p = 0; p < guessedLetters.length; p++) {
     if (guessedLetters[p] === letter) {
       // guessesLeft++;
