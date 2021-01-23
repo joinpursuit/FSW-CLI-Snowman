@@ -57,7 +57,6 @@ const generateWord = () =>{
   })
   answerUser = answer.join(" ")
   console.log(answerUser + `\n`)
-  // generateButtons()
   letterGuessed()
 
 
@@ -75,7 +74,9 @@ const letterGuessed = () => {
   
   if(newArr.includes(guessesPlay)){
     rightGuess(newArr, guessesPlay)
-  } else if(userStatus.guessedLetters.includes(guessesPlay)){
+  } else if (userStatus.guessedLetters.includes(rightGuess())){
+    console.log(`You are not allowed to repeat the same choice.`)
+  }else if(userStatus.guessedLetters.includes(guessesPlay)){
     console.log((`You have pick up that letter already. Try again`.toUpperCase()))
     letterGuessed()
   }else{
@@ -89,8 +90,7 @@ const rightGuess = (arr, v) => {
   arr.forEach((elem, i) => {
     if(elem === v){
       ind.push(i)
-    }else if(elem === elem)
-      console.log(`roberto`)
+    }
     
      
   })
@@ -106,7 +106,7 @@ const rightGuess = (arr, v) => {
   console.log(`Guesses letters =>` + " " + letterUnion)
   console.log(`\n ` + answerUser)
   
-  // console.log( userStatus + `rdfff`)
+  
 
 
   if(answer.indexOf('_') < 0){
