@@ -773,7 +773,7 @@ const gameLoop = () => {
   console.log(`good luck ${name}`);
 
   if (incorrectGuess === 6) {
-    endOfGame();
+    loseGame();
   } else if (lettersLeft === 0) {
     gameWin();
   } else if (lettersLeft >= 0) {
@@ -789,11 +789,23 @@ const gameLoop = () => {
 const takeAGuess = () => {
   console.log(tiles.join(" "));
 
-  let playerGuess = readline.keyIn(choose, {
-    limit: "$<a-z>",
-  });
+  let playerGuess = readline
+    .keyIn(choose, {
+      limit: "$<a-z>",
+    })
+    .toLowerCase();
   console.clear();
-  if (!splitRandomWord.includes(playerGuess)) {
+  if (gameInventory["wrongGuesses"].includes(playerGuess)) {
+    message[
+      "outmessage"
+    ] = `Try again ${name}, you have already incorrectly chosen "${playerGuess}" `;
+    gameLoop();
+  } else if (gameInventory["correctGuesses"].includes(playerGuess)) {
+    message[
+      "outmessage"
+    ] = `Try again ${name}, you have already correctly chosen "${playerGuess}" `;
+    gameLoop();
+  } else if (!splitRandomWord.includes(playerGuess)) {
     incorrectGuess += 1;
     message[
       "outmessage"
@@ -828,12 +840,14 @@ const takeAGuess = () => {
 const gameWin = () => {
   console.log(tiles.join(" "));
   console.log(
-    "Great game " + name + " You won!!! I hope you will play again soon"
+    `Congragulations ${name}, You won the game with ${
+      gameInventory["correctGuesses"].length / 2
+    } guesses!!! I hope you will play again soon!`
   );
   process.exit();
 };
 
-const endOfGame = () => {
+const loseGame = () => {
   console.clear();
   console.log(
     `You have ${
