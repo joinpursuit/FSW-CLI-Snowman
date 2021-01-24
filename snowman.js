@@ -742,10 +742,10 @@ const dictionary = [
   "yellow",
   "yesterday",
   "young",
-];
+]; 
 // i is always a number not the element in the array. We use that number to key in to the array
-let answer = "";
-let maxGuesses = 7;
+// let answer = "";
+// let maxGuesses = 7;
 let mistakes = 0;
 let guessed = [];
 let dash = [];
@@ -753,11 +753,18 @@ let guesses = 7;
 let word;
 let letterHold;
 
+
 function startGame() {
-  console.log("Welcome to Snowman");
+  console.log("Welcome to Snowman!!\n");
   console.log("A game where you have to guess the word I'm thinking");
   console.log("You have 7 guesses to figure out the word");
   console.log("Are you brave enough?\n");
+  let input = readline.keyInYN("Do you want to play?\n")
+  if(input){
+    randomWord()
+  } else {
+    leaveGame()
+  }
   randomWord();
   console.log(word);
   wordDashes(word);
@@ -765,19 +772,18 @@ function startGame() {
     console.log(dash.join(" "));
     letterHold = getValidLetterGuess();
     letterHolder(letterHold);
-    // if(word){
-
-    // } else if (){
-
-    // } else {//
+//     if(word){
+//       guesses --
+//     } else { 
+//       resetGame()
   }
-  guesses--;
-  playAgain();
+//   guesses--;
+//   // resetGame();
 }
-function playAgain(startGame) {
-  if (readline.keyInYN("Do you want to play?\n")) {
+function resetGame() {
+  if (readline.keyInYN("Do you want to play again?\n")) {
     // funtion in itself for playAgain
-    getValidLetterGuess();
+    // getValidLetterGuess();
   } else {
     leaveGame();
   }
@@ -790,13 +796,21 @@ function randomWord() {
 
 function wordDashes(word) {
   // builds board
-  // let dash = [];
   for (let i = 0; i < word.length; i++) {
     dash.push("_");
   }
   return dash;
 }
 // console.log(wordDashes)
+
+function guessesRemaining(){
+
+  for (let i = 0; i < word.length; i++){
+    // if(){
+
+    }
+  // }
+}
 
 function letterHolder(letter) {
   for (let i = 0; i < word.length; i++) {
@@ -806,10 +820,7 @@ function letterHolder(letter) {
   }
 }
 
-// let palabra = randomWord()
-// let line = wordDashes(palabra)
-// console.log(palabra)
-// console.log(line)
+
 function getValidLetterGuess() {
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
@@ -870,9 +881,9 @@ function leaveGame() {
   console.log(
     "Aw man! I guess you weren't brave enough to handle the challenge"
   );
-  console.log("Not sad to see you go");
+  console.log("Not sad to see you go!");
+  // resetGame()
+  process.exit();
 }
 startGame();
-// wordDashes()
-// randomWord()
-// leaveGame();
+
