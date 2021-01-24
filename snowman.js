@@ -750,7 +750,6 @@ let gameVars = {
   ansArr: [],
   gLetters: [],
   wrongGuesses: 10,
-  rightGuesses: 0,
   tGuesses: 0,
   gBoard: [],
 };
@@ -763,7 +762,7 @@ const getRanWord = () => {
   });
 };
 
-let board = (letter) => {
+const board = (letter) => {
   for (let i = 0; i < gameVars.word.length; i++) {
     if (letter === gameVars.word[i]) {
       gameVars.gBoard[i] = gameVars.word[i];
