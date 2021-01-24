@@ -764,7 +764,6 @@ let choose = `please choose a letter`;
 let right = `good choice`;
 let message = { outmessage: "" };
 let gameInventory = { correctGuesses: "", wrongGuesses: "", guessesLeft: 6 };
-
 console.log(`good luck ${name}!`);
 
 console.clear();
@@ -838,16 +837,16 @@ const takeAGuess = () => {
 //};
 
 const gameWin = () => {
+  let winScore = (gameInventory["correctGuesses"].length/2) +(gameInventory["wrongGuesses"].length/2)
   console.log(tiles.join(" "));
   console.log(
-    `Congragulations ${name}, You won the game with ${
-      gameInventory["correctGuesses"].length / 2
-    } guesses!!! I hope you will play again soon!`
+    `Congragulations ${name}, You won the game with ${winScore} guesses!!! I hope you will play again soon!`
   );
   process.exit();
 };
 
 const loseGame = () => {
+  
   console.clear();
   console.log(
     `You have ${
