@@ -742,7 +742,7 @@ const dictionary = [
   "yellow",
   "yesterday",
   "young",
-]; 
+];
 // i is always a number not the element in the array. We use that number to key in to the array
 // let answer = "";
 // let maxGuesses = 7;
@@ -751,34 +751,37 @@ let guessed = [];
 let dash = [];
 let guesses = 7;
 let word;
-let letterHold;
-
+let board;
 
 function startGame() {
   console.log("Welcome to Snowman!!\n");
   console.log("A game where you have to guess the word I'm thinking");
-  console.log("You have 7 guesses to figure out the word");
+  console.log(`"You have ${guesses} guesses to figure out the word"`);
   console.log("Are you brave enough?\n");
-  let input = readline.keyInYN("Do you want to play?\n")
-  if(input){
-    randomWord()
+  let input = readline.keyInYN("Do you want to play?\n");
+  if (input) {
+    randomWord();
   } else {
-    leaveGame()
+    leaveGame();
   }
   randomWord();
   console.log(word);
   wordDashes(word);
-  while (guesses > 0) {
+  while (guesses > 0 || dash.includes("_")) {
+    console.log(`"You have ${guesses} guesses remaining"`);
     console.log(dash.join(" "));
-    letterHold = getValidLetterGuess();
-    letterHolder(letterHold);
-//     if(word){
-//       guesses --
-//     } else { 
-//       resetGame()
+    board = getValidLetterGuess();
+    if (!word.includes(board)) {
+      guesses--;
+    } else {
+      letterHolder(board);
+    }
+    wonGame();
+    // 
   }
-//   guesses--;
-//   // resetGame();
+  lostGame();
+  //   guesses--;
+  //   // resetGame();
 }
 function resetGame() {
   if (readline.keyInYN("Do you want to play again?\n")) {
@@ -788,6 +791,20 @@ function resetGame() {
     leaveGame();
   }
 }
+function winOrLoose() {
+  if (!dash.includes(word)) {
+    console.log("You won!");
+  } else {
+
+  }
+}
+
+// function lostGame() {
+//   if (word.includes(guesses)) {
+//     console.log("Boo you lost. Want to try again?");
+//   }
+//   resetGame();
+// }
 
 function randomWord() {
   word = dictionary[Math.floor(Math.random() * dictionary.length)];
@@ -795,6 +812,7 @@ function randomWord() {
 }
 
 function wordDashes(word) {
+  // dashes on the board
   // builds board
   for (let i = 0; i < word.length; i++) {
     dash.push("_");
@@ -803,23 +821,19 @@ function wordDashes(word) {
 }
 // console.log(wordDashes)
 
-function guessesRemaining(){
-
-  for (let i = 0; i < word.length; i++){
-    // if(){
-
-    }
-  // }
+function guessedOut(letter) {
+  if (word.includes(board)) {
+  }
 }
 
 function letterHolder(letter) {
+  //update the dash with the letter on the board
   for (let i = 0; i < word.length; i++) {
     if (word[i] === letter) {
       dash[i] = letter;
     }
   }
 }
-
 
 function getValidLetterGuess() {
   function guessIsValid(letter) {
@@ -886,4 +900,3 @@ function leaveGame() {
   process.exit();
 }
 startGame();
-
