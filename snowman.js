@@ -25,7 +25,7 @@ console.log(`good luck ${name}!`)
 console.clear()
 
 const gameLoop = () => {
-
+console.log(`good luck ${name}`)
 
   if (incorrectGuess === 6) {
     endOfGame()
@@ -52,8 +52,8 @@ const takeAGuess = () => {
   if (!splitRandomWord.includes(playerGuess)) {
 
     incorrectGuess += 1
-    message['outmessage']= "not a good choice"
-    console.log(`Sorry ${name}, there is no letter "${playerGuess}" in this word.`)
+    message['outmessage']= `Sorry ${name}, there is no letter "${playerGuess}" in this word.`
+    //console.log()
     gameInventory['guessesLeft'] = 6-incorrectGuess
  gameInventory['wrongGuesses'] += `${playerGuess},`
     gameLoop()
@@ -83,7 +83,7 @@ const takeAGuess = () => {
 
 const gameWin = () => {
   console.log(tiles.join(" "));
-  console.log("Great game " + name + " I hope you will play again soon")
+  console.log("Great game " + name + " You won!!! I hope you will play again soon")
   process.exit()
 };
 
