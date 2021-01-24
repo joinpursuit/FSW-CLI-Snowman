@@ -9,44 +9,68 @@ let splitRandomWord = randomWord.split("");
 let tiles = splitRandomWord.map((el) => {
   return " _ ";
 });
-let wordInPlay = splitRandomWord.slice(0);
+
+// //console.table(resources);
+
 let lettersLeft = randomWord.length;
 let incorrectGuess = 0;
 let name = readline.question('Hello human, thank you for playing, what is your name? ')
+let choose = `please choose a letter`
+let right = `good choice`
+let message = {outmessage: ""}
+let gameInventory = { correctGuesses: "", wrongGuesses: "" , guessesLeft: 6 };
+
+console.log(`good luck ${name}!`)
+
+console.clear()
 
 const gameLoop = () => {
+
+
   if (incorrectGuess === 6) {
     endOfGame()
   } else if (lettersLeft === 0) {
     gameWin();
   } else if (lettersLeft >= 0) {
+    console.log(message['outmessage'])
+    console.table(gameInventory)
    // console.clear()
-    console.log('Number of guesses left: '  + (6 - incorrectGuess))
+    //console.log('Number of guesses left: '  + (6 - incorrectGuess))
   
     takeAGuess();
   }
 };
 
 const takeAGuess = () => {
-  console.log(tiles.join(" "));
-  let playerGuess = readline.keyIn("Type in your letter choice " + name, {
+
+  console.log(tiles.join(" "))
+
+  let playerGuess = readline.keyIn(choose, {
     limit: "$<a-z>",
   });
   console.clear()
   if (!splitRandomWord.includes(playerGuess)) {
 
-    console.log("sorry try again")
     incorrectGuess += 1
-  
+    message['outmessage']= "not a good choice"
+    console.log(`Sorry ${name}, there is no letter "${playerGuess}" in this word.`)
+    gameInventory['guessesLeft'] = 6-incorrectGuess
+ gameInventory['wrongGuesses'] += `${playerGuess},`
     gameLoop()
   } else if (splitRandomWord.includes(playerGuess)) {// make a function to updateTiles
+ gameInventory['correctGuesses'] += `${playerGuess},`
     //for (let letter of playerGuess) {
       //if (randomWord.includes(playerGuess)){
-        console.clear();
+ 
+     
         for(let i=0; i<splitRandomWord.length; i++){
+          
            let indexOfTiles = i
            if(randomWord[i] === playerGuess){
+            
               tiles[indexOfTiles] = playerGuess
+              message['outmessage']= `good choice, the word does have the letter "${playerGuess}"`
+             
               lettersLeft-=1
            }
         }
