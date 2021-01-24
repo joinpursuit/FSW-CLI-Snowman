@@ -3,14 +3,13 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 
 let stats = {
-  totalGuesses: 10, // this function give the number of guessses
-  guessedLetters: [], //where the users guesses are stored correct or right letters
-  guesses: '',
-  theWord: [], // the place where the ans ans is stored and revealed line 113 the letter the user guessed is stored
+  totalGuesses: 11, // this function give the number of guessses
+  guessedLetters: [], //where the users curGuessedLetter are stored correct or right letters
+  curGuessedLetter: '', // current user letter input
+  displayedWord: [], // the place where the ans ans is stored and revealed line 113 the letter the user guessed is stored
   randomWordAns: randomWordPicker(), // random word stored in a object
 
 }
-let curWord = ''
 
 //***********************startgame************************
 function snowManGameBeginning(){
@@ -30,10 +29,16 @@ function randomWordPicker(){
 }
 //****************************************************************** */
 
+// here we are trying to take hte user input and replace the underscore at the index at which the word is and 
+//10
+//10
 
-
-
-
+function counter(count) {
+  stats.totalGuesses = count - 1;
+  console.log(stats.totalGuesses)
+  return stats.totalGuesses
+}
+  
 
 
 
@@ -44,61 +49,55 @@ function randomWordPicker(){
 
 
 //********************************************************************* */
-const theyGuessed = (letter) => { //a
-  if (stats.randomWordAns.includes(letter)) { //apple true
-    // we are trying to replace the word at the index at which the _ exsists with the correct letter
-    curWord  ===  letter
+// we want to take the user input letter and put it inside stats.displayedWord
+// we can do this by splitting stats.displayedWord into an Array [_,_,_,_,_,_]
+// then we can iterate through it 
+//comparing the indexes and then using that index position to call on stats.randomWordAns
+//using . includes   
+// 
 
-  }
+function inputUserLetter(){
+  
 }
 
 
 
 
-// decressing if the guess is wrong or right
-function guessCount(){
-  if(randomWordAns.includes(stats.guesses)){
-    stats.totalGuesses -= 1
-  }
-  else {
-    stats.totalGuesses -= 1
-  }
-}
-
-
-
-
-
-
-
+// when ever you guess the same letter count should not go down shouldnt add it again! to guessed letter array
+//exiting game after guessing  all correct letters 
+//line 71 edge case pushing in empty string
 
 function displayInfo(){
-  stats.theWord = []
+  stats.guessedLetters.push(stats.curGuessedLetter)
+  stats.displayedWord = []
   word = stats.randomWordAns.split('') //apple [a,p,p,l,e]
    for (let i = 0; i < word.length; i++){ //[a,p,p,l,e]
-    if(stats.guessedLetters.includes(word[i])){
-      stats.theWord.push(word[i])
-    }
-    else {
-    stats.theWord.push('_')
+      if(stats.guessedLetters.includes(word[i])){
+        stats.displayedWord.push(word[i])
+      }
+      else {
+        stats.displayedWord.push('_')
          
+      }
+      
     }
-    
-   }
-  curWord = stats.theWord.join(' ')  // _ _ _ _ _ _
-  console.log(`${stats.totalGuesses} guesses left.\n`) 
-  console.log(curWord)
+  const curWord = stats.displayedWord.join(' ')  // _ _ _ _ _ _
+  
+  console.log(`${counter(stats.totalGuesses)} curGuessedLetter left.\n`) 
+  console.log(curWord) 
+  console.log('Guessed Letters:',stats.guessedLetters)
   
 }
 
 
 function gameLoop(){
-  for( let i = 1; i <= stats.totalGuesses; i++ ){
-  displayInfo()
-  getValidLetterGuess() 
-  console.log('debugging:',stats.guesses)
+  console.log('word:',stats.randomWordAns)
+  for( let i = 1; i <= 10; i++ ){
+    displayInfo()
+    getValidLetterGuess()
+    console.log('debugging:',stats.curGuessedLetter)
   }
- 
+  quitGame()
 }
 
 
@@ -119,15 +118,15 @@ function getValidLetterGuess() {
       console.log("Please enter a valid letter")
     }
   }
-  stats.guesses = letter.toLowerCase()
-  return stats.guesses
+  stats.curGuessedLetter = letter.toLowerCase()
+  return stats.curGuessedLetter
 }
  // the user input
 
 //*********************quit game *******************************
 function quitGame(){
   console.log("see yeah later!")
-  Process.exit ()
+  process.exit ()
 }
 
 
