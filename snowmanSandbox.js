@@ -3,6 +3,7 @@ const rls = require('readline-sync');
 const dictionary = require('./dictionary')
 
 let randomWord = dictionary[Math.floor(Math.random() * dictionary.length)]
+console.log(randomWord) //DNFTR...for debugging
 let randomWordSplit = randomWord.split("")
 
 /**
@@ -13,6 +14,7 @@ let gameObj = {
   guesses: 7,
   guessesArray: []
 };
+
 
 // /**
 //  * WELCOME/START/QUIT
@@ -144,16 +146,6 @@ const guessesMade = (userInput) => {
 }
 
 /** 
- * LOWERCASE/UPPERCASE
- * Matches the case regardless whether the user inputs lower or uppercase letters.
-*/
-const swapCase = (userInput) => {
-  return userInput.replace(/([a-z]+|([A-Z]+))/g, function(match,char) {
-      return char ? match.toUpperCase() : match.toLowerCase();
-  });
-}
-
-/** 
  * GAME OVER
  * Calls game over when the user loses.
 */
@@ -176,3 +168,39 @@ const quitGame = () => {
  * Calls the game to start.
 */
 startGame()
+
+
+
+// const userInput = () => {
+//   while(true) {
+//     let someVariable = guessRandomletter
+//     console.log(someVariable)
+//   }
+// }
+
+// const enterGuessCount = () => {
+//   if (guesses >= 0 && !rightGuesses() && !fillBlanks()) {
+//     countGuesses()
+//   }
+// }
+
+//TO LOG WRONG GUESSES, DOESN'T WORK
+// const wrongGuesses = (wrongInput) => {
+//   let wrongGuessArray = []
+//   for (let i = 0; i < randomWordSplit.length; i++) {
+//     if(wrongInput !== randomWordSplit[i]) {
+//       wrongGuessArray.push(wrongInput)
+//       console.log(`Guessed letters: ${wrongGuessArray}`)
+//     }
+//   }
+// }
+
+/** 
+//  * LOWERCASE/UPPERCASE
+//  * Matches the case regardless whether the user inputs lower or uppercase letters.
+// */
+// const swapCase = (userInput) => {
+//   return userInput.replace(/([a-z]+|([A-Z]+))/g, function(match,char) {
+//       return char ? match.toUpperCase() : match.toLowerCase();
+//   });
+// }
