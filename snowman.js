@@ -3,12 +3,13 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 let playerGuess = "";
 let guessTrial = 0;
 let count = 10;
-let dashSecret = ""
+let dashSecret = "";
 let gameStatus = false;
 let incorrectLetter = [];
 let correctLetter = [];
 let activeWord = [];
-let guessCount = 10;
+let guessCount = 0;
+let winningCount = 0;
 
 const play = () => {
   console.log(`Thank you playing Snowman game.`);
@@ -31,37 +32,57 @@ function displayWordInDash(word) {
   console.log(`Please enter the letter guessed ${word}`);
 }
 
-function winningGame() {
-  if (!gameStatus)
-    return;
-  if (dashSecret[a] < 0) {
-    gameStatus = false;
-    winningCount += 1
-  }
-}
+// function winningGame() {
+//   if (!gameStatus)
+//     return;
+//   for (let a = 0; a < dashSecret.length; a++) {
+//     if (dashSecret[a] === dashSecret.length) {
+//       gameStatus = true;
+//       winningCount += 1
+//     }
+//   }
+// }
 
 
 function startGame() {
 
+
+  console.clear()
   activeWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-  let winningCount = 0;
-  let lostCount = 0;
   makeBoard();
+  console.log(count)
   while (!gameStatus) {
-    incorrectLetter = [];
-    correctLetter = [];
-    guessCount = 10;
-    console.clear;
     console.log(activeWord);
-    console.clear;
+    displayWordInDash(dashSecret.join(""));
+    console.log(`You have ${guessCount1()} remaining!`)
+    console.log(` You have tried ${guessCount} times`);
+    //console.log(`${playerGuess} is a Correct letter!`);
+    console.log(`You already guessed ${incorrectLetter}`)
+    console.log(incorrectLetter)
+    console.log(correctLetter)
+    //console.log(`You won ${winningCount} times`)
     playerGuess = getValidLetterGuess();
     replaceDash();
+    //didWin();
     //updateGameboard();
 
-    displayWordInDash(dashSecret.join(""));
     //getValidLetterGuess();
     //correctGuessLetter();
   }
+  console.clear();
+}
+
+function guessCount1() {
+  let counter = 10;
+  incorrectLetter.forEach((el) => {
+    if (el !== correctLetter) {
+      counter -= 1
+    } if (counter === 0) {
+      console.log(`Sorry you have tried too many times!\n The actual word is ${activeWord}`)
+      process.exit();
+    }
+  })
+  return counter;
 }
 
 
@@ -69,13 +90,34 @@ function startGame() {
 
 
 
+
+function didWin() {
+  if (!gameStatus);
+  //playerGuessIncludes();
+  if (dashSecret.indexOf("_") < 0) {
+    //console.clear()
+    console.log(`Great job you reached the end!`)
+    //console.log(readline.keyIn(`Thank you for playing YOU WON!`))
+
+    process.exit()
+  }
+}
+
+// function reset() {
+//   console.clear(incorrectLetter);
+//   console.clear(correctLetter);
+//   console.clear(guessCount);
+// }
+// reset()
+
 function makeBoard() {
-  console.log(`You have ${guessCount} remaining!`)
-  //console.log(`You alreday guessed ${playerGuess}`)
   dashSecret = [];
   for (let a = 0; a < activeWord.length; a++) {
     dashSecret.push("_");
   }
+  // console.log(` you have already used  ${incorrectLetter + "+"}`);
+  //console.log(` You have tried ${guessTrial} to find the word`)
+  //console.log(`You have ${guessCount} Remaining!`)
 }
 
 
@@ -89,43 +131,61 @@ function makeBoard() {
 //   }
 // }
 
-function correctGuessLetter() {
 
-  correctLetter.push(playerGuess);
-
-
+function incorrectLetterGuess() {
+  if (incorrectLetter.includes(playerGuess)) {
+    console.log(`You have already used ${incorrectLetter}`);
+  } else {
+    console.log(`You guess ${playerGuess} is incorrect please try again!`);
+  }
+  return;
 }
 
+function playerGuessIncludes() {
+  if (!activeWord.includes(playerGuess)) {
+    incorrectLetter.push(playerGuess);
+  }
+  //return incorrectLetter;
 
+  //guessCount1()
+}
 
 
 function replaceDash() {
-
-  for (let p = 0; p < activeWord.length; p++) {
+  for (let p = 0; p <= activeWord.length; p++) {
     let currentLetter = activeWord[p];
     if (currentLetter === playerGuess) {
-      correctLetter.push(currentLetter)
-      console.log(`${playerGuess} is correct !`);
+      correctLetter.push(currentLetter);
+      console.log(`${playerGuess} is correct!`);
       dashSecret[p] = playerGuess;
     }
   }
-}
-
-function incorrectLetterGuess() {
-  let currentCharacter = letterCharacter
-  if (currentCharacter.indexOf(letterCharacter) < 0) {
-    if (incorrectLetter.indexOf(letterCharacter) < 0) {
-      incorrectLetter.push(letterCharacter);
-      guessCount--
-    }
-  }
-  console.log(`${currentCharacter} is Wrong`)
-  winningGame();
-  makeBoard();
+  playerGuessIncludes();
+  didWin()
+  guessCount++
 }
 
 
-b
+// } else {
+//   guessCount++
+
+
+// } else if (currentLetter !== playerGuess) {
+//   //if (guessCount < 10) {
+//   console.log(`Sorry,${playerGuess} is incorrect!`)
+//   if (!incorrectLetter.includes(playerGuess)) {
+
+//     incorrectLetter.push(playerGuess)
+//   }
+//incorrectLetter++
+//incorrectLetter[p] = playerGuess
+
+// } else {
+//   winningCount();
+//   if (!winningGame())
+//     console.log(`Sorry you have ${guessCount} remaining`)
+
+//console.clear();
 function getValidLetterGuess() {
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
@@ -138,7 +198,6 @@ function getValidLetterGuess() {
       letter = input
     } else {
       console.log("Please enter a valid letter")
-      getValidLetterGuess()
     }
   }
 
@@ -146,46 +205,3 @@ function getValidLetterGuess() {
 }
 
 
-// function hiddingRandomWords() {
-//   const newWord = [];
-//   for (let i = 0; i < word.length; i++) {
-//     newWord.push("_")
-
-//   }
-//   console.log(`please guess the letter ${newWord}`);
-
-//   getValidLetterGuess()
-// }
-
-// hiddingRandomWords().join
-
-// // console.log(hiddenWord(word))
-
-// function gameBoard(letter) {
-//   let output = {};
-//   for (p = 0; p <= word.length; p++) {
-//     if (letter === word[p]) {
-//       output[p] = letter;
-//       console.log(`${output[p]} is the correct letter!`);
-//       getValidLetterGuess()
-//     }
-//     gameBoard(letter)
-//     return output;
-//   }
-
-// }
-
-
-
-
-
-// function gameBoard() {
-//   while (gameStatus = true) {
-//     const secretWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-//     da
-//     incorrectLetter = [];
-//     correctLetter = [];
-//     numberOftries = 0;
-
-//   }
-//}
