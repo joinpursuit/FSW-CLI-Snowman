@@ -7,7 +7,7 @@ const randomWord = dictionary[Math.floor(Math.random() * dictionary.length)]
 //Array for the answer
 let answerArray = []
 //loop to make random word into '_' underscores the player see's
-for (let i = 0; i <= randomWord.length; i++) {
+for (let i = 0; i < randomWord.length; i++) {
   answerArray[i] = '_'
 }
 
@@ -18,7 +18,8 @@ for (let i = 0; i <= randomWord.length; i++) {
 let obj = {
   guess: '',
   guessedLetterArr: [],
-  numOfGuesses: 15
+  numOfGuesses: 15,
+  missedGuesses: 0
 }
 
 
@@ -35,19 +36,24 @@ const quitGame = () => {
 //GAME LOOP FOR TAKING LETTERS
 
 const gameLoop = () => {
-  
+  console.log(randomWord)
+  console.log(answerArray)
 
 
-  for (let i = 0; i <= answerArray.length; i++) {
-    if (answerArray[i] === obj.guess) {
+  for (let i = 0; i <= randomWord.length; i++) {
+    if (randomWord[i] === obj.guess) {
       answerArray[i] = obj.guess
     }
+  }
+  if (!randomWord.includes(obj.guess)) {
+    obj.missedGuesses++
   }
   guessCount()
   g = answerArray.join('')
   if (randomWord !== g && obj.numOfGuesses !== 0) {
     getValidLetterGuess();
     gameLoop();
+
   } else if (obj.numOfGuesses === 0) {
     console.log('Sorry , you ran out of guesses!')
     console.log(`\nThe word was: ${randomWord}`)
@@ -59,12 +65,12 @@ const gameLoop = () => {
 //shows victory message for perfect,1 miss and mutiple misses
 
 const winner = () => {
-  if (randomWord.length - obj.numOfGuesses === 0) {
+  if (obj.missedGuesses === 0) {
     console.log(`AYYEEE awesome!! you guessed all the letters flawlessly with no mistakes`)
-  } else if (randomWord.length - obj.numOfGuesses === 1) {
-    console.log(`AYYEEE awesome!!! you guessed the word and only missed ${randomWord.length - obj.numOfGuesses} time.`)
+  } else if (obj.missedGuesses === 1) {
+    console.log(`AYYEEE awesome!!! you guessed the word and only missed 1 time.`)
   } else {
-    console.log(`AYYEEE awesome you guessed the word and only missed ${randomWord.length - obj.numOfGuesses} times.`)
+    console.log(`AYYEEE awesome you guessed the word and only missed ${obj.missedGuesses} times`)
   }
 }
 
@@ -120,49 +126,29 @@ function guessedLetter() {
   } else {
     console.log(`\nGuessed Letter: ${obj.guessedLetterArr}\n`)
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  getValidLetterGuess()
-
-
-  function getValidLetterGuess() {
-    function guessIsValid(letter) {
-      return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
-    }
-    let letter = ""
-    while (!letter) {
-      let input = rls.question("Please enter your guess: \n")
-      if (guessIsValid(input)) {
-        letter = input
-      } else {
-        console.log("Please enter a valid letter\n")
-      }
-    }
-
-    obj.guess = letter.toLowerCase()
-    return obj
-  }
 }
+
+
+
+
+function getValidLetterGuess() {
+  function guessIsValid(letter) {
+    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+  }
+  let letter = ""
+  while (!letter) {
+    let input = rls.question("Please enter your guess: \n")
+    if (guessIsValid(input)) {
+      letter = input
+    } else {
+      console.log("Please enter a valid letter\n")
+    }
+  }
+
+  obj.guess = letter.toLowerCase()
+  return obj
+}
+
 
 
 
@@ -186,23 +172,23 @@ const startGame = () => {
     quitGame()
   }
 
-  function getValidLetterGuess() {
-    function guessIsValid(letter) {
-      return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
-    }
-    let letter = ""
-    while (!letter) {
-      let input = rls.question("Please enter your guess: \n")
-      if (guessIsValid(input)) {
-        letter = input
-      } else {
-        console.log("Please enter a valid letter\n")
-      }
-    }
+  // function getValidLetterGuess() {
+  //   function guessIsValid(letter) {
+  //     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+  //   }
+  //   let letter = ""
+  //   while (!letter) {
+  //     let input = rls.question("Please enter your guess: \n")
+  //     if (guessIsValid(input)) {
+  //       letter = input
+  //     } else {
+  //       console.log("Please enter a valid letter\n")
+  //     }
+  //   }
 
-    obj.guess = letter.toLowerCase()
-    return obj
-  }
+  //   obj.guess = letter.toLowerCase()
+  //   return obj
+  // }
 
 
 
@@ -231,3 +217,4 @@ const startGame = () => {
 
 }
 startGame()
+//  getValidLetterGuess()
