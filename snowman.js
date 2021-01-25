@@ -1,6 +1,6 @@
 const readline = require("readline-sync");
 const dictionary = require("./dictionary");
-let gameState = { guess: 7, lettersGuessed: [], word: "", board: [] };
+let gameState = {guess: 7, lettersGuessed: [], word: "", board:[]};
 function playOrNot(){
   console.log("Welcome message and game instructions:")
   let play = readline.keyInYN(`Would you like to play?`)
@@ -13,23 +13,22 @@ function playOrNot(){
 const startGame = () => {
   console.clear()
   console.log("Let's put this snowman together");
-  console.log(`You have ${gameState.guess} guesses`);
   gameState.word = randomWord();
   gameState.board = createBoard(gameState.word.length);
-  console.log(gameState.board)
   gameLoop();
 };
 const gameLoop = () => {
-  while (gameState.guess > 0) {
+  while (gameState.guess > 0 && gameState.board.includes("_")) {
+    logGameState()
     console.log(gameState.word);//dont forget to remove later 
     let guess = getValidLetterGuess();
-    if(gameState.word.includes(guess)){
-      // console.log(updateGameState(guess))
-      // dashMaker(guess)
-    } else {
-      console.log(updateGameState(guess))
-      // console.log(dashMaker(guess))
-    }
+    updateGameState(guess)
+    updateBoard(guess)
+  }
+  if(gameState.guess === 0){
+    loser()
+  }else{
+    winner()
   }
 };
 function randomWord() {
@@ -37,30 +36,28 @@ function randomWord() {
   return dictionary[index];
 }
 function createBoard(num) {
-  dash = [];
+  board = [];
   for (let i = 0; i <= num; i++) {
     if (i) {
-      dash.push("_");
+      board.push("_");
     }
   }
-  return dash.join("  ");
+  return board;
+}
+function logGameState(){
+  console.log(gameState.board.join(" "))
+  console.log(`You've guessed: ${gameState.lettersGuessed}`);
+  console.log(`You have ${gameState.guess} remaining guesses`);
 }
 function updateGameState(guess) {
-  if(!gameState.lettersGuessed.includes(guess)){
-  gameState.lettersGuessed.push(guess);
-  } 
-  if(gameState.word.includes(guess)) {
-    console.log(`You've guessed: ${gameState.lettersGuessed}`);
-    console.log(`You have ${gameState.guess} remaining guesses`);
-  } else {
+  gameState.lettersGuessed.push(guess)
+  if(!gameState.word.includes(guess)) {
      gameState.guess--;
-     console.log(`You've guessed: ${gameState.lettersGuessed}`);
-     console.log(`You have ${gameState.guess} remaining guesses`);
   }
 }
 function getValidLetterGuess() {
   function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
+    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()&& !gameState.lettersGuessed.includes(letter);
   }
   let letter = "";
   while (!letter) {
@@ -76,17 +73,18 @@ function getValidLetterGuess() {
   return letter.toLowerCase();
 }
 //add dash and if/else it includes then add letter then add dashes again
-function dashMaker(guess) {
+function updateBoard(guess){
   for (let i = 0; i < gameState.word.length; i++) {
    if(gameState.word[i] === guess) {
       gameState.board[i] = guess
     }
   }
+
 }
 const endGame = () => {};
 const winner = () => {
   console.log(
-    `WOW! You won, and it only took you ${gameState.guess} guesses! You got it right, the word is indeed ${word}!`
+    `WOW! You won, and it only took you ${gameState.lettersGuessed.length} guesses! You got it right, the word is indeed ${gameState.word}!`
   );
 };
 const playAgain = () => {
