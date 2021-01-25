@@ -18,8 +18,62 @@ function getValidLetterGuess() {
   return letter.toLowerCase()
 }
 
-const startGame = () => {
-  Math.random(dictionary)
-} 
+ const startGame = () => {
+   console.log('Welcome to Hangman\n')
+   console.log('you will have a certain amount of guesses to get the correct letter from the word given to you')
+   console.log('If you guess wrong your guess count will go down, If you guess right your guess count will remain the same until you have guessed wrong.\n')
+   console.log("let's begin")
+   console.log('your word is:')
+ }
 
-getValidLetterGuess()
+ const game = () => {
+  // make computer pick random word from dictionary array
+  let random = dictionary[Math.floor(Math.random() * dictionary.length)]
+  let word = random 
+  // log random word with correct amount of _ for the word logged
+  let guess = ''
+  let display = []
+  const loop = () => { 
+    for(let i = 0; i < word.length; i++){
+    if (guess.includes(word[i])){
+      display.push(word[i])
+    } else {
+      display.push('_')
+    }
+  }
+  display = display.join(' ')
+  console.log(display)
+  // make an input for readline sync so that user can input there choice of letter
+  let question = getValidLetterGuess()
+ }
+ loop()
+}
+
+
+ const guessCount = () => {
+   // log how many guesses user has
+   console.log('You have ' + guesses + ' remaining')
+   
+   // decrement guess count based on user input
+   // invaled input's should not effect guess count
+   // if user guesses good replace _ with user input
+   // should show the letter guessed already
+ }
+
+ const winGame = () => {
+   // if user wins log victory message 
+   // log the amount of guesses it took 
+   // log full word
+ }
+
+ const loseGame = () => {
+   // if user loses log defeat message 
+   // log amount of guesses it took
+   // log full word
+ }
+
+ // solve problems using strings, arrays, and objects
+
+startGame() 
+game()
+
