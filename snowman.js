@@ -24,35 +24,36 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 const words = ["arm", "heap", "beau", "geese", "mouse", "phone", "pants"]
 
-let randomEl = words[Math.floor(Math.random() * words.length)]
-let underscore = []
-let allGuesses = []
-
+let stats = {
+randomEl : words[Math.floor(Math.random() * words.length)],
+underscore : [],
+allGuesses : [],
+}
 const setUp = () =>{ 
-  console.log(randomEl)
-  let charCt = randomEl.length 
+  console.log(stats.randomEl)
+  let charCt = stats.randomEl.length 
 
   for(let i = 0; i < charCt; i++){
-    underscore.push('_')
+    stats.underscore.push('_')
   }
 }
 
 const guess = () =>{
-  console.log(underscore.join(""))
-  console.log("Attempts made: " + allGuesses)
+  console.log(stats.underscore.join(""))
+  console.log("Attempts made: " + stats.allGuesses)
   let letterGuess = readline.question("Guess a letter: ")
 
-  for(let i = 0; i < randomEl.length; i++){
-    if(letterGuess === randomEl[i]){
-      underscore[i] = randomEl[i]
+  for(let i = 0; i < stats.randomEl.length; i++){
+    if(letterGuess === stats.randomEl[i]){
+      stats.underscore[i] = stats.randomEl[i]
     }
   }
-  allGuesses.push(letterGuess)
+  stats.allGuesses.push(letterGuess)
 }
 
 const playLoop = () =>{
   setUp()
-  while(underscore !== randomEl){
+  while(stats.underscore !== stats.randomEl){
     guess()
   }
 }
