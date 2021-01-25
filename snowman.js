@@ -757,10 +757,9 @@ function startGame() {
   console.log(
     "This game is to help, work on spelling, identifying words in the English Language"
   );
-
   dash(word);
-
   console.log(word);
+  
   //until they run out of maxguess or solve the word (snowman)
   while (maxGuess > 0) {
     console.log(answerArr.join(""));
@@ -769,9 +768,11 @@ function startGame() {
     correctLetters(letter);
     console.log("Total amount of guesses left " + maxGuesser(letter));
   if (!answerArr.includes("_ ")) {
+    console.clear(word)
     console.log("CONGRATULATION YOU WON");
     resetGame();
   }else if (maxGuess === 0){
+    console.clear(word)
     console.log( "You Lose.")
     resetGame()
   }
@@ -787,7 +788,7 @@ function dash(word) {
   for (let i = 0; i < word.length; i++) {
     //  blank = blank + "_ "
     answerArr.push("_ ");
-    wordArr.push(word.charAt(i));
+    wordArr.push(word[i]);
     //  wordArr.push(" ")
   }
   // console.log(wordArr.join(""));
@@ -850,10 +851,13 @@ function maxGuesser(letter) {
 // 9. If guesses run out player loses game loop isn't working 
 function resetGame(){
     if (readline.keyInYN("Would you like to play again?")) {
-  
       word = dictionary[Math.floor(Math.random() * dictionary.length)];
       maxGuess = 8
-      startGame(word);
+      abcArr = [];
+      answerArr = [];
+      wordArr = [];
+      console.clear()
+      startGame();
     } else {
       process.exit("See you next time.");
     }
