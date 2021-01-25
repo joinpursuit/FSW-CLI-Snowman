@@ -12,6 +12,7 @@ let stats = {
 }
 
 //***********************startgame************************
+
 function snowManGameBeginning(){
   console.log(' Hello and welcome')
   let wannaPlay = readline.keyInYN(' Wanna play the snowman game!?')
@@ -35,7 +36,7 @@ function randomWordPicker(){
 
 function counter(count) {
   stats.totalGuesses = count - 1;
-  console.log(stats.totalGuesses)
+  //console.log(stats.totalGuesses)
   return stats.totalGuesses
 }
   
@@ -56,47 +57,48 @@ function counter(count) {
 //using . includes   
 // 
 
-function inputUserLetter(){
-  
-}
-
-
-
-
-// when ever you guess the same letter count should not go down shouldnt add it again! to guessed letter array
-//exiting game after guessing  all correct letters 
-//line 71 edge case pushing in empty string
 
 function displayInfo(){
-  stats.guessedLetters.push(stats.curGuessedLetter)
+  if(stats.curGuessedLetter !== ''){
+    stats.guessedLetters.push(stats.curGuessedLetter)
+  }
   stats.displayedWord = []
   word = stats.randomWordAns.split('') //apple [a,p,p,l,e]
-   for (let i = 0; i < word.length; i++){ //[a,p,p,l,e]
+  for (let i = 0; i < word.length; i++){ //[a,p,p,l,e]
       if(stats.guessedLetters.includes(word[i])){
         stats.displayedWord.push(word[i])
       }
       else {
         stats.displayedWord.push('_')
-         
+        
       }
       
     }
   const curWord = stats.displayedWord.join(' ')  // _ _ _ _ _ _
-  
-  console.log(`${counter(stats.totalGuesses)} curGuessedLetter left.\n`) 
+  console.log(`${counter(stats.totalGuesses)} guesses left.\n`) 
   console.log(curWord) 
   console.log('Guessed Letters:',stats.guessedLetters)
-  
 }
 
 
 function gameLoop(){
   console.log('word:',stats.randomWordAns)
-  for( let i = 1; i <= 10; i++ ){
-    displayInfo()
-    getValidLetterGuess()
-    console.log('debugging:',stats.curGuessedLetter)
+  let i = stats.totalGuesses;
+  while (i > 0) {
+    if(stats.guessedLetters.includes(stats.curGuessedLetter)){
+      console.log('you have already guessed this letter')
+      getValidLetterGuess()
+    } else {
+      displayInfo()
+      i--;
+      if(stats.displayedWord.join('') === stats.randomWordAns){
+        console.log('you WON!')
+       quitGame()
+      }
+      getValidLetterGuess()
+    }
   }
+ 
   quitGame()
 }
 
