@@ -16,4 +16,4 @@ function getValidLetterGuess() {
     }
   }
   return letter.toLowerCase()
-}
+} 
