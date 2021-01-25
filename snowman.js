@@ -92,13 +92,15 @@ function gameLoop(){
       displayInfo()
       i--;
       if(stats.displayedWord.join('') === stats.randomWordAns){
+        console.log(`It took you ${stats.totalGuesses} guesses!`)
         console.log('you WON!')
        quitGame()
       }
       getValidLetterGuess()
     }
   }
- 
+  console.log('You lose!')
+  console.log(`the answer was: ${stats.randomWordAns}!`)
   quitGame()
 }
 
