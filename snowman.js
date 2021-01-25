@@ -14,7 +14,8 @@ const stats = {
   guess: 10,
   usedLetters: '',
   word: [],
-  userWord: []
+  userWord: [],
+  winGuess: 0
 }
   
 
@@ -24,7 +25,7 @@ const currentWord = () => {
   for (let i of randomWord) {
     stats.userWord.push('_')
   }
-  console.log(stats.word)
+  //console.log(stats.word)
 }
 function getValidLetterGuess() {
   console.log(stats.userWord.join(' '))
@@ -37,10 +38,11 @@ function getValidLetterGuess() {
   let letter = ""
   
   while (!letter) {
-    let input = readline.question("Please enter your guess: ")
+    let input = readline.question("Please enter your guess: ").toLowerCase()
     
     if (guessIsValid(input) && !stats.usedLetters.includes(input)) {
       letter = input
+      stats.winGuess += 1
       stats.usedLetters += `${letter}, `
       userGuess(letter)
     } else {
@@ -78,7 +80,7 @@ const replaceLetter = (letter) => {
       stats.userWord.splice(index, 1, letter)
     }
   }
-  console.log(stats.userWord)
+  //console.log(stats.userWord)
 }
 
 const sameWord = (word, userWord) => {
@@ -94,8 +96,7 @@ const sameWord = (word, userWord) => {
 }
 
 const winGame = () => {
-  let tries = 10 - stats.guess
-  console.log(`You got the word right! You win! It took ${tries}tries from the guess count.`)
+  console.log(`You got the word right! You win! It took ${stats.winGuess}tries.`)
   restartGame()
 }
 
