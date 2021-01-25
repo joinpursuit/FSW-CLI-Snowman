@@ -26,7 +26,6 @@ function randomWord() {
   for (let i of randomWord) {
     gameboard.guessedWord.push('_')
   }
-console.log(gameboard.word)
 }
 
 function replaceLetter(letter) {
