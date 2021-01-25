@@ -6,62 +6,90 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 
 
-function play(){
-  console.log("Hello! Welcome to the Snowman Game. You will be given a random word that you have to guess, letter by letter. You will get eight attempts. If you guess a letter correctly, that won't count towards your limit.")
-  let playYN = readline.keyInYN("Would you like to play?")
-  if(playYN === true){
-    playGame()
-  }
-  else{
-    process.exit()
+// function play(){
+//   console.log("Hello! Welcome to the Snowman Game. You will be given a random word that you have to guess, letter by letter. You will get eight attempts. If you guess a letter correctly, that won't count towards your limit.")
+//   let playYN = readline.keyInYN("Would you like to play?")
+//   if(playYN === true){
+//     playGame()
+//   }
+//   else{
+//     process.exit()
+//   }
+// }
+
+
+// play()
+
+
+
+const words = ["arm", "heap", "beau", "geese", "mouse", "phone", "pants"]
+
+let randomEl = words[Math.floor(Math.random() * words.length)]
+let underscore = []
+let allGuesses = []
+
+const setUp = () =>{ 
+  console.log(randomEl)
+  let charCt = randomEl.length 
+
+  for(let i = 0; i < charCt; i++){
+    underscore.push('_')
   }
 }
 
+const guess = () =>{
+  console.log(underscore.join(""))
+  console.log("Attempts made: " + allGuesses)
+  let letterGuess = readline.question("Guess a letter: ")
 
-play()
-
-function playGame(){
-
-
-  const words = ["arm", "heap", "beau", "geese", "mouse", "phone", "pants"]
-
-
-  let randomEl = words[Math.floor(Math.random() * words.length)]
-
-  let underscoreCt = randomEl.length 
-  
-  let underscore = (underscoreCt * "_")
-  //create a string with the number of letters represented by underscores ""_"
-  //question: can you multiply a string? I'm getting a NaN error. They're different data types. 
-
-  console.log(underscore)
-
-
-  function getValidLetterGuess() {
-    function guessIsValid(letter) {
-      return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+  for(let i = 0; i < randomEl.length; i++){
+    if(letterGuess === randomEl[i]){
+      underscore[i] = randomEl[i]
     }
-    let letter = ""
-    while (!letter) {
-      let input = readline.question("Please enter your guess: ")
-      if (guessIsValid(input)) {
-        letter = input
-      } else {
-        console.log("Please enter a valid letter")
-      }
-    }
-    return letter.toLowerCase()
   }
-  
-
-
-
-
-
-
+  allGuesses.push(letterGuess)
 }
 
-playGame()
+const playLoop = () =>{
+  setUp()
+  while(underscore !== randomEl){
+    guess()
+  }
+}
+
+playLoop()
+
+
+  // function getValidLetterGuess() {
+  //   function guessIsValid(letter) {
+  //     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+  //   }
+  //   let letter = ""
+  //   while (!letter) {
+  //     let input = readline.question("Please enter your guess: ")
+  //     if (guessIsValid(input)) {
+  //       letter = input
+  //     } else {
+  //       console.log("Please enter a valid letter")
+  //     }
+  //   }
+  //   return letter.toLowerCase()
+  // }
+  
+
+  // 1) Come up with a word
+  // 2) Draw underscores
+  // 3) Player guesses letter
+  // 4) You look through your word to see if the letter matches
+  // 5) Place it if it's right / Cross it out if it's not
+  // 6) Place letter under guessed
+  // 7) Make sure the user can guess again 
+  // 8) update how many letters are guessed
+
+
+
+
+
 
 
 //create a new array with the letters that have been guessed so far, after each guess.
