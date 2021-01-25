@@ -1,4 +1,3 @@
-const {dictionary} = require(dictionary.js)
 const dictionary = [
     "able",
     "about",
@@ -743,3 +742,4 @@ const dictionary = [
     "yesterday",
     "young",
   ]; 
+  module.exports = dictionary
