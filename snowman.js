@@ -1,14 +1,10 @@
 const rls = require("readline-sync");
 const chalk = require("chalk");
 const dictionary = require("./dictionary");
-let word = dictionary[Math.floor(Math.random() * dictionary.length - 1)];
 let tracker = { chances: 12 };
 
 const endGame = () => {
-	// rls.keyInYN(`Do you want to play again?\n`)
-	//     ? startGame() : // need to reset word
-	console.log(`Goodbye.\n`);
-	process.exit();
+	rls.keyInYN(`Do you want to play again?\n`) ? startGame() : process.exit();
 };
 
 const win = () => {
@@ -47,42 +43,41 @@ const removeDash = (letter) => {
 };
 
 const duplicateLetter = (letter) => {
-	// why is this adding the letter twice to (wrong/correct)Letters?
 	if (
 		tracker["correctLetters"].includes(letter) ||
 		tracker["wrongLetters"].includes(letter)
 	) {
-		console.log(chalk.red("\nYou already picked that letter.\n"));
-		getValidLetterGuess();
+		return true;
 	}
+	return false;
 };
 
 const checkLetter = (letter) => {
-	duplicateLetter(letter);
-	if (tracker["wordToArr"].includes(letter)) {
+	if (!duplicateLetter(letter) && tracker["wordToArr"].includes(letter)) {
 		console.log(chalk.blue("\nG o o d  G u e s s !\n"));
 		tracker["correctLetters"] += letter;
 		tracker["tries"]++;
 		removeDash(letter);
-	} else {
+	} else if (
+		!tracker["wordToArr"].includes(letter) &&
+		!duplicateLetter(letter)
+	) {
 		wrongLetter(letter);
+	} else if (duplicateLetter(letter)) {
+		console.log(chalk.red("\nYou already picked that letter.\n"));
 	}
 };
 
 // checks if the letter guessed is not an empty string and is lowercase
-/*let letter = */ function getValidLetterGuess() {
+function getValidLetterGuess() {
 	function guessIsValid(letter) {
 		return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
 	}
-
-	// add duplicate letter function here? ... so letter is reset and not added twice to (wrong/correct)Letter?
-
 	let letter = "";
 	while (!letter) {
 		let input = rls.question("\nPlease enter your guess: ");
 		if (guessIsValid(input)) {
 			letter = input;
-			//duplicateLetter(letter);
 		} else {
 			console.log("Please enter a valid letter");
 		}
@@ -108,8 +103,7 @@ const dashes = () => {
 
 const toArray = (word) => {
 	let wordArr = [];
-	for (let i = 0; i < word.length; i++) {
-		const char = word[i];
+	for (char of word) {
 		wordArr.push(char);
 	}
 	tracker["wordToArr"] = wordArr;
@@ -121,23 +115,19 @@ const setTracker = () => {
 	tracker["correctLetters"] = "";
 	tracker["wrongLetters"] = "";
 	tracker["tries"] = 0;
-	// tracker["word"] = newWord;
+	tracker["word"] =
+		dictionary[Math.floor(Math.random() * dictionary.length - 1)];
 };
 
-// let word = function  getWord() {
-// 	dictionary[Math.floor(Math.random() * dictionary.length - 1)];
-// };
-
-// const word = getWord();
+let word;
 
 const startGame = () => {
-	// getWord(); // ReferenceError: getWord is not defined
 	console.clear();
-
+	setTracker();
+	word = tracker["word"];
 	console.log(`\nYou have to guess the letters in my 🧐 mystery word.\n`);
 	console.log(chalk.blue(`You have ${tracker["chances"]} chances.\n`));
-	console.log(chalk.yellow(word)); // mystery word
-	setTracker();
+	// console.log(chalk.yellow(word)); // mystery word
 	toArray(word);
 	while (tracker["chancesRemaining"] > 0) {
 		printBoard();
