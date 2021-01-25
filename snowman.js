@@ -810,7 +810,7 @@ function displayInfo() {
 }
 
 function gameLoop() {
-  console.log("word:", stats.randomWordAns);
+  
   let i = stats.totalGuesses;
   while (i > 0) {
     if (stats.guessedLetters.includes(stats.curGuessedLetter)) {
