@@ -30,6 +30,8 @@ For this assignment, you will build a game of [snowman](https://benstone1.github
 
 Copy the user stories from the Trello board [here](https://trello.com/b/8OErA3xI/command-line-snowman-project-plan) into your own board.
 
+My Trello Board: https://trello.com/b/2v4DCwZ2/jq-command-line-snowman-projecthttps://trello.com/b/2v4DCwZ2/jq-command-line-snowman-project
+
 ### As a user, I should be presented with a random word to guess
 
 - The computer should pick a word at random
@@ -42,6 +44,16 @@ Copy the user stories from the Trello board [here](https://trello.com/b/8OErA3xI
 - After each guess, the user should see the letters they have guessed already
 - After each incorrect guess, the number of guesses should decrease.
 - After each correct guess, the number of guesses should stay the same.
+
+// Use array 
+01234
+apple
+apple.split(")
+[a,p,p,l,e] - l is in 3rd index
+
+- - - - - 
+012345678 - l is in the 6th index 
+refer to gameLoop screenshot 
 
 ### As a user, I should know how many guesses I have left
 
