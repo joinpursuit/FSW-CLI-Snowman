@@ -37,7 +37,6 @@ const quitGame = () => {
 
 const gameLoop = () => {
   console.log(randomWord)
-  console.log(answerArray)
 
 
   for (let i = 0; i <= randomWord.length; i++) {
@@ -47,6 +46,10 @@ const gameLoop = () => {
   }
   if (!randomWord.includes(obj.guess)) {
     obj.missedGuesses++
+  }
+  else if(obj.guessedLetterArr.includes(obj.guess)){
+    console.log('You guessed that letter already try again!!!\n')
+    getValidLetterGuess()
   }
   guessCount()
   g = answerArray.join('')
@@ -154,7 +157,7 @@ function getValidLetterGuess() {
 
 
 const startGame = () => {
-  console.log("Welcome to the Slow Soul So-So Guessing Game!\n")
+  console.log("Welcome to the Slow Soul So-So Word Guessing Game!\n")
   let nameInput = rls.question("who's playing today?\n")
   console.log(`Welcome ${nameInput} to my game!\n`)
   let waterCheck = rls.keyInYN(`Umm real quick ${nameInput} did you drink some water today?\n`)
