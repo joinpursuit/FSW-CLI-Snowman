@@ -81,7 +81,7 @@ const boardUpdate = () => {
 const startGame = () => {
     obj.secretWord = randomWord();
     buildBoard().join(" ")
-  while (obj.guessesRemaining > 1) {
+  while (obj.guessesRemaining > 0) {
     // let x = getValidLetterGuess()
     getValidLetterGuess();                      
     if (wordCompare()) {
