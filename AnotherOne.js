@@ -43,10 +43,10 @@ const getValidLetterGuess = () => {
       console.log("Please enter a valid letter");
     }
   }
-  return letter.toLowerCase();
+  return x = letter.toLowerCase();
 };
 
-
+let x = ""
 
 // const gameOver = () => {
 //   if ((guessesRemaining === 0)) {
@@ -63,14 +63,13 @@ const getValidLetterGuess = () => {
 
 
 const wordCompare = () => {
-    let x = getValidLetterGuess()
     return obj.secretWord.includes(x)
 }
 
 const boardUpdate = () => {
     for (let j = 0; j < obj.secretWord.length; j++) {
-        if (obj.board[j] === obj.secretWord[j]) {
-            obj.board[j] = obj.secretWord[j]
+        if (obj.board[j] === ) {
+            obj.board[j] = x
         }
     }
     return obj.board
@@ -83,17 +82,18 @@ const startGame = () => {
     obj.secretWord = randomWord();
     obj.board = buildBoard().join(" ")
   while (obj.guessesRemaining > 1) {
-    // getValidLetterGuess();                      
+    // let x = getValidLetterGuess()
+    getValidLetterGuess();                      
     if (wordCompare()) {
       console.log("You guessed right!");
       boardUpdate()
-      obj.correctGuesses.push();
+      obj.correctGuesses.push(x);
       console.log(obj);
     } else if (!wordCompare()) {
       console.log("Wrong guess.");
       boardUpdate()
       obj.guessesRemaining -= 1;
-      obj.incorrectGuesses.push();
+      obj.incorrectGuesses.push(x);
       console.log(obj);
     }
   }
