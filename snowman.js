@@ -788,11 +788,14 @@ function counter(count) {
 //comparing the indexes and then using that index position to call on stats.randomWordAns
 //using . includes
 //
-
-function displayInfo() {
+function guessedPush(){
   if (stats.curGuessedLetter !== "") {
     stats.guessedLetters.push(stats.curGuessedLetter);
   }
+}
+
+function displayInfo() {
+  
   stats.displayedWord = [];
   word = stats.randomWordAns.split(""); //apple [a,p,p,l,e]
   for (let i = 0; i < word.length; i++) {
@@ -810,26 +813,29 @@ function displayInfo() {
 }
 
 function gameLoop() {
-  
   let i = stats.totalGuesses;
-  while (i > 0) {
+  while (i > 0 && stats.displayedWord.join("") !== stats.randomWordAns ) {
+    getValidLetterGuess();
     if (stats.guessedLetters.includes(stats.curGuessedLetter)) {
       console.log("you have already guessed this letter");
       getValidLetterGuess();
-    } else {
+    } 
+    else {
+      guessedPush();
       displayInfo();
       i--;
-      if (stats.displayedWord.join("") === stats.randomWordAns) {
-        console.log(`It took you ${stats.totalGuesses} guesses!`);
-        console.log("you WON!");
-        quitGame();
-      }
-      getValidLetterGuess();
     }
   }
+  if(stats.displayedWord.join("") === stats.randomWordAns){
+   console.log(`It took you ${stats.guessedLetters.length} guesses!`);
+   console.log("you WON!");
+   quitGame();
+  }
+  else{
   console.log("You lose!");
   console.log(`the answer was: ${stats.randomWordAns}!`);
   quitGame();
+  }
 }
 
 //**********************************starter code************************** */
