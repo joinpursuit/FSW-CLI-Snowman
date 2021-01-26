@@ -8,126 +8,118 @@ let dash = []
 let eachDash = []
 
 
-//Welcome function
-const welcomeToStartGame = () => { // Added a welcome function! 
+
+const welcomeToStartGame = () => { 
   console.log ("Hello, welcome to The Snowman Game")
   yourName = readline.question("What's your name?")
   if(readline.keyInYN(`${yourName}! What an awesome name! Are you ready play?`)){
-    console.clear();
+    
      secretVocab();
   } else {
     leaveGame();
   }
 }
 
-//secretVocab 
+
 const secretVocab = () => {
   console.log("Great! Let's Go!!!")
-  dash = secretWord.split("") //Assigning an empty array to each index 
-  dash.forEach((abc) => { //Making a new function to make a dash at each letter. 
-    eachDash.push("_") // pushing into every word to make a dash and giving it an actual "_"
+  dash = secretWord.split("") 
+  dash.forEach((abc) => {  
+    eachDash.push("_") 
   }) 
   secretAnswer = eachDash.join(" ")
   console.log(secretAnswer)
-  guessTheSecret(); // I am calling to anoter function 
-//console.log("Here's your word" + " " +secretWord) // This just logs the word. Need to learn how to get the word to print in secret! 
+  guessTheSecret(); 
+
 }
 
-//guessTheSecret
+
 const guessTheSecret = () => {
-  if(guessCount.maxGuess === 1) { // I am setting the condition that if the key in object of max guess have been reached 
-    console.log(`You have ${guessCount.maxGuess} guess left`) // it would log the 1 guess that the player would have left 
+  if(guessCount.maxGuess === 1) {  
+    console.log(`You have ${guessCount.maxGuess} guess left`)  
   } else if (guessCount.maxGuess > 0) {
-    console.log(`You have ${guessCount.maxGuess} guesses left`) // or it would log the many guesses that the player would have left 
+    console.log(`You have ${guessCount.maxGuess} guesses left`)  
   } else {
     console.log(`You have ${guessCount.maxGuess} guess left`)
     console.log("Dang! You ran out of guesses!")
+    console.log(`The secret word you couldn't guess was ${secretWord}`)
     resetGame();
   }
-  guess = getValidLetterGuess() //Assigning guess so that guess could be the getValidLetterGuess function
-  if(guessCount.usedLetter.includes(guess)) { // Here I set the condition that the value of the guess is being entered again
-    console.log("Sorry you already used that letter! Try again!!") // here I am console logging the message for the player that they have already entered the previous letter. 
-    guessTheSecret(); //I am calling it back to this function how that after the player input the letter it will come back here
+  guess = getValidLetterGuess() 
+  if(guessCount.usedLetter.includes(guess)) { 
+    
+    guessTheSecret(); 
   } else {
-    rightOrWrongGuess(guess) //Calling the function to run to through the next function 
+    rightOrWrongGuess(guess)  
   }
   
 }
 
 
-//rightOrWrongGuess
-const rightOrWrongGuess = (guess) => { //With the "guess" param i am able to fun this function through the getValidLetter function. 
-  if(dash.includes(guess)) { // Setting the conditions that every dash will includee the guess param. 
-    guessRight(dash, guess) //If guess is right run to this function 
+const rightOrWrongGuess = (guess) => { 
+  if(dash.includes(guess)) {  
+    guessRight(dash, guess) 
   } else {
-    guessWrong() // if its not right it will run to this function 
+    guessWrong(guess) 
   }
 }
 
-// //guessRight
-const guessRight = (dash, guess) => { // Setting the two a param makes it easier to call variables from previous functions 
-  let letters = [] // declaring a new variable of an empty array to call later 
-  dash.forEach((abc, i) => { // using this array method will in fact make sure that each letter will run througg this loop. 
-    if (abc === guess){ // I set the condition that if "abc" letter is to the validtiy of being a letter 
-      letters.push(i) // that it would push into the index of the array  
+
+const guessRight = (dash, guess) => { 
+  let letters = [] 
+  dash.forEach((abc, i) => { 
+    if (abc === guess){ 
+      letters.push(i)   
     }
   })
-  letters.forEach((abc) => { // set a new function with array method to 
-    eachDash.splice(abc, 1, guess) // 
+  letters.forEach((abc) => { 
+    eachDash.splice(abc, 1, guess) 
   })
-  if (!secretWord.includes(guess)) { // Set a condition that would get you to the guessWrong function 
-    // If the guess is wrong,  Go into the wrongGuess function 
-   // No need for an else statement 
-    guessCount.maxGuess -- 
-    if (guessCount.maxguess == 0) {
-      console.log("Dang! You ran out of guesses!")
-      resetGame();
-    }
+  if (!secretWord.includes(guess)) { 
+    guessWrong();
   }
-  secretAnswer = eachDash.join(" ") //
+  secretAnswer = eachDash.join(" ") 
   guessCount.usedLetter.push(guess)
   usedLettersTogether = guessCount.usedLetter.join(" ") 
   console.log(`Letters you have used : ${usedLettersTogether}`)
   console.log(secretAnswer)
-  
-  
-  if (secretAnswer.includes("_") ) {  // Need to set a condition that would get player's input ; if they guessed the word before running out of guesses else guess again 
+  if (secretAnswer.includes("_") ) {  
     guessTheSecret();
-  } else { //if (secretAnswer.indexOf("_") !== secretWord.includes(guess)) {
+  } else { 
     console.log('Hey!!! You Won!!!')
+    guessesMade = guessCount.usedLetter.length
+    console.log(`It took you ${guessesMade} guesses to get the right answer!!`)
     resetGame(); 
   } 
 }
 
 
-//guessWrong
+
 const guessWrong = (guess) => {
-  guessCount.usedLetter.push(guess)
+  guessCount.maxGuess --
+  secretAnswer = eachDash.join(" ")
+ guessCount.usedLetter.push(guess)
   usedLettersTogether = guessCount.usedLetter.join (" ")
   console.log(`Letters you have used : ${usedLettersTogether}`)
-  guessCount.maxGuess -- // Need to set an command that decreses the maxGuess # each time the player gets it wrong 
-  console.log(`Yikes! Try again!`)
   console.log(secretAnswer)
-  if (guessCount.maxGuess == 0 ) {
-    // command the game to stop 
-    // console.log(`Dang! You have no chances left! You lose!`) 
+   console.log(`Yikes! Try again!`)
+  // console.log(secretAnswer)
+  if (guessCount.maxGuess == 0 ) { 
     resetGame();
   } else {
     guessTheSecret();
   }
 }
 
-//getValidLetterGuess
 function getValidLetterGuess() {
   function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase() && !guessCount.usedLetter.includes(letter)
+    return letter.length === 1 && letter.toUpperCase() !== letter.toLowerCase() 
   }
   let letter = ""
   while (!letter) {
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input
-      guessRight(dash, letter);
     } else {
       console.log("Please enter a valid letter")
       
@@ -136,19 +128,19 @@ function getValidLetterGuess() {
   return letter.toLowerCase()
 }
 
-//leaveGame
 const leaveGame = () => {
   console.log ("Thank you for playing the game!")
   process.exit()
 }
 
-//resetGame
 const resetGame = () => {
-   //restart the dash 
-  if (readline.keyInYN(`${yourName} it's okay. Would like to show this machine that you ain't no chump!!?`)){
+   
+  if (readline.keyInYN(`${yourName} would like to show this machine that you ain't no chump!!?`)){
      guessCount = {maxGuess: 8, usedLetter: []}
     dash = []
     eachDash = []
+    secretWord = dictionary[Math.floor(Math.random() * dictionary.length)]
+    console.log(secretWord)
     secretVocab();
   } else {
     leaveGame();
