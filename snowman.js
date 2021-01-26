@@ -16,11 +16,7 @@ console.log("HINT! The stars are bright. They lead with might. Look Up!");
 let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-startGame()
 // gameTakeOff
-const startGame = () => {
-  foreach.startGame(randomLetter(pickRandomLetter))
-};
 const randomLetter = () => {
   let pickRandomLetter = readlineSync.question("Pick a letter");
   if(pickRandomLetter > 0) {
@@ -31,26 +27,18 @@ const randomLetter = () => {
 };
 // gameWord
 const randomWord = () => {
-  let gameWord = "Libra";
-  if(randomLetter === "L", "l", "I", "i", "B", "b", "R", "r", "A", "a") {
-    return true
-  }
-
-};
+  let word = "Libra";
+  };
 // numberOfGuess
 const numOfGuess = () => {
-  while(numOfGuesses > 0) {
-    console.log("You are out of Guesses")
-    if(numOfGuess != null && numOfGuess != "") {
-      numOfGuesses -= numOfGuess
-
-    }
+  for(i = 0; i < 5; i++) {
+    if()
   }
-  console.log("You are out of guesses")
 };
 // guessLog
 const guessLog = () => {
-
+  let counter = 0
+  let maxGuess = 5
 };
 // gameOver
 const gameOver = () => {}
