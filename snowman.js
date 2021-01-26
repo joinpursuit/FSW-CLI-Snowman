@@ -12,7 +12,7 @@ let stats = {
 };
 
 function gameResults() {
-  console.log(`Here is your summary revealing the Secret word: ${stats.activeWord}\nYour attempt total is: ${stats.guessCount}\nYou had guess: ${10 - stats.guessesLeft} wrong letter(s)\nYour score is: ${(stats.guessesLeft * 100) / 10} `)
+  console.log(`Here is your summary revealing the Secret word: ${stats.activeWord}\nYour attempt total is: ${stats.guessCount}\nYou had guess: ${stats.guessedLetters.length - 1} wrong letter(s)\nYour score is: ${(stats.guessesLeft * 100) / 10} `)
 }
 function reset() {
   stats = {
