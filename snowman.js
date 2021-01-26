@@ -11,10 +11,37 @@ let stats = {
 
 };
 
+function gameResults() {
+  console.log(`Here is your Summary of Revealing the Secret word:${stats.activeWord}\nYour attempt total is: ${stats.guessCount}\nYou had guess: ${10 - stats.guessesLeft} wrong letter(s)\n Your score is: ${(stats.guessesLeft * 100) / 10} `)
+}
+function reset() {
+  stats = {
+    guessCount: 0,
+    guessesLeft: 10,
+    guessedLetters: [],
+    dashSecret: [],
+  }
+  return;
+}
+
+const gameOver = () => {
+  gameResults()
+  if (readline.keyInYN(`Would you like to play again?`)) {
+    reset()
+    startGame();
+    makeBoard();
+    gameBoard();
+  } else {
+    leaveGame();
+  }
+
+}
+
 const play = () => {
   console.log(`Thank you playing Snowman game.`);
   console.log(`The rules are simple enter the correct letters to guess the word \nwithin the amount of guesses you are allowed`)
   if (readline.keyInYN("Ready Set? ")) {
+    console.clear(stats.keys);
     startGame();
     makeBoard()
     gameBoard();
@@ -27,6 +54,7 @@ play();
 
 function leaveGame() {
   console.log("Thanks for playing!")
+
   process.exit();
 }
 
@@ -36,7 +64,6 @@ function displayWordInDash() {
 }
 
 function startGame() {
-  // stats.activeWord = dictionary[Math.floor(Math.random() * dictionary.length)];
   stats.activeWord = "free";
 }
 
@@ -74,6 +101,7 @@ function replaceDash(playerGuess) {
 }
 
 function gameBoard() {
+  console.clear()
   while (!stats.gameStatus) {
     updateBoard();
     displayWordInDash(stats.dashSecret.join(" "));
@@ -101,20 +129,17 @@ function gameBoard() {
 
     }
   }
-
-
-
-
-
+  console.clear();
 }
 
 
 function didWin() {
   if (stats.dashSecret.indexOf("_") < 0) {
     console.log(`Great job you reached the end!`);
-    leaveGame()
+    gameOver()
   }
 }
+
 
 function displayCorrect(playerGuess) {
   if (stats.activeWord.includes(playerGuess)) {
@@ -127,12 +152,9 @@ function didLoses() {
   if (stats.guessesLeft === 0) {
     console.log(`Sorry you have guessed too many times!`);
     console.log(`The secret word was ${stats.activeWord}.`);
-    leaveGame()
+    gameOver()
   }
 }
-
-
-
 
 
 function decrementGuessRemaining(playerGuess) {
@@ -148,9 +170,6 @@ function displayIncorrect(playerGuess) {
   console.log(`${playerGuess} is incorrect!`);
   return;
 }
-
-
-
 
 
 function getValidLetterGuess() {
