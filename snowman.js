@@ -1,5 +1,5 @@
 const readline = require("readline-sync");
-const dictionary = require("./dictionary.js")
+const dictionary = require("./dictionary.js");
 
 let randomDictionaryWord =
   dictionary[Math.floor(Math.random() * dictionary.length)];
@@ -8,8 +8,10 @@ console.log(secretWord); // - remove this when done working!!
 
 let gameBoard = makeGameBoard();
 
-let guessCount = 5;
+let correctGuessesMade = 0;
+let numOfGuessesRemaining = 5;
 let guessedLetters = [];
+let dups = [];
 
 // function startGame() {
 
@@ -25,7 +27,11 @@ function makeGameBoard() {
 
 function getValidLetterGuess() {
   function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
+    return (
+      letter.length === 1 &&
+      letter.toUpperCase() != letter.toLowerCase() &&
+      !guessedLetters.includes(letter)
+    );
   }
   let letter = "";
   while (!letter) {
@@ -33,8 +39,8 @@ function getValidLetterGuess() {
     let input = readline.question(`\nPlease enter your guess: `);
     if (guessIsValid(input)) {
       letter = input;
-      updateGameBoard(letter); // -consider placing this somewhere else.
-      console.log(displayGuessedLetters(letter));
+      // updateGameBoard(letter); // -consider placing this somewhere else. // moved to displayGuessedLetters()
+      displayGuessedLetters(letter);
     } else {
       console.log(`Please enter a valid letter\n`);
     }
@@ -42,18 +48,19 @@ function getValidLetterGuess() {
   return letter.toLowerCase();
 }
 
-function displayGuessCount() {
-  while (guessCount >= 0 && !isFullGameBoard()) {
-    if (guessCount === 5 || guessCount > 1) {
-      console.log(`You have ${guessCount} guesses remaining`);
-    } else if (guessCount === 1) {
-      console.log(`You have ${guessCount} guess remaining`);
-    } else if (guessCount === 0) {
+function displayNumOfGuessesRemaining() {
+  while (numOfGuessesRemaining >= 0 && !isFullGameBoard()) {
+    if (numOfGuessesRemaining === 5 || numOfGuessesRemaining > 1) {
+      console.log(`You have ${numOfGuessesRemaining} guesses remaining`);
+    } else if (numOfGuessesRemaining === 1) {
+      console.log(`You have ${numOfGuessesRemaining} guess remaining`);
+    } else if (numOfGuessesRemaining === 0) {
       console.log(`You have no guesses remaining`);
+      break;
     }
     getValidLetterGuess(); // not sure this goes here
   }
-  winAndEndGame();
+  isEndGame();
 }
 
 function updateGameBoard(letter) {
@@ -65,26 +72,34 @@ function updateGameBoard(letter) {
 }
 
 function displayGuessedLetters(letter) {
-  for (let i = 0; i < secretWord.length; i++) {
-    if (secretWord[i] === letter) {
-      guessedLetters.push(secretWord[i]);
-    }
-  }
+  guessedLetters.push(letter);
   if (!secretWord.includes(letter)) {
-    guessedLetters.push(letter);
-    guessCount--;
-  } else if (secretWord.includes(letter)) {
+    numOfGuessesRemaining--;
+  } else {
+    correctGuessesMade++; // -- should not count duplicate letters
+    updateGameBoard(letter);
   }
-  return `Guessed Letters: ${guessedLetters}\n`;
+  console.log(`Guessed Letters: ${guessedLetters}\n`);
 }
 
-function winAndEndGame() {
+// function removeDuplicateLetters(guessedLetters) {
+//   guessedLetters.forEach((letter) => {
+//     if (!dups.includes(letter)) {
+//       dups.push(letter);
+//     }
+//   });
+//   // return dups;
+// }
+
+function isEndGame() {
   if (isFullGameBoard()) {
     console.log(`YOU WON!!!
-You took ${guessCount} guesses`); // -- guessCount !== to # of guesses taken
+You made ${correctGuessesMade} correct guesses!`); // -- numOfGuessesRemaining !== to # of guesses taken
   }
-  if (readline.keyInYN(`\nWould you like to play again?`)) {
-    getValidLetterGuess(); // -- this should be a gameLoop
+  if (numOfGuessesRemaining === 0) {
+    console.log(`You lost :(
+The word was ${secretWord}!`)
+    // getValidLetterGuess(); // -- this should be a gameLoop
   } else {
     process.exit();
   }
@@ -97,4 +112,4 @@ function isFullGameBoard() {
 // function loseAndEndGame() {}
 
 // startGame();
-displayGuessCount();
+displayNumOfGuessesRemaining();
