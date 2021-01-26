@@ -17,7 +17,7 @@ const gameState = {
   remainingGuesses: 10,
   secretWord: secretWord,
   display: makeHiddenWord(),
-  playerGuesses: []
+  playerGuesses: [],
 
 }
 
@@ -33,13 +33,20 @@ const gameState = {
   while (gameState.remainingGuesses > 0) {
     //write the display here so it is updated after everyloop
     console.log(gameState.display.join(" "))
+
     //print the users remaining guess count
-    console.log(gameState.remainingGuesses)
+    console.log('You have ' + gameState.remainingGuesses + ' guesses left! \n')
+  
     //ask for user input
     const input = readline.question("Please enter your guess: ").toLocaleLowerCase()
     if (guessIsValid(input)) {
+      // console.log(typeof input)
       //add user guessed letter to playerGuesses array
-      console.log(gameState.playerGuesses.push(input))
+      gameState.playerGuesses.push(input) // is returning the number of indexes in array
+      console.log("Guessed Letters: " + gameState.playerGuesses.join())
+      // console.log(typeof input)
+      // console.log(gameState.playerGuesses)
+      // console.log(gameState.playerGuesses)
 
       //if user input matches any character in guessLetter array
       if (gameState.guessLetters.includes(input)) {
@@ -53,10 +60,14 @@ const gameState = {
       } else { //if user guesses incorrectly
         //takes a guess away if wrong
         gameState.remainingGuesses --
+        if (gameState.remainingGuesses === 0){
+          console.log('You lost the game! The Secret word was ' + gameState.secretWord)
+        }
       }
     } else {
       console.log("Please enter a valid letter")
     }
+     
   }
 
 //create a function that loops through the array secretWord and pushes it into uniqueCharacters to cover all letters that show up in word
@@ -70,6 +81,9 @@ function getUniqueCharacters() {
   }
   return uniqueCharacters
 }
+
+//function that ends game when word is correct
+
 
 //make array of _ that is length of the hidden word
 //convert string to an array of strings
