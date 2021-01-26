@@ -19,7 +19,7 @@ const StartGame = () => {
 
 function leaveGame() {
   console.log("Come back soon!");
-  process.exit();// exit
+  process.exit();
 };
 
 let stats = {
