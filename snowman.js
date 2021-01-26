@@ -2,10 +2,10 @@ const dictionary = require("./dictionary");
 const readline = require("readline-sync");
 // i is always a number not the element in the array. We use that number to key in to the array
 
-let mistakes = 0;
+// let mistakes = 0;
 let guessed = [];
-
-let stats = { dash: [], guesses: 7, word: "", board: "" };
+ 
+let stats = { dash: [], guesses: 2, guessed: [], word: "", board: "" };
 
 function startGame() {
   console.log("Welcome to Snowman!!\n");
@@ -20,15 +20,19 @@ function startGame() {
   }
   console.log(stats.word);
   wordDashes(stats.word);
-  while (stats.guesses >= 0) {
+  while (stats.guesses > 0) {
     //|| stats.dash.includes("_")
     if (!stats.dash.includes("_")) {
       console.log("You won!");
+      console.log(`"You made a total of ${stats.guessed.length} guesses"`)
+      resetGame();
       break;
     }
+    console.log(stats.guessed.join(" "))
     console.log(`"You have ${stats.guesses} guesses remaining"`);
     console.log(stats.dash.join(" "));
     stats.board = getValidLetterGuess();
+    stats.guessed.push(stats.board)
     if (!stats.word.includes(stats.board)) {
       stats.guesses--;
     } else {
@@ -36,32 +40,24 @@ function startGame() {
     }
   }
 
-  // lostGame();
-  //   guesses--;
-  //   // resetGame();
+  lostGame();
+ 
 }
 function resetGame() {
-  if (readline.keyInYN("Do you want to play again?\n")) {
-    // funtion in itself for playAgain
-    // getValidLetterGuess();
+  let input = readline.keyInYN("Do you want to play again?\n");
+  if (input) {
+    stats = { dash: [], guesses: 7, guessed: [], word: "", board: "" };
+    startGame();
   } else {
     leaveGame();
   }
 }
-function winOrLoose() {
-  if (!stats.dash.includes("_")) {
-    console.log("You won!");
-  } else {
-    console.log("Boo you lost. Want to try again?");
-  }
-}
 
-// function lostGame() {
-//   if (!stats.word.includes(stats.guesses)) {
-//     console.log("Boo you lost. Want to try again?");
-//   }
-//   resetGame();
-// }
+function lostGame() {
+  console.log(`The word you were trying to guess was: ${stats.word}\n`)
+  console.log("Boo you lost. Want to try again?\n");
+  resetGame();
+}
 
 function randomWord() {
   stats.word = dictionary[Math.floor(Math.random() * dictionary.length)];
@@ -78,10 +74,10 @@ function wordDashes() {
 }
 // console.log(wordDashes)
 
-function guessedOut(letter) {
-  if (stats.word.includes(stats.board)) {
-  }
-}
+// function guessedOut(letter) {
+//   if (stats.word.includes(stats.board)) {
+//   }
+// }
 
 function letterHolder(letter) {
   //update the dash with the letter on the board
@@ -94,7 +90,7 @@ function letterHolder(letter) {
 
 function getValidLetterGuess() {
   function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
+    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase() && !stats.guessed.includes(letter)
   }
   let letter = "";
   while (!letter) {
