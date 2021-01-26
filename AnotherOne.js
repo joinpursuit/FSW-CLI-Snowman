@@ -47,14 +47,14 @@ const getValidLetterGuess = () => {
 
 let x = ""
 
-// const gameOver = () => {
-//   if ((guessesRemaining === 0)) {
-//     console.log("Better luck next time.");
-//     console.log("The word was " + word + ".");
-//   } else if (obj.secretWord === obj.board.join("")) {
-//     console.log("You win! Congratulations!");
-//   }
-// };
+const theEnd = () => {
+  if ((obj.guessesRemaining === 0)) {
+    console.log("Better luck next time.");
+    console.log("The word was " + obj.secretWord.toUpperCase() + ".");
+  } else if (obj.secretWord === obj.board.join("")) {
+    console.log("You win! Congratulations!");
+  }
+};
 
 //isGameOver function to return boolean if game is over
 
@@ -68,21 +68,24 @@ const wordCompare = () => {
 const boardUpdate = () => {
     for (let j = 0; j < obj.secretWord.length; j++) {
         if (obj.secretWord[j] === x) {
-          console.log(obj.secretWord)
+          // console.log(obj.secretWord)
             obj.board[j] = x
         }
     }
     return obj.board
 }
 
-
+// const isGameOver = () => {
+//   if (obj.guessesRemaining === 0 || obj.board.join("") !== obj.secretWord)
+//     return true
+// }
 
 
 const startGame = () => {
     obj.secretWord = randomWord();
     buildBoard().join(" ")
+    // console.clear();
   while (obj.guessesRemaining > 0 && obj.board.join("") !== obj.secretWord) {
-    // let x = getValidLetterGuess()
     getValidLetterGuess();                      
     if (wordCompare()) {
       console.log("You guessed right!");
@@ -101,7 +104,7 @@ const startGame = () => {
 
 
 startGame()
-
+theEnd()
 
 // console.log("a", buildBoard());
 // console.log("b", obj);
