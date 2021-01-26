@@ -20,7 +20,6 @@ For this assignment, you will build a game of [snowman](https://benstone1.github
 1. Submit a Pull Request back to the assignment repo
 1. Paste a link to of your Fork on Canvas and submit
 
-
 ## Technical Requirements
 
 - Complete all the User stories listed below
@@ -28,16 +27,16 @@ For this assignment, you will build a game of [snowman](https://benstone1.github
 
 ## User Stories
 
-Copy the user stories from the Trello board [here](https://trello.com/b/8OErA3xI/command-line-snowman-project-plan) into your own board.
+Copy the user stories from the Trello board [here](https://trello.com/b/HfcSFRM9/snowman-maddy) into your own board.
 
 ### As a user, I should be presented with a random word to guess
 
 - The computer should pick a word at random
-- The user should see a number of `_` characters equal to the number of letters in the word (ex. A _ _ L E, for apple)
+- The user should see a number of `_` characters equal to the number of letters in the word (ex. A \_ \_ L E, for apple)
 
 ### As a user, I should be able to enter guesses
 
-- Handle invalid guesses by displaying a message and having the user enter a different guess.  Invalid guesses don't count against the guess count.
+- Handle invalid guesses by displaying a message and having the user enter a different guess. Invalid guesses don't count against the guess count.
 - After each guess, the user should see the new updated word, replacing all `_` with letters they have guessed
 - After each guess, the user should see the letters they have guessed already
 
