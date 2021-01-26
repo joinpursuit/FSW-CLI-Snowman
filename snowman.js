@@ -769,14 +769,14 @@ function startGame() {
     console.log("Total amount of guesses left " + maxGuesser(letter));
   if (!answerArr.includes("_ ")) {
     console.clear(word)
-    console.log("CONGRATULATION YOU WON");
+    console.log("CONGRATULATION YOU WON \nTotal Amount of Guesses Used: "+ abcArr.length);
     resetGame();
   }else if (maxGuess === 0){
     console.clear(word)
-    console.log( "You Lose.")
+    console.log("YOU LOSE.\nThe correct answer is: "+(word)+ "\nTotal Amount of Guesses Used: "+ abcArr.length)
     resetGame()
   }
-    
+   
   }
 }
   //incorrectGuess()
@@ -809,7 +809,9 @@ function getValidLetterGuess() {
       console.log("Please enter a valid letter");
     }
   }
+  console.clear()
   return letter.toLowerCase();
+  
 }
 // 4. Letters used are posted as reminder
 
@@ -817,7 +819,7 @@ function letterReminder(letter) {
   if (!abcArr.includes(letter)) {
     abcArr.push(letter);
   }
-  return abcArr.join(" ");
+  return ("Current Letters Guessed: " + abcArr.join(" "));
 }
 
 //word[j] === letter &&
@@ -859,10 +861,13 @@ function resetGame(){
       console.clear()
       startGame();
     } else {
-      process.exit("See you next time.");
+      leaveGame()
     }
   }
   
+  function leaveGame(){
+    process.exit("See you next time.");
+  }
   
 // 10. If word is solves "Win Game"
 startGame();
