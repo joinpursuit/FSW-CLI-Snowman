@@ -6,18 +6,14 @@ let randomWord = '';
 let randomWordArray = [];
 let hiddenLetterArray = [];
 let hiddenWord;
-let stats = {maxGuesses: 0, guessedLetters: [], totalGuesses: 0}
+let stats = {maxGuesses: 0, guessedLetters: []}
 
 const startGame = () => {
-  randomWord = '';
-  randomWordArray = [];
-  hiddenLetterArray = [];
-  hiddenWord;
-  stats = {maxGuesses: 0, guessedLetters: [], totalGuesses: 0}
   randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
   // sets start of max guess based one the word
   stats.maxGuesses = randomWord.length - 1;
   randomWordArray = randomWord.split('');
+  console.log(randomWord);
   hideLetters(randomWord);
   gameLoop();
 }
@@ -33,7 +29,7 @@ const hideLetters = word => {
 }
 
 const gameLoop = () => {
-  stats.totalGuesses = 0;
+  let totalGuesses = 0;
   while (stats.maxGuesses > 0) {
     console.log(hiddenWord);
     console.log(`You have ${stats.maxGuesses} incorrect guesses remaining.`);
@@ -44,9 +40,9 @@ const gameLoop = () => {
       console.clear();
       console.log('You\'ve already guessed that! Try again.');
     } else {
-      stats.totalGuesses++;
+      totalGuesses++;
       if (randomWordArray.includes(playerGuess)){
-        correctGuess(randomWordArray, playerGuess, stats.totalGuesses);
+        correctGuess(randomWordArray, playerGuess, totalGuesses);
       } else {
         incorrectGuess(playerGuess);
       }
@@ -60,16 +56,20 @@ const getValidLetterGuess = () => {
   }
   let letter = ""
   while (!letter) {
-    let input = readline.question("Please enter your guess: ");
+    let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input
     } else {
-      console.log("Please enter a valid letter");
+      console.log("Please enter a valid letter")
     }
   }
   return letter.toLowerCase()
 }
 
+// As a user, I should know when I win or lose and see the correct answer.
+// The game should continue until the user has won or lost
+// Once the full word is guessed, the game should display how many guesses it took and display a victory message
+// If the user runs out of guesses, the full word should be revealed and the game should display a defeat message
 const correctGuess = (array, pGuess, totalGuesses) => {
   console.clear();
   stats.guessedLetters.push(pGuess);
@@ -87,37 +87,17 @@ const correctGuess = (array, pGuess, totalGuesses) => {
   // Win condition
   if (!hiddenLetterArray.includes('_')){
     console.log(`You win! It only took you ${totalGuesses} total guesses to win.`);
-    let input = readline.keyInYNStrict('Would you like to play again?');
-    if(!input){
-        console.clear();
-        console.log('Thank you for playing!');
-        quitGame();
-    }else{
-        console.clear();
-        startGame();
-    }
+    process.exit();
   }
 }
-const quitGame = () => {
-  console.log('Have a nice life!');
-  process.exit();
-}
-
+// distribution
 const incorrectGuess = pGuess => {
   console.clear();
   stats.guessedLetters.push(pGuess);
   stats.maxGuesses--;
   if (stats.maxGuesses === 0){
     console.log(`You lost the game. The correct word was '${randomWord}'.`);
-    let input = readline.keyInYNStrict('Would you like to play again?');
-    if(!input){
-        console.clear();
-        console.log('Thank you for playing!');
-        quitGame();
-    }else{
-        console.clear();
-        startGame();
-    }
+    process.exit();
   } else {
     console.log(`Incorrect guess. Please try Again.`);
   }
