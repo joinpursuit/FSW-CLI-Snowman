@@ -746,7 +746,7 @@ const dictionary = [
   "young",
 ];
 //const dictionary = ["abble", "soon"];
-let letters = "abcdefghijklmnopqrstuvwxyz";
+
 let randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
 let splitRandomWord = randomWord.split("");
 let tiles = splitRandomWord.map((el) => {
@@ -761,19 +761,39 @@ let name = readline.question(
   "Hello human, thank you for playing, what is your name? "
 );
 let choose = `please choose a letter`;
-let right = `good choice`;
 let message = { outmessage: "" };
 let gameInventory = { correctGuesses: "", wrongGuesses: "", guessesLeft: 6 };
-console.log(`good luck ${name}!`);
+
 
 console.clear();
+const playAgain = () => {
 
+  let askAgain = readline.keyInYN(`Would you like to play again ${name}?`);
+  if (askAgain) {
+randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+splitRandomWord = randomWord.split("");
+tiles = splitRandomWord.map((el) => {
+  return " _ ";
+});
+   incorrectGuess = 0;
+   lettersLeft = randomWord.length
+   gameInventory = { correctGuesses: "", wrongGuesses: "", guessesLeft: 6 };
+  message = { outmessage: "" };
+
+
+
+  } else {
+    process.exit();
+  }
+};
 const gameLoop = () => {
-  console.log(`good luck ${name}`);
+
 
   if (incorrectGuess === 6) {
+  
     loseGame();
   } else if (lettersLeft === 0) {
+
     gameWin();
   } else if (lettersLeft >= 0) {
     console.log(message["outmessage"]);
@@ -786,6 +806,7 @@ const gameLoop = () => {
 };
 
 const takeAGuess = () => {
+  
   console.log(tiles.join(" "));
 
   let playerGuess = readline
@@ -837,24 +858,28 @@ const takeAGuess = () => {
 //};
 
 const gameWin = () => {
-  let winScore = (gameInventory["correctGuesses"].length/2) +(gameInventory["wrongGuesses"].length/2)
+  let winScore =
+    gameInventory["correctGuesses"].length / 2 +
+    gameInventory["wrongGuesses"].length / 2;
   console.log(tiles.join(" "));
   console.log(
-    `Congragulations ${name}, You won the game with ${winScore} guesses!!! I hope you will play again soon!`
+    `Congragulations ${name}, You won the game with ${winScore} guesses!!!`
   );
-  process.exit();
+
+  playAgain();
 };
 
 const loseGame = () => {
-  
-  console.clear();
+
   console.log(
     `You have ${
       6 - incorrectGuess
     } guesses left ${name}, so you lose the game. The word
    you were unable to guess is "${randomWord}". Better luck next time human ${name}`
   );
-  process.exit();
+
+ playAgain();
+
 };
 
 gameLoop();
