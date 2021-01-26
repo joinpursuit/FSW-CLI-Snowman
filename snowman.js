@@ -16,6 +16,7 @@ console.log("HINT! The stars are bright. They lead with might. Look Up!");
 let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+let underScore = [];
 // gameTakeOff
 const randomLetter = () => {
   let pickRandomLetter = readlineSync.question("Pick a letter");
@@ -40,5 +41,14 @@ const guessLog = () => {
   let counter = 0
   let maxGuess = 5
 };
+// Under Score Generator
+let generateUnderScore = () => {
+  for(let i = 0; i < randomWord.length; i++) {
+    underScore.push("_");
+  }
+  return underScore;
+}
+
+console.log(generateUnderScore());
 // gameOver
 const gameOver = () => {}
