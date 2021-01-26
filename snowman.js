@@ -17,3 +17,95 @@ function getValidLetterGuess() {
   }
   return letter.toLowerCase()
 }
+
+let stats = {
+  randomWord: dictionary[Math.floor(Math.random() * dictionary.length)],
+  //randomWord: 'to',
+  guesses: 8,
+  currentLetter: [],
+  display: [],
+  guessedLetter: []
+}
+
+ const startGame = () => {
+   console.log('Welcome to Hangman\n')
+   console.log('you will have a certain amount of guesses to get the correct letter from the word given to you')
+   console.log('If you guess wrong your guess count will go down, If you guess right your guess count will remain the same until you have guessed wrong.\n')
+   console.log("let's begin")
+   console.log('you word is:')
+   
+   userScreen()
+  
+ }
+
+  const updateDisplay = () => {
+    stats.display = []
+    for(let i = 0; i < stats.randomWord.length; i++){
+      
+      if (stats.currentLetter.includes(stats.randomWord[i])){
+        stats.display.push(stats.randomWord[i])
+      } else {
+        stats.display.push('_')
+      }
+  }
+  console.log(stats.display.join(' ') + '\n')
+  console.log(`letters you guessed: ${stats.currentLetter.join(' ')}`)
+  console.log('you have ' + stats.guesses + ' guesses remaining\n')
+}
+
+const userScreen = () => {
+  updateDisplay()
+  updateGuessCount()
+}
+
+ const updateGuessCount = () => {
+   
+   while (stats.guesses > 0){
+     if (winGame()){
+       break
+     } 
+    let userInput = getValidLetterGuess() 
+    stats.currentLetter.push(userInput)
+    if (stats.randomWord.includes(userInput)){
+       updateDisplay()
+     } else {
+       stats.guesses--
+       updateDisplay()
+     }
+   }
+   if (stats.guesses <= 0){
+     loseGame()
+   }
+
+ }
+
+ const winGame = () => {
+   
+   if (stats.display.join('') === stats.randomWord){
+     console.log('Congrats!')
+     console.log(`It took you ${stats.currentLetter.length} tries to win!`)
+     return true
+   } else {
+     return false
+   }
+   
+ }
+
+ const loseGame = () => {
+   
+   if (stats.display.join('') !== stats.randomWord){
+     console.log('You lost :(')
+     console.log(`the word was: ${stats.randomWord}`)
+     console.log('Good luck next time!')
+     return true
+   } else {
+     return false
+   }
+  
+ }
+
+
+ startGame()
+
+
+
