@@ -21,11 +21,10 @@ obj.secretWord = randomWord()
 
 
 const buildBoard = () => {
-  let board = [];
   for (let i = 0; i < obj.secretWord.length; i++) {
-    board[i] = "_";
+    obj.board[i] = "_";
   }
-  return board;
+  return obj.board;
 };
 
 
@@ -68,11 +67,12 @@ const wordCompare = () => {
 
 const boardUpdate = () => {
     for (let j = 0; j < obj.secretWord.length; j++) {
-        if (obj.board[j] === ) {
+        if (obj.secretWord[j] === x) {
+          console.log(obj.secretWord)
             obj.board[j] = x
         }
     }
-    return obj.board
+    console.log(obj.board)
 }
 
 
@@ -91,7 +91,7 @@ const startGame = () => {
       console.log(obj);
     } else if (!wordCompare()) {
       console.log("Wrong guess.");
-      boardUpdate()
+      console.log(boardUpdate())
       obj.guessesRemaining -= 1;
       obj.incorrectGuesses.push(x);
       console.log(obj);
