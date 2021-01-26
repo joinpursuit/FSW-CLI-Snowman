@@ -6,7 +6,7 @@ let stats = {
   choiceWord: dictionary[Math.floor(Math.random() * dictionary.length)],
   answer: [],
   guesses: [],
-  lives: 8,
+  lives: 8 ,
 };
 
 const play = () => {
@@ -14,7 +14,7 @@ const play = () => {
   let openingQuestion = readline.keyInYN("Would You like to play?");
   if (openingQuestion) {
     getValidLetterGuess();
-  } else 
+  } else
   Process.exit();
 };
 
@@ -31,13 +31,13 @@ function getValidLetterGuess() {
   while (!letter) {
    letter = readline.question("Please enter your guess: ");
   
-    console.log(guessIsValid(5));
+    // console.log(guessIsValid(5));
     if (guessIsValid()) {
       console.log(letter);
     } else {
       console.log("Please enter a valid letter");
     }
-    // loop through guesses array to see what 
+    // loop through guesses array to see what user has entered
     for (let j= 0; j < stats.guesses.length; j++) {
       if(letter = stats.guesses[j]) {
         console.log("you have entered this letter already")
@@ -49,11 +49,18 @@ function getValidLetterGuess() {
     for (let i = 0; i <stats.choiceWord.length; i ++) {
      if(letter === stats.choiceWord[i]) {
        stats.answer[i] = letter;
-       console.log("hey you got one");
-     }
+
+       
+       console.log(stats.answer);
+      } else {
+        stats.lives = stats.lives-1
+        console.log(`You have ${stats.lives} left`)
+      }
+    } for (let i = 0; i < stats.answer; i ++) {
+      stats.answer.push(letter)
     }
-    console.log(stats.answer);
     // insert correct chosen letter into correct position in array answers
+    
     // insert chosen letter into guesses array
     //check to see if all chosen letters match answer
     // check to see if answer fills all underscores
