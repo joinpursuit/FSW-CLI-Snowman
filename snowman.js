@@ -92,11 +92,11 @@ const gameLoop = () => {
 
 function repeatletters (letter) {
   if ((object.guessedLetters.includes(letter))) {
-    object.guesses = object.guesses + 1
     return true 
   }
 
 }
+
 
 function getValidLetterGuess() {
   guessLeftCounter()
@@ -106,11 +106,10 @@ function getValidLetterGuess() {
   object.letter = ""
   while (!object.letter) {
     let input = readline.question("Please enter your guess: ")
-    if (guessIsValid(input)) {
+    if (repeatletters(input)) {
+      console.log("\x1b[33m%s\x1b[0m", "\nYou guessed this letter already!")
+    } else if (guessIsValid(input)) {
       object.letter = input
-      if (repeatletters(input)) {
-        console.log("\x1b[33m%s\x1b[0m", "\nYou guessed this letter already!")
-      } 
     } else {
       console.log("\nPlease enter a valid letter from A - Z!")
     }
