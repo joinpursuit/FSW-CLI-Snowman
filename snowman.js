@@ -4,7 +4,7 @@ const dictionary = require("./dictionary.js");
 let randomDictionaryWord =
   dictionary[Math.floor(Math.random() * dictionary.length)];
 let secretWord = randomDictionaryWord;
-console.log(secretWord); // - remove this when done working!!
+
 
 let gameBoard = makeGameBoard();
 
@@ -37,7 +37,6 @@ function getValidLetterGuess() {
     let input = readline.question(`\nPlease enter your guess: `);
     if (guessIsValid(input)) {
       letter = input;
-      // updateGameBoard(letter); // -consider placing this somewhere else. // moved to displayGuessedLetters()
       displayGuessedLetters(letter);
     } else {
       console.log(`Please enter a valid letter\n`);
@@ -61,7 +60,7 @@ function displayNumOfGuessesRemaining() {
       console.log(`You have no guesses remaining`);
       break;
     }
-    getValidLetterGuess(); // not sure this goes here
+    getValidLetterGuess();
   }
   isEndGame();
 }
