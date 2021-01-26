@@ -8,191 +8,225 @@ const words = ["able", "about", "account", "acid", "across", "addition", "adjust
 
 
 obs = {
-    guessedLetters: [],
-    guessesLeft: 6,
-     
+  guessedLetters: [],
+  guessesLeft: 6,
+};
+
+const askToPlay = () => {
+  console.log(
+    chalk.redBright.underline(
+      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    )
+  );
+  console.log(chalk.redBright("Welcome to the Snowman word guessing game!\n"));
+  const userName = readlineSync.question(
+    chalk.redBright("Please enter your name:\n")
+  );
+  console.clear();
+  console.log(chalk.redBright.underline("~~~~~~~~~~~~~~~~~~~~~~~~~"));
+  console.log(chalk.redBright(`\n⛄️ Hello ${userName} ⛄️`));
+  console.log(chalk.redBright.underline("~~~~~~~~~~~~~~~~~~~~~~~~~"));
+};
+
+const randomizeWord = (words) => {
+  return words[Math.floor(Math.random() * words.length)];
+};
+
+const hideRandomWord = (randomWord) => {
+  let hiddenWord = [];
+  for (let i = 0; i < randomWord.length; i++) {
+    hiddenWord.push("_");
+  }
+  return hiddenWord.join("");
+};
+
+const checkLetter = (letter, randomWord) => {
+  return randomWord.includes(letter);
+};
+
+const unhideRandomWord = (input, randomWord, hiddenWord) => {
+  hiddenWord = hiddenWord.split("")
+  console.log(input, randomWord, hiddenWord);
+
+  for (let j = 0; j < randomWord.length; j++) {
+    if (randomWord[j].includes(input)) {
+      hiddenWord[j] = input;
     }
+  }
+  console.log(hiddenWord);
+  return hiddenWord.join("");
 
-    const askToPlay = () => {
-        console.log(chalk.redBright.underline("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"))
-        console.log(chalk.redBright("Welcome to the Snowman word guessing game!\n"))
-        const userName = readlineSync.question(chalk.redBright("Please enter your name:\n"))
-        console.clear()    
-        console.log(chalk.redBright.underline("~~~~~~~~~~~~~~~~~~~~~~~~~"))
-        console.log(chalk.redBright(`\n⛄️ Hello ${userName} ⛄️`))
-        console.log(chalk.redBright.underline("~~~~~~~~~~~~~~~~~~~~~~~~~"))
-      }
-
-        const randomizeWord = (words) => {return words[Math.floor(Math.random() * words.length)];
-        }
-
-
-        const hideRandomWord = () => {
-            let hiddenWord = []
-            for (let i = 0; i < randomWord.length; i++){
-                hiddenWord.push('_')  
-            }
-            return hiddenWord = hiddenWord.join(' ')
-            }
-
-        
-
-        const checkLetter = (letter, randomWord) => {
-            return randomWord.includes(letter)
-            }
-
-    
-        const unhideRandomWord = (input, randomWord, hiddenWord) => {
-            for (let j = 0; j < randomWord.length; j++) {
-                if (randomWord[j].includes(input)) {
-                    hiddenWord[j] = input;
-                } 
-            }
-            return hiddenWord;
-        }
-
+};
 
 const leaveGame = () => {
-  console.log(chalk.whiteBright.bold("........................................................."))
-  if (readlineSync.keyInYNStrict("Do you really want to exit the Snowman word guessing game?")) {
-    console.log(chalk.yellowBright.bold("Thank you for stopping by the Snowman Word Guessing Game!"))
-    process.exit()
+  console.log(
+    chalk.whiteBright.bold(
+      "........................................................."
+    )
+  );
+  if (
+    readlineSync.keyInYNStrict(
+      "Do you really want to exit the Snowman word guessing game?"
+    )
+  ) {
+    console.log(
+      chalk.yellowBright.bold(
+        "Thank you for stopping by the Snowman Word Guessing Game!"
+      )
+    );
+    process.exit();
+  } else {
+    startGame();
   }
-  else {
-    startGame()
+};
+
+const loseGame = (randomWord) => {
+  console.log(
+    chalk.redBright.underline(
+      "========================================================="
+    )
+  );
+  console.log(
+    chalk.redBright(
+      `Game Over! You didn't guess the mystery word: ` +
+        (chalk.yellowBright(randomWord) + `\nTry again next time!`)
+    )
+  );
+  leaveGame();
+};
+
+const winGame = (randomWord) => {
+  console.log(
+    chalk.redBright.underline(
+      "========================================================="
+    )
+  );
+  console.log(
+    chalk.redBright.underline(
+      "Congrats! You did it! You've figured out the word: " +
+        (chalk.yellowBright.underline(randomWord) +
+          " in the Snowman word guessing game!")
+    )
+  );
+  return
+};
+
+const alreadyGuessed = (letter) => {
+  if (obs.guessedLetters.includes(letter)) {
+    console.log("You already guessed that letter! Enter another guess.");
   }
-}
+};
 
-
-const loseGame = () => {
-    console.log(chalk.redBright.underline("========================================================="))
-    console.log(chalk.redBright(`Game Over! You didn't guess the mystery word: `+ (chalk.yellowBright(randomWord) + `\nTry again next time!`)))
-    leaveGame()
-  }
-
-
-  const winGame = () => {
-    console.log(chalk.redBright.underline("========================================================="))
-    console.log(chalk.redBright.underline("Congrats! You did it! You've figured out the word: " + (chalk.yellowBright.underline(randomWord) + "in the Snowman word guessing game!")))
-  }
-
-const alreadyGuessed = () => {
-    if(obs.guessedLetters.includes(letter)){
-    console.log("You already guessed that letter! Enter another guess.")
+const incorrectGuess = (randomWord, letter) => {
+  if (!randomWord.includes(letter)) {
+    if (!obs.guessedLetters.includes(letter)) {
+      obs.guessedLetters.push(letter);
     }
-}
-
-const incorrectGuess = () => {
-    if(!randomWord.includes(letter)){
-        if(!obs.guessedLetters.includes(letter)){
-            obs.guessedLetters.push(letter)
-        }
-    }
-}
+  }
+};
 
 //////////
 
-const correctGuess = () => {
-  if(randomWord.includes(letter)){
-    if(!obs.guessedLetters.includes(letter)){
-      obs.guessedLetters.push(letter)
+const correctGuess = (randomWord, letter) => {
+  if (randomWord.includes(letter)) {
+    if (!obs.guessedLetters.includes(letter)) {
+      obs.guessedLetters.push(letter);
     }
   }
-}
-
+};
 
 ///////
 
-
 const startGame = () => {
+  let randomWord = randomizeWord(words);
+  let hiddenWord = hideRandomWord(randomWord);
+  let letter = "";
 
-    randomWord = randomizeWord(words)
-    hiddenWord = hideRandomWord(randomWord)
-    letter = ""
+  askToPlay();
 
-    askToPlay()
-
-    if (readlineSync.keyInYNStrict(chalk.white.bold("\nAre you ready to play Snowman?"))){
-    console.clear()
-    console.log(chalk.redBright.underline("~~~~~~~~~~~~~~~~~~~~~~~~~"))
-      console.log(chalk.redBright.bold("\nAwesome! Let's Play!\n"))
-      } else {
-      console.log(chalk.whiteBright.bold(".........................Exiting........................."))
-      leaveGame()
-      }
-
-  const getValidLetterGuess = () => {
-      
-    const guessIsValid = (letter) => {
-      return letter.length === 1 && letter.toLowerCase() // letter.toUpperCase() != 
- 
-    }
-
-  while (!letter) {
-    while(obs.guessesLeft > 0){
-
-  console.log(randomWord + " (This is just for testing)")
-  
-
-    console.log("==================================================")
-    console.log("You have " + obs.guessesLeft + " guesses remaining.")
-    console.log(`Your guessed letters: ${obs.guessedLetters}`)
-    alreadyGuessed()
-
-
-    console.log("==================================================")
-    console.log(chalk.redBright.bold("Please enter a letter to correspond with the given\nunderscores (_) below!\n"))
-    hideRandomWord(randomWord)
-    console.log(hiddenWord)
-    console.log("==================================================")
-    
-
-    input = readline.question("Please enter your guess: ")
-    console.clear()
-
-
-    if (guessIsValid(input)) {
-      letter = input
-      
-    console.log("==================================================")
-    console.log("Your letter choice was => " + letter)
-
-
-
-    hiddenWord = unhideRandomWord(letter, randomWord, hiddenWord)
-
-    if(checkLetter(letter,randomWord)) {
-      correctGuess()
-        console.log("==================================================")
-        console.log("Yes! That letter is in the word!")
-
-
-        } else {
-        incorrectGuess()
-        obs.guessesLeft --
-        if(obs.guessesLeft === 0){
-          loseGame()
-        }
-
-        console.log("==================================================")
-        console.log('Sorry, try again! That letter is not in the word!')
-    }
-    
+  if (
+    readlineSync.keyInYNStrict(
+      chalk.white.bold("\nAre you ready to play Snowman?")
+    )
+  ) {
+    console.clear();
+    console.log(chalk.redBright.underline("~~~~~~~~~~~~~~~~~~~~~~~~~"));
+    console.log(chalk.redBright.bold("\nAwesome! Let's Play!\n"));
   } else {
-    console.log("Please enter a valid letter")
+    console.log(
+      chalk.whiteBright.bold(
+        ".........................Exiting........................."
+      )
+    );
+    leaveGame();
   }
 
-}
-return letter.toLowerCase()
-}
+  const getValidLetterGuess = () => {
+    const guessIsValid = (letter) => {
+      return letter.length === 1 && letter.toLowerCase() != letter.toUpperCase() 
+    };
 
-}
+    // while (!input) {
+      while (obs.guessesLeft > 0) {
+        console.log(randomWord + " (This is just for testing)");
 
-getValidLetterGuess()
+        console.log("==================================================");
+        console.log("You have " + obs.guessesLeft + " guesses remaining.");
+        console.log(`Your guessed letters: ${obs.guessedLetters}`);
+        alreadyGuessed(letter);
 
+        console.log("==================================================");
+        console.log(
+          chalk.redBright.bold(
+            "Please enter a letter to correspond with the given\nunderscores (_) below!\n"
+          )
+        );
+        // hideRandomWord(randomWord);
+        console.log(hiddenWord);
+        console.log("==================================================");
 
-}
+        input = readline.question("Please enter your guess: ");
+        console.clear();
 
+        if (guessIsValid(input)) {
+          letter = input;
 
-startGame()
-leaveGame()
+          console.log("==================================================");
+          console.log("Your letter choice was => " + letter);
+
+          console.log(hiddenWord)
+          hiddenWord = unhideRandomWord(letter, randomWord, hiddenWord);
+          console.log(hiddenWord)
+
+          if (checkLetter(letter, randomWord)) {
+            correctGuess(randomWord, letter);
+            if(hiddenWord === randomWord){
+              obs.guessesLeft = 0
+              winGame(randomWord)
+            }
+            console.log("==================================================");
+            console.log("Yes! That letter is in the word!");
+
+          } else {
+            incorrectGuess(randomWord, letter);
+            obs.guessesLeft--;
+            if (obs.guessesLeft === 0) {
+              loseGame(randomWord);
+            }
+
+            console.log("==================================================");
+            console.log("Sorry, try again! That letter is not in the word!");
+          }
+        } else {
+          console.log("Please enter a valid letter");
+        }
+      // }
+      // return letter.toLowerCase();
+    }
+  };
+
+  getValidLetterGuess();
+};
+
+startGame();
+leaveGame();
