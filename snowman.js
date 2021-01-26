@@ -12,7 +12,7 @@ let stats = {
 };
 
 function gameResults() {
-  console.log(`Here is your Summary of Revealing the Secret word:${stats.activeWord}\nYour attempt total is: ${stats.guessCount}\nYou had guess: ${10 - stats.guessesLeft} wrong letter(s)\n Your score is: ${(stats.guessesLeft * 100) / 10} `)
+  console.log(`Here is your summary revealing the Secret word: ${stats.activeWord}\nYour attempt total is: ${stats.guessCount}\nYou had guess: ${10 - stats.guessesLeft} wrong letter(s)\nYour score is: ${(stats.guessesLeft * 100) / 10} `)
 }
 function reset() {
   stats = {
@@ -27,6 +27,7 @@ function reset() {
 const gameOver = () => {
   gameResults()
   if (readline.keyInYN(`Would you like to play again?`)) {
+    console.clear();
     reset()
     startGame();
     makeBoard();
@@ -41,7 +42,7 @@ const play = () => {
   console.log(`Thank you playing Snowman game.`);
   console.log(`The rules are simple enter the correct letters to guess the word \nwithin the amount of guesses you are allowed`)
   if (readline.keyInYN("Ready Set? ")) {
-    console.clear(stats.keys);
+    console.clear();
     startGame();
     makeBoard()
     gameBoard();
@@ -76,9 +77,11 @@ function makeBoard() {
 function updateBoard() {
   //console.log(stats.activeWord);
   console.log(`Here is your bag of letters you have picked: ${stats.guessedLetters}`);
+  //
   console.log(`You have ${stats.guessesLeft} remaining!`);
+  //
   console.log(`You have tried ${stats.guessCount} times`);
-
+  //
 }
 
 function letterIncluded(playerGuess) {
