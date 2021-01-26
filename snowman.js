@@ -17,8 +17,8 @@ console.log("HINT! The stars are bright. They lead with might. Look Up!");
 let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-let randomNum = Math.floor(Math.random()
-let choosenWord = word[randNum];
+let randomNum = Math.floor(Math.random();
+let choosenWord = word[randomNum];
 let underScore = [];
 // gameTakeOff
 const randomLetter = () => {
