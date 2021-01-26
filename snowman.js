@@ -8,14 +8,12 @@ console.log(secretWord); // - remove this when done working!!
 
 let gameBoard = makeGameBoard();
 
-let correctGuessesMade = 0;
-let numOfGuessesRemaining = 5;
+let gameData = {
+  correctGuessesMade: 0,
+  numOfGuessesRemaining: 5,
+};
+
 let guessedLetters = [];
-let dups = [];
-
-// function startGame() {
-
-// }
 
 function makeGameBoard() {
   let blankedOutWord = [];
@@ -49,12 +47,17 @@ function getValidLetterGuess() {
 }
 
 function displayNumOfGuessesRemaining() {
-  while (numOfGuessesRemaining >= 0 && !isFullGameBoard()) {
-    if (numOfGuessesRemaining === 5 || numOfGuessesRemaining > 1) {
-      console.log(`You have ${numOfGuessesRemaining} guesses remaining`);
-    } else if (numOfGuessesRemaining === 1) {
-      console.log(`You have ${numOfGuessesRemaining} guess remaining`);
-    } else if (numOfGuessesRemaining === 0) {
+  while (gameData.numOfGuessesRemaining >= 0 && !isFullGameBoard()) {
+    if (
+      gameData.numOfGuessesRemaining === 5 ||
+      gameData.numOfGuessesRemaining > 1
+    ) {
+      console.log(
+        `You have ${gameData.numOfGuessesRemaining} guesses remaining`
+      );
+    } else if (gameData.numOfGuessesRemaining === 1) {
+      console.log(`You have ${gameData.numOfGuessesRemaining} guess remaining`);
+    } else if (gameData.numOfGuessesRemaining === 0) {
       console.log(`You have no guesses remaining`);
       break;
     }
@@ -74,31 +77,22 @@ function updateGameBoard(letter) {
 function displayGuessedLetters(letter) {
   guessedLetters.push(letter);
   if (!secretWord.includes(letter)) {
-    numOfGuessesRemaining--;
+    gameData.numOfGuessesRemaining--;
   } else {
-    correctGuessesMade++; // -- should not count duplicate letters
+    gameData.correctGuessesMade++; // -- should not count duplicate letters
     updateGameBoard(letter);
   }
   console.log(`Guessed Letters: ${guessedLetters}\n`);
 }
 
-// function removeDuplicateLetters(guessedLetters) {
-//   guessedLetters.forEach((letter) => {
-//     if (!dups.includes(letter)) {
-//       dups.push(letter);
-//     }
-//   });
-//   // return dups;
-// }
-
 function isEndGame() {
   if (isFullGameBoard()) {
     console.log(`YOU WON!!!
-You made ${correctGuessesMade} correct guesses!`); // -- numOfGuessesRemaining !== to # of guesses taken
+You made ${gameData.correctGuessesMade} correct guesses!`); // -- gameData.numOfGuessesRemaining !== to # of guesses taken
   }
-  if (numOfGuessesRemaining === 0) {
+  if (gameData.numOfGuessesRemaining === 0) {
     console.log(`You lost :(
-The word was ${secretWord}!`)
+The word was ${secretWord}!`);
     // getValidLetterGuess(); // -- this should be a gameLoop
   } else {
     process.exit();
@@ -109,7 +103,4 @@ function isFullGameBoard() {
   return !gameBoard.includes("_");
 }
 
-// function loseAndEndGame() {}
-
-// startGame();
 displayNumOfGuessesRemaining();
