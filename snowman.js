@@ -32,19 +32,11 @@ let stats = {
    console.log('you will have a certain amount of guesses to get the correct letter from the word given to you')
    console.log('If you guess wrong your guess count will go down, If you guess right your guess count will remain the same until you have guessed wrong.\n')
    console.log("let's begin")
-   console.log('your word is:')
+   console.log('you word is:')
    
-   updateGuessCount()
    userScreen()
   
  }
-
- const game = () => {
-  // log random word with correct amount of _ for the word logged
-  // make an input for readline sync so that user can input there choice of letter
-  //let question = getValidLetterGuess() 
- 
-}
 
   const updateDisplay = () => {
     stats.display = []
@@ -56,9 +48,9 @@ let stats = {
         stats.display.push('_')
       }
   }
-
+  console.log(stats.display.join(' ') + '\n')
   console.log(`letters you guessed: ${stats.currentLetter.join(' ')}`)
-  console.log(stats.display.join(' '))
+  console.log('you have ' + stats.guesses + ' guesses remaining\n')
 }
 
 const userScreen = () => {
@@ -67,12 +59,11 @@ const userScreen = () => {
 }
 
  const updateGuessCount = () => {
-   // log how many guesses user has
-  //  let guesses = stats.guesses
+   
    while (stats.guesses > 0){
      if (winGame()){
        break
-     }
+     } 
     let userInput = getValidLetterGuess() 
     stats.currentLetter.push(userInput)
     if (stats.randomWord.includes(userInput)){
@@ -81,34 +72,38 @@ const userScreen = () => {
        stats.guesses--
        updateDisplay()
      }
-     console.log('you have ' + stats.guesses + ' guesses remaining')
    }
-   // decrement guess count based on user input
-   // invaled input's should not effect guess count
-   // if user guesses good replace _ with user input
-   // should show the letter guessed already
+   if (stats.guesses <= 0){
+     loseGame()
+   }
+
  }
 
  const winGame = () => {
-   // if user wins log victory message 
-   //let counter = stats.randomWord.length
+   
    if (stats.display.join('') === stats.randomWord){
      console.log('Congrats!')
+     console.log(`It took you ${stats.currentLetter.length} tries to win!`)
      return true
    } else {
      return false
    }
-   // log the amount of guesses it took 
-   // log full word
+   
  }
 
  const loseGame = () => {
-   // if user loses log defeat message 
-   // log amount of guesses it took
-   // log full word
+   
+   if (stats.display.join('') !== stats.randomWord){
+     console.log('You lost :(')
+     console.log(`the word was: ${stats.randomWord}`)
+     console.log('Good luck next time!')
+     return true
+   } else {
+     return false
+   }
+  
  }
 
- // solve problems using strings, arrays, and objects
 
  startGame()
 
