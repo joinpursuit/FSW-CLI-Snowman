@@ -9,6 +9,10 @@ function randomWordIndex(){
 }
 const secretWord = randomWordIndex()
 
+const leaveGame = () => {
+  console.log("You win! It took you " + gameState.remainingGuesses + "!")
+}
+
 
 
 //step 3 create an object with key values that will be manipulated
@@ -30,23 +34,22 @@ const gameState = {
 
 
   //gameloop
-  while (gameState.remainingGuesses > 0) {
+  function gameLoop(){
+  while (gameState.remainingGuesses > 0 || !(wordIsFound) ) {
     //write the display here so it is updated after everyloop
-    console.log(gameState.display.join(" "))
+    console.log(gameState.display.join(" ") +'\n')
 
     //print the users remaining guess count
     console.log('You have ' + gameState.remainingGuesses + ' guesses left! \n')
   
     //ask for user input
-    const input = readline.question("Please enter your guess: ").toLocaleLowerCase()
+    const input = readline.question("Please enter your guess: " + "\n").toLocaleLowerCase()
     if (guessIsValid(input)) {
-      // console.log(typeof input)
       //add user guessed letter to playerGuesses array
-      gameState.playerGuesses.push(input) // is returning the number of indexes in array
-      console.log("Guessed Letters: " + gameState.playerGuesses.join())
-      // console.log(typeof input)
-      // console.log(gameState.playerGuesses)
-      // console.log(gameState.playerGuesses)
+      gameState.playerGuesses.push(input) 
+
+      //prints the user's guessed letters 
+      console.log("Guessed Letters: " + gameState.playerGuesses.join() + "\n")
 
       //if user input matches any character in guessLetter array
       if (gameState.guessLetters.includes(input)) {
@@ -60,15 +63,19 @@ const gameState = {
       } else { //if user guesses incorrectly
         //takes a guess away if wrong
         gameState.remainingGuesses --
+        //if user runs out of guesses console prints message showing secret word
         if (gameState.remainingGuesses === 0){
           console.log('You lost the game! The Secret word was ' + gameState.secretWord)
         }
       }
     } else {
-      console.log("Please enter a valid letter")
+      console.log(`${input} Is not a valid input. Please enter a valid letter`)
     }
      
   }
+
+}
+gameLoop()
 
 //create a function that loops through the array secretWord and pushes it into uniqueCharacters to cover all letters that show up in word
 function getUniqueCharacters() {
@@ -83,6 +90,12 @@ function getUniqueCharacters() {
 }
 
 //function that ends game when word is correct
+function wordHasnBeenFullySolved() {
+if (gameState.secretWord === gameState.display.join('')) {
+  return leaveGame()
+}
+}
+const wordIsFound = wordHasnBeenFullySolved()
 
 
 //make array of _ that is length of the hidden word
@@ -102,3 +115,7 @@ function makeHiddenWord() {
 //   5. check if input appears in gameState.guessLetters
 //       5a. If no, decrement numberOfGuesses
 //       5b. If yes, loop through the secret word with a for loop. If 'i' value matches the user guess, then replace the 'i' value in display.
+
+
+
+//at the end of the game loop i want to check if the secretword is equal to the hiddenword...if so end game
