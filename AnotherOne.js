@@ -57,8 +57,8 @@ let x = ""
 // };
 
 //isGameOver function to return boolean if game is over
-// get validLetterGuess used once saved to variable
-//updateBoard should take one letter and change board when correct
+
+
 
 
 const wordCompare = () => {
@@ -81,7 +81,7 @@ const boardUpdate = () => {
 const startGame = () => {
     obj.secretWord = randomWord();
     buildBoard().join(" ")
-  while (obj.guessesRemaining > 0) {
+  while (obj.guessesRemaining > 0 && obj.board.join("") !== obj.secretWord) {
     // let x = getValidLetterGuess()
     getValidLetterGuess();                      
     if (wordCompare()) {
@@ -101,6 +101,7 @@ const startGame = () => {
 
 
 startGame()
+
 
 // console.log("a", buildBoard());
 // console.log("b", obj);
