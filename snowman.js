@@ -92,8 +92,10 @@ const gameLoop = () => {
 
 function repeatletters (letter) {
   if ((object.guessedLetters.includes(letter))) {
+    object.guesses = object.guesses + 1
     return true 
   }
+
 }
 
 function getValidLetterGuess() {
@@ -117,10 +119,10 @@ function getValidLetterGuess() {
 }
 
 const restartGame = () => {
-  console.clear()
   leaveOrNot = readline.question(`\nWould you like to play again ${object.nameInput}? [Please enter: Yes(Y) or No(N)]\n`)
   if(leaveOrNot.toLowerCase() === "y" || leaveOrNot.toLowerCase() === "yes") {
-    console.log("\nThat's the spirit, lets play again!~")
+    console.clear()
+    console.log("\nThat's the spirit, lets play again " + `${object.nameInput}` + "!~")
     object = {
       randomDictionaryWord: dictionary[Math.floor((dictionary.length -1) * (Math.random()))],
       randomDictionaryWordArray: [],
@@ -135,6 +137,7 @@ const restartGame = () => {
       currentSolvedWord: "",
       leaveOrNot: "",
     }
+    
     gameLoop()
   } else {
     quitGame()
@@ -162,6 +165,7 @@ function guessLeftCounter() {
   }
 }
 
+console.log(object.randomDictionaryWord)
 snowmanIntro()
 
 
