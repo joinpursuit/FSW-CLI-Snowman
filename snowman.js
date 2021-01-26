@@ -5,7 +5,6 @@ let randomDictionaryWord =
   dictionary[Math.floor(Math.random() * dictionary.length)];
 let secretWord = randomDictionaryWord;
 
-
 let gameBoard = makeGameBoard();
 
 let gameData = {
@@ -78,7 +77,7 @@ function displayGuessedLetters(letter) {
   if (!secretWord.includes(letter.toLowerCase())) {
     gameData.numOfGuessesRemaining--;
   } else {
-    gameData.correctGuessesMade++; // -- should not count duplicate letters
+    gameData.correctGuessesMade++;
     updateGameBoard(letter.toLowerCase());
   }
   console.log(`Guessed Letters: ${guessedLetters}\n`);
@@ -87,12 +86,11 @@ function displayGuessedLetters(letter) {
 function isEndGame() {
   if (isFullGameBoard()) {
     console.log(`YOU WON!!!
-You made ${gameData.correctGuessesMade} correct guesses!`); // -- gameData.numOfGuessesRemaining !== to # of guesses taken
+You made ${gameData.correctGuessesMade} correct guesses!`);
   }
   if (gameData.numOfGuessesRemaining === 0) {
     console.log(`You lost :(
 The word was ${secretWord}!`);
-    // getValidLetterGuess(); // -- this should be a gameLoop
   } else {
     process.exit();
   }
