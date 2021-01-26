@@ -1,11 +1,11 @@
-const dictionary = require("./dictionary")
+const dictionary = require("./dictionary");
 const readline = require("readline-sync");
 // i is always a number not the element in the array. We use that number to key in to the array
 
 let mistakes = 0;
 let guessed = [];
 
-let stats = {dash: [], guesses: 7, word: '', board: ""}
+let stats = { dash: [], guesses: 7, word: "", board: "" };
 
 function startGame() {
   console.log("Welcome to Snowman!!\n");
@@ -20,7 +20,12 @@ function startGame() {
   }
   console.log(stats.word);
   wordDashes(stats.word);
-  while (stats.guesses >= 0 ) { //|| stats.dash.includes("_")
+  while (stats.guesses >= 0) {
+    //|| stats.dash.includes("_")
+    if (!stats.dash.includes("_")) {
+      console.log("You won!");
+      break;
+    }
     console.log(`"You have ${stats.guesses} guesses remaining"`);
     console.log(stats.dash.join(" "));
     stats.board = getValidLetterGuess();
@@ -29,10 +34,9 @@ function startGame() {
     } else {
       letterHolder(stats.board);
     }
-    
   }
-  winOrLoose();
-  lostGame();
+
+  // lostGame();
   //   guesses--;
   //   // resetGame();
 }
@@ -45,21 +49,19 @@ function resetGame() {
   }
 }
 function winOrLoose() {
-  if (!stats.dash.includes(stats.word)) {
+  if (!stats.dash.includes("_")) {
     console.log("You won!");
-  }
-  // } else {
-  //   console.log("Boo you lost. Want to try again?");
-
-  // }
-}
-
-function lostGame() {
-  if (!word.includes(guesses)) {
+  } else {
     console.log("Boo you lost. Want to try again?");
   }
-  resetGame();
 }
+
+// function lostGame() {
+//   if (!stats.word.includes(stats.guesses)) {
+//     console.log("Boo you lost. Want to try again?");
+//   }
+//   resetGame();
+// }
 
 function randomWord() {
   stats.word = dictionary[Math.floor(Math.random() * dictionary.length)];
