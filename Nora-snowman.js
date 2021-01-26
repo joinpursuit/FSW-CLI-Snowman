@@ -6,11 +6,11 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
    return dictionary[Math.floor(Math.random() *dictionary.length)];
  }
    var ranWord = getRanWords(dictionary);
-   console.log ('ranWord', ranWord);
+   console.log(ranWord);
 
-  
+    
 
-function getValidLetterGuess(dictionary) {
+ function getValidLetterGuess(dictionary) {
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
   }
@@ -25,3 +25,9 @@ function getValidLetterGuess(dictionary) {
   }
   return letter.toLowerCase()
 }
+//}
+
+//let ranWord = randWord.length;
+let a = 'Hallo';
+let d = a.replace('a', '-');
+console.log(d);
