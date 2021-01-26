@@ -10,6 +10,7 @@ const words = ["able", "about", "account", "acid", "across", "addition", "adjust
 obs = {
     guessedLetters: [],
     guessesLeft: 6,
+     
     }
 
     const askToPlay = () => {
@@ -33,6 +34,7 @@ obs = {
             }
             return hiddenWord = hiddenWord.join(' ')
             }
+
         
 
         const checkLetter = (letter, randomWord) => {
@@ -40,11 +42,10 @@ obs = {
             }
 
     
-        const unhideRandomWord = (letter, randomWord, hiddenWord) => {
+        const unhideRandomWord = (input, randomWord, hiddenWord) => {
             for (let j = 0; j < randomWord.length; j++) {
-                let userLetter = randomWord[j] 
-                if (userLetter === letter) {
-                    hiddenWord[j] = letter;
+                if (randomWord[j].includes(input)) {
+                    hiddenWord[j] = input;
                 } 
             }
             return hiddenWord;
@@ -58,7 +59,7 @@ const leaveGame = () => {
     process.exit()
   }
   else {
-    askToPlay()
+    startGame()
   }
 }
 
@@ -89,6 +90,20 @@ const incorrectGuess = () => {
     }
 }
 
+//////////
+
+const correctGuess = () => {
+  if(randomWord.includes(letter)){
+    if(!obs.guessedLetters.includes(letter)){
+      obs.guessedLetters.push(letter)
+    }
+  }
+}
+
+
+///////
+
+
 const startGame = () => {
 
     randomWord = randomizeWord(words)
@@ -106,7 +121,6 @@ const startGame = () => {
       leaveGame()
       }
 
-
   const getValidLetterGuess = () => {
       
     const guessIsValid = (letter) => {
@@ -115,10 +129,10 @@ const startGame = () => {
     }
 
   while (!letter) {
-  
+    while(obs.guessesLeft > 0){
+
   console.log(randomWord + " (This is just for testing)")
   
-    while(obs.guessesLeft > 0){
 
     console.log("==================================================")
     console.log("You have " + obs.guessesLeft + " guesses remaining.")
@@ -148,6 +162,7 @@ const startGame = () => {
     hiddenWord = unhideRandomWord(letter, randomWord, hiddenWord)
 
     if(checkLetter(letter,randomWord)) {
+      correctGuess()
         console.log("==================================================")
         console.log("Yes! That letter is in the word!")
 
