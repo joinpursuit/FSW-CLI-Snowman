@@ -64,7 +64,7 @@ function displayWordInDash() {
 }
 
 function startGame() {
-  stats.activeWord = dictionary[Math.floor(Math.random() * dictionary.length)]
+  stats.activeWord = dictionary[Math.floor(Math.random() * dictionary.length)];
 }
 
 function makeBoard() {
@@ -109,16 +109,16 @@ function gameBoard() {
     console.clear()
 
     if (stats.guessedLetters.includes(playerGuess)) {
-      letterIncluded(playerGuess)
+      letterIncluded(playerGuess);
     }
 
     if (!stats.guessedLetters.includes(playerGuess)) {
-      stats.guessedLetters.push(playerGuess)
+      stats.guessedLetters.push(playerGuess);
     }
 
     if (stats.activeWord.includes(playerGuess)) {
       displayCorrect(playerGuess);
-      replaceDash(playerGuess)
+      replaceDash(playerGuess);
       didWin();
 
     }
@@ -136,7 +136,7 @@ function gameBoard() {
 function didWin() {
   if (stats.dashSecret.indexOf("_") < 0) {
     console.log(`Great job you reached the end!`);
-    gameOver()
+    gameOver();
   }
 }
 
@@ -152,7 +152,7 @@ function didLoses() {
   if (stats.guessesLeft === 0) {
     console.log(`Sorry you have guessed too many times!`);
     console.log(`The secret word was ${stats.activeWord}.`);
-    gameOver()
+    gameOver();
   }
 }
 
