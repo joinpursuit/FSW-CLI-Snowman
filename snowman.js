@@ -755,11 +755,13 @@ let stats = {
 //***********************startgame************************
 
 function snowManGameBeginning() {
+  updatePusher()
   console.log(" Hello and welcome");
   let wannaPlay = readline.keyInYN(" Wanna play the snowman game!?");
   if (wannaPlay) {
     console.log("time to begin!");
     gameLoop();
+
   }
 }
 //**********************************************************
@@ -788,14 +790,11 @@ function counter(count) {
 //comparing the indexes and then using that index position to call on stats.randomWordAns
 //using . includes
 //
-function guessedPush(){
+function updatePusher(){
   if (stats.curGuessedLetter !== "") {
     stats.guessedLetters.push(stats.curGuessedLetter);
+    
   }
-}
-
-function displayInfo() {
-  
   stats.displayedWord = [];
   word = stats.randomWordAns.split(""); //apple [a,p,p,l,e]
   for (let i = 0; i < word.length; i++) {
@@ -806,6 +805,10 @@ function displayInfo() {
       stats.displayedWord.push("_");
     }
   }
+}
+
+function displayInfo() {
+ 
   const curWord = stats.displayedWord.join(" "); // _ _ _ _ _ _
   console.log(`${counter(stats.totalGuesses)} guesses left.\n`);
   console.log(curWord);
@@ -814,17 +817,17 @@ function displayInfo() {
 
 function gameLoop() {
   let i = stats.totalGuesses;
+
   while (i > 0 && stats.displayedWord.join("") !== stats.randomWordAns ) {
+    displayInfo();
     getValidLetterGuess();
-    if (stats.guessedLetters.includes(stats.curGuessedLetter)) {
+    while (stats.guessedLetters.includes(stats.curGuessedLetter)) {
       console.log("you have already guessed this letter");
       getValidLetterGuess();
     } 
-    else {
-      guessedPush();
-      displayInfo();
+      updatePusher();
       i--;
-    }
+    
   }
   if(stats.displayedWord.join("") === stats.randomWordAns){
    console.log(`It took you ${stats.guessedLetters.length} guesses!`);
