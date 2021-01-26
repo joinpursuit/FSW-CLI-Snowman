@@ -112,6 +112,7 @@ function clearState(){
   gameState.word= ''
   gameState.board = []
   gameState.lettersGuessed = []
+  gameState.guess= 7
 }
 
 playOrNot();
