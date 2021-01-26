@@ -3,7 +3,7 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 
 const play = () =>{
-  console.log("Welcome to the Snowman Game. You will be given a random word that you have to guess, letter by letter. You will get eight attempts. If you guess a letter correctly, that won't count towards your limit.")
+  console.log("Welcome to the Snowman Game. You will be given a random word that you have to guess, letter by letter. You will get eight attempts. For every letter you get wrong, part of an imaginary snowman melts away. If you guess a letter correctly, that won't count towards your limit, and the snowman stays intact.")
   let startGameYN = readline.keyInYN("Would you like to play?")
   if(startGameYN){
     playLoop()
@@ -23,7 +23,7 @@ guessesLeft : 8,
 const setUp = () =>{ 
   console.log(`The word is ${stats.randomEl.length} letters long.`)
   let charCt = stats.randomEl.length 
-
+  console.log(stats.randomEl)
   for(let i = 0; i < charCt; i++){
     stats.underscore.push('_')
   }
@@ -46,10 +46,13 @@ const guess = () =>{
   }
 
   stats.allGuesses.push(letterGuess)
+
+  let totalGuesses = stats.allGuesses.length
   
   if(stats.underscore.join("") === stats.randomEl){
     console.log(stats.randomEl)
-    console.log("You got it! Congrats!")
+    console.log("You got it! Congrats! It took you " + totalGuesses + " guesses.")
+
     playAgain()
   }else if(stats.guessesLeft === 0){
     console.log(`You LOST. The word was "${stats.randomEl}". Better luck next time.`)
