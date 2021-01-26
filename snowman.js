@@ -68,19 +68,19 @@ function displayNumOfGuessesRemaining() {
 
 function updateGameBoard(letter) {
   for (let i = 0; i < secretWord.length; i++) {
-    if (secretWord[i] === letter) {
-      gameBoard[i] = letter;
+    if (secretWord[i] === letter.toLowerCase()) {
+      gameBoard[i] = letter.toLowerCase();
     }
   }
 }
 
 function displayGuessedLetters(letter) {
-  guessedLetters.push(letter);
-  if (!secretWord.includes(letter)) {
+  guessedLetters.push(letter.toLowerCase());
+  if (!secretWord.includes(letter.toLowerCase())) {
     gameData.numOfGuessesRemaining--;
   } else {
     gameData.correctGuessesMade++; // -- should not count duplicate letters
-    updateGameBoard(letter);
+    updateGameBoard(letter.toLowerCase());
   }
   console.log(`Guessed Letters: ${guessedLetters}\n`);
 }
