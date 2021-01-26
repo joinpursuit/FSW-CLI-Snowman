@@ -64,7 +64,7 @@ function displayWordInDash() {
 }
 
 function startGame() {
-  stats.activeWord = "free";
+  stats.activeWord = dictionary[Math.floor(Math.random() * dictionary.length)]
 }
 
 function makeBoard() {
@@ -74,7 +74,7 @@ function makeBoard() {
 }
 
 function updateBoard() {
-  console.log(stats.activeWord);
+  //console.log(stats.activeWord);
   console.log(`Here is your bag of letters you have picked: ${stats.guessedLetters}`);
   console.log(`You have ${stats.guessesLeft} remaining!`);
   console.log(`You have tried ${stats.guessCount} times`);
@@ -101,12 +101,12 @@ function replaceDash(playerGuess) {
 }
 
 function gameBoard() {
-  console.clear()
   while (!stats.gameStatus) {
     updateBoard();
     displayWordInDash(stats.dashSecret.join(" "));
     let playerGuess = getValidLetterGuess();
     incrementTries(playerGuess);
+    console.clear()
 
     if (stats.guessedLetters.includes(playerGuess)) {
       letterIncluded(playerGuess)
