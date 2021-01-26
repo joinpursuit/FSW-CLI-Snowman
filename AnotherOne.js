@@ -17,7 +17,7 @@ const randomWord = () => {
   return word;
 };
 
-obj.secretWord = randomWord()
+
 
 
 const buildBoard = () => {
@@ -72,7 +72,7 @@ const boardUpdate = () => {
             obj.board[j] = x
         }
     }
-    console.log(obj.board)
+    return obj.board
 }
 
 
@@ -80,7 +80,7 @@ const boardUpdate = () => {
 
 const startGame = () => {
     obj.secretWord = randomWord();
-    obj.board = buildBoard().join(" ")
+    buildBoard().join(" ")
   while (obj.guessesRemaining > 1) {
     // let x = getValidLetterGuess()
     getValidLetterGuess();                      
