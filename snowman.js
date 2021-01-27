@@ -46,13 +46,8 @@ function getValidLetterGuess() {
 
 function displayNumOfGuessesRemaining() {
   while (gameData.numOfGuessesRemaining >= 0 && !isFullGameBoard()) {
-    if (
-      gameData.numOfGuessesRemaining === 5 ||
-      gameData.numOfGuessesRemaining > 1
-    ) {
-      console.log(
-        `You have ${gameData.numOfGuessesRemaining} guesses remaining`
-      );
+    if (gameData.numOfGuessesRemaining > 1) {
+      console.log(`You have ${gameData.numOfGuessesRemaining} guesses remaining`);
     } else if (gameData.numOfGuessesRemaining === 1) {
       console.log(`You have ${gameData.numOfGuessesRemaining} guess remaining`);
     } else if (gameData.numOfGuessesRemaining === 0) {
