@@ -743,13 +743,30 @@ const dictionary = [
   "yesterday",
   "young",
 ];
-const word = dictionary[Math.floor(Math.random() * dictionary.length)];
-let gameStats = { correctLetters: [], guessesLeft: 10 };
-console.log(word);
+let word = "";
+let gameStats = { correctLetters: [], guessesLeft: 10, totalGuesses: 0 };
+
+const promptUser = () => {
+  let letter = "";
+  while (!letter) {
+    let input = readlineSync.question("\n Please enter your guess: \n ");
+    if (guessIsValid(input)) {
+      letter = input;
+    } else {
+      console.log("\n Please enter a valid letter \n");
+    }
+  }
+  letter = letter.toLowerCase();
+  return letter;
+};
+
+const guessIsValid = (letter) => {
+  return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
+};
 
 const checkWord = () => {
   for (let i = 0; i < word.length; i++) {
-    const currLetter = word.charAt(i);
+    const currLetter = word[i];
     if (!gameStats.correctLetters.includes(currLetter)) {
       return false;
     }
@@ -757,36 +774,20 @@ const checkWord = () => {
   return true;
 };
 
-const guessLetter = (letter) => {
+const guessLetter = () => {
   let rightGuess = "";
   let wrongGuess = "";
   while (gameStats.guessesLeft > 0) {
-    console.log(gameStats.correctLetters);
-    console.log(`correct guesses : ${rightGuess}`);
-    console.log(`incorrect guesses: ${wrongGuess}`);
-
-    const guessIsValid = (letter) => {
-      return (
-        letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
-      );
-    };
-    let letter = "";
-    while (!letter) {
-      let input = readlineSync.question("\n Please enter your guess: \n ");
-      if (guessIsValid(input)) {
-        letter = input;
-      } else {
-        console.log("\n Please enter a valid letter \n");
-      }
-    }
-    letter = letter.toLowerCase();
+    const letter = promptUser();
+    gameStats.totalGuesses++;
     if (word.includes(letter)) {
       rightGuess += letter;
       gameStats.correctLetters.push(letter);
       console.log("\n You have guessed a correct letter!\n ");
       if (checkWord()) {
+        console.log(`You took ${gameStats.totalGuesses} guesses`);
         console.log("You won!");
-        process.exit();
+        startGame();
       }
     } else {
       wrongGuess += letter;
@@ -794,10 +795,15 @@ const guessLetter = (letter) => {
       gameStats.guessesLeft--;
       console.log(`You have ${gameStats.guessesLeft} chances remaining!`);
       if (gameStats.guessesLeft === 0) {
+        console.log(`Your word was ${word}`);
         console.log("No more chances, have a good life!");
         leaveGame();
       }
     }
+    console.log(gameStats.correctLetters);
+    console.log(`correct guesses : ${rightGuess}`);
+    console.log(`incorrect guesses: ${wrongGuess}`);
+    printBoard();
   }
 };
 
@@ -806,16 +812,29 @@ const leaveGame = () => {
   process.exit();
 };
 
+const printBoard = () => {
+  let dash = "";
+  for (let i = 0; i < word.length; i++) {
+    const currLetter = word[i];
+    if (gameStats.correctLetters.includes(currLetter)) {
+      dash += currLetter;
+      dash += " ";
+    } else {
+      dash += "_ ";
+    }
+  }
+  console.log(dash);
+};
+
 // / Start Game
 const startGame = () => {
   console.log("\n Time to start guessing those letters! \n ");
   gameStats.guessesLeft = 10;
+  word = dictionary[Math.floor(Math.random() * dictionary.length)];
+  console.log(word);
+  gameStats.correctLetters = [];
   console.log(`You have ${gameStats.guessesLeft} chances to play`);
-  let dash = "";
-  for (let i = 0; i < word.length; i++) {
-    dash += "_ ";
-  }
-  console.log(dash);
+  printBoard();
   guessLetter();
 };
 
@@ -833,3 +852,20 @@ const welcome = () => {
   }
 };
 welcome();
+
+//methods
+//   addGuessedLetter(letter)
+//   reset()
+//   updateBoard(letter)
+//   didWin()
+//   secretWordIncludes(letter)
+//   decrementGuessesRemaining()
+//   guessIsValid(letter)
+//   getValidLetterGuess()
+//   assignRandomSecretWord()
+//   makeBoard()
+//   displayBoard()
+//   displayState()
+//   isGameOver()
+//   displayWinOrLose()
+//   playAgain(startGame)
