@@ -10,7 +10,7 @@ let hiddenWordArr = []
 let playerObj = {
   guessCount: 8,
   guessesLeft: 8,
-  guessesCorrect: 0,
+  guessesNumber: 0,
   guessHistory: [],
   chosenWord: "",
   displayWord: "",
@@ -100,7 +100,7 @@ const reStart = () => {
     playerObj = {
       guessCount: 8,
       guessesLeft: 8,
-      guessesCorrect: 0,
+      guessesNumber: 0,
       guessHistory: [],
       chosenWord: "",
       guessedWord: [],
@@ -138,11 +138,12 @@ const gameLoop = () => {
     }
 
     if (playerObj.chosenWord.split("").includes(guessLetter)) {
-      playerObj.guessesCorrect += 1;
+      playerObj.guessesNumber += 1;
       playerObj.guessHistory.push(guessLetter);
       console.log(chalk.hex('ffff00')("Your guess is correct"));
     } else {
       playerObj.guessesLeft -= 1;
+      playerObj.guessesNumber +=1;
       playerObj.guessHistory.push(guessLetter);
       console.log(chalk.hex('ff0000')("Your guess is wrong"));
     }
@@ -151,7 +152,7 @@ const gameLoop = () => {
     guessedWordStr = playerObj.guessedWord.join("");
 
     if (guessedWordStr === playerObj.chosenWord) {
-      console.log(chalk.hex('ffff00').bold(`Congrats, you won! You revealed the secret word ${playerObj.chosenWord} with ${playerObj.guessesCorrect} guesses.`));
+      console.log(chalk.hex('ffff00').bold(`Congrats, you won! You revealed the secret word ${playerObj.chosenWord} with ${playerObj.guessesNumber} guesses.`));
       reStart()
     }
     console.log(chalk.hex('ecc6ec')(playerObj.displayWord));
