@@ -3,10 +3,14 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 
 
+//Capital letters and lower case are treated the same
+//Use objects for lines 9 - 12
+//Display total guesses at win
 
-
-let correctGuesses = []
-let incorrectGuesses = []
+let guesses = {
+  correct: [],
+  incorrect: [],
+}
 let word = dictionary[Math.floor(Math.random() * dictionary.length)]
 let guessCount = 9
 console.log(word)
@@ -14,7 +18,7 @@ console.log(word)
 function wordStatus() {
   let wordStatus = ""
   for (let char of word) {
-    if (correctGuesses.includes(char)) {
+    if (guesses.correct.includes(char)) {
       wordStatus += char
     } else {
       wordStatus += "_ "
@@ -27,9 +31,9 @@ function wordStatus() {
 
 const updateGuess = (letter) => {
   if (word.includes(letter)) {
-    correctGuesses.push(letter)
+    guesses.correct.push(letter)
   } else {
-    incorrectGuesses.push(letter)
+    guesses.incorrect.push(letter)
     console.log("That ain't it matey")
     decrementCount();
   }
@@ -67,7 +71,7 @@ const startGame = () => {
   while (guessCount > 0) {
     //  console.clear()
     console.log(wordStatus());
-    if (correctGuesses.length !== word.length) {
+    if (guesses.correct.length !== word.length) {
       console.log(`Guessed letters: ${Array.from(incorrectGuesses)}`)
       console.log(`Guesses remaining: ${guessCount}`)
       getValidLetterGuess();
@@ -78,7 +82,7 @@ const startGame = () => {
 
     }
   }
-  if (guessCount == 0 && correctGuesses.length !== word.length) {
+  if (guessCount == 0 && guesses.correct.length !== word.length) {
     console.log(`Argh so close! The word was: ${word} `)
   }
 }
