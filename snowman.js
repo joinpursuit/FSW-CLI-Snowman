@@ -8,11 +8,12 @@ let gameObject = {
   guessCounter: 0,
 };
 
+let secretWord;
+
 // get random word
 const getWord = () => {
   secretWord = dictionary[Math.floor(Math.random() * dictionary.length)];
   // console.log("\nThe secret word is: " + secretWord);
-  return secretWord;
 };
 
 // Start game function - will reset the game if you want to play again
