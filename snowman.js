@@ -8,7 +8,7 @@ function randomWordIndex(){
   const guess = Math.floor(Math.random() * dictionary.length)
    return dictionary[guess]
 }
-const secretWord = randomWordIndex()
+ 
 
 const leaveGame = () => {
   console.log("You win! The secret word was " + gameState.secretWord + ". It took you " + totalNumberOfValidGuesses + " guesses to win!\n")
@@ -20,10 +20,10 @@ const leaveGame = () => {
 
 //step 3 create an object with key values that will be manipulated
 const gameState = {
-  guessLetters: getUniqueCharacters(), //all correct letters are here
+  guessLetters: [], //all correct letters are here
   remainingGuesses: 10,
-  secretWord: secretWord,
-  display: makeHiddenWord(),
+  secretWord: "",
+  display: [],
   playerGuesses: [],
 }
 
@@ -39,7 +39,7 @@ const gameState = {
   function gameLoop(){
   while (gameState.remainingGuesses > 0) {
     //DELETE AFTER CHECKING 
-    // console.log(gameState.secretWord)
+    console.log(gameState.secretWord)
     //check if the secretWord is equal to the display as a string calls leave function which ends game loop
     if (gameState.secretWord === gameState.display.join('')) {
       leaveGame()
@@ -84,12 +84,12 @@ const gameState = {
   }
 
 }
-gameLoop()
+
 
 //create a function that loops through the array secretWord and pushes it into uniqueCharacters to cover all letters that show up in word
-function getUniqueCharacters() {
+function getUniqueCharacters(secret) {
   const uniqueCharacters = []
-  const letters = secretWord.split('')
+  const letters = secret.split('')
   for (let i = 0; i < letters.length; i++) {
     if(!uniqueCharacters.includes(i)) {
       uniqueCharacters.push(letters[i])
@@ -101,7 +101,7 @@ function getUniqueCharacters() {
 
 function makeHiddenWord() {
   const display =[]
-  for(let i = 0; i < secretWord.length; i++) {
+  for(let i = 0; i < gameState.secretWord.length; i++) {
     display.push('_')
   }
   return display
@@ -111,3 +111,12 @@ function makeHiddenWord() {
 
 
 //at the end of the game loop i want to check if the secretword is equal to the hiddenword...if so end game
+
+//create start game function
+function startGame() {
+  gameState.secretWord = randomWordIndex()
+  gameState.guessLetters = getUniqueCharacters(gameState.secretWord)
+  gameState.display = makeHiddenWord()
+  gameLoop()
+}
+startGame()
