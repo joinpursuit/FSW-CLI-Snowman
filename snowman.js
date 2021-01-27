@@ -63,7 +63,7 @@ function getValidLetterGuess() {
   }
   let letter = "";
   while (!letter) {
-    let input = readline.question("Please enter your guess: ");
+    let input = readline.question("Please enter your guess: ").toLocaleLowerCase();
     if (guessIsValid(input)) {
       letter = input;
       //update dash here with fuction
