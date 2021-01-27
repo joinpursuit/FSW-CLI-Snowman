@@ -3,7 +3,6 @@
 //constVariables
 const readlineSync = require('readline-sync');
 const chalk = require('chalk');
-const dictionary = require("./dictionary.js");
 const word = ["Libra", "Capricorn", "Pisces"]
 //
 //Intro logs
@@ -14,30 +13,37 @@ console.log("Yup! I know you've heard of it.");
 console.log("Now let's play!");
 console.log("You have 5 guesses.");
 console.log("HINT! The stars are bright. They lead with might. Look Up!");
+// let variables
 let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-let randomNum = Math.floor(Math.random());
+let randomNum = Math.floor(Math.random() * Math.floor(word.length));
 let choosenWord = word[randomNum];
 let underScore = [];
+let pickRandomLetter;
+let numOfGuess = 5;
 // gameTakeOff
-const randomLetter = () => {
-  let pickRandomLetter = readlineSync.question("Pick a letter");
-  if(pickRandomLetter > 0) {
+const gameStart = () => {
+
+}
+//Random word
+const randomWord = () => {
+  choosenWord.readlineSync("Pick a random letter")
+  if(choosenWord.includes(pickRandomLetter)) {
     return true
-  } else{
+  } else {
+    console.log("One less try...")
     return false
   }
 };
 // numberOfGuess
-const numOfGuess = () => {
-  for(i = 0; i < 5; i++) {
-    if(guessCount === 0) {
-      console.log("Try again next time")
+const numberOfGuess = () => { 
+    if(!randomWord()) {
+      return 
+      console.log("You're ")
     }else{
-      console.log("Guesses remaining ")
+      console.log("Guesses remaining " + guessCount)
     }
-  }
 };
 // guessLog
 const guessLog = () => {
@@ -46,12 +52,11 @@ const guessLog = () => {
 };
 // Under Score Generator
 let generateUnderScore = () => {
-  for(let i = 0; i < pickRandomLetter.length; i++) {
+  for(let i = 0; i < choosenWord.length; i++) {
     underScore.push("_");
   }
   return underScore;
 }
-
 console.log(generateUnderScore());
 // gameOver
-const gameOver = () => {}
+gameOver()
