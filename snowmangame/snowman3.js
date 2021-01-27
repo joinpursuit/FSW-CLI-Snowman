@@ -13,7 +13,7 @@ function gameStart() {
   console.log("Welcome to my Snowman Game!")
   console.log("To win the game all you have to do is guess the word!")
   console.log("Good Luck!")
-     console.log(randomWord)   // Shows word
+     //console.log(randomWord)   // Shows word
   for (let i = 0; i < randomWord.length; i++) {
     guessWord.push("_");
   }
