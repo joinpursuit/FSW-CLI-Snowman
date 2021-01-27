@@ -13,10 +13,6 @@ let obj = {
   board: [],
 };
 
-let gR = obj.guessesRemaining
-let cG = obj.correctGuesses
-let iG = obj.incorrectGuesses
-let bD = obj.board
 
 
 const randomWord = () => {
@@ -42,11 +38,11 @@ const getValidLetterGuess = () => {
   }
   let letter = "";
   while (!letter) {
-    let input = readline.question("Please enter your guess: ");
+    let input = readline.question("\nPlease enter your guess: ");
     if (guessIsValid(input)) {
       letter = input;
     } else {
-      console.log("Please enter a valid letter");
+      console.log("\nPlease enter a valid letter");
     }
   }
   return x = letter.toLowerCase();
@@ -55,15 +51,22 @@ const getValidLetterGuess = () => {
 let x = ""
 
 const theEnd = () => {
-  if ((gR === 0)) {
+  if ((obj.guessesRemaining === 0)) {
     console.log("Better luck next time.");
     console.log("The word was " + obj.secretWord.toUpperCase() + ".");
   } else if (obj.secretWord === obj.board.join("")) {
-    console.log("You win! Congratulations!");
+    console.log("You win! Congratulations!\n");
   }
   if (readline.keyInYNStrict("Would you like to play again? ")) {
+    obj.guessesRemaining = 9,
+    obj.correctGuesses =  [],
+    obj.incorrectGuesses = [],
+    obj.secretWord = "",
+    obj.board = [],
+    
+    startGame();
+    theEnd();
     console.clear();
-    return startGame();
   }
   else {
     process.exit();
@@ -72,7 +75,6 @@ const theEnd = () => {
 
 
 
-//isGameOver function to return boolean if game is over
 
 
 
@@ -93,14 +95,14 @@ const boardUpdate = () => {
 
 
 const duplicateLetter = () => {
-  for (let z = 0; z < cG.length; z++) {
-    while (x === cG[z]) {
+  for (let z = 0; z < obj.correctGuesses.length; z++) {
+    while (x === obj.correctGuesses[z]) {
       console.log("That letter was already guessed. Please try another.")
       getValidLetterGuess()
     }
   }
-  for (let z = 0; z < iG.length; z++) {
-    while (x === iG[z]) {
+  for (let z = 0; z < obj.incorrectGuesses.length; z++) {
+    while (x === obj.incorrectGuesses[z]) {
       console.log("That letter was already guessed. Please try another.")
       getValidLetterGuess()
     }
@@ -108,29 +110,26 @@ const duplicateLetter = () => {
 }
 
 
-// const welcome = () => {
-//   console.log(" Welcome to the Snowman Game.\n Try to predict the word by guessing individual letters.\n Good luck!\n")
-// }
-let welcome = readline.question(" Welcome to the Snowman Game.\n Try to predict the word by guessing individual letters.\n Good luck!\n")
+
+
 
 const startGame = () => {
-  welcome
+  readline.question(" Welcome to the Snowman Game.\n Try to predict the word by guessing individual letters.\n Good luck!\n")
   obj.secretWord = randomWord();
     buildBoard().join(" ")
-    // welcome();
-  while (gR > 0 && bD.join("") !== obj.secretWord) {
+  while (obj.guessesRemaining > 0 && obj.board.join("") !== obj.secretWord) {
     console.clear();
-    console.log(`Guesses Remaining: ${gR}\n Correct Guesses : ${cG}\n Incorrect Guesses: ${iG}\n ${bD.join(" ")}\n`, obj.secretWord);
+    console.log(`Guesses Remaining: ${obj.guessesRemaining}\n Correct Guesses : ${obj.correctGuesses}\n Incorrect Guesses: ${obj.incorrectGuesses}\n ${obj.board.join(" ")}\n`, obj.secretWord);
     getValidLetterGuess();
     duplicateLetter();                      
     if (wordCompare()) {
-      console.log("You guessed right!");
+      console.log("\nYou guessed right!");
       boardUpdate()
-      cG.push(x);
+      obj.correctGuesses.push(x);
     } else if (!wordCompare()) {
-      console.log("Wrong guess.");
-      gR -= 1;
-      iG.push(x);
+      console.log("\nWrong guess.");
+      obj.guessesRemaining -= 1;
+      obj.incorrectGuesses.push(x);
     }
   }
 };
