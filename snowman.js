@@ -3,23 +3,18 @@ const dictionary = ["able", "about", "account", "acid", "across", "addition", "a
 
 let nameInput = readline.question('What is your name?\n')
 let randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-lost = `Sorry ${nameInput}, you ran out of guesses!`
-leave = `Aww man, that\'s too bad. Hope to see you soon ${nameInput}!`
-let randomWordArr = []
-let charNumArr = []
-let a = ''
-let b = ''
-
-console.log(randomWord)
 
 let stats = {
   guess : '',
   guessedLetterArr : [],
+  randomWordArr : [],
+  charNumArr : [],
   numOfGuesses : randomWord.length
 }
 
 
 const startGame = () => {
+let leave = `Aww man, that\'s too bad. Hope to see you soon ${nameInput}!`
 if(readline.keyInYN(`Hello ${nameInput}, would you like to play SNOWMAN?`)){
   numOfChar();
 }else{
@@ -28,6 +23,7 @@ if(readline.keyInYN(`Hello ${nameInput}, would you like to play SNOWMAN?`)){
 };
 
 function leaveGame(leave){
+leave = `Aww man, that\'s too bad. Hope to see you soon ${nameInput}!`
 if(leave){
   console.log(leave);
   process.exit();
@@ -36,10 +32,10 @@ if(leave){
 
 function numOfChar(){
 for(let char of randomWord){
-  randomWordArr.push(char)
-  charNumArr.push('_')
+  stats.randomWordArr.push(char)
+  stats.charNumArr.push('_')
 } 
-b = charNumArr.join(' ');
+let b = stats.charNumArr.join(' ');
 console.log(b)
 console.log(`You have ${stats.numOfGuesses} guesses.\n`)
 };
@@ -62,17 +58,18 @@ function getValidLetterGuess() {
 };
 
 function gameLoop(){
-for(let i = 0; i < randomWordArr.length; i++){
-    if(randomWordArr[i] === stats.guess){
-      charNumArr[i] = stats.guess
+for(let i = 0; i < stats.randomWordArr.length; i++){
+    if(stats.randomWordArr[i] === stats.guess){
+      stats.charNumArr[i] = stats.guess
     }
 }
 guessCount();
-a = charNumArr.join('')
+let a = stats.charNumArr.join('')
 if(randomWord !== a && stats.numOfGuesses !== 0){
   getValidLetterGuess();
   gameLoop();
 }else if(stats.numOfGuesses === 0){
+let lost = `Sorry ${nameInput}, you ran out of guesses!`
   console.log(lost)
   console.log(`\nThe word was: ${randomWord}`)
 }else{
@@ -81,10 +78,10 @@ if(randomWord !== a && stats.numOfGuesses !== 0){
 };
 
 function guessCount(){
-if(!randomWordArr.includes(stats.guess)){
+if(!stats.randomWordArr.includes(stats.guess)){
   stats.numOfGuesses--
 }
-b = charNumArr.join(' ');
+b = stats.charNumArr.join(' ');
 console.log(b)
 if(stats.numOfGuesses === 1){
   console.log('You have ' + stats.numOfGuesses + ' guess remaining.')
