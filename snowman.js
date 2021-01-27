@@ -27,7 +27,7 @@ function getValidLetterGuess() {
     return (
       letter.length === 1 &&
       letter.toUpperCase() != letter.toLowerCase() &&
-      !guessedLetters.includes(letter)
+      !guessedLetters.includes(letter.toLowerCase())
     );
   }
   let letter = "";
