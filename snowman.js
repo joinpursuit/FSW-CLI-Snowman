@@ -27,7 +27,8 @@ function startGame() {
       break;
     }
     console.log(stats.guessed.join(" "))
-    console.log(stats.word);
+    // console.log(stats.word);
+    // console.log(stats.guessed)
     console.log(`You have ${stats.guesses} guesses remaining`
     );
     console.log(stats.dash.join(" "));
@@ -39,7 +40,8 @@ function startGame() {
       letterHolder(stats.board);
     }
   }
-  console.clear()
+  
+  // console.clear()
   lostGame();
 
 }
@@ -86,7 +88,8 @@ function getValidLetterGuess() {
   }
   let letter = "";
   while (!letter) {
-    let input = readline.question("Please enter your guess: ");
+    let input = readline.question("Please enter your guess: ").toLowerCase();
+
     if (guessIsValid(input)) {
       letter = input;
     } else {
