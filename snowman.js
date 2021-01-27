@@ -10,37 +10,30 @@ const wordGrab = () => {//call rng and call the index of the dictionary array to
   let i = dictionaryIndexNum(0, dictionary.length - 1)
   return dictionary[i]
 }
-
-
+let word = wordGrab()
 let guesses = 0//number of inputs made
-let fireball = []
 let snowballs = []//store all letters right || wrong
 
 const getValidLetterGuess = () => {
-  function guessIsValid(letter) {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
-  }
+  function guessIsValid(letter) { return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase() }
   let letter = ""
   while (!letter) {
-    
     let input = readline.question('Guess: ')
     if (guessIsValid(input)) {
       letter = input
-     
     }
     return letter.toLowerCase()
   }
 }
 
 const start = () => {
- let starter = readline.keyInYN('D O   Y O U   W A N N A   B U I L D   A   S N O W M A N N N N ?')
+  let starter = readline.keyInYN('D O   Y O U   W A N N A   B U I L D   A   S N O W M A N N N N ?')
   
   if (starter === false) {
     console.log('Welcome to Snowman!')
     console.log('Try to flip the blanks by guessing the right letters!')
-    console.log('Mistakes will be kept in Snowballs: , and all guesses will be counted!')
-    gameLoop()  
-   
+    console.log('Mistakes will be kept in Snowballs, and all guesses will be counted!')
+    gameLoop()     
   } else {}
 }
 /*
@@ -51,7 +44,7 @@ How i'm gonna reveal my letters.
 //in while build logic for a single turn
 
 const turn = () => {
-  let word = wordGrab()
+  
   console.log(word)
   
   let wordSplit = word.split('')
@@ -63,35 +56,30 @@ const turn = () => {
   let chances = word.length + 3
   let rightAnswers = [];
   console.log(`${chances} chances left!`)
-  while (chances > 0) {
+  while (chances > 0) {// while begin
 
-    for (let i = 0; i < wordSplit.length; i++){
+    for (let i = 0; i < wordSplit.length; i++) {
       
       if (wordSplit[i] === letter) {
-        rightAnswers.push(letter)
-        console.log(rightAnswers, 'right answers here!')
-        console.log(`${guesses++} guesses made so far!`)
-        let letterLogger = snowballs.push(letter)
-
-        console.log(typeof letterLogger)
-        console.log(`${letterLogger} snowballs here!`)
-        if (word === rightAnswers) {
-          console.log(` You win !`)
-        }
-
-       
+        rightAnswers.push(letter)             
+        let letterLogger = snowballs.push(letter)     
+        console.log(`${letterLogger} snowballs here!`)        
+        gameLoop()
+      } else if (word === rightAnswers) {
+        console.log(` You win !`)
       } else {
-        guesses++
-        console.log(`${chances--}`)
-        console.log(``)
-
+        chances--
+        console.log
+        gameLoop();
       }
     }
-  }
+  }//while ends
+  console.log(`${rightAnswers} right answers here!`)
+  console.log(`${guesses++} guesses made so far!`)
 }
 
 const gameLoop = () => {
-  turn()
+ turn()
 }
 
 

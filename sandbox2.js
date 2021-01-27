@@ -125,42 +125,49 @@
 
 
 
-fireball = []
+// fireball = []
 
-function getValidLetterGuess() {
-    function guessIsValid(letter) {
-     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
-   }
-   let letter = ""
-   while (!letter) {
-     console.log(fireball)
-     console.log(`Chances left: ${chances}`)
-     console.log(`Snowballs: ${snowballs}`)
-     let input = readline.question("Please enter your guess: ")
-     if (guessIsValid(input)) {
-       let letterCheck = word.some((elem) => input === letter);
-       if (letterCheck === true) {
-         letterCheck.includes()
-       }
-         // let storyWords = ['extremely literally actually hi bye okay']
-         // let unnecessaryWords = ['extremely', 'literally', 'actually' ];
+// function getValidLetterGuess() {
+//     function guessIsValid(letter) {
+//      return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
+//    }
+//    let letter = ""
+//    while (!letter) {
+//      console.log(fireball)
+//      console.log(`Chances left: ${chances}`)
+//      console.log(`Snowballs: ${snowballs}`)
+//      let input = readline.question("Please enter your guess: ")
+//      if (guessIsValid(input)) {
+//        let letterCheck = word.some((elem) => input === letter);
+//        if (letterCheck === true) {
+//          letterCheck.includes()
+//        }
+//          // let storyWords = ['extremely literally actually hi bye okay']
+//          // let unnecessaryWords = ['extremely', 'literally', 'actually' ];
 
-         // let betterWords = storyWords.filter(function(word) {
-         //   return !unnecessaryWords.includes(word);
-         // });
-         // console.log(betterWords) 
-       console.log(`${guesses++} guesses made so far!`)
-       letter = input
-       fireball.push(letter)
+//          // let betterWords = storyWords.filter(function(word) {
+//          //   return !unnecessaryWords.includes(word);
+//          // });
+//          // console.log(betterWords) 
+//        console.log(`${guesses++} guesses made so far!`)
+//        letter = input
+//        fireball.push(letter)
      
-       getValidLetterGuess()
-     } else {
-       console.log(`${guesses++}`)
-       console.log("Please enter a valid letter")
-       fireball.push(input)
-       getValidLetterGuess()
-     }
-   }
-   return letter.toLowerCase()
-}
-getValidLetterGuess('l')
+//        getValidLetterGuess()
+//      } else {
+//        console.log(`${guesses++}`)
+//        console.log("Please enter a valid letter")
+//        fireball.push(input)
+//        getValidLetterGuess()
+//      }
+//    }
+//    return letter.toLowerCase()
+// }
+// getValidLetterGuess('l')
+
+
+
+
+
+
+
