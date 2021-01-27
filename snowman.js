@@ -124,8 +124,7 @@ const reStart = () => {
 // If the user runs out of guesses, the full word should be revealed and the game should display a defeat message
 
 const gameLoop = () => {
-  let guessedWord = "";
-  let hiddenWordArr = hiddenWord.split("");
+  hiddenWordArr = hiddenWord.split("");
   let chosenWordArr = playerObj.chosenWord.split("");
   console.log(chalk.hex('ecc6ec').bold(hiddenWord));
 
