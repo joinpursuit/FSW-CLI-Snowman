@@ -52,11 +52,11 @@ function numberofGuessesToCorrect() {
     console.log(gameState.display.join(" ") +'\n')
 
     //print the users remaining guess count
-    console.log('You have ' + gameState.remainingGuesses + ' guesses left! \n')
+    console.log('You have ' + gameState.remainingGuesses + ' guesses left \n')
   
     //ask for user input
     const input = readline.question("Please enter your guess: " + "\n").toLocaleLowerCase()
-    if (guessIsValid(input)) {
+    if (guessIsValid(input) && !gameState.playerGuesses.includes(input)) {
       //add user guessed letter to playerGuesses array
       gameState.playerGuesses.push(input) 
 
@@ -101,18 +101,7 @@ function getUniqueCharacters() {
   return uniqueCharacters
 }
 
-//function that ends game when word is correct
-// function wordHasnBeenFullySolved() {
-// if (gameState.secretWord === gameState.display.join('')) {
-//   return leaveGame()
-// }
-// }
-// const wordIsFound = wordHasnBeenFullySolved()
 
-
-//make array of _ that is length of the hidden word
-//convert string to an array of strings
-//iterates through the array giving a new array with _ the same number of times the word has characters
 function makeHiddenWord() {
   const display =[]
   for(let i = 0; i < secretWord.length; i++) {
@@ -121,12 +110,6 @@ function makeHiddenWord() {
   return display
 }
 
-// main game loop
-// while (numberOfGuesses > 0 || wordHasntBeenFullySolved) {
-//   4. ask user for input readline.question()
-//   5. check if input appears in gameState.guessLetters
-//       5a. If no, decrement numberOfGuesses
-//       5b. If yes, loop through the secret word with a for loop. If 'i' value matches the user guess, then replace the 'i' value in display.
 
 
 
