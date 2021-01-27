@@ -10,7 +10,9 @@ function randomWordIndex(){
 const secretWord = randomWordIndex()
 
 const leaveGame = () => {
-  console.log("You win! It took you " + gameState.remainingGuesses + "!")
+  console.log("You win! The secret word was " + gameState.secretWord + ". It took you " + numberofGuessesToCorrect() + " guesses to win!\n")
+  console.log("Good game!")
+  process.exit()
 }
 
 
@@ -25,6 +27,10 @@ const gameState = {
 
 }
 
+//calculate the number of guesses it took to get right word
+function numberofGuessesToCorrect() {
+  return 10 - (gameState.remainingGuesses)
+}
 
 //helper function
   function guessIsValid(letter) {
@@ -35,7 +41,13 @@ const gameState = {
 
   //gameloop
   function gameLoop(){
-  while (gameState.remainingGuesses > 0 || !(wordIsFound) ) {
+  while (gameState.remainingGuesses > 0) {
+    //DELETE AFTER CHECKING 
+    console.log(gameState.secretWord)
+    //check if the secretWord is equal to the display as a string calls leave function which ends game loop
+    if (gameState.secretWord === gameState.display.join('')) {
+      leaveGame()
+    }
     //write the display here so it is updated after everyloop
     console.log(gameState.display.join(" ") +'\n')
 
@@ -90,12 +102,12 @@ function getUniqueCharacters() {
 }
 
 //function that ends game when word is correct
-function wordHasnBeenFullySolved() {
-if (gameState.secretWord === gameState.display.join('')) {
-  return leaveGame()
-}
-}
-const wordIsFound = wordHasnBeenFullySolved()
+// function wordHasnBeenFullySolved() {
+// if (gameState.secretWord === gameState.display.join('')) {
+//   return leaveGame()
+// }
+// }
+// const wordIsFound = wordHasnBeenFullySolved()
 
 
 //make array of _ that is length of the hidden word
