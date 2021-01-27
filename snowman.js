@@ -6,7 +6,7 @@ let stats = {
   choiceWord: dictionary[Math.floor(Math.random() * dictionary.length)],
   answer: [],
   guesses: [],
-  lives: 8 ,
+  lives: 8,
 };
 
 const play = () => {
@@ -14,65 +14,79 @@ const play = () => {
   let openingQuestion = readline.keyInYN("Would You like to play?");
   if (openingQuestion) {
     getValidLetterGuess();
-  } else
-  Process.exit();
+  } else Process.exit();
 };
 
 for (let i = 0; i < stats.choiceWord.length; i++) {
   stats.answer[i] = "_";
 }
-;
 
+
+function livesCounter() {
+  stats.lives--;
+  return stats.lives
+}
+
+function alreadyGuessed() {
+  if (stats.answer !== stats.choiceWord[i]){
+    stats.guesses.push()
+  }
+}
+  
 function getValidLetterGuess() {
   function guessIsValid() {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
   }
   let letter = "";
-  while (!letter) {
-   letter = readline.question("Please enter your guess: ");
-  
-    // console.log(guessIsValid(5));
+  while(stats.lives > 0) {
+  // while (!letter) {
+    console.log(`You have ${stats.lives} lives remaining`);
+    letter = readline.question("Please enter your guess: ");
+
     if (guessIsValid()) {
       console.log(letter);
     } else {
       console.log("Please enter a valid letter");
     }
     // loop through guesses array to see what user has entered
-    for (let j= 0; j < stats.guesses.length; j++) {
-      if(letter = stats.guesses[j]) {
-        console.log("you have entered this letter already")
+    for (let j = 0; j < stats.guesses.length; j++) {
+      if ((letter === stats.guesses[j])) {
+        console.log("you have entered this letter already");
         //must ask user to enter new choice
         break;
       }
     }
     // check to see if choice is in answer
-    for (let i = 0; i <stats.choiceWord.length; i ++) {
-     if(letter === stats.choiceWord[i]) {
-       stats.answer[i] = letter;
+    let guessedMatch = false
+    for (let i = 0; i < stats.choiceWord.length; i++) {
+      if (letter === stats.choiceWord[i]) {
+        stats.answer[i] = letter;
+        guessedMatch = true;
+      } else {}
 
-       
-       console.log(stats.answer);
-      } else {
-        stats.lives = stats.lives-1
-        console.log(`You have ${stats.lives} left`)
-      }
-    } for (let i = 0; i < stats.answer; i ++) {
-      stats.answer.push(letter)
+      
+    } if (!guessedMatch) {
+      livesCounter();
+        console.log(`You have ${stats.lives} lives left`);
     }
-    // insert correct chosen letter into correct position in array answers
     
-    // insert chosen letter into guesses array
+      stats.guesses.push(letter);
+    console.log(stats.answer);
+    // insert correct chosen letter into correct position in array answers
+
+    // insert all chosen letters into guesses array
     //check to see if all chosen letters match answer
     // check to see if answer fills all underscores
     //check how many guesses are left after choice
-  
+    //dont decrease life if guess is valid
+    //break out of loop lives when word is found and log congrats
   }
-  console.log(stats.choiceWord);
+// }
+  console.log(`The word was.....\n ${stats.choiceWord}`);
   return letter.toLowerCase();
 }
 
-
-play()
+play();
 
 
 
