@@ -15,24 +15,21 @@ let stats = {
 
 // determine whether or not a letter is in the correct answer
 function check(letter) {
-  let isThereAMatch = false
+  let isThereAMatch = false;
   // console.log("answer is: " + stats.correctAnsr);
   for (let i = 0; i < stats.correctAnsr.length; i++) {
     // iterate through correct answer
     if (letter === stats.correctAnsr[i]) {
-      isThereAMatch = true
+      isThereAMatch = true;
       // if letter matches user's guess
       stats.answer[i] = letter; // push user's answer through array
-      console.log(`Your guess was correct!`);
+      console.log(`Your guess was correct! `);
     } else {
-      
-      // take away a guess and alert user of how many guesses remain
-      // remainingGuesses()
-    }// update and display the answer array
-    // stats.answer[i] = "_";
+    }
   }
   if (isThereAMatch === false) {
-        stats.numOfGuesses--
+    stats.numOfGuesses--;
+    console.log("Your guess was incorrect!");
   }
 }
 // return stats.correctAnsr.includes(letter)
@@ -59,11 +56,10 @@ const startGame = () => {
   stats.correctAnsr = dictionary[Math.floor(Math.random() * dictionary.length)];
   console.log(stats.correctAnsr);
   for (let i = 0; i < stats.correctAnsr.length; i++) {
-    stats.answer[i] = "_"
+    stats.answer[i] = "_";
   }
-  
+
   gameLoop(); // start the game
-  
 };
 
 // create loop to move user though game
@@ -71,14 +67,21 @@ const gameLoop = () => {
   while (stats.numOfGuesses > 0) {
     let ursInput = getValidLetterGuess();
     check(ursInput);
-    console.log(`You have ${stats.numOfGuesses} remaining.`)
-    console.log(stats.answer)
-    console.log(stats.correctAnsr)
-
-    
+    console.log(`You have ${stats.numOfGuesses} remaining guesses.`);
+    console.log(stats.answer);
+    console.log(stats.correctAnsr);
   }
-
-  
+  while (stats.numOfGuesses === 0) {
+    console.log("You've ran out of guesses!");
+    let question = readline.keyInYN("Would you like to play again?");
+    if (question) {
+      console.log("Okay let's play again!");
+      startGame();
+    } else {
+      console.log("Okay, maybe later!");
+      leaveGame();
+    }
+  }
 };
 
 const leaveGame = () => {
