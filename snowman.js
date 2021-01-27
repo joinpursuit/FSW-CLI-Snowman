@@ -10,6 +10,7 @@ let charNumArr = []
 let a = ''
 let b = ''
 
+console.log(randomWord)
 
 let stats = {
   guess : '',
@@ -95,7 +96,11 @@ lettersGuessed();
 
 function lettersGuessed(){
   if(stats.guess){
-    stats.guessedLetterArr.push(stats.guess)
+    if(stats.guessedLetterArr.includes(stats.guess)){
+      console.log(`You already guessed the letter: ${stats.guess}`)
+    }else{
+      stats.guessedLetterArr.push(stats.guess)
+    }
   }
   if(stats.guessedLetterArr.length > 1){
     console.log(`\nGuessed Letters: ${stats.guessedLetterArr}\n`) 
@@ -106,14 +111,8 @@ function lettersGuessed(){
 
 
 function wonGame(){
-  if(randomWord.length - stats.numOfGuesses === 0){ 
-  console.log('You\'re so smart ' + nameInput +  ',' + ' you guessed correct every time! You lost ' +  (randomWord.length - stats.numOfGuesses )+ ' chances.')
-  }else if(randomWord.length - stats.numOfGuesses === 1){
-    console.log( 'You\'re so smart ' + nameInput +  ',' + ' you only guessed wrong ' +  (randomWord.length - stats.numOfGuesses )+ ' time!')
-  }else{
-    console.log('You\'re so smart ' + nameInput +  ',' + ' you guessed wrong ' +  (randomWord.length - stats.numOfGuesses )+ ' times!')
-  }
-  }
+console.log('You\'re so smart ' + nameInput +  ',' + ' it took you ' + stats.guessedLetterArr.length + ' guesses to guess the correct word!')
+};
 
 startGame();
 getValidLetterGuess();
@@ -121,3 +120,6 @@ gameLoop();
 
 
 
+// try storing all the variables in stats, set something up so that randomword gets reasigned int he beginning of game 
+// think about how you would design for a restart (start) , clear out variables, the start function should start a new game regardless of times played
+// clear out the terminal so that only the information that is currently relevant is in display
