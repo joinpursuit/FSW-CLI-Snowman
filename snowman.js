@@ -67,6 +67,7 @@ function displayGuessedLetters(letter) {
   gameData.guessedLetters.push(letter.toLowerCase());
   if (!gameData.secretWord.includes(letter.toLowerCase())) {
     gameData.numOfGuessesRemaining--;
+    gameData.correctGuessesMade++;
   } else {
     gameData.correctGuessesMade++;
     updateGameBoard(letter.toLowerCase());
@@ -77,7 +78,8 @@ function displayGuessedLetters(letter) {
 function isEndGame() {
   if (isFullGameBoard()) {
     console.log(`YOU WON!!!
-You made ${gameData.correctGuessesMade} correct guesses!`);
+You made ${gameData.correctGuessesMade} guesses!
+The word was ${gameData.secretWord}!`);
   }
   if (gameData.numOfGuessesRemaining === 0) {
     console.log(`You lost :(
