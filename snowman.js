@@ -33,7 +33,6 @@ const initialQ = () => {
   setTimeout(function () { rls.keyInYNStrict("Good luck playing!\nAre you ready?") ? playGame() : quitGame() }, 1300)
 }
 const playGame = () => {
-  obj.tempLetter = ""
   obj.guesses = 10
   obj.randomWrd = " "
   obj.randomWrdArr = []
@@ -56,7 +55,7 @@ const getValidLetterGuess = () => {
   const guessIsValid = (letter) => {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
   }
-  //console.log(obj)
+  
   console.log(`\n${obj.blankSpcStr}`)
   console.log(`Wrong letters:`, chalk`{red ${obj.wrongLetters.join(" ")}}`)
   console.log(`${obj.guesses} guesses remaining`)
@@ -69,15 +68,16 @@ const getValidLetterGuess = () => {
       console.log(chalk`{yellow Please enter a valid letter.🤔}`)
     }
   }
-  obj.tempLetter = letter.toLowerCase().split()
-  let answer = obj.randomWrdArr.includes(obj.tempLetter[0])
-  answer === true ? correctLetter() : wrongLetter()
+  let tempLetter = letter.toLowerCase().split()
+  let answer = obj.randomWrdArr.includes(tempLetter[0])
+  answer === true ? correctLetter(tempLetter) : wrongLetter(tempLetter)
 }
-const correctLetter = () => {
-  let answerOne = obj.blankSpcStr2.includes(obj.tempLetter[0])
+const correctLetter = (tempLetter) => {
+  
+  let answerOne = obj.blankSpcStr2.includes(tempLetter[0])
   answerOne === true ? console.log(chalk`{yellow Pay attention!}`) + getValidLetterGuess() : null
   for (i = 0; i < obj.randomWrdArr.length; i++) {
-    if (obj.randomWrdArr[i] === obj.tempLetter[0]) {
+    if (obj.randomWrdArr[i] === tempLetter[0]) {
       obj.blankSpc[i] = chalk`{green ${obj.randomWrd[i]}}`
       obj.blankSpc2[i] = obj.randomWrd[i]
     }
@@ -87,10 +87,10 @@ const correctLetter = () => {
   let answerTwo = obj.blankSpc.includes("_")
   answerTwo === true ? getValidLetterGuess() : winnerFunc()
 }
-const wrongLetter = () => {
-  let answer = obj.wrongLetters.includes(obj.tempLetter[0])
+const wrongLetter = (tempLetter) => {
+  let answer = obj.wrongLetters.includes(tempLetter[0])
   answer === true ? console.log(chalk`{yellow Pay attention!}`) + getValidLetterGuess() : obj.guesses -= 1
-  obj.wrongLetters.push(obj.tempLetter[0])
+  obj.wrongLetters.push(tempLetter[0])
   if (obj.guesses === 0) {
     loseFunc()
   }
