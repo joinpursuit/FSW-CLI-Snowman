@@ -37,7 +37,7 @@ const randomWord = () => {
   }
 };
 // numberOfGuess
-const numberOfGuess = () => { 
+const numberOfGuesses = () => { 
     if(!randomWord()) {
       return 
       console.log("You're ")
@@ -46,7 +46,7 @@ const numberOfGuess = () => {
     }
 };
 // guessLog
-const guessLog = () => {
+const guessCount = () => {
   let counter = 0
   let maxGuess = 5
 };
@@ -59,4 +59,6 @@ let generateUnderScore = () => {
 }
 console.log(generateUnderScore());
 // gameOver
-gameOver()
+const gameOver = () => {
+  
+}
