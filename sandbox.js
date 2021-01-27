@@ -85,9 +85,30 @@ let letterCheck = word.some((elem) => {
 console.log(letterCheck)
 
 
+//line 52-
 
-
-
+console.log(word)
+       let wordArr = word.split('')
+       console.log(wordArr)
+       //lets put this in another function
+       for (let i = 0; i < wordArr.length; i++) {
+         if (input === wordArr[i]) {
+           console.log(wordArr[i])
+           let letterIndx = wordArr[i]
+           letterIndx.indexOf(wordArr[i])
+          console.log(letterIndx)
+        }
+       }
+     console.log(`${guesses++} guesses made so far!`)
+    
+     fireball.push(letter)
+    getValidLetterGuess()
+  }  else {
+       console.log(`${guesses++}`)
+       console.log("Please enter a valid letter")
+       fireball.push(input)
+       getValidLetterGuess()
+     }
 
 
 
