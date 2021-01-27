@@ -72,7 +72,7 @@ const startGame = () => {
     //  console.clear()
     console.log(wordStatus());
     if (guesses.correct.length !== word.length) {
-      console.log(`Guessed letters: ${Array.from(incorrectGuesses)}`)
+      console.log(`Guessed letters: ${Array.from(guesses.incorrect)}`)
       console.log(`Guesses remaining: ${guessCount}`)
       getValidLetterGuess();
     } else {
