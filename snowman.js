@@ -6,16 +6,20 @@ let gameData = {
   correctGuessesMade: 0,
   numOfGuessesRemaining: 5, 
   guessedLetters: [],
+  blankedOutWord: [],
 };
 
 let gameBoard = makeGameBoard();
 
 function makeGameBoard() {
-  let blankedOutWord = [];
-  for (let i = 0; i < gameData.secretWord.length; i++) {
-    blankedOutWord.push("_");
-  }
-  return blankedOutWord;
+  return gameData.secretWord.split("").map((dashes) => {
+    return dashes = "_"
+  })
+}
+
+function startGame() {
+  console.log(`\n~*~ Welcome to Kenia's Snowman Game ~*~\n`);
+  displayNumOfGuessesRemaining();
 }
 
 function getValidLetterGuess() {
@@ -93,4 +97,4 @@ function isFullGameBoard() {
   return !gameBoard.includes("_");
 }
 
-displayNumOfGuessesRemaining();
+startGame();
