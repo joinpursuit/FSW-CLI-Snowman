@@ -53,7 +53,7 @@ function getValidLetterGuess() {
   while (!letter) {
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
-      letter = input
+      letter = input.toLowerCase()
       updateGuess(letter)
     }
     else {
