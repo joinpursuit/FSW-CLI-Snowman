@@ -1,0 +1,12 @@
+Hi,
+I am trying to build a guessing game in the Nora-snowman.js file, I have some questions:
+
+1- How to run a start game funtion in the begining (line 1 in Nora-snowman.js )? 
+
+2- How to run the function getValidLetterGuess in (line 13 in Nora-snowman.js)? 
+
+3- Next, I have been searching for a hide function to hide the guessing letters and replace them 
+with --- but I could not apply it because I could not understand it. Any advice, please? but I found the 
+function .replace I believe it could be used in a loop/object.
+
+Thank you.
