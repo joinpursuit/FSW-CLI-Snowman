@@ -1,22 +1,18 @@
 const readline = require("readline-sync");
 const dictionary = require("./dictionary.js");
 
-let randomDictionaryWord =
-  dictionary[Math.floor(Math.random() * dictionary.length)];
-let secretWord = randomDictionaryWord;
+let gameData = {
+  secretWord: dictionary[Math.floor(Math.random() * dictionary.length)],
+  correctGuessesMade: 0,
+  numOfGuessesRemaining: 5, 
+  guessedLetters: [],
+};
 
 let gameBoard = makeGameBoard();
 
-let gameData = {
-  correctGuessesMade: 0,
-  numOfGuessesRemaining: 5,
-};
-
-let guessedLetters = [];
-
 function makeGameBoard() {
   let blankedOutWord = [];
-  for (let i = 0; i < secretWord.length; i++) {
+  for (let i = 0; i < gameData.secretWord.length; i++) {
     blankedOutWord.push("_");
   }
   return blankedOutWord;
@@ -27,7 +23,7 @@ function getValidLetterGuess() {
     return (
       letter.length === 1 &&
       letter.toUpperCase() != letter.toLowerCase() &&
-      !guessedLetters.includes(letter.toLowerCase())
+      !gameData.guessedLetters.includes(letter.toLowerCase())
     );
   }
   let letter = "";
@@ -60,22 +56,22 @@ function displayNumOfGuessesRemaining() {
 }
 
 function updateGameBoard(letter) {
-  for (let i = 0; i < secretWord.length; i++) {
-    if (secretWord[i] === letter.toLowerCase()) {
+  for (let i = 0; i < gameData.secretWord.length; i++) {
+    if (gameData.secretWord[i] === letter.toLowerCase()) {
       gameBoard[i] = letter.toLowerCase();
     }
   }
 }
 
 function displayGuessedLetters(letter) {
-  guessedLetters.push(letter.toLowerCase());
-  if (!secretWord.includes(letter.toLowerCase())) {
+  gameData.guessedLetters.push(letter.toLowerCase());
+  if (!gameData.secretWord.includes(letter.toLowerCase())) {
     gameData.numOfGuessesRemaining--;
   } else {
     gameData.correctGuessesMade++;
     updateGameBoard(letter.toLowerCase());
   }
-  console.log(`Guessed Letters: ${guessedLetters}\n`);
+  console.log(`Guessed Letters: ${gameData.guessedLetters}\n`);
 }
 
 function isEndGame() {
@@ -85,7 +81,7 @@ You made ${gameData.correctGuessesMade} correct guesses!`);
   }
   if (gameData.numOfGuessesRemaining === 0) {
     console.log(`You lost :(
-The word was ${secretWord}!`);
+The word was ${gameData.secretWord}!`);
   } else {
     process.exit();
   }
