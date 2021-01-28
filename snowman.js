@@ -10,7 +10,7 @@ let stats = {
   guessCount: 0,
   wrongCount: 0,
   rightCount: 0,
-  guessedLetters: []
+  guessedLetters: [],
 };
 
 const startGame = () => {
@@ -21,7 +21,7 @@ const startGame = () => {
   guessCount = 0;
   wrongCount = 0;
   rightCount = 0;
-  guessedLetters = []
+  guessedLetters = [];
 
   stats.nameInput = readline.question("Enter your name: \n");
   stats.correctAnsr = dictionary[Math.floor(Math.random() * dictionary.length)];
@@ -56,7 +56,11 @@ function check(letter) {
 }
 
 function guessIsValid(letter) {
-  return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase() && stats.guessedLetters.includes(letter) !== true;
+  return (
+    letter.length === 1 &&
+    letter.toUpperCase() != letter.toLowerCase() &&
+    stats.guessedLetters.includes(letter) !== true
+  );
 }
 
 function getValidLetterGuess() {
@@ -65,7 +69,7 @@ function getValidLetterGuess() {
     let input = readline.question("Please enter a letter! \n");
     if (guessIsValid(input)) {
       letter = input;
-      stats.guessedLetters.push(input)
+      stats.guessedLetters.push(input);
     } else {
       console.log("Please enter a valid letter \n");
     }
@@ -84,7 +88,9 @@ const gameLoop = () => {
     let ursInput = getValidLetterGuess();
     check(ursInput);
     console.log(`You have ${stats.numOfGuesses} remaining guesses.`);
-    console.log(`These are the letters you've guessed: ${stats.guessedLetters}`)
+    console.log(
+      `These are the letters you've guessed: ${stats.guessedLetters}`
+    );
     console.log(stats.answer);
     console.log(stats.correctAnsr);
   }
