@@ -116,13 +116,29 @@ function lostGame(lost){
 lost = chalk.italic.red(`Sorry ${stats.nameInput}, you ran out of guesses!`)
   console.log(lost)
   console.log(chalk.italic.red(`\nThe word was: ${stats.randomWord}`))
+  restartGame();
 };
 
+function restartGame(){
+  if(readline.keyInYN(chalk.green.italic('Play Again?\n'))){
+    console.clear()
+  stats = {
+    nameInput : readline.question(chalk.green('What is your name?\n')),
+    guess : '',
+    guessedLetterArr : [],
+    randomWordArr : [],
+    charNumArr : [],
+    randomword : '',
+    numOfGuesses : 0
+  }
+startGame();
+gameLoop();
+}else{
+  leave = `\nAww man, that\'s too bad. Hope to see you soon ${stats.nameInput}!`
+  leaveGame(leave)
+}
+};
 
 startGame();
 gameLoop();
-
-
-
-// try storing all the variables in stats, set something up so that randomword gets reasigned in the beginning of game 
-// think about how you would design for a restart (start) , clear out variables, the start function should start a new game regardless of times played
+// restartGame();
