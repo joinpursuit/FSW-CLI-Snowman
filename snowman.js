@@ -61,6 +61,7 @@ function getValidLetterGuess() {
 };
 
 function gameLoop(){
+getValidLetterGuess()
 for(let i = 0; i < stats.randomWordArr.length; i++){
     if(stats.randomWordArr[i] === stats.guess){
       stats.charNumArr[i] = stats.guess
@@ -69,7 +70,6 @@ for(let i = 0; i < stats.randomWordArr.length; i++){
 guessCount();
 let a = stats.charNumArr.join('')
 if(randomWord !== a && stats.numOfGuesses !== 0){
-  getValidLetterGuess();
   gameLoop();
 }else if(stats.numOfGuesses === 0){
 let lost = chalk.italic.red(`Sorry ${stats.nameInput}, you ran out of guesses!`)
@@ -116,7 +116,6 @@ console.log(chalk.bold.yellow('You\'re so smart ' + stats.nameInput +  ',' + ' i
 };
 
 startGame();
-getValidLetterGuess();
 gameLoop();
 
 
