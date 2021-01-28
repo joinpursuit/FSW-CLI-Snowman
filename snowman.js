@@ -13,7 +13,7 @@ let guesses = {
 }
 let word = dictionary[Math.floor(Math.random() * dictionary.length)]
 let guessCount = 9
-console.log(word)
+// console.log(word)
 
 function wordStatus() {
   let wordStatus = ""
@@ -24,6 +24,7 @@ function wordStatus() {
       wordStatus += "_ "
     }
   }
+
   return wordStatus
 }
 
@@ -31,11 +32,19 @@ function wordStatus() {
 
 const updateGuess = (letter) => {
   if (word.includes(letter)) {
-    guesses.correct.push(letter)
+    if (!guesses.correct.includes(letter)) {
+      guesses.correct.push(letter)
+    } else {
+      console.log(`You already guessed ${letter} try again`)
+    }
   } else {
-    guesses.incorrect.push(letter)
-    console.log("That ain't it matey")
-    decrementCount();
+    if (!guesses.incorrect.includes(letter)) {
+      guesses.incorrect.push(letter)
+      console.log("That ain't it matey")
+      decrementCount();
+    } else {
+      console.log(`You already guessed ${letter} try again`)
+    }
   }
 }
 
@@ -49,18 +58,18 @@ function getValidLetterGuess() {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase()
   }
   let letter = ""
-
   while (!letter) {
     let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       letter = input.toLowerCase()
+      console.clear()
       updateGuess(letter)
-    }
-    else {
+    } else {
+      console.clear()
       console.log("Please enter a valid letter")
-
     }
   }
+
   return letter.toLowerCase()
 }
 
@@ -69,7 +78,7 @@ function getValidLetterGuess() {
 
 const startGame = () => {
   while (guessCount > 0) {
-    //  console.clear()
+    // console.clear()
     console.log(wordStatus());
     if (guesses.correct.length !== word.length) {
       console.log(`Guessed letters: ${Array.from(guesses.incorrect)}`)
@@ -79,9 +88,9 @@ const startGame = () => {
       guessCount = -1
       console.log("Check out the big brain on Brad!! Good Work")
       console.log(`${word} is correct!`)
-
     }
   }
+
   if (guessCount == 0 && guesses.correct.length !== word.length) {
     console.log(`Argh so close! The word was: ${word} `)
   }
