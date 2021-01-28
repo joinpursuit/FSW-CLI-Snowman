@@ -105,7 +105,7 @@ function getValidLetterGuess() {
     console.log(
       "-------------------------------------------------------------------"
     );
-    console.log(stats.choiceWord.split("")); //check word against wins and losses
+    // console.log(stats.choiceWord.split("")); //check word against wins and losses
   }
   return letter.toLowerCase();
 }
