@@ -11,11 +11,18 @@ let stats = {
 
 const play = () => {
   console.log("Welcome to Snowman");
-  let openingQuestion = readline.keyInYN("Would You like to play?");
+  let openingQuestion = readline.keyInYNStrict("Would You like to play?");
   if (openingQuestion) {
     getValidLetterGuess();
   } else quitGame();
 };
+const replay = () => {
+  let replayQuestion = readline.keyInYNStrict("Would you like to play again?");
+  if (replayQuestion) {
+    getValidLetterGuess();
+  } else 
+  quitGame()
+}
 const quitGame = () => {
   console.log("See You Later")
 }
@@ -29,22 +36,22 @@ function livesCounter() {
   stats.lives--;
   return stats.lives
 }
-  
+function guessIsValid(letter) {
+  return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
+}
 function getValidLetterGuess() {
-  function guessIsValid() {
-    return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
-  }
+  
   let letter = "";
+  console.log(stats.answer)
   while(stats.lives > 0) {
   // while (!letter) {
     console.log(`You have ${stats.lives} lives remaining`);
     letter = readline.question("Please enter your guess: ");
     console.log("------------------------------------------------")
-    if (guessIsValid(stats.choiceWord) && letter.length === 1) {
-      // console.log(letter);
-    } else {
-      console.log("Please enter a valid letter");
+    while (!guessIsValid(letter)) {
+      letter = readline.question("Please enter a valid letter: ");      
     }
+  
     // loop through guesses array to see what user has entered
     for (let j = 0; j < stats.guesses.length; j++) {
       if (letter === stats.guesses[j]) {
@@ -66,18 +73,29 @@ function getValidLetterGuess() {
     } if (stats.lives < 1){
       console.log("SORRY YOU HAVE LOST.");
       console.log(`The word was ${stats.choiceWord}`);
-      quitGame()
-    } 
-    for(let h = 0; h < stats.choiceWord; h++) {
-    if (stats.choiceWord.includes(stats.answer)) {
-      console.log("You won!!!")
+      replay()
+    } let answerMatch = true;
+    
+    //compare answer to choice word
+    let choiceArray = stats.choiceWord.split('');
+    for( let k = 0; k < stats.answer.length; k++) {
+      if (stats.answer[k] === choiceArray[k]) {
+
+      } else { 
+      answerMatch = false;
+      break;
+      }
     }
-  }
+    if (answerMatch === true) {
+      console.log(`WINNER WINNER WINNER`);
+      replay()
+    }
+  
       stats.guesses.push(letter); // insert all chosen letters into guesses array
     console.log(stats.answer);
     console.log(`You have used the letters ${stats.guesses}`)
     console.log("-------------------------------------------------------------------");
-
+    console.log(stats.choiceWord.split(''))
     
     //check to see if all chosen letters match answer
     //dont decrease life if guess is not valid letter
