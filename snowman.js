@@ -13,8 +13,10 @@ const play = () => {
   console.log("Welcome to Snowman");
   let openingQuestion = readline.keyInYNStrict("Would You like to play?");
   if (openingQuestion) {
-    console.log("\n")
-    console.log('You Will Play a Game of Snowman (FKA Hangman) Where The Objective is to Guess \nAll of the Letters That Would Fill the Blank __ Placeholders.\nYou Will be Given 8 Attempts to Guess Correctly.\nGood Luck!!! ')
+    console.log("\n");
+    console.log(
+      "You Will Play a Game of Snowman (FKA Hangman) Where The Objective is to Guess \nAll of the Letters That Would Fill the Blank __ Placeholders.\nYou Will be Given 8 Attempts to Guess Correctly.\nGood Luck!!! "
+    );
     getValidLetterGuess();
   } else quitGame();
 };
@@ -41,17 +43,16 @@ function guessIsValid(letter) {
 }
 function getValidLetterGuess() {
   let letter = "";
-  console.log("\n")
+  console.log("\n");
   console.log(stats.answer);
   while (stats.lives > 0) {
     // while (!letter) {
     console.log(`You have ${stats.lives} lives remaining`);
     letter = readline.question("Please enter your guess: ");
     console.log("------------------------------------------------");
-    while (!guessIsValid(letter)) {
+    while (!guessIsValid(letter) || stats.guesses.includes(letter)) {
       letter = readline.question("Please enter a valid letter: ");
     }
-
     // loop through guesses array to see what user has entered
     for (let j = 0; j < stats.guesses.length; j++) {
       if (letter === stats.guesses[j]) {
@@ -89,7 +90,7 @@ function getValidLetterGuess() {
         break;
       }
     }
-   //break out of loop lives when word is found and log congrats
+    //break out of loop lives when word is found and log congrats
     if (answerMatch === true) {
       console.log(
         `WINNER WINNER WINNER\n It took ${stats.guesses.length} tries.`
@@ -104,7 +105,7 @@ function getValidLetterGuess() {
     console.log(
       "-------------------------------------------------------------------"
     );
-    // console.log(stats.choiceWord.split(""));
+    console.log(stats.choiceWord.split("")); //check word against wins and losses
   }
   return letter.toLowerCase();
 }
