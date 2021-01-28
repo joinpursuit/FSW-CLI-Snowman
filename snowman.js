@@ -1,9 +1,6 @@
 const { get } = require("https");
 const readline = require("readline-sync");
-const dictionary = require("./dictionary")
-
-
-
+const dictionary = require("./dictionary");
 
 let obj = {
   guessesRemaining: 9,
@@ -13,15 +10,10 @@ let obj = {
   board: [],
 };
 
-
-
 const randomWord = () => {
   let word = dictionary[Math.floor(Math.random() * dictionary.length)];
   return word;
 };
-
-
-
 
 const buildBoard = () => {
   for (let i = 0; i < obj.secretWord.length; i++) {
@@ -29,8 +21,6 @@ const buildBoard = () => {
   }
   return obj.board;
 };
-
-
 
 const getValidLetterGuess = () => {
   function guessIsValid(letter) {
@@ -41,114 +31,98 @@ const getValidLetterGuess = () => {
     let input = readline.question("\nPlease enter your guess: ");
     if (guessIsValid(input)) {
       letter = input;
-    } 
-    else {
+      if (obj.correctGuesses.concat(obj.incorrectGuesses).includes(letter)) {
+        letter = "";
+        console.log("This letter was already guessed. Please select another.");
+      }
+    } else {
       console.log("\nPlease enter a valid letter");
     }
   }
-  return playerInput = letter.toLowerCase();
+  return letter.toLowerCase();
 };
 
-let playerInput = ""
-
 const theEnd = () => {
-  if ((obj.guessesRemaining === 0)) {
+  if (obj.guessesRemaining === 0) {
     console.log("The word was " + obj.secretWord.toUpperCase() + ".\n");
-    console.log("You had a total of " + (obj.correctGuesses.length + obj.incorrectGuesses.length) + " valid guesses.");
+    console.log(
+      "You had a total of " +
+        (obj.correctGuesses.length + obj.incorrectGuesses.length) +
+        " valid guesses."
+    );
     console.log("Better luck next time.\n");
-  } 
-  else if (obj.secretWord === obj.board.join("")) {
-    console.log("The word was " + obj.secretWord.toUpperCase() + ".\n")
-    console.log("You had a total of " + (obj.correctGuesses.length + obj.incorrectGuesses.length) + " valid guesses.");
+  } else if (obj.secretWord === obj.board.join("")) {
+    console.log("The word was " + obj.secretWord.toUpperCase() + ".\n");
+    console.log(
+      "You had a total of " +
+        (obj.correctGuesses.length + obj.incorrectGuesses.length) +
+        " valid guesses."
+    );
     console.log("You win! Congratulations!\n");
   }
   if (readline.keyInYNStrict("\nWould you like to play again? \n")) {
-    obj.guessesRemaining = 9,
-    obj.correctGuesses =  [],
-    obj.incorrectGuesses = [],
-    obj.secretWord = "",
-    obj.board = [],
-    console.log();
+    (obj.guessesRemaining = 9),
+      (obj.correctGuesses = []),
+      (obj.incorrectGuesses = []),
+      (obj.secretWord = ""),
+      (obj.board = []),
+      console.log();
     startGame();
     theEnd();
     console.clear();
-  }
-  else {
-    console.log("Thanks for playing.\n","Goodbye!\n")
+  } else {
+    console.log("Thanks for playing.\n", "Goodbye!\n");
     process.exit();
   }
 };
 
+const wordCompare = (playerInput) => {
+  return obj.secretWord.includes(playerInput);
+};
 
-
-
-
-
-
-const wordCompare = () => {
-    return obj.secretWord.includes(playerInput)
-}
-
-const boardUpdate = () => {
-    for (let j = 0; j < obj.secretWord.length; j++) {
-        if (obj.secretWord[j] === playerInput) {
-            obj.board[j] = playerInput
-        }
-    }
-    return obj.board
-}
-
-
-
-const duplicateLetter = () => {
-  for (let z = 0; z < obj.correctGuesses.length; z++) {
-    while (playerInput === obj.correctGuesses[z]) {
-      console.log("That letter was already guessed. Please try another.")
-      getValidLetterGuess()
+const boardUpdate = (playerInput) => {
+  for (let j = 0; j < obj.secretWord.length; j++) {
+    if (obj.secretWord[j] === playerInput) {
+      obj.board[j] = playerInput;
     }
   }
-  for (let z = 0; z < obj.incorrectGuesses.length; z++) {
-    while (playerInput === obj.incorrectGuesses[z]) {
-      console.log("That letter was already guessed. Please try another.")
-      getValidLetterGuess()
-    }
-  }
-}
+  return obj.board;
+};
+
+
 
 const keepPlaying = () => {
-  return obj.guessesRemaining > 0 && obj.board.join("") !== obj.secretWord
-}
-
-
+  return obj.guessesRemaining > 0 && obj.board.join("") !== obj.secretWord;
+};
 
 const startGame = () => {
-  readline.question(" Welcome to the Snowman Game.\n Try to predict the word by guessing individual letters.\n Good luck!\n\nPress ENTER/RETURN to begin.")
+  readline.question(
+    " Welcome to the Snowman Game.\n Try to predict the word by guessing individual letters.\n Good luck!\n\nPress ENTER/RETURN to begin."
+  );
   obj.secretWord = randomWord();
-    buildBoard().join(" ")
+  buildBoard().join(" ");
   while (keepPlaying()) {
     console.clear();
-    console.log(`SNOWMAN\n Guesses Remaining: ${obj.guessesRemaining}\n Correct Guesses : ${obj.correctGuesses}\n Incorrect Guesses: ${obj.incorrectGuesses}\n ${obj.board.join(" ")}\n`, obj.secretWord);
-    getValidLetterGuess();
-    duplicateLetter();                      
-    if (wordCompare()) {
+    console.log(
+      `SNOWMAN\n Guesses Remaining: ${
+        obj.guessesRemaining
+      }\n Correct Guesses : ${obj.correctGuesses}\n Incorrect Guesses: ${
+        obj.incorrectGuesses
+      }\n ${obj.board.join(" ")}\n`,
+      obj.secretWord
+    );
+    let guessLetter = getValidLetterGuess();
+    if (wordCompare(guessLetter)) {
       console.log("\nYou guessed right!");
-      boardUpdate()
-      obj.correctGuesses.push(playerInput);
+      boardUpdate(guessLetter);
+      obj.correctGuesses.push(guessLetter);
     } else {
       console.log("\nWrong guess.");
       obj.guessesRemaining -= 1;
-      obj.incorrectGuesses.push(playerInput);
+      obj.incorrectGuesses.push(guessLetter);
     }
   }
   theEnd();
 };
 
-
-
-
-
-startGame()
-
-
-
-
+startGame();
