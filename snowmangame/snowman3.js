@@ -70,7 +70,6 @@ function getValidLetterGuess() {
       console.log("\n");
     } else {
       console.log("\n")
-      console.log("Hm, try again.");
     }
   }
   return letter.toLowerCase();
