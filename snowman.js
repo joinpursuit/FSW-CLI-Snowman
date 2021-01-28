@@ -744,12 +744,21 @@ const dictionary = [
   "young",
 ];
 let word = "";
-let gameStats = { correctLetters: [], guessesLeft: 10, totalGuesses: 0 };
+let gameStats = {
+  correctLetters: [],
+  guessesLeft: 10,
+  totalGuesses: 0,
+  guessedLetters: [],
+};
 
 const promptUser = () => {
   let letter = "";
   while (!letter) {
     let input = readlineSync.question("\n Please enter your guess: \n ");
+    // if (gameStats.correctLetters.includes(input)) {
+    // console.log("You already guessed this letter!");
+    // }
+
     if (guessIsValid(input)) {
       letter = input;
     } else {
@@ -757,10 +766,15 @@ const promptUser = () => {
     }
   }
   letter = letter.toLowerCase();
+  gameStats.guessedLetters.push(letter);
   return letter;
 };
 
 const guessIsValid = (letter) => {
+  if (gameStats.guessedLetters.includes(letter)) {
+    console.log("You already guessed this letter!");
+    return false;
+  }
   return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
 };
 
