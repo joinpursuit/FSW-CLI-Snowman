@@ -1,0 +1,24 @@
+{
+  "name": "fswclihangman",
+  "version": "1.0.0",
+  "description": "![Hangman Gif](https://github.com/joinpursuit/Pursuit-Core-Web-Hangman/blob/master/hangmanWebGif.gif)",
+  "main": "hangman.js",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joinpursuit/FSW-CLI-Hangman.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joinpursuit/FSW-CLI-Hangman/issues"
+  },
+  "homepage": "https://github.com/joinpursuit/FSW-CLI-Hangman#readme"
+}
