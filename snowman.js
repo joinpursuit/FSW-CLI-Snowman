@@ -9,18 +9,19 @@ let stats = {
   correctAnsr: "",
   guessCount: 0,
   wrongCount: 0,
-  rightCount: 0
+  rightCount: 0,
+  guessedLetters: []
 };
 
 const startGame = () => {
-  
-  numOfGuesses = 6
-  answer = []
-  nameInput = ""
-  correctAnsr = ""
-  guessCount = 0
-  wrongCount = 0
-  rightCount = 0
+  numOfGuesses = 6;
+  answer = [];
+  nameInput = "";
+  correctAnsr = "";
+  guessCount = 0;
+  wrongCount = 0;
+  rightCount = 0;
+  guessedLetters = []
 
   stats.nameInput = readline.question("Enter your name: \n");
   stats.correctAnsr = dictionary[Math.floor(Math.random() * dictionary.length)];
@@ -35,10 +36,7 @@ const startGame = () => {
 
 // determine whether or not a letter is in the correct answer
 function check(letter) {
-
-
   let isThereAMatch = false;
-    
 
   for (let i = 0; i < stats.correctAnsr.length; i++) {
     // iterate through correct answer
@@ -52,14 +50,14 @@ function check(letter) {
   }
   if (isThereAMatch === false) {
     stats.numOfGuesses--;
-    stats.wrongCount++
+    stats.wrongCount++;
     console.log("Your guess was incorrect!");
   }
 }
 // return stats.correctAnsr.includes(letter)
 
 function guessIsValid(letter) {
-  return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
+  return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase() && stats.guessedLetters.includes(letter) !== true;
 }
 
 function getValidLetterGuess() {
@@ -68,39 +66,41 @@ function getValidLetterGuess() {
     let input = readline.question("Please enter a letter! \n");
     if (guessIsValid(input)) {
       letter = input;
+      stats.guessedLetters.push(input)
     } else {
       console.log("Please enter a valid letter \n");
     }
-  } 
+  }
 
-  let includedLetter = stats.answer.includes(letter)
-  includedLetter === true ? console.log("Hey! pay attention you put that already!") + getValidLetterGuess() : null
-  
-   stats.guessCount += 1 
+  // let includedLetter = stats.answer.includes(letter);
+  // includedLetter === true
+  //   ? console.log("Hey! pay attention you put that already!") +
+  //     getValidLetterGuess()
+  //   : null;
+
+  stats.guessCount += 1;
   return letter.toLowerCase();
 }
 
-
-
 // create loop to move user though game
 const gameLoop = () => {
-
   while (stats.numOfGuesses > 0) {
-    
-    let dashChecker = stats.answer.includes("_")
-  dashChecker === false ? youWin() : null
-    
-  let ursInput = getValidLetterGuess();
+    let dashChecker = stats.answer.includes("_");
+    dashChecker === false ? youWin() : null;
+
+    let ursInput = getValidLetterGuess();
     check(ursInput);
     console.log(`You have ${stats.numOfGuesses} remaining guesses.`);
+    console.log(`These are the letters you've guessed: ${stats.guessedLetters}`)
     console.log(stats.answer);
     console.log(stats.correctAnsr);
   }
   while (stats.numOfGuesses === 0) {
-  
-  console.log("You've ran out of guesses! You lose!");
-  console.log(`But it took you ${stats.guessCount} guesses to lose.`)
-  console.log(`You got ${stats.guessCount - stats.wrongCount} guesses correct.`)
+    console.log("You've ran out of guesses! You lose!");
+    console.log(`But it took you ${stats.guessCount} guesses to lose.`);
+    console.log(
+      `You got ${stats.guessCount - stats.wrongCount} guesses correct.`
+    );
 
     let question = readline.keyInYNStrict("Would you like to play again?");
     if (question) {
@@ -129,19 +129,18 @@ const gameLoop = () => {
 };
 
 function youWin() {
-  console.log("You've won!")
-  console.log(`It took you ${stats.guessCount} guesses.`)
-  console.log(`You got ${stats.wrongCount} guesses wrong.`)
-  console.log(`You got ${stats.guessCount - stats.wrongCount} guesses correct.`)
-  leaveGame()
+  console.log("You've won!");
+  console.log(`It took you ${stats.guessCount} guesses.`);
+  console.log(`You got ${stats.wrongCount} guesses wrong.`);
+  console.log(
+    `You got ${stats.guessCount - stats.wrongCount} guesses correct.`
+  );
+  leaveGame();
 }
-
-
 
 const leaveGame = () => {
   process.exit(); // function that ends the game
 };
 
-
-startGame()
+startGame();
 
