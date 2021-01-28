@@ -10,9 +10,11 @@ const wordGrab = () => {//call rng and call the index of the dictionary array to
   let i = dictionaryIndexNum(0, dictionary.length - 1)
   return dictionary[i]
 }
+console.log(dictionary[0])
 let word = wordGrab()
 let guesses = 0//number of inputs made
 let snowballs = []//store all letters right || wrong
+let rightAnswers = []
 
 const getValidLetterGuess = () => {
   function guessIsValid(letter) { return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase() }
@@ -25,6 +27,12 @@ const getValidLetterGuess = () => {
     return letter.toLowerCase()
   }
 }
+let hiddenWord = () => {
+  for (let i = 0; i < word.length; i++){
+    let hide = word.replace(word[i], '_')
+    return hide    
+  } 
+} 
 
 const start = () => {
   let starter = readline.keyInYN('D O   Y O U   W A N N A   B U I L D   A   S N O W M A N N N N ?')
@@ -33,7 +41,7 @@ const start = () => {
     console.log('Welcome to Snowman!')
     console.log('Try to flip the blanks by guessing the right letters!')
     console.log('Mistakes will be kept in Snowballs, and all guesses will be counted!')
-    gameLoop()     
+    gameLoop()  
   } else {}
 }
 /*
@@ -51,36 +59,38 @@ const turn = () => {
   console.log(wordSplit)
 
   let letter = getValidLetterGuess()
-  console.log(typeof letter)
-
   let chances = word.length + 3
-  let rightAnswers = [];
-  console.log(`${chances} chances left!`)
-  while (chances > 0) {// while begin
+  let x = 0
 
-    for (let i = 0; i < wordSplit.length; i++) {
-      
+    while (chances > 0) {  
       if (wordSplit[i] === letter) {
         rightAnswers.push(letter)             
-        let letterLogger = snowballs.push(letter)     
-        console.log(`${letterLogger} snowballs here!`)        
-        gameLoop()
-      } else if (word === rightAnswers) {
+        snowballs.push(letter)     
+        console.log(`${snowballs} snowballs here!`)        
+        console.log(`${rightAnswers} right answers here!`)
+        guesses++
+        //getValidLetterGuess()
+      } else if (wordSplit === rightAnswers) {
         console.log(` You win !`)
+        //and also chance to restart
       } else {
         chances--
-        console.log
-        gameLoop();
+        guesses++
+        console.log(chances)
+        
+        //getValidLetterGuess();
       }
-    }
+    
+  // while begin
+
+    
   }//while ends
-  console.log(`${rightAnswers} right answers here!`)
-  console.log(`${guesses++} guesses made so far!`)
+  console.log(getValidLetterGuess())
+  //console.log(`${guesses++} guesses made so far!`)
 }
 
 const gameLoop = () => {
  turn()
 }
-
 
 start()
