@@ -141,4 +141,3 @@ gameLoop();
 
 startGame();
 gameLoop();
-// restartGame();
