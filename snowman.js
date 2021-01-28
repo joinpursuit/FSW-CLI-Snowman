@@ -29,7 +29,7 @@ const startUp = () => {
 	}
 }
 
-const tracer = {
+let tracer = {
 	tries: 0,
 	chances: 10,
 	allWords: [],
@@ -49,7 +49,7 @@ const tracker = () => {
 const generateWord = () => {
 	wordBook = dictionary[Math.floor(Math.random() * dictionary.length)]
 	tracer.allWords = wordBook.split('')
-	tracer.allWords.forEach((elem) => {
+	tracer.allWords.forEach(() => {
 		tracer.leakWord.push('_')
 	})
 	showUp = tracer.leakWord.join(' ')
@@ -81,7 +81,7 @@ const correctGuesses = (allWords, guess) => {
 		tracer.leakWord.splice(elem, 1, moveForward)
 	})
 	answer = tracer.leakWord.join(' ')
-	console.log(`Your guessed letters: ${tracer.incorrectLettr}\n`)
+	console.log(`Your guessed letters: ${tracer.incorrectLettr}`)
 	console.log(answer)
 	tracer.approvedLettr.push(moveForward)
 	if (tracer.leakWord.indexOf('_') < 0) {
@@ -133,7 +133,15 @@ const exitGame = () => {
 }
 const restartGame = () => {
 	let runIt = rls.keyInYN('Want to give it another try?')
-	if (runIt === true) {
+	if (runIt) {
+		tracer = {
+			tries: 0,
+			chances: 10,
+			allWords: [],
+			leakWord: [],
+			incorrectLettr: [],
+			approvedLettr: [],
+		}
 		greetings()
 	} else {
 		exitGame()
