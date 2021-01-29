@@ -744,32 +744,55 @@ const dictionary = [
   "yesterday",
   "young",
 ];
-
-
-let stats = {
-  gussedLetters: 0,
-  remainingGuesses: 10,
+let stats = { 
+  remainingGuesses: 8,
+  lettersGuessed: "",
+  timesGuessed: 0,
+  
+  wordGenerated: [],
+  dashedWord: [],
 };
-
-
-
 
 function play(){
-console.log("Welcome to Snowman! Guess a letter to complete the word. ")
-console.log(hideTheWord());
+console.log(`Welcome to Snowman! Guess the letters to complete the word. You have ${stats.remainingGuesses} chances.`)
+wordGenerator();
+getValidLetterGuess();
 };
 
+//Presents user w a random word to guess
+function wordGenerator() {
+  let randomWord = dictionary[Math.floor(Math.random()* (dictionary.length))];
+  //console.log(randomWord)
+   stats.wordGenerated = randomWord.split("");
+   for (let el of randomWord){
+     stats.dashedWord.push('_');
+   }
+};
 
-
+//user should be able to enter guesses
+function changeToLetter(letter){
+let wordIndex;
+for (let i = 0; i < stats.wordGenerated.length; i++){
+  if(stats.wordGenerated[i] === letter) {
+    wordIndex = i;
+    stats.dashedWord.splice(wordIndex, 1, letter)
+  }
+}
+};
 function getValidLetterGuess() {
+  console.log(`${stats.dashedWord.join(' ')} \n
+  Guessed letters: ${stats.lettersGuessed}\n
+  You have ${stats.remainingGuesses} guesses remaining`)
   function guessIsValid(letter) {
     return letter.length === 1 && letter.toUpperCase() != letter.toLowerCase();
   }
   let letter = "";
   while (!letter) {
     let input = readline.question("Please enter your guess: ");
-    if (guessIsValid(input)) {
+    if (guessIsValid(input) && !(stats.lettersGuessed.includes(input))) {
       letter = input;
+      stats.lettersGuessed += `${letter},`
+      compareLetters(letter)
     } else {
       console.log("Please enter a valid letter");
     }
@@ -777,49 +800,38 @@ function getValidLetterGuess() {
   return letter.toLowerCase();
 };
 
-
-function wordGenerator() {
-  const randomWord = dictionary[Math.floor(Math.random()* dictionary.length)];
-  let word = randomWord.split("");
-  //console.log(`this is the generated word: ${word}`)
-  return word
+//updates how many guesses user has left
+function compareLetters(letter){
+  if(stats.wordGenerated.includes(letter)){
+    changeToLetter(letter)
+    stats.timesGuessed +=1
+      if (stats.wordGenerated.join('') === stats.dashedWord.join('')){
+        winsGame();
+      }
+      getValidLetterGuess();
+    }else{
+      stats.remainingGuesses--
+      stats.timesGuessed +=1
+      if(stats.remainingGuesses === 0){
+      lostGame();
+      }
+    }
+    getValidLetterGuess();   
 };
 
-
-
-
-function hideTheWord() {
-let selectedWord = wordGenerator();
-//console.log(`this is the same generated word passed in ${selectedWord}`)
-let blankWord = selectedWord.map((letter) => {
-    return letter = '_';
-  })
-  return blankWord;
+//User should know if wins or loses
+function winsGame(){
+console.log(`Congrats! You win! You were able to guess the word '${stats.wordGenerated.join('')}' in a total of ${stats.timesGuessed} guesses.`)
+endGame();
 };
 
+function lostGame(){
 
-
-
-// function letterGuessed(){
-// if(){
-
-// }else{}
-
-// };
-
-
-
-wordReveal()
-
-function wordReveal(){
-  //console.log(`Your word was ${randomWord}`)
-};
-
-
-
+console.log(`Sorry, you lost the game. The word was '${stats.wordGenerated.join('')}'.`)
+endGame();
+}
 
 function endGame(){
-  console.clear()
   console.log("Thanks for playing! Goodbye.")
   process.exit()
 };
