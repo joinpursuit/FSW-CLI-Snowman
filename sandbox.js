@@ -33,6 +33,18 @@ const letterCheck = (letter) => {//have I seen letter before?
   }
   return false;
 }
+function start() {
+  let starter = readline.keyInYN('D O   Y O U   W A N N A   B U I L D   A   S N O W M A N N N N ?')
+  
+  if (starter === false) {
+    console.log('Welcome to Snowman!')
+    console.log('Try to flip the blanks by guessing the right letters!')
+    console.log('Mistakes will be kept in Snowballs, and all guesses will be counted!')
+    getValidLetterGuess()
+    gameLoop()
+  } else { }
+}
+
 
 function getValidLetterGuess() {
   function guessIsValid(letter) {
@@ -41,7 +53,7 @@ function getValidLetterGuess() {
   let letter = ""
   
   while (!letter) {
-    let input = 'i' //readline.question("Please enter your guess: ")
+    let input = readline.question("Please enter your guess: ")
     if (guessIsValid(input)) {
       if (!letterCheck(input)) {
         letter = input  
@@ -74,32 +86,34 @@ const compareAnswerToWord = (theInput) => {
 }
 
 
-const start = () => {
-  let starter = readline.keyInYN('D O   Y O U   W A N N A   B U I L D   A   S N O W M A N N N N ?')
-  
-  if (starter === false) {
-    console.log('Welcome to Snowman!')
-    console.log('Try to flip the blanks by guessing the right letters!')
-    console.log('Mistakes will be kept in Snowballs, and all guesses will be counted!')
-    gameLoop()
-  } else { }
-}
 
 function gameLoop() {
   while (playStat['chances'] > 0) {
     let displayBoard = board.join('');
     console.log(displayBoard)
     console.log(`${playStat['chances']} chances left!`)
-   compareAnswerToWord(input)
+    getValidLetterGuess(input)
+      =]
+    =]
+    compareAnswerToWord(input)
     if (displayBoard === word) {
       console.log('||||||           ||||||  |||||||||||||||||||||||  |||||  /////////||| ')
-      console.log('||||||  |||||||  ||||||  |||||||       |||||||||  |||||//////////|||| ')
+      console.log('||||||  |||||||  ||||||  ||||||||     ||||||||||  |||||//////////|||| ')
       console.log('||||||  |||||||  ||||||       //       //         |||||         ||||| ')
       console.log('||||||  |||||||  ||||||       //       //         |||||         ||||| ')
-      console.log('|||||\\////\\//\\\\||||  |||||||       |||||||||  |||||         ||||| ')
+      console.log('|||||\\////\\//\\\\||||  ||||||||     ||||||||||  |||||         ||||| ')
       console.log(' \\//// \\////  \\/////  |||||||||||||||||||||||  |||||         ||||| ')
-    } else {
-      
+      start()
+    } else if (playStat['chances']===0){
+      console.log('|||||         |||||||||||||||||  |||||||||||||||||  ||||||||||||||||   ')
+      console.log('|||||         |||||||||||||||||  |||||||||||||||||  ||||||||||||||||   ')
+      console.log('|||||         ||||||     ||||||  ||||||             ||||||             ')
+      console.log('|||||         ||||||     ||||||  ||||||||||||||||   |||||||||          ')
+      console.log('|||||         ||||||     ||||||           |||||||   |||||||||          ')
+      console.log('|||||         ||||||     ||||||           |||||||   ||||||             ')
+      console.log('||||||||||||  |||||||||||||||||  ||||||||||||||||   ||||||||||||||||   ')
+      console.log('||||||||||||  |||||||||||||||||  ||||||||||||||||   ||||||||||||||||   ')
+      start()
     }
   }
 }
