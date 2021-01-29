@@ -40,7 +40,6 @@ function start() {
     console.log('Welcome to Snowman!')
     console.log('Try to flip the blanks by guessing the right letters!')
     console.log('Mistakes will be kept in Snowballs, and all guesses will be counted!')
-    getValidLetterGuess()
     gameLoop()
   } else { }
 }
@@ -68,13 +67,14 @@ function getValidLetterGuess() {
   return letter.toLowerCase()
 }
 
-let input = getValidLetterGuess()
+//let input = getValidLetterGuess()
 
 const compareAnswerToWord = (theInput) => {
   let correctGuess = false
   for (let i = 0; i < word.length; i++) {
     if (theInput === word[i]) {
       board[i] = input
+      playStat['lettersGuessedAlready'].push(board[i])
       correctGuess = true;
       
     }
@@ -88,13 +88,13 @@ const compareAnswerToWord = (theInput) => {
 
 
 function gameLoop() {
+ 
   while (playStat['chances'] > 0) {
     let displayBoard = board.join('');
+    console.log(playStat['lettersGuessedAlready'])
     console.log(displayBoard)
     console.log(`${playStat['chances']} chances left!`)
-    getValidLetterGuess(input)
-      =]
-    =]
+    let input = getValidLetterGuess()
     compareAnswerToWord(input)
     if (displayBoard === word) {
       console.log('||||||           ||||||  |||||||||||||||||||||||  |||||  /////////||| ')
@@ -117,6 +117,5 @@ function gameLoop() {
     }
   }
 }
-
 start()
 //console.clear <-- look up documentation
