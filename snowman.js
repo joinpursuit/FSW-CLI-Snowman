@@ -66,13 +66,16 @@ const leaveGame = () => {
       "Do you really want to exit the Snowman word guessing game?"
     )
   ) {
+    process.exit();
     console.log(
       chalk.yellowBright.bold(
         "👋  Thank you for stopping by the Snowman Word Guessing Game! 👋 "
       )
     );
-    process.exit();
   } else {
+    (obs.guessedLetters.length = 0),
+      (obs.guessCount = 0),
+      (obs.guessesLeft = 6);
     startGame();
   }
 };
