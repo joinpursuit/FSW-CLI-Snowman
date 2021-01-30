@@ -42,7 +42,7 @@ function start() {
     console.log('Mistakes will be kept in Snowballs, and all guesses will be counted!')
     gameLoop()
   } else {
-    console.log('Ana is hurt. Now she\'s gonna grow up and almost marry a guy that wears gloves. Happy now?)
+    console.log('Ana is hurt. Now she\'s gonna grow up and almost marry a guy that wears gloves. Happy now?')
     process.exit()
    }
 }
@@ -75,31 +75,31 @@ const compareAnswerToWord = (theInput) => {
   for (let i = 0; i < word.length; i++) {
     if (theInput === word[i]) {
       board[i] = input
-      playStat['lettersGuessedAlready'].push(theInput)
       correctGuess = true;
       
     }
   }
   if (!correctGuess) {
     playStat['chances']--
-    playStat['guesses']++
-    
-    console.log(playStat['chances']+'chances left!')
+    playStat['guesses']++   
   }
 }
-console.log(board)
+
 function gameLoop() {
  
   while (playStat['chances'] > 0) {
-    console.log(word)
+    
     let displayBoard = board.join(''); 
     console.log(displayBoard);
     let input = getValidLetterGuess()
-    playStat['lettersGuessedAlready'].push(input)
+    compareAnswerToWord(input)
+    if (playStat['lettersGuessedAlready'].includes(input)) {
+      playStat['lettersGuessedAlready'].filter(input)
+    } else {
+      playStat['lettersGuessedAlready'].push(input)
+    }
     console.log(playStat['lettersGuessedAlready'])
     console.log(`${playStat['chances']} chances left!`)
-    
-    compareAnswerToWord(input)
     if (displayBoard === word) {
       console.log('||||||           ||||||  |||||||||||||||||||||||  |||||  /////////||| ')
       console.log('||||||  |||||||  ||||||  ||||||||     ||||||||||  |||||//////////|||| ')
