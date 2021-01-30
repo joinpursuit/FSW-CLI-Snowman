@@ -97,18 +97,22 @@ function gameLoop() {
       playStat['lettersGuessedAlready'].filter(input)
     } else {
       playStat['lettersGuessedAlready'].push(input)
+      console.log(`${playStat['chances']} chances left!`)
     }
     console.log(playStat['lettersGuessedAlready'])
-    console.log(`${playStat['chances']} chances left!`)
-    if (displayBoard === word) {
+    //console.log(`${playStat['chances']} chances left!`)
+    if (!(displayBoard.includes('_'))) {
       console.log('||||||           ||||||  |||||||||||||||||||||||  |||||  /////////||| ')
-      console.log('||||||  |||||||  ||||||  ||||||||     ||||||||||  |||||//////////|||| ')
+      console.log('||||||  |||||||  ||||||  |||||||       |||||||||  |||||//////////|||| ')
       console.log('||||||  |||||||  ||||||       //       //         |||||         ||||| ')
       console.log('||||||  |||||||  ||||||       //       //         |||||         ||||| ')
-      console.log(' ||||//////////////|||   ||||||||     ||||||||||  |||||         ||||| ')
+      console.log(' ||||//////////////|||   |||||||       |||||||||  |||||         ||||| ')
       console.log(' //////  /////  //////   |||||||||||||||||||||||  |||||         ||||| ')
-      start()
-    } else if (playStat['chances']===0){
+      start() 
+      gameLoop()
+    } else if (playStat['chances'] === 0) {
+      console.log(`Your word was ${word}! `)
+
       console.log('|||||         |||||||||||||||||  |||||||||||||||||  ||||||||||||||||   ')
       console.log('|||||         |||||||||||||||||  |||||||||||||||||  ||||||||||||||||   ')
       console.log('|||||         ||||||     ||||||  ||||||             ||||||             ')
@@ -121,5 +125,7 @@ function gameLoop() {
     }
   }
 }
+//word = wordGrab()
 start()
+
 //console.clear <-- look up documentation
