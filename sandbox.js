@@ -41,7 +41,10 @@ function start() {
     console.log('Try to flip the blanks by guessing the right letters!')
     console.log('Mistakes will be kept in Snowballs, and all guesses will be counted!')
     gameLoop()
-  } else { }
+  } else {
+    console.log('Ana is hurt. Now she\'s gonna grow up and almost marry a guy that wears gloves. Happy now?)
+    process.exit()
+   }
 }
 
 
@@ -59,7 +62,6 @@ function getValidLetterGuess() {
       } else {
         console.log('You\'ve guessed this letter already')
       }
-      
     } else {
       console.log("Please enter a valid letter")
     }
@@ -67,42 +69,44 @@ function getValidLetterGuess() {
   return letter.toLowerCase()
 }
 
-//let input = getValidLetterGuess()
-
 const compareAnswerToWord = (theInput) => {
+  let input = theInput
   let correctGuess = false
   for (let i = 0; i < word.length; i++) {
     if (theInput === word[i]) {
       board[i] = input
-      playStat['lettersGuessedAlready'].push(board[i])
+      playStat['lettersGuessedAlready'].push(theInput)
       correctGuess = true;
       
     }
   }
   if (!correctGuess) {
     playStat['chances']--
+    playStat['guesses']++
+    
     console.log(playStat['chances']+'chances left!')
   }
 }
-
-
-
+console.log(board)
 function gameLoop() {
  
   while (playStat['chances'] > 0) {
-    let displayBoard = board.join('');
-    console.log(playStat['lettersGuessedAlready'])
-    console.log(displayBoard)
-    console.log(`${playStat['chances']} chances left!`)
+    console.log(word)
+    let displayBoard = board.join(''); 
+    console.log(displayBoard);
     let input = getValidLetterGuess()
+    playStat['lettersGuessedAlready'].push(input)
+    console.log(playStat['lettersGuessedAlready'])
+    console.log(`${playStat['chances']} chances left!`)
+    
     compareAnswerToWord(input)
     if (displayBoard === word) {
       console.log('||||||           ||||||  |||||||||||||||||||||||  |||||  /////////||| ')
       console.log('||||||  |||||||  ||||||  ||||||||     ||||||||||  |||||//////////|||| ')
       console.log('||||||  |||||||  ||||||       //       //         |||||         ||||| ')
       console.log('||||||  |||||||  ||||||       //       //         |||||         ||||| ')
-      console.log('|||||\\////\\//\\\\||||  ||||||||     ||||||||||  |||||         ||||| ')
-      console.log(' \\//// \\////  \\/////  |||||||||||||||||||||||  |||||         ||||| ')
+      console.log(' ||||//////////////|||   ||||||||     ||||||||||  |||||         ||||| ')
+      console.log(' //////  /////  //////   |||||||||||||||||||||||  |||||         ||||| ')
       start()
     } else if (playStat['chances']===0){
       console.log('|||||         |||||||||||||||||  |||||||||||||||||  ||||||||||||||||   ')
