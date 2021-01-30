@@ -748,7 +748,6 @@ let stats = {
   remainingGuesses: 8,
   lettersGuessed: "",
   timesGuessed: 0,
-  
   wordGenerated: [],
   dashedWord: [],
 };
