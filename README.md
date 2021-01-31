@@ -8,7 +8,8 @@ Sarah's Snowman Game Trello board [link](https://trello.com/b/4xlMxkKC/sarahs-co
 1. Git clone this repo
 2. Open up the code in VSCode or your choice of IDE
 3. Run npm install to install dependencies that this project uses
-5. Run node snowman.js and play!
+4. Run node snowman.js
+5. Play!
 
 ![Gamegif](https://github.com/sbweins/FSW-CLI-Snowman/blob/master/snowmanwin.gif?raw=true)
 
