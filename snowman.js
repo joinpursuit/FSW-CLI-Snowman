@@ -15,60 +15,53 @@ let incorrectGuess = 0;
 let name = readline.question(
   "Hello human, thank you for playing, what is your name? "
 );
-let choose = `please choose a letter ${name}`;
+let choose = `please choose a letter`;
 let message = { outmessage: "" };
 let gameInventory = { correctGuesses: "", wrongGuesses: "", guessesLeft: 6 };
 
+
 console.clear();
 const playAgain = () => {
+
   let askAgain = readline.keyInYN(`Would you like to play again ${name}?`);
   if (askAgain) {
-    randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
-    splitRandomWord = randomWord.split("");
-    tiles = splitRandomWord.map((el) => {
-      return " _ ";
-    });
-    incorrectGuess = 0;
-    lettersLeft = randomWord.length;
-    gameInventory = { correctGuesses: "", wrongGuesses: "", guessesLeft: 6 };
-    message = { outmessage: "" };
+randomWord = dictionary[Math.floor(Math.random() * dictionary.length)];
+splitRandomWord = randomWord.split("");
+tiles = splitRandomWord.map((el) => {
+  return " _ ";
+});
+   incorrectGuess = 0;
+   lettersLeft = randomWord.length
+   gameInventory = { correctGuesses: "", wrongGuesses: "", guessesLeft: 6 };
+  message = { outmessage: "" };
+
+
+
   } else {
     process.exit();
   }
 };
 const gameLoop = () => {
+
+
   if (incorrectGuess === 6) {
+  
     loseGame();
   } else if (lettersLeft === 0) {
+
     gameWin();
   } else if (lettersLeft >= 0) {
-  
-
-  
-    //message["outmessage"] = `${name}'s current game stats`
-   
     console.log(message["outmessage"]);
-    console.log(`------${name}'s game stats------`)
     console.table(gameInventory);
     // console.clear()
     //console.log('Number of guesses left: '  + (6 - incorrectGuess))
-    console.log(`Word:  ${tiles.join(" ")}`);
+
     takeAGuess();
   }
 };
 
 const takeAGuess = () => {
-  let stayOrGo =
-    !readline.question(
-      'hit enter to continue, or type "quit" to quit the game. ',//the game will quit w any key so alternat message could say hit any key to quit
-      { defaultInput: "" }
-    ) === false;
-  // created a boolean value with stayOrGo so that default of hitting enter is false and exits the game.
-  if (stayOrGo) {
-    process.exit();
-  } else {
-    console.clear();
-  }
+  
   console.log(tiles.join(" "));
 
   let playerGuess = readline
@@ -92,11 +85,15 @@ const takeAGuess = () => {
     message[
       "outmessage"
     ] = `Sorry ${name}, there is no letter "${playerGuess}" in this word.`;
+    //console.log()
     gameInventory["guessesLeft"] = 6 - incorrectGuess;
     gameInventory["wrongGuesses"] += `${playerGuess},`;
     gameLoop();
   } else if (splitRandomWord.includes(playerGuess)) {
+    // make a function to updateTiles
     gameInventory["correctGuesses"] += `${playerGuess},`;
+    //for (let letter of playerGuess) {
+    //if (randomWord.includes(playerGuess)){
 
     for (let i = 0; i < splitRandomWord.length; i++) {
       let indexOfTiles = i;
@@ -128,14 +125,17 @@ const gameWin = () => {
 };
 
 const loseGame = () => {
+
   console.log(
     `You have ${
       6 - incorrectGuess
     } guesses left ${name}, so you lose the game. The word
-you were unable to guess is "${randomWord}". Better luck next time human ${name}`
+   you were unable to guess is "${randomWord}". Better luck next time human ${name}`
   );
 
-  playAgain();
+ playAgain();
+
 };
 
 gameLoop();
+
