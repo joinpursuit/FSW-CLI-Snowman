@@ -93,7 +93,7 @@ function getValidLetterGuess() {
     //break out of loop lives when word is found and log congrats
     if (answerMatch === true) {
       console.log(
-        `WINNER WINNER WINNER\n It took ${stats.guesses.length + 1} tries.`
+        `WINNER WINNER WINNER\n The word was ${stats.choiceWord}It took ${stats.guesses.length + 1} tries.`
       );
       quitGame();
       break;
