@@ -21,7 +21,7 @@ const startGame = () => {
 const gameLoop = () => {
   while (gameState.guess > 0 && gameState.board.includes("_")) {
     logGameState()
-    console.log(gameState.word);//dont forget to remove later 
+    // console.log(gameState.word);//dont forget to remove later 
     let guess = getValidLetterGuess();
     updateGameState(guess)
     updateBoard(guess)
