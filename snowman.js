@@ -75,8 +75,7 @@ const compareAnswerToWord = (theInput) => {
   for (let i = 0; i < word.length; i++) {
     if (theInput === word[i]) {
       board[i] = input
-      correctGuess = true;
-      
+      correctGuess = true;      
     }
   }
   if (!correctGuess) {
@@ -100,14 +99,14 @@ function gameLoop() {
       console.log(`${playStat['chances']} chances left!`)
     }
     console.log(playStat['lettersGuessedAlready'])
-    //console.log(`${playStat['chances']} chances left!`)
-    if (!(displayBoard.includes('_'))) {
-      console.log('||||||           ||||||  |||||||||||||||||||||||  |||||  /////////||| ')
-      console.log('||||||  |||||||  ||||||  |||||||       |||||||||  |||||//////////|||| ')
-      console.log('||||||  |||||||  ||||||       //       //         |||||         ||||| ')
-      console.log('||||||  |||||||  ||||||       //       //         |||||         ||||| ')
-      console.log(' ||||//////////////|||   |||||||       |||||||||  |||||         ||||| ')
-      console.log(' //////  /////  //////   |||||||||||||||||||||||  |||||         ||||| ')
+
+      if (displayBoard === word) {
+      console.log('||||||           ||||||  |||||||||||||||||||||  |||||  /////////||| ')
+      console.log('||||||  |||||||  ||||||  |||||||      ||||||||  |||||//////////|||| ')
+      console.log('||||||  |||||||  ||||||       //      //        |||||         ||||| ')
+      console.log('||||||  |||||||  ||||||       //      //        |||||         ||||| ')
+      console.log(' ||||//////////////|||   |||||||      ||||||||  |||||         ||||| ')
+      console.log(' //////  /////  //////   |||||||||||||||||||||  |||||         ||||| ')
       start() 
       gameLoop()
     } else if (playStat['chances'] === 0) {
@@ -128,4 +127,3 @@ function gameLoop() {
 //word = wordGrab()
 start()
 
-//console.clear <-- look up documentation
