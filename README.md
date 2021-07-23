@@ -1,60 +1,103 @@
-## Command Line Snowman
+# Command Line Snowman Project
 
 For this assignment, you will build a game of [snowman](https://benstone1.github.io/Snowman-App/) that lets you play in the terminal!
 
-![Snowman Gif](./snowman.gif)
+![Snowman Gif](./assets/snowman.gif)
 
-## Setup Instructions
+## Project setup
 
-1. Fork the assignment repo
-1. Clone your fork to your machine
-1. `cd` to the cloned directory and run `npm install`
-1. Create a `.gitignore` file
-1. Inside .gitignore, write `node_modules`
-1. Write your code in `snowman.js`
+### Getting started
 
-## Submission Instructions
+1. Fork and clone this repository.
 
-1. Complete the project
-1. Commit and push your changes to your fork
-1. Submit a Pull Request back to the assignment repo
-1. Paste a link to of your Fork on Canvas and submit
+1. Navigate to the cloned repository's directory on your command line. Then, run the following command:
 
+   ```
+   npm install
+   ```
 
-## Technical Requirements
+   This will install the libraries needed to run the tests.
 
-- Complete all the User stories listed below
-- For the "stats" like **number of remaining guesses** and **previously guessed letters**, use one object rather than several global variables.
+1. Open up the repository in VSCode. Follow the instructions below to complete the Lab.
 
-## User Stories
+### Running your code
 
-Copy the user stories from the Trello board [here](https://trello.com/b/8OErA3xI/command-line-snowman-project-plan) into your own board.
+You can run your code and start the game by running it with the `node` command.
 
-### As a user, I should be presented with a random word to guess
+```
+node src/snowman.js
+```
 
-- The computer should pick a word at random
-- The user should see a number of `_` characters equal to the number of letters in the word (ex. A _ _ L E, for apple)
+Alternatively, you can run the following command which will do the same thing.
 
-### As a user, I should be able to enter guesses
+```
+npm start
+```
 
-- Handle invalid guesses by displaying a message and having the user enter a different guess.  Invalid guesses don't count against the guess count.
-- After each guess, the user should see the new updated word, replacing all `_` with letters they have guessed
-- After each guess, the user should see the letters they have guessed already
-- After each incorrect guess, the number of guesses should decrease.
-- After each correct guess, the number of guesses should stay the same.
+## Instructions
 
-### As a user, I should know how many guesses I have left
+### Project Overview
 
-- At the beginning of the game, the number of guesses remaining should be visible
-- After each guess, the updated number of guesses should be visible
+Unlike other projects, this project does not have specific tests that you must pass. Instead, you must create a working game that fits a number of requirements.
 
-### As a user, I should know when I win or lose and see the correct answer.
+To create this game, you have some existing code inside of `src/snowman.js`. That code is explained below. You may modify that code however you like, as long as you get a working game.
 
-- The game should continue until the user has won or lost
-- Once the full word is guessed, the game should display how many guesses it took and display a victory message
-- If the user runs out of guesses, the full word should be revealed and the game should display a defeat message
+### Game Overview
 
-## Rubric
+To play "Snowman", first a random word is picked and kept hidden. The player is shown a number of blank spaces equal to the length of the word.
 
-![acceptanceCriteriaRubric](./acceptanceCriteriaRubric.png)
-![outcomesRubric](./outcomesRubric.png)
+```
+Remaining Incorrect Guesses: 7
+Letters Guessed: None
+Word: _ _ _ _ _ _
+```
+
+The player may then guess a letter. If the letter appears in the hidden word, that letter will be shown in place of the space.
+
+```
+Remaining Incorrect Guesses: 7
+Letters Guessed: a
+Word: _ a _ _ _ _
+```
+
+If that letter appears multiple times, all instances of that letter are shown.
+
+```
+Remaining Incorrect Guesses: 7
+Letters Guessed: a, r
+Word: _ a r r _ _
+```
+
+If the player guesses an incorrect letter, that letter is recorded and the player "loses" a remaining guess.
+
+```
+Remaining Incorrect Guesses: 6
+Letters Guessed: a, r, d
+Word: _ a r r _ _
+```
+
+The game ends when either the word is picked or the player is out of remaining incorrect guesses. If they guess the word, they win!
+
+### Existing Code
+
+The `src/snowman.js` file already has a few global variables for you to use and a few functions. Read the comments above and in each function to get a better sense of what each line of code does.
+
+You _should not_ need to change the `readline` or `dictionary` variables. You also _should not_ need to change the `getRandomWord()` function. You _will change_ the `run()` function.
+
+Because the comments take up a lot of space, you should feel free to delete them _once you understand what they are describing._
+
+### Game Requirements
+
+To complete this project your game will need to do the following.
+
+- [ ] The user should see a number of `_` characters equal to the number of letters in the word. For example, if the word is `apple`, the user should see `_ _ _ _ _`.
+- [ ] If the user enters an invalid guess (e.g. `3` or `apple`), a message should display telling the user to enter a letter. Invalid guesses should not count against the guess count.
+- After each guess:
+  - [ ] The user should see the new updated word, replacing all `_` with letters they have guessed. For example, if the user guesses `p` for the word `apple`, the user would see `_ p p _ _`.
+  - [ ] The user should see the letters they have guessed already.
+  - [ ] If the guess is incorrect, the number of remaining guesses should decrease.
+  - [ ] If the guess is correct, the number of remaining guesses should stay the same.
+  - [ ] Regardless of whether or not the guess is correct, the number of remaining guesses should be shown to the user.
+- [ ] The game should continue until the user has won or lost.
+- [ ] If the user wins, a message congratulating them should appear.
+- [ ] If the user loses, the full word should be revealed and a message declaring defeat should appear.
