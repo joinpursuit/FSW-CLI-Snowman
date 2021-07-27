@@ -33,13 +33,3 @@ The following is the rubric for this project. To get a full score, you must meet
 - **Developing:** Functions make use of named variables but there is some lack of clarity in the names. For example, single-letter, abbreviated, or meaningless (e.g. `thing`, `data`) variables are used often.
 
 - **Novice:** Functions lack clarity and code is difficult to parse.
-
-### Helper Functions
-
-- **Exemplary:** Multiple helper functions have been created to help with the `run()` function. Each helper functions adds clarity to code, is well-named, and is generally reusable.
-
-- **Proficient:** Multiple helper functions have been created to help with the `run()` function. While the helper functions are used, they are not particularly well-named or are not very reusable.
-
-- **Developing:** Only one or two helper functions have been created to help with the `run()` function.
-
-- **Novice:** No helper functions are used.
