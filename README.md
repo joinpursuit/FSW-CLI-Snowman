@@ -53,8 +53,3 @@ My trello board: https://trello.com/b/iKjXdSiu/command-line-snowman-project-plan
 - The game should continue until the user has won or lost
 - Once the full word is guessed, the game should display how many guesses it took and display a victory message
 - If the user runs out of guesses, the full word should be revealed and the game should display a defeat message
-
-## Rubric
-
-![acceptanceCriteriaRubric](./acceptanceCriteriaRubric.png)
-![outcomesRubric](./outcomesRubric.png)
